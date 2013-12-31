@@ -23,7 +23,7 @@ object Form1: TForm1
     Left = 16
     Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -40,7 +40,7 @@ object Form1: TForm1
     Left = 272
     Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -57,7 +57,7 @@ object Form1: TForm1
     Left = 528
     Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -522,6 +522,49 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 18
+      end
+      object ComboBox7: TComboBox
+        Left = 408
+        Top = 152
+        Width = 41
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 9
+        TabOrder = 19
+        Text = '10'
+        OnChange = ComboBox5Change
+        Items.Strings = (
+          '1'
+          '2'
+          '3'
+          '4'
+          '5'
+          '6'
+          '7'
+          '8'
+          '9'
+          '10'
+          '11'
+          '12'
+          '13'
+          '14'
+          '15'
+          '16')
+      end
+      object ComboBox8: TComboBox
+        Left = 456
+        Top = 152
+        Width = 73
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 1
+        TabOrder = 20
+        Text = '2,5'#1042
+        Items.Strings = (
+          '10'#1042
+          '2,5'#1042
+          '0,625'#1042
+          '0,156'#1042)
       end
     end
     object Resistance: TTabSheet
@@ -1674,8 +1717,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 630
-    Width = 979
+    Top = 634
+    Width = 987
     Height = 19
     Panels = <
       item
@@ -1883,49 +1926,6 @@ object Form1: TForm1
     Lines.Strings = (
       'ErrorLog')
     TabOrder = 8
-  end
-  object ComboBox7: TComboBox
-    Left = 412
-    Top = 176
-    Width = 41
-    Height = 21
-    ItemHeight = 13
-    ItemIndex = 9
-    TabOrder = 9
-    Text = '10'
-    OnChange = ComboBox5Change
-    Items.Strings = (
-      '1'
-      '2'
-      '3'
-      '4'
-      '5'
-      '6'
-      '7'
-      '8'
-      '9'
-      '10'
-      '11'
-      '12'
-      '13'
-      '14'
-      '15'
-      '16')
-  end
-  object ComboBox8: TComboBox
-    Left = 460
-    Top = 176
-    Width = 73
-    Height = 21
-    ItemHeight = 13
-    ItemIndex = 1
-    TabOrder = 10
-    Text = '2,5'#1042
-    Items.Strings = (
-      '10'#1042
-      '2,5'#1042
-      '0,625'#1042
-      '0,156'#1042)
   end
   object MainMenu1: TMainMenu
     Top = 440

@@ -99,7 +99,12 @@ void medianFilter(std::vector <T> & in,std::vector <T> & out,size_t size)
 {
     for(std::vector <T>::iterator i=in.begin();i<in.end() && i!=in.end() ;i+=size)
     {
-        std::sort(i,i+size);                    
+    if(std::distance(i,in.end())<size)
+    {
+    std::sort(i,in.end());
+    out.push_back(*(i+std::distance(i,in.end())/2));
+    }
+        std::sort(i,i+size);
         out.push_back(*(i+size/2));
     }
 }

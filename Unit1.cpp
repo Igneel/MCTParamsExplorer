@@ -857,6 +857,8 @@ if(adc)
     else adc->DisableMedianFilter();
     adc->DisableTestingMode();
 
+    adc->setMedianFilterLength(eMedianFilterSize->Text.ToInt());
+
     adc->setMagnetoResistanceSeries(SeriesRes1);
     adc->setHallSeries(SeriesHall1);
     adc->setBSeries(Series1);
@@ -1265,6 +1267,11 @@ hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
 
       if ( hLibHandle )
       FreeLibrary( hLibHandle );
+
+      delete [] ex;
+      delete [] eY;
+      delete [] hx;
+      delete [] hY;
 }
 //---------------------------------------------------------------------------
 

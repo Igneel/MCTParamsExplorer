@@ -53,6 +53,7 @@ public:
 
     void EnableMedianFilter();
     void DisableMedianFilter();
+    void setMedianFilterLength(size_t s);
 
     void EnableTestingMode();
     void DisableTestingMode();
@@ -85,6 +86,7 @@ DataTypeInContainer & outData);
 
 	bool successfullInit;
     bool isMedianFilterEnabled;
+    size_t medianFilterLength;
 
     bool isDataNeeded;
 

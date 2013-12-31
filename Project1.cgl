@@ -1,29 +1,33 @@
 Functions called:
  fflush (4 times)
  free (7 times)
+ delete[] (2 times)
+ new[] (2 times)
+ strcmp (1 times)
  sinl (255 times)
  cosl (512 times)
  vsnprintf (2 times)
- delete (21 times)
+ delete (62 times)
  memcmp (1580 times)
- memmove (155 times)
- new (24 times)
+ memmove (208 times)
+ new (66 times)
  SysReallocMem (324 times)
- SysFreeMem (8464 times)
+ SysFreeMem (8507 times)
  lstrlenA (1 times)
  lstrcpynA (4 times)
- memset (3 times)
- SysGetMem (8465 times)
+ memset (5 times)
+ SysGetMem (8508 times)
  calloc (1 times)
- strlen (167 times)
+ strlen (145 times)
  realloc (1 times)
  strdup (1 times)
  malloc (4 times)
  memcpy (3 times)
 Resource types used:
- object (24 allocs, 21 max)
- memory block (8472 allocs, 3163 max)
+ object array (2 allocs, 1 max)
+ object (66 allocs, 27 max)
+ memory block (8515 allocs, 3163 max)
 Modules used:
- 00400000 11/13/2014 16:17:36 E:\Дела\Институт физики
- полупроводников\Lcard\MCTParamsExplorer\Project1.exe
+ 00400000 11/17/2014 13:07:20 C:\Documents and Settings\Serjo\Рабочий
+ стол\MCTParamsExplorer\Project1.exe
 ==========================================

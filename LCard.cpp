@@ -16,6 +16,7 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
     isWriting= false;
     isDataNeeded=false;
     TestingMode=false;
+    medianFilterLength=32;
     isMeasurementRunning=false;
     B=0;
     HallSeries=0;  // указатель на график
@@ -347,7 +348,22 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
            long double t =convertToVolt(medianFilter(splittedData[i]),i);
             ReadData[i].push_back(t);
             DisplayOnForm(i,ReadData[i].back());
-        }
+        }  
+        /*
+        // Попытка внедрения медианного фильтра с длиной, не зависящей от величины блока.
+        for(int i=0;i<ap.ChannelsQuantity;++i)
+        {
+            std::vector<long double> res;
+            medianFilter(splittedData[i],res,medianFilterLength);
+            for(unsigned int j=0;j<res.size();++j)
+            {
+                ReadData[i].push_back(convertToVolt(res[j],i));
+            }
+
+          // long double t =convertToVolt(medianFilter(splittedData[i]),i);
+          //  ReadData[i].push_back(t);
+            DisplayOnForm(i,ReadData[i].back());
+        }   */
     }
     else
     {   for(int i=0;i<ap.ChannelsQuantity;++i)
@@ -676,3 +692,9 @@ void LCardADC::dataisntNeeded()
 {
     isDataNeeded=false;
 }
+
+void LCardADC::setMedianFilterLength(size_t s)
+{
+    medianFilterLength=s;
+}
+
