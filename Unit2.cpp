@@ -200,20 +200,6 @@ break;
         continue;
         }
         PresetPointsSaver(SaveSeries,presetM,length);
-
-        /*
-        tts->Add(FloatToStr(SaveSeries->XValues->Value[0])+(char)9+
-        FloatToStr(SaveSeries->YValues->Value[0]));
-        prev=SaveSeries->YValues->Value[0];
-        for(int i=1;i<SaveSeries->XValues->Count();i++)
-        {
-            if(fabs(prev-SaveSeries->YValues->Value[i])>=StrToFloat(SaveForm->Edit1->Text))
-            {
-                tts->Add(FloatToStr(SaveSeries->XValues->Value[i])+(char)9+
-                FloatToStr(SaveSeries->YValues->Value[i]));
-                prev=SaveSeries->YValues->Value[i];
-            }
-        }                 */
         delete [] presetM;
 break;
 //-----------------------------------------------------------------------------------------
@@ -227,8 +213,6 @@ default: // все значения
 }
   
 }
-
-
 
 void __fastcall TSaveForm::FormCreate(TObject *Sender)
 // вызов для отображения пояснений к имена графиков

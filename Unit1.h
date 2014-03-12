@@ -3,10 +3,7 @@
 #ifndef Unit1H
 #define Unit1H
 //---------------------------------------------------------------------------
-// данный путь должен совпадать с папкой куда установлены драйвера и примеры
-//#include "C:\Program Files\Vt\Samples\INTERFACES\IADCDevice.h"
-//#include "C:\Program Files\Vt\Samples\INTERFACES\IFactory.h"
-//#include "C:\Program Files\Vt\Samples\INTERFACES\DllClient.h"
+
 #include <Classes.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
@@ -22,6 +19,8 @@
 
 #include "Unit2.h"
 #include "driver.h"
+#include "ExtrapolateUnit.h"
+#include "FilteringUnit.h"
 #include <math.h>
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
@@ -203,9 +202,8 @@ __published:	// IDE-managed Components
         void __fastcall N4Click(TObject *Sender);
     void __fastcall Edit1Change(TObject *Sender);
 
-    TLineSeries * __fastcall GetCurrentSeries(int curve);
-    TLineSeries * __fastcall GetSelectedSeries(int curve);
-        void __fastcall bTestClick(TObject *Sender);
+    TLineSeries * __fastcall GetCurrentSeries2(int curve);
+    TLineSeries * __fastcall GetSelectedSeries23(int curve);
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button5Click(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);
@@ -215,7 +213,6 @@ __published:	// IDE-managed Components
         void __fastcall ImpulsKillerClick(TObject *Sender);
         void __fastcall Button9Click(TObject *Sender);
         void __fastcall Button10Click(TObject *Sender);
-        void __fastcall Button11Click(TObject *Sender);
         void __fastcall Button12Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
         void __fastcall Button13Click(TObject *Sender);

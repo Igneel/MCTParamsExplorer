@@ -390,7 +390,6 @@ object Form1: TForm1
         Height = 25
         Caption = 'Не нажимать!'
         TabOrder = 19
-        OnClick = bTestClick
       end
       object Button10: TButton
         Left = 312
@@ -673,7 +672,6 @@ object Form1: TForm1
         Caption = 'Оптимальный фильтр'
         Enabled = False
         TabOrder = 16
-        OnClick = Button11Click
       end
       object Button12: TButton
         Left = 504

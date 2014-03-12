@@ -5,12 +5,7 @@
 #include "driver.h"
 #include "Unit1.h"
 #include <math.h>
-//#include "cpp\src\fasttransforms.h"
-//#include "cpp\src\alglibinternal.h"
-//#include "cpp\src\ap.h"
-//#include "cpp\src\fasttransforms.cpp"
-//#include "cpp\src\alglibinternal.cpp"
-//#include "cpp\src\ap.cpp"
+
 
 #define DATA_SIZE 0x10000
 //---------------------------------------------------------------------------
@@ -193,8 +188,8 @@ DWORD WINAPI DriverThread (LPVOID )
             heapSort(Chan1d,BlockSize/3);
             heapSort(Chan2d,BlockSize/3);
             // нахождение среднего значения
-            x=Middle(Chan1d,BlockSize/3)*MZR;
-            y=Middle(Chan2d,BlockSize/3)*MZR;
+            x=MiddleValue(Chan1d,BlockSize/3)*MZR;
+            y=MiddleValue(Chan2d,BlockSize/3)*MZR;
 
             //вывод на график
             // в зависимости от того что измеряем
@@ -314,12 +309,12 @@ void heapSort(T a[], long size) {
 // находится для половины элементов массива.
 // передается указатель на массив и его размер
 template<typename T>
-double Middle(T a[], long size)
+double MiddleValue(T a[], long size)
 {
 int i;
 double Sum=0;
-for(i=size/4;i<size-size/4;i++) 
+for(i=size/4;i<size-size/4;i++)
     Sum+=a[i];
-return Sum/(size%2==0?(size/2+1):(size/2+2));
+return Sum/(size%2==0?(size/2.0+1):(size/2.0+2));
 }
 
