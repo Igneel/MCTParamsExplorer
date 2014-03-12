@@ -12,6 +12,12 @@
 TForm1 *Form1;
 
 /*
+TODO
+ручная регулировка шага
+предусмотреть "единичное измерение"
+возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
+фукнция удаления определенного интервала точек
+
 Полномасштабный рефакторинг
 
 Так-с, сделаем классы:
@@ -34,7 +40,6 @@ TForm1 *Form1;
 
 */
 
-
 // Внимание, понадобится добавить что-нибудь,
 // не забудь внести это в заголовочный файл:)
 
@@ -51,46 +56,7 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 }
 //---------------------------------------------------------------------------
 
-/* TODO
-сохранение сменить флаг!   +
-экстраполяция
-ручная регулировка шага
-уменьшить задержку  + теперь 500мс
-кнопки очистки и фильтра на все вкладки +
-предусмотреть "единичное измерение"
-возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
-фукнция удаления определенного интервала точек
 
- экстраполяция фукнции
- увеличение количества точек
-
-
-
-
-
-
-
-
-1. Сохранение настроек
-2. работа с графиками
-3. +разобраться с приёмом данных
- +функция отлажена и работает   
- +порядок каналов обратный
- 
-
-
-4. сохранение результатов в файл  +
-нужно сохранять отдельные точки, возможность выбора оставить за пользователем
-+также возможно сохранения с заданным шагом.
-5. +чтение из файла
-+чтение нужно сделать с выводом на произвольный график
-6. нормальные комментарии
-
-
-и хорошо бы найти способ объявления шаблонной функции, при котором она известна
-из других файлов:))+
-
-*/
 
 void __fastcall TForm1::LoadLa7(void)
 {
@@ -216,7 +182,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         FaradeyCurveIndex->Enabled=0;
         FoygtCurveIndex->Enabled=0;
-        
+
         GainKoefFoygt->Enabled=0;
 
         Start();
@@ -275,7 +241,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         uiFaradeyControl->Caption = AnsiString("Start");
         uiFoygtControl->Caption = AnsiString("Start");
         StatusBar->Panels->Items[1]->Text="Готова к работе. Тестовая версия";
-   /* }  */
+
 }
 
 //---------------------------------------------------------------------------
@@ -597,7 +563,7 @@ TLineSeries * __fastcall TForm1::GetCurrentSeries2(int curve)
  // выбор активного графика
  // используется при сохранении файла в Unit2
 
-TLineSeries * __fastcall TForm1::GetSelectedSeries23(int index)
+TLineSeries * __fastcall TForm1::GetSelectedSeries(int index)
 {
     TLineSeries * SaveSeries;
     switch(index)
@@ -727,8 +693,6 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
             X[i][3]=Xt[3][i]=1;
             X[i][4]=Xt[4][i]=-Series3->YValues->Value[i];
             }
-
-
 }
 //---------------------------------------------------------------------------
 
@@ -740,7 +704,6 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
     out1->Clear();
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button6Click(TObject *Sender)
 {
     SeriesHall1->Clear();  
@@ -749,7 +712,6 @@ void __fastcall TForm1::Button6Click(TObject *Sender)
     out2->Clear();
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button7Click(TObject *Sender)
 {
     SeriesFaradey1->Clear();
@@ -758,7 +720,6 @@ void __fastcall TForm1::Button7Click(TObject *Sender)
     out3->Clear();
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TForm1::Button8Click(TObject *Sender)
 {
     SeriesFoygt1->Clear();
@@ -793,83 +754,11 @@ void __fastcall TForm1::Button9Click(TObject *Sender)
         SeriesRes1->XValues->Value[i]*=10;
 }
 //---------------------------------------------------------------------------
-
-
-
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
     Series3->Active=!Series3->Active;
 }
 //---------------------------------------------------------------------------
-// считает определитель 3го порядка, полагает что данные расположены в следующем виде:
-//1 2 3
-//4 5 6
-//7 8 9
-
-double det3(double *x)
-{
-return x[1]*x[5]*x[9]+x[2]*x[6]*x[7]+x[3]*x[4]*x[8]-x[3]*x[5]*x[7]-x[2]*x[4]*x[9]-x[3]*x[4]*x[8];
-}
-// считает определитель 4 порядка, разложением по первому столбцу
-// предполагает что входные данные расположены следующим образом:
-// 1 2 3 4
-// 5 6 7 8
-// 9 10 11 12
-// 13 14 15 16
-double det4(double *x)
-{
-double x1[9]={x[6],x[7],x[8],x[10],x[11],x[12],x[14],x[15],x[16]};
-double x2[9]={x[5],x[7],x[8],x[9],x[11],x[12],x[13],x[15],x[16]};
-double x3[9]={x[5],x[6],x[8],x[9],x[10],x[12],x[13],x[14],x[16]};
-double x4[9]={x[5],x[6],x[7],x[9],x[10],x[11],x[13],x[14],x[15]};
-return x[1]*det3(x1)-x[2]*det3(x2)+x[3]*det3(x3)+x[4]-det3(x4);
-}
-
-// решает уравнение записанное в виде матрицы, 4 го порядка, методом Крамера,
-//входные данные:
-
-/*1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-b1 b2 b3 b4*/
-
-void Kramer(double *in,double *out)
-{
-double x1[16]={in[17],in[2],in[3],in[4],
-               in[18],in[6],in[7],in[8],
-               in[19],in[10],in[11],in[12],
-               in[20],in[14],in[15],in[16]};
-double x2[16]={in[1],in[17],in[3],in[4],
-               in[5],in[18],in[7],in[8],
-               in[9],in[19],in[11],in[12],
-               in[13],in[20],in[15],in[16]};
-double x3[16]={in[1],in[2],in[17],in[4],
-               in[5],in[6],in[18],in[8],
-               in[9],in[10],in[19],in[12],
-               in[13],in[14],in[20],in[16]};
-double x4[16]={in[1],in[2],in[3],in[17],
-               in[5],in[6],in[7],in[18],
-               in[9],in[10],in[11],in[19],
-               in[13],in[14],in[15],in[20]};
-double det;
-double detx;
-det=det4(in);
-if(det==0)
-{
-ShowMessage("Главный определитель равен 0! Продолжение не возможно.");
-return;
-}
-
-out[0]=det4(x1)/det;
-out[1]=det4(x2)/det;
-out[2]=det4(x3)/det;
-out[3]=det4(x4)/det;
-
-}
-
-
-
 void __fastcall TForm1::Button12Click(TObject *Sender)
 {
     // увеличение количества точек на графике в два раза
@@ -938,8 +827,6 @@ void fillspace(double *xm,double *ym, int l,int r)
             xm[i]=a->XValues->Value[i];
             ym[i]=a->YValues->Value[i];
      }
-
-
     // границы интервала
     //x=Interval1->Text.ToDouble();
     //y=Interval2->Text.ToDouble();
@@ -970,10 +857,7 @@ void fillspace(double *xm,double *ym, int l,int r)
     int left=i1;
     int right=i2;
 
-
     fillspace(xm,ym,i1,i2);
-
-
 
      a->Clear();
      for(int i=0;i<length;i++)
@@ -1000,9 +884,6 @@ void __fastcall TForm1::N9Click(TObject *Sender)
     }
 }
 //---------------------------------------------------------------------------
-
-
-
 
 void __fastcall TForm1::Button13Click(TObject *Sender)
 {

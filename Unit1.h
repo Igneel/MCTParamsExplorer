@@ -203,7 +203,7 @@ __published:	// IDE-managed Components
     void __fastcall Edit1Change(TObject *Sender);
 
     TLineSeries * __fastcall GetCurrentSeries2(int curve);
-    TLineSeries * __fastcall GetSelectedSeries23(int curve);
+    TLineSeries * __fastcall GetSelectedSeries(int curve);
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button5Click(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);
