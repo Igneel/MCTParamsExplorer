@@ -8,6 +8,8 @@ USEUNIT("driver.cpp");
 USEFORM("Unit2.cpp", SaveForm);
 USEUNIT("\\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.cpp");
 USEUNIT("\\VBOXSVR\MCTParamsExplorer\FilteringUnit.cpp");
+USEUNIT("\\VBOXSVR\MCTParamsExplorer\LCard.cpp");
+USEUNIT("\\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -15,7 +17,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     {
          Application->Initialize();
          Application->CreateForm(__classid(TForm1), &Form1);
-                 Application->Run();
+         Application->Run();
     }
     catch (Exception &exception)
     {

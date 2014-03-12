@@ -6,7 +6,9 @@
     <PROJECT value="Project1.exe"/>
     <OBJFILES value="Project1.obj Unit1.obj driver.obj Unit2.obj 
       \\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.obj 
-      \\VBOXSVR\MCTParamsExplorer\FilteringUnit.obj"/>
+      \\VBOXSVR\MCTParamsExplorer\FilteringUnit.obj 
+      \\VBOXSVR\MCTParamsExplorer\LCard.obj 
+      \\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>

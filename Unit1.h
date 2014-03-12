@@ -22,6 +22,7 @@
 #include "ExtrapolateUnit.h"
 #include "FilteringUnit.h"
 #include <math.h>
+#include "MagneticFieldDependence.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -227,31 +228,25 @@ public:		// User declarations
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
-extern int                ADCBase;     // базовый адрес платы
+/*extern int                ADCBase;     // базовый адрес платы
 extern int                ADCDRQ;      // номер DRQ
 extern int                ADCIRQ;      // номер IRQ
 extern int                DriverIndex; // номер драйвера в списке
 extern TCHAR              dev[10][20]; // список драйверов
+
+extern int AllSeries[26];   */
 extern int NumberOfChannels ;           // количество сканируемых каналов
 extern int BlockSize;                   // размер блока
-extern int Frequency;                   //частота
 extern double h;                        // шаг по магнитному полю.
-extern int AllSeries[26];
 
-
-//void Ftransform(TLineSeries * data,TLineSeries * outSpectr,TLineSeries * newGraphic,int wCrop); // преобразование Фурье
 void  OddFeat(TLineSeries* a, long index);
 void  EvenFeat(TLineSeries* a, long index);
 void  MidCurve(TLineSeries* a, TLineSeries* b, long index);
 void  FoygtFeat(TLineSeries* a,TLineSeries* b, long index);
-//void FFT(TLineSeries * data, TLineSeries * complexFFT, TLineSeries *out, int crop);
-double Filter (const double in[], double out[], int sizeIn, int length=20, double Fdisk=5000, double Fpropysk=15,double Fzatyh=25);
-double Tr_Filter(TLineSeries *in,TLineSeries *out,int length=20,double Fdisk=5000, double Fpropysk=15,double Fzatyh=25 );
+
 void KillImpulps(TLineSeries * a,double Left, double Right);
 
-double det3(double *x);
-double det4(double *x);
-void Kramer(double *in,double * out);
+
 
 
 //---------------------------------------------------------------------------

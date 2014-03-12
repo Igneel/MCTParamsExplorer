@@ -18,79 +18,7 @@ long double determinant (long double ** Arr,int size);
 
 // Возвращает кол-во точек
 //Принимает указатель на входные данные, минимальное и максимальное значения по х, величину шага, указатель на выходные данные.
-int extrapolate5Degree(TLineSeries * Series, long double minX, long double maxX, long double hX,TLineSeries *out,const int powPolinom)
-{
-int lengthCoef=powPolinom+1;  // кол-во коэффициентов
-long double *koef=new long double[lengthCoef];  // массив коэффициентов
 
-int length=Series->YValues->Count(); // длина входного массива
-int lengthOut = (maxX-minX)/hX+1; // кол-во возвращаемых значений
-long double *inX=new long double [length];
-long double *inY=new long double [length];
-long double *x= new long double [lengthOut];
-
-for(int i=0;i<lengthOut;i++)
-{
-x[i]=minX+hX*i;  // заполняем массив х
-}
-
-for (int i = 0; i < length; i++) {
-	inX[i]=Series->XValues->Value[i];
-	inY[i]=Series->YValues->Value[i];
-}
-out->Clear();
-curveFittingUniversal(inX,inY,length,koef,powPolinom);  // выполняем подгонку и получаем коэффициенты
-
-int a=lengthCoef;
-for (int i = 0; i <lengthOut; i++)
-{                         // вычисляем экстраполированную функцию
-out->AddXY(x[i], pow(x[i],a-1)*koef[0]+pow(x[i],a-2)*koef[1]+pow(x[i],a-3)*koef[2]+pow(x[i],a-4)*koef[3]+pow(x[i],1)*koef[4]+koef[5],"",clRed);
-}
-
-delete[] inX;    // прибираемся
-delete[] inY;
-delete[] x;
-delete[] koef;
-
-return lengthOut; // уходим.
-}
-
-
-int extrapolate2Degree(TLineSeries * Series, long double minX, long double maxX, long double hX,TLineSeries *out)
-{
-const int lengthCoef=3;  // кол-во коэффициентов
-long double koef[lengthCoef]={0};  // массив коэффициентов
-
-int length=Series->YValues->Count(); // длина входного массива
-int lengthOut = (maxX-minX)/hX+1; // кол-во возвращаемых значений
-long double *inX=new long double [length];
-long double *inY=new long double [length];
-long double *x= new long double [lengthOut];
-
-for(int i=0;i<lengthOut;i++)
-{
-x[i]=minX+hX*i;  // заполняем массив х
-}
-
-for (int i = 0; i < length; i++) {
-	inX[i]=Series->XValues->Value[i];
-	inY[i]=Series->YValues->Value[i];
-}
-out->Clear();
-// выполняем подгонку и получаем коэффициенты
-curveFittingUniversal(inX,inY,length,koef,2);
-int a=lengthCoef;
-for (int i = 0; i <lengthOut; i++)
-{                         // вычисляем экстраполированную функцию
-out->AddXY(x[i], pow(x[i],a-1)*koef[0]+pow(x[i],a-2)*koef[1]+koef[2],"",clRed);
-}
-
-delete[] inX;    // прибираемся
-delete[] inY;
-delete[] x;
-
-return lengthOut; // уходим.
-}
 
 long double determinant (long double ** Arr,int size)
 {
