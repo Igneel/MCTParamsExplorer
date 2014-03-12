@@ -38,6 +38,8 @@ bool loadData();
 void featData(DataKind dataKind, long index, FeatType featType);
 void averagingData(); // усреднение зависимостей.
 
+
+
 MyDataType Current; // ток на образце, в амперах.
 // Текущие магнитное поле и эффект Холла/магнитосопротивление,
 // после всяческих преобразований (вырезка, увеличение и т.п.).

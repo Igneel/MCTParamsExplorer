@@ -63,17 +63,38 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 
 }
 
-void MagneticFieldDependence::filterData(MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
+void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
      MyDataType AttenuationFrequency,int filterLength)
 {
 
-// это надо перерабыватывать!
-
-/*
     long double * tempInB=new long double[2*NumberOfPoints];
 	long double * tempInSignal=new long double[2*NumberOfPoints];
 	long double * tempOutB=new long double[2*NumberOfPoints+ceil(lengthFilter/2.0)];
 	long double * tempOutSignal=new long double[2*NumberOfPoints+ceil(lengthFilter/2.0)];
+
+    switch(dependenceType)
+    {
+    case HALL_EFFECT:
+    // формируем сигнал для фильтра.
+	// достраивая его в отрицательные магнитные поля.
+	for (int i = 0; i < NumberOfPoints; i++)
+	{
+		tempInSignal[i]=-idealUs[NumberOfPoints-i-1]+2*idealUs[0];
+		tempInB[i]=-B[NumberOfPoints-i-1];
+		tempInSignal[i+NumberOfPoints]=idealUs[i];
+		tempInB[i+NumberOfPoints]=B[i];
+	}
+    break;
+    case MAGNETORESISTANCE:
+    break;
+    }
+
+    // фильтруем !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,2*NumberOfPoints,lengthFilter,5000,15,25);
+// это надо перерабыватывать!
+
+/*
+
 
 	// формируем сигнал для фильтра.
 	// достраивая его в отрицательные магнитные поля.
@@ -134,12 +155,13 @@ void MagneticFieldDependence::filterData(MyDataType SamplingFrequecy, MyDataType
 	// пересчитываем зависимости.
 
 
-	delete[] tempInB;
+	 */
+    delete[] tempInB;
 	delete[] tempInSignal;
 	delete[] tempOutB;
 	delete[] tempOutSignal;
 
-	return 1; */
+	return 1;
 }
 
 void MagneticFieldDependence::extrapolateData()
