@@ -3,7 +3,7 @@
 #pragma hdrstop
 
 #include "driver.h"
-#include "Unit1.h"
+//#include "Unit1.h"
 #include <math.h>
 
 
@@ -11,6 +11,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 /*######################################################################*/
+/*
 bool             StopDAQ = true;      // флаг, по нему работает цикл
 HANDLE           hIRQEvent;           // указатель на событие
 HANDLE           hDriverThread = 0;   // указатель на поток
@@ -63,7 +64,7 @@ void Start()
 
  */
 
-
+ /*
 DWORD WINAPI DriverThread (LPVOID )
 {
     double prevB=-10;
@@ -106,7 +107,7 @@ DWORD WINAPI DriverThread (LPVOID )
     */
     // Инициализация параметров измерения
     //pADC->Init(ADC_INIT_MODE_INIT, &a, &m_fFreq);
-    while (!StopDAQ)
+    /*while (!StopDAQ)
     {
         // Запуск преобразования
         //Sleep(500);
@@ -173,13 +174,13 @@ DWORD WINAPI DriverThread (LPVOID )
             // (char *)DrvData, BlockSize, 0);
 
             // распределение данных по каналам
-            for(int i=0,b=0;(i+2)<1024;i+=NumberOfChannels,b++)
+            /*for(int i=0,b=0;(i+2)<1024;i+=NumberOfChannels,b++)
             {
             
             /* Последовательность каналов такая: 2 1 0 */
             // канал номер 2 игнорируется, ибо измеряется для стабильности
             //------------------------------------------------------------------
-            Chan1d[b]=DrvData[i+2];
+            /*Chan1d[b]=DrvData[i+2];
             Chan2d[b]=DrvData[i+1];
             //------------------------------------------------------------------
 
@@ -317,4 +318,5 @@ for(i=size/4;i<size-size/4;i++)
     Sum+=a[i];
 return Sum/(size%2==0?(size/2.0+1):(size/2.0+2));
 }
+      */
 

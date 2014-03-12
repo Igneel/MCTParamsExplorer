@@ -4,7 +4,7 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="Project1.exe"/>
-    <OBJFILES value="Project1.obj Unit1.obj driver.obj Unit2.obj 
+    <OBJFILES value="Project1.obj Unit1.obj Unit2.obj 
       \\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.obj 
       \\VBOXSVR\MCTParamsExplorer\FilteringUnit.obj 
       \\VBOXSVR\MCTParamsExplorer\LCard.obj 
@@ -36,9 +36,9 @@
     <WARNOPTSTR value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I\\VBOXSVR\MCTParamsExplorer -I$(BCB)\include -I$(BCB)\include\vcl 
-      -IC:\Interfaces\. -I&quot;C:\Program Files\Vt\Samples\INTERFACES\.&quot; -src_suffix 
-      cpp -D_DEBUG -boa"/>
+    <IDLCFLAGS value="-src_suffix cpp -D_DEBUG -I\\VBOXSVR\MCTParamsExplorer -I$(BCB)\include 
+      -I$(BCB)\include\vcl -IC:\Interfaces\. 
+      -I&quot;C:\Program Files\Vt\Samples\INTERFACES\.&quot; -boa"/>
     <CFLAG1 value="-vGc -vGt -vGd -Od -H=f:\PROGRA~1\borland\CBUILD~1\lib\vcl35.csm -Hc -w- 
       -Vx -Ve -Tkh30000 -X- -r- -a8 -b- -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
@@ -113,7 +113,7 @@ Item0=_DEBUG
 Item1=_RTLDLL;USEPACKAGES
 
 [Debugging]
-DebugSourceDirs=$(BCB)\source\vcl
+DebugSourceDirs=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\
 
 [Parameters]
 RunParams=

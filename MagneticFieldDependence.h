@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <algorithm>
+#include "FilteringUnit.h"
+#include "LCard.h"
+
 typedef long double MyDataType;
 
 class MagneticFieldDependence
@@ -26,7 +29,7 @@ private:
 
 void extrapolateData();
 // дискретизации, пропускания, затухания
-void filterData(MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
+void filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
      MyDataType AttenuationFrequency,int filterLength);
 void multiplyB(DataKind dataKind);
 void cutData();

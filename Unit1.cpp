@@ -47,6 +47,8 @@ int NumberOfChannels =3;
 int BlockSize=1024;
 int Frequency=200000;
 double h=0.001;//0.02;
+LCardADC *adc;
+bool MeasurementsIsStarted=false;
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -71,9 +73,11 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
     // что поддерживают передачу данных по DMA
 
         // загружаем драйвер
+    adc=new LCardADC();
+
 
         //-------------------------------------------
-    float       MaxFreq;   //Максимальная частота
+    float       MaxFreq=400000;   //Максимальная частота
     // Допустимые частоты квантования и размеры блоков
     //Узнаем максимальную частоту
     //Устанавливаем слайдеры
@@ -138,9 +142,9 @@ void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 //---------------------------------------
 void __fastcall TForm1::uiControlClick(TObject *Sender)
 {
-//bS = !bS;
-/*
-    if (bS)
+MeasurementsIsStarted = !MeasurementsIsStarted;
+
+    if (MeasurementsIsStarted)
     {
         
         uiIRQ->Enabled = false;
@@ -185,7 +189,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         GainKoefFoygt->Enabled=0;
 
-        Start();
+        adc->StartMeasurement();
+
         uiControl->Caption = AnsiString("Stop");
         uiResControl->Caption = AnsiString("Stop");
         uiHallControl->Caption = AnsiString("Stop");
@@ -194,7 +199,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         StatusBar->Panels->Items[1]->Text="Проводится измерение";
     }
     else
-    {  */
+    {
         GainKoefFaradey->Enabled=1;
         CurrentRes->Enabled=1;
         CurrentHall->Enabled=1;
@@ -234,14 +239,14 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         FoygtCurveIndex->Enabled=1;
         GainKoefFoygt->Enabled=1;
 
-        Stop();
+        adc->StopMeasurement();
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");
         uiFaradeyControl->Caption = AnsiString("Start");
         uiFoygtControl->Caption = AnsiString("Start");
         StatusBar->Panels->Items[1]->Text="Готова к работе. Тестовая версия";
-
+      }
 }
 
 //---------------------------------------------------------------------------
@@ -407,8 +412,7 @@ void  MidCurve(TLineSeries* a, TLineSeries* b, long index)
 //----------------------------------------------------------------------------
 
 void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
-{
-
+{  
     Series1->Clear();
     Series2->Clear();
     Series3->Clear();
@@ -420,7 +424,8 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 void __fastcall TForm1::uiFFTResClick(TObject *Sender)
 {
 
-    Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,Lfilter1->Text.ToInt(),Fd1->Text.ToInt(),
+    Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
+    Lfilter1->Text.ToInt(),Fd1->Text.ToInt(),
     Fp1->Text.ToInt(),Fz1->Text.ToInt());
 
 }
@@ -928,6 +933,14 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
     delete[] y;
     delete[] yf;
 
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormDestroy(TObject *Sender)
+{
+if(adc)
+delete adc;    
 }
 //---------------------------------------------------------------------------
 

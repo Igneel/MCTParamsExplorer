@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 279
+  Left = 277
   Top = 175
   Width = 667
   Height = 517
@@ -17,6 +17,7 @@ object Form1: TForm1
   Menu = MainMenu1
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object PC: TPageControl

@@ -1,15 +1,15 @@
 Functions called:
  fflush (4 times)
- delete (11 times)
  free (7 times)
- vsnprintf (4 times)
- new (11 times)
+ delete (12 times)
+ vsnprintf (8 times)
+ new (12 times)
  SysReallocMem (204 times)
- SysFreeMem (7339 times)
+ SysFreeMem (7380 times)
  lstrlenA (1 times)
  lstrcpyA (4 times)
  memset (2 times)
- SysGetMem (7340 times)
+ SysGetMem (7381 times)
  calloc (1 times)
  strlen (65 times)
  realloc (1 times)
@@ -17,8 +17,8 @@ Functions called:
  malloc (4 times)
  memcpy (2 times)
 Resource types used:
- object (11 allocs, 11 max)
- memory block (7347 allocs, 2340 max)
+ object (12 allocs, 12 max)
+ memory block (7388 allocs, 2340 max)
 Modules used:
- 00400000 03/12/2014 19:00:06 Y:\Project1.exe
+ 00400000 03/13/2014 06:23:22 Y:\Project1.exe
 ==========================================

@@ -18,11 +18,11 @@
 #include <Dialogs.hpp>
 
 #include "Unit2.h"
-#include "driver.h"
 #include "ExtrapolateUnit.h"
 #include "FilteringUnit.h"
 #include <math.h>
 #include "MagneticFieldDependence.h"
+#include "LCard.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -217,6 +217,7 @@ __published:	// IDE-managed Components
         void __fastcall Button12Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
         void __fastcall Button13Click(TObject *Sender);
+    void __fastcall FormDestroy(TObject *Sender);
     
 
 private:	// User declarations
@@ -238,6 +239,8 @@ extern int AllSeries[26];   */
 extern int NumberOfChannels ;           // количество сканируемых каналов
 extern int BlockSize;                   // размер блока
 extern double h;                        // шаг по магнитному полю.
+
+extern LCardADC *adc;
 
 void  OddFeat(TLineSeries* a, long index);
 void  EvenFeat(TLineSeries* a, long index);

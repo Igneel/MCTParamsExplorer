@@ -64,7 +64,7 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 }
 
 void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
-     MyDataType AttenuationFrequency,int filterLength)
+     MyDataType AttenuationFrequency,int lengthFilter)
 {
 
     long double * tempInB=new long double[2*NumberOfPoints];
@@ -79,10 +79,10 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 	// достраивая его в отрицательные магнитные поля.
 	for (int i = 0; i < NumberOfPoints; i++)
 	{
-		tempInSignal[i]=-idealUs[NumberOfPoints-i-1]+2*idealUs[0];
+		/*tempInSignal[i]=-idealUs[NumberOfPoints-i-1]+2*idealUs[0];
 		tempInB[i]=-B[NumberOfPoints-i-1];
 		tempInSignal[i+NumberOfPoints]=idealUs[i];
-		tempInB[i+NumberOfPoints]=B[i];
+		tempInB[i+NumberOfPoints]=B[i]; */
 	}
     break;
     case MAGNETORESISTANCE:
@@ -161,7 +161,7 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 	delete[] tempOutB;
 	delete[] tempOutSignal;
 
-	return 1;
+	//return 1;
 }
 
 void MagneticFieldDependence::extrapolateData()
