@@ -1,5 +1,5 @@
 #include "MagneticFieldDependence.h"
-
+#include "Unit1.h"
 
 
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
@@ -79,13 +79,22 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 	// достраивая его в отрицательные магнитные поля.
 	for (int i = 0; i < NumberOfPoints; i++)
 	{
-		/*tempInSignal[i]=-idealUs[NumberOfPoints-i-1]+2*idealUs[0];
+		tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];
 		tempInB[i]=-B[NumberOfPoints-i-1];
-		tempInSignal[i+NumberOfPoints]=idealUs[i];
-		tempInB[i+NumberOfPoints]=B[i]; */
+		tempInSignal[i+NumberOfPoints]=Dependence[i];
+		tempInB[i+NumberOfPoints]=B[i]; 
 	}
     break;
     case MAGNETORESISTANCE:
+
+    for (int i = 0; i < NumberOfPoints; i++)
+	{
+		tempInSignal[i]=Dependence[NumberOfPoints-i-1];   // чет
+		//tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет
+		tempInB[i]=-B[NumberOfPoints-i-1];
+		tempInSignal[i+NumberOfPoints]=Dependence[i];
+		tempInB[i+NumberOfPoints]=B[i];
+	}
     break;
     }
 
@@ -301,5 +310,31 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
 	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),
     strToReplaceWhich.begin(),strToReplaceWhich.end());
     out=s;
+}
+
+void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color)
+{
+	s->Clear();
+
+	for (int i = 0; i < NumberOfPoints; i++)
+	{
+		s->AddXY(B[i],Dependence[i],"",color);
+	}
+}
+
+std::vector<MyDataType> const &  MagneticFieldDependence::getData()
+{
+    std::vector<MyDataType> tempData;
+
+    tempData=adc->getData();
+    // тут дальше парсинг, в зависимости от структуры данных.
+    // и вставить всё как надо в массивы B и Dependence
+
+    // а также в массивы Original
+
+    //после чего:
+    filterData(dependenceType,400000,50,100,50);
+    extrapolateData();
+    
 }
 

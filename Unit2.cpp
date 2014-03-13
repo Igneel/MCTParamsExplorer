@@ -37,9 +37,6 @@ TSaveForm *SaveForm;
 __fastcall TSaveForm::TSaveForm(TComponent* Owner)
     : TForm(Owner)
 {
-//int indexp=Form1->PC->ActivePageIndex*4+1;
-//int p=AllSeries[indexp];
-//SaveSeries=(TLineSeries *)IntToPtr( p);
 SaveSeries=(TLineSeries *)IntToPtr(AllSeries[Form1->PC->ActivePageIndex*4+1]);
 ComboBox1->ItemIndex=Form1->PC->ActivePageIndex*4+1;
 }

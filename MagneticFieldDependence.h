@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "FilteringUnit.h"
 #include "LCard.h"
+#include <Series.hpp>
 
 typedef long double MyDataType;
 
@@ -25,7 +26,11 @@ enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
 enum FeatType {ODD_FEAT, EVEN_FEAT};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
+void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
+
 private:
+
+DependenceType dependenceType;
 
 void extrapolateData();
 // дискретизации, пропускания, затухания
@@ -40,8 +45,6 @@ inline void ReplaceCommaToDots(std::string &in, std::string & out);
 bool loadData();
 void featData(DataKind dataKind, long index, FeatType featType);
 void averagingData(); // усреднение зависимостей.
-
-
 
 MyDataType Current; // ток на образце, в амперах.
 // Текущие магнитное поле и эффект Холла/магнитосопротивление,

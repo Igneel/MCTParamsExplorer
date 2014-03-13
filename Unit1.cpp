@@ -45,7 +45,7 @@ TODO
 
 int NumberOfChannels =3;
 int BlockSize=1024;
-int Frequency=200000;
+int Frequency=400000;
 double h=0.001;//0.02;
 LCardADC *adc;
 bool MeasurementsIsStarted=false;
@@ -57,15 +57,6 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
-
-
-
-void __fastcall TForm1::LoadLa7(void)
-{
-;
-}
-
-
 void __fastcall TForm1::FormCreate(TObject *Sender)
 {
    
@@ -165,7 +156,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
         //-- кнопки-----------------------------------------------
         uiResFeat->Enabled=0;
-        uiFFTRes->Enabled=0;
+        bFilterRes->Enabled=0;
         uiHallFeat->Enabled=0;
         uiFFTHall->Enabled=0;
         uiFaradeyFeat->Enabled=0;
@@ -173,13 +164,8 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         uiFoygtFeat->Enabled=0;
         uiFFTFoygt->Enabled=0;
 
-
         // индексы отбрасывания частот для преобразования Фурье
         Edit1->Enabled=0;
-        //FFTResCrop->Enabled=0;
-        //FFTHallCrop->Enabled=0;
-        //FFTFaradeyCrop->Enabled=0;
-        //FFTFoygtCrop->Enabled=0;
 
         CurrentFaradey->Enabled=0;
         CurrentFoygt->Enabled=0;
@@ -217,7 +203,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         Chan2->Enabled=true;
 
         uiResFeat->Enabled=1;
-        uiFFTRes->Enabled=1;
+        bFilterRes->Enabled=1;
         uiHallFeat->Enabled=1;
         uiFFTHall->Enabled=1;
         uiFaradeyFeat->Enabled=1;
@@ -227,10 +213,6 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
         // индексы отбрасывания частот для преобразования Фурье
         Edit1->Enabled=1;
-        //FFTResCrop->Enabled=1;
-        //FFTHallCrop->Enabled=1;
-        //FFTFaradeyCrop->Enabled=1;
-        //FFTFoygtCrop->Enabled=1;
 
         CurrentFaradey->Enabled=1;
         CurrentFoygt->Enabled=1;
@@ -240,6 +222,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         GainKoefFoygt->Enabled=1;
 
         adc->StopMeasurement();
+        
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");
@@ -305,110 +288,6 @@ void __fastcall TForm1::uiFoygtFeatClick(TObject *Sender)
 {
     FoygtFeat(SeriesFoygt1,SeriesFoygt2,0);
 }
-//---------------------------------------------------------------------------
-
-enum FeatType {ODD_FEAT, EVEN_FEAT};
-void FeatCurve(TLineSeries* a, long index, FeatType featType)
-{
-    int size=a->XValues->Count();
-    if(size==0)
-    {
-        ShowMessage("Получен пустой массив данных!!!");
-        return;
-    }
-    TChartValueList * b,*c;
-
-    // параметры массив и переменная относительно которой функция нечетна
-    // 0 для х, 1 для y
-
-    if(!index)
-    {
-        c=a->YValues;
-        b=a->XValues;
-    }
-    else
-    {
-        b=a->YValues;
-        c=a->XValues;
-    }
-    for(int i=0;i<size/2;i++)
-    {
-        b->Value[i]=(b->Value[i]-b->Value[size-1-i])/2.0;
-        b->Value[size-1-i]=-b->Value[i];
-        switch(featType)
-        {
-        case ODD_FEAT: // нечетная подгонка
-            c->Value[i]=(c->Value[i]-c->Value[size-1-i])/2.0;
-            c->Value[size-1-i]=-c->Value[i];
-            break;
-        case EVEN_FEAT: // четная подгонка
-            c->Value[i]=(c->Value[i]+c->Value[size-1-i])/2.0;
-            c->Value[size-1-i]=c->Value[i];
-            break;
-        }
-
-    }
-}
-
-//---------------------------------------------------------------------------
-// нечетная подгонка
-// параметры массив и переменная относительно которой функция нечетна
-// 0 для х, 1 для y
-void  OddFeat(TLineSeries* a, long index)
-{
-    FeatCurve(a,index,ODD_FEAT);
-}
-//-----------------------------------------------------------------------------
-//четная подгонка
-// параметры массив и переменная относительно которой функция нечетна
-// 0 для х, 1 для y
-void  EvenFeat(TLineSeries* a, long index)
-{
-    FeatCurve(a,index,EVEN_FEAT);
-}
-//-----------------------------------------------------------------------------
-//----------Подгонка Фотопроводимости в геометрии Фойгта-----------------------
-void  FoygtFeat(TLineSeries* a,TLineSeries* b, long index)
-{
-    int size=a->XValues->Count();
-    if(size==0 || b->XValues->Count()==0)
-    {
-        ShowMessage("Получен пустой массив данных!!!");
-        return;
-    }
-
-    for(int i=0;i<size;i++)
-    {
-        a->XValues->Value[i]=(a->XValues->Value[i]-b->XValues->Value[size-1-i])/2;
-        a->YValues->Value[i]=(a->YValues->Value[i]-b->YValues->Value[size-1-i])/2;
-    }
-}
-//-----------------------------------------------------------------------------
-// усреднение двух кривых
-// индекс - зарезервирован, пока не используется
-// функция сохраняет результат в ПЕРВЫЙ передаваемый массив!
-void  MidCurve(TLineSeries* a, TLineSeries* b, long index)
-{
-
-    int size=a->XValues->Count();
-
-    if(size==0 || b->XValues->Count()==0)
-    {
-        ShowMessage("Получен пустой массив данных!!!");
-        return;
-    }
-    if(a->XValues->Count()!=b->XValues->Count())
-    {
-        ShowMessage("Разное количество точек на графиках!!!");
-        return;
-    }
-
-    for(int i=0;i<size;i++)
-    {
-    a->XValues->Value[i]=(a->XValues->Value[i]+b->XValues->Value[i])/2;
-    a->YValues->Value[i]=(a->YValues->Value[i]-b->YValues->Value[i])/2;
-    }
-}
 //----------------------------------------------------------------------------
 
 void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
@@ -421,7 +300,7 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 }
 //---------------------------------------------------------------------------
 //----------------------------------------------------------------------------
-void __fastcall TForm1::uiFFTResClick(TObject *Sender)
+void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
 
     Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
@@ -464,11 +343,8 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
     long double x=0;
     for(int i=0;i<1500;i++)  // пишем тестовую на график
     {
-    //Series2->AddXY(x,5*sin(2*x),"",clBlack);
+
     Series1->AddXY(x,x*x+rand()%3*sin(25*x)+rand()%2*sin(50*x),"",clRed);
-    //Memo1->Lines->Add(FloatToStr(Series1->XValues->Last()) + "   " + FloatToStr(sin(x)+sin(25*x)+sin(50*x)));
-    //Series4->AddXY(x,10*sin(x)+sin(50*x)+sin(100*x),"",clGreen);
-    //Series4->AddXY(x,x*x,"",clBlack);
     x+=0.02+rand()%10/1000.;
     }
 
@@ -571,79 +447,10 @@ TLineSeries * __fastcall TForm1::GetCurrentSeries2(int curve)
 
 TLineSeries * __fastcall TForm1::GetSelectedSeries(int index)
 {
+
+// заполняет массив указателями на все графики.
     TLineSeries * SaveSeries;
-    switch(index)
-    {
-    case 0:
-        SaveSeries=Series1;
-        break;
-    case 1:
-        SaveSeries=Series2;
-        break;
-    case 2:
-        SaveSeries=Series3;
-        break;
-    case 3:
-        SaveSeries=Series4;
-        break;
-    case 4:
-        SaveSeries=Series5;
-        break;
-    case 5:
-        SaveSeries=SeriesRes1;
-        break;
-    case 6:
-        SaveSeries=SeriesRes2;
-        break;
-    case 7:
-        SaveSeries=SeriesFFTRes;
-        break;
-    case 8:
-        SaveSeries=out1;
-        break;
-    case 9:
-        SaveSeries=SeriesHall1;
-        break;
-    case 10:
-        SaveSeries=SeriesHall2;
-        break;
-    case 11:
-        SaveSeries=SeriesFFTHall;
-        break;
-    case 12:
-        SaveSeries=out2;
-        break;
-    case 13:
-        SaveSeries=SeriesFaradey1;
-        break;
-    case 14:
-        SaveSeries=SeriesFaradey2;
-        break;
-    case 15:
-        SaveSeries=SeriesFFTFaradey;
-        break;
-    case 16:
-        SaveSeries=out3;
-        break;
-    case 17:
-        SaveSeries=SeriesFoygt1;
-        break;
-    case 18:
-        SaveSeries=SeriesFoygt2;
-        break;
-    case 19:
-        SaveSeries=SeriesFFTFoygt;
-        break;
-    case 20:
-        SaveSeries=out4;
-        break;
-    }
 
-    return SaveSeries;
-}
-
-void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
-{   // и снова сохранение О_о
     AllSeries[0]=PtrToInt(Series1);
     AllSeries[1]=PtrToInt(Series2);
     AllSeries[2]=PtrToInt(Series3);
@@ -666,8 +473,19 @@ void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
     AllSeries[19]=PtrToInt(SeriesFFTFoygt);
     AllSeries[20]=PtrToInt(out4);
 
+    SaveSeries=static_cast<TLineSeries *>IntToPtr(AllSeries[index]);
+
+    return SaveSeries;
+}
+
+void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
+{
+
+    GetSelectedSeries(0);
+    
     if(!SaveForm)
     {
+    // включает отображение формы сохранения данных.
     Application->CreateForm(__classid(TSaveForm), &SaveForm);
     SaveForm->Visible=true;
     }
@@ -702,7 +520,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button5Click(TObject *Sender)
+void __fastcall TForm1::bClearPlotsResClick(TObject *Sender)
 {
     SeriesRes1->Clear();
     SeriesRes2->Clear();
@@ -754,7 +572,7 @@ void __fastcall TForm1::ImpulsKillerClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button9Click(TObject *Sender)
+void __fastcall TForm1::bMultuplyBClick(TObject *Sender)
 {
     for(int i=0;i<SeriesRes1->XValues->Count();i++)
         SeriesRes1->XValues->Value[i]*=10;
@@ -880,7 +698,7 @@ void __fastcall TForm1::N9Click(TObject *Sender)
     switch (a)
     {
     case 1:
-    Button5Click(Sender);
+    bClearPlotsResClick(Sender);
     case 2:
     Button6Click(Sender);
     case 3:

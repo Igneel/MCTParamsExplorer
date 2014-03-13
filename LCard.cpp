@@ -373,6 +373,12 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 }
 
 
+std::vector<MyDataType> const &  LCardADC::getData()
+{
+return ReadData;
+}
+
+
 
 
 

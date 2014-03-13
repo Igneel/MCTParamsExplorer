@@ -9,6 +9,7 @@ USEUNIT("\\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.cpp");
 USEUNIT("\\VBOXSVR\MCTParamsExplorer\FilteringUnit.cpp");
 USEUNIT("\\VBOXSVR\MCTParamsExplorer\LCard.cpp");
 USEUNIT("\\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.cpp");
+USEUNIT("\\VBOXSVR\MCTParamsExplorer\FeatUnit.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {

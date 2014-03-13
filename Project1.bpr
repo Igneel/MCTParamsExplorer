@@ -8,7 +8,8 @@
       \\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.obj 
       \\VBOXSVR\MCTParamsExplorer\FilteringUnit.obj 
       \\VBOXSVR\MCTParamsExplorer\LCard.obj 
-      \\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.obj"/>
+      \\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.obj 
+      \\VBOXSVR\MCTParamsExplorer\FeatUnit.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>

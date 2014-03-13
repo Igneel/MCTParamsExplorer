@@ -23,6 +23,7 @@
 #include <math.h>
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
+#include "FeatUnit.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -106,7 +107,7 @@ __published:	// IDE-managed Components
     TButton *uiFoygtFeat;
     TMemo *Memo5;
     TLineSeries *SeriesFFTFaradey;
-    TButton *uiFFTRes;
+    TButton *bFilterRes;
     TLineSeries *SeriesFFTRes;
     TButton *Button2;
     TLineSeries *Series1;
@@ -137,7 +138,7 @@ __published:	// IDE-managed Components
         TLabel *Label19;
         TLabel *Label20;
         TLabel *Label21;
-        TButton *Button5;
+    TButton *bClearPlotsRes;
         TButton *Button6;
         TButton *Button7;
         TButton *Button8;
@@ -168,7 +169,7 @@ __published:	// IDE-managed Components
         TEdit *Interval1;
         TEdit *Interval2;
         TButton *ImpulsKiller;
-        TButton *Button9;
+    TButton *bMultuplyB;
         TMenuItem *N8;
         TMenuItem *N101;
         TButton *Button10;
@@ -194,7 +195,7 @@ __published:	// IDE-managed Components
     void __fastcall uiHallFeatClick(TObject *Sender);
     void __fastcall uiFaradeyFeatClick(TObject *Sender);
     void __fastcall uiFoygtFeatClick(TObject *Sender);
-    void __fastcall uiFFTResClick(TObject *Sender);
+    void __fastcall bFilterResClick(TObject *Sender);
     void __fastcall uiFFTHallClick(TObject *Sender);
     void __fastcall uiFFTFaradeyClick(TObject *Sender);
     void __fastcall uiFFTFoygtClick(TObject *Sender);
@@ -206,13 +207,13 @@ __published:	// IDE-managed Components
     TLineSeries * __fastcall GetCurrentSeries2(int curve);
     TLineSeries * __fastcall GetSelectedSeries(int curve);
         void __fastcall Button1Click(TObject *Sender);
-        void __fastcall Button5Click(TObject *Sender);
+        void __fastcall bClearPlotsResClick(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);
         void __fastcall Button7Click(TObject *Sender);
         void __fastcall Button8Click(TObject *Sender);
         void __fastcall Edit1KeyPress(TObject *Sender, char &Key);
         void __fastcall ImpulsKillerClick(TObject *Sender);
-        void __fastcall Button9Click(TObject *Sender);
+        void __fastcall bMultuplyBClick(TObject *Sender);
         void __fastcall Button10Click(TObject *Sender);
         void __fastcall Button12Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
@@ -223,17 +224,11 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
-      friend DWORD WINAPI DriverThread (LPVOID );
-      void __fastcall LoadLa7(void);
 
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
-/*extern int                ADCBase;     // базовый адрес платы
-extern int                ADCDRQ;      // номер DRQ
-extern int                ADCIRQ;      // номер IRQ
-extern int                DriverIndex; // номер драйвера в списке
-extern TCHAR              dev[10][20]; // список драйверов
+/*
 
 extern int AllSeries[26];   */
 extern int NumberOfChannels ;           // количество сканируемых каналов

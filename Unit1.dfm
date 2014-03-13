@@ -575,14 +575,14 @@ object Form1: TForm1
           'Вторая (обратный ток)')
         TabOrder = 5
       end
-      object uiFFTRes: TButton
+      object bFilterRes: TButton
         Left = 528
         Top = 232
         Width = 75
         Height = 25
         Caption = 'Фильтр'
         TabOrder = 6
-        OnClick = uiFFTResClick
+        OnClick = bFilterResClick
       end
       object Lfilter1: TEdit
         Left = 528
@@ -620,14 +620,14 @@ object Form1: TForm1
         Text = '25'
         OnKeyPress = Edit1KeyPress
       end
-      object Button5: TButton
+      object bClearPlotsRes: TButton
         Left = 296
         Top = 328
         Width = 107
         Height = 25
         Caption = 'Очистить графики'
         TabOrder = 11
-        OnClick = Button5Click
+        OnClick = bClearPlotsResClick
       end
       object Interval1: TEdit
         Left = 48
@@ -656,14 +656,14 @@ object Form1: TForm1
         TabOrder = 14
         OnClick = ImpulsKillerClick
       end
-      object Button9: TButton
+      object bMultuplyB: TButton
         Left = 168
         Top = 368
         Width = 75
         Height = 25
         Caption = 'х10'
         TabOrder = 15
-        OnClick = Button9Click
+        OnClick = bMultuplyBClick
       end
       object Button11: TButton
         Left = 344

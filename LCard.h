@@ -22,7 +22,7 @@ bool SettingADCParams();
 void StartMeasurement();
 void StopMeasurement();
 
-void getData();
+std::vector<MyDataType> const & getData();
 void clearBuffer();
 
 private:
