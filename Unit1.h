@@ -3,19 +3,17 @@
 #ifndef Unit1H
 #define Unit1H
 //---------------------------------------------------------------------------
-
-#include <Classes.hpp>
-#include <Controls.hpp>
-#include <StdCtrls.hpp>
-#include <Forms.hpp>
-#include <Chart.hpp>
-#include <ExtCtrls.hpp>
 #include <TeEngine.hpp>
 #include <TeeProcs.hpp>
+#include <Chart.hpp>
+#include <Classes.hpp>
+#include <ComCtrls.hpp>
+#include <Controls.hpp>
+#include <Dialogs.hpp>
+#include <ExtCtrls.hpp>
 #include <Menus.hpp>
 #include <Series.hpp>
-#include <ComCtrls.hpp>
-#include <Dialogs.hpp>
+#include <StdCtrls.hpp>
 
 #include "Unit2.h"
 #include "ExtrapolateUnit.h"
@@ -24,6 +22,7 @@
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
 #include "FeatUnit.h"
+
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -228,9 +227,9 @@ public:		// User declarations
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
-/*
 
-extern int AllSeries[26];   */
+
+extern int AllSeries[26];   
 extern int NumberOfChannels ;           // количество сканируемых каналов
 extern int BlockSize;                   // размер блока
 extern double h;                        // шаг по магнитному полю.

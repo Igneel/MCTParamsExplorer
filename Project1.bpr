@@ -12,8 +12,8 @@
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm"/>
     <LIBFILES value=""/>
-    <LIBRARIES value="Tee50.lib Vcl50.lib"/>
-    <SPARELIBS value="Vcl50.lib Tee50.lib"/>
+    <LIBRARIES value="tee.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib tee.lib"/>
     <PACKAGES value="dbrtl.bpi vcldb.bpi bdertl.bpi vcldbx.bpi bcbsmp.bpi dclocx.bpi qrpt.bpi 
       teeui.bpi vclsmp.bpi teedb.bpi tee.bpi ibsmp.bpi dss.bpi nmfast.bpi 
       inetdb.bpi inet.bpi dsnap.bpi RXCTL.bpi RXDB.bpi sdlnumlab.bpi"/>
@@ -27,17 +27,18 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="Project1.cpp"/>
-    <INCLUDEPATH value="\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;&quot;C:\Program Files\Vt\Samples\INTERFACES\&quot;"/>
-    <LIBPATH value="\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;&quot;C:\Program Files\Borland\Lib\&quot;"/>
+    <INCLUDEPATH value="\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;&quot;C:\Program Files\Vt\Samples\INTERFACES&quot;"/>
+    <LIBPATH value="\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;&quot;C:\Program Files\Borland\Lib&quot;"/>
     <WARNINGS value="-w-par -w-8027 -w-8026"/>
     <WARNOPTSTR value=""/>
+    <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-src_suffix cpp -D_DEBUG -I\\VBOXSVR\MCTParamsExplorer -I$(BCB)\include 
-      -I$(BCB)\include\vcl -IC:\Interfaces\. 
-      -I&quot;C:\Program Files\Vt\Samples\INTERFACES\.&quot; -boa"/>
-    <CFLAG1 value="-vGc -vGt -vGd -Od -H=f:\PROGRA~1\borland\CBUILD~1\lib\vcl35.csm -Hc -w- 
-      -Vx -Ve -Tkh30000 -X- -r- -a8 -b- -k -y -v -vi- -c -tW -tWM"/>
+    <IDLCFLAGS value="-I\\VBOXSVR\MCTParamsExplorer -I$(BCB)\include -I$(BCB)\include\vcl 
+      -IC:\Interfaces -I&quot;C:\Program Files\Vt\Samples\INTERFACES&quot; -src_suffix cpp 
+      -D_DEBUG -boa"/>
+    <CFLAG1 value="-vGc -vGt -vGd -Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -w -Vx 
+      -Ve -Tkh30000 -X- -r- -a8 -b- -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
     <CFLAG3 value=""/>
     <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -M -JPHNE"/>
@@ -45,12 +46,28 @@
     <AFLAGS value="/mx /w2 /zi"/>
     <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -w -v"/>
     <IFLAGS value=""/>
+    <OTHERFILES value=""/>
   </OPTIONS>
   <LINKER>
     <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
     <ALLRES value="$(RESFILES)"/>
     <ALLLIB value="cg32.lib $(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
   </LINKER>
+  <FILELIST>
+      <FILE FILENAME="Project1.cpp" FORMNAME="" UNITNAME="Project1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Project1.res" FORMNAME="" UNITNAME="Project1" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit1.cpp" FORMNAME="Form1" UNITNAME="Unit1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit2.cpp" FORMNAME="SaveForm" UNITNAME="Unit2" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ExtrapolateUnit.cpp" FORMNAME="" UNITNAME="ExtrapolateUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FeatUnit.cpp" FORMNAME="" UNITNAME="FeatUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FilteringUnit.cpp" FORMNAME="" UNITNAME="FilteringUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="LCard.cpp" FORMNAME="" UNITNAME="LCard" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="MagneticFieldDependence.cpp" FORMNAME="" UNITNAME="MagneticFieldDependence" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
   <IDEOPTIONS>
 [Version Info]
 IncludeVerInfo=1
@@ -58,7 +75,7 @@ AutoIncBuild=1
 MajorVer=0
 MinorVer=8
 Release=35
-Build=1262
+Build=1263
 Debug=0
 PreRelease=0
 Special=0
@@ -70,7 +87,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.8.35.1262
+FileVersion=0.8.35.1263
 InternalName=
 LegalCopyright=
 LegalTrademarks=
@@ -79,30 +96,29 @@ ProductName=
 ProductVersion=1.0.0.0
 Comments=
 
-[Excluded Packages]
-$(BCB)\Bin\dcldss50.bpl=Borland Decision Cube Components
-$(BCB)\Bin\applet50.bpl=Borland Control Panel Applet Package
-$(BCB)\Bin\dcltqr50.bpl=TeeChart 5.0 for QuickReport Components Design Package
-$(BCB)\Bin\dclmid50.bpl=Borland MIDAS Components
-
 [HistoryLists\hlIncludePath]
-Count=6
-Item0=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
-Item1=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES
-Item2=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\
-Item3=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces
-Item4=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces;d:\projects\Interfaces
-Item5=$(BCB)\include;$(BCB)\include\vcl;d:\Projects\Interfaces
+Count=8
+Item0=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;C:\Program Files\Vt\Samples\INTERFACES
+Item1=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
+Item2=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
+Item3=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES
+Item4=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\
+Item5=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces
+Item6=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces;d:\projects\Interfaces
+Item7=$(BCB)\include;$(BCB)\include\vcl;d:\Projects\Interfaces
 
 [HistoryLists\hlLibraryPath]
-Count=3
-Item0=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
-Item1=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
-Item2=$(BCB)\lib\obj;$(BCB)\lib
+Count=5
+Item0=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
+Item1=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
+Item2=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
+Item3=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
+Item4=$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
-Count=1
-Item0=$(BCB)\source\vcl
+Count=2
+Item0=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
+Item1=$(BCB)\source\vcl
 
 [HistoryLists\hlConditionals]
 Count=2
@@ -114,9 +130,14 @@ DebugSourceDirs=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include
 
 [Parameters]
 RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
 HostApplication=
 RemoteHost=
 RemotePath=
+RemoteLauncher=
+RemoteCWD=
 RemoteDebug=0
 
 [Compiler]

@@ -9,6 +9,11 @@
 #include <Forms.hpp>
 #include <Dialogs.hpp>
 #include <ExtCtrls.hpp>
+
+#include <math.h>
+#include <time.h>
+#include <inifiles.hpp>
+
 //---------------------------------------------------------------------------
 class TSaveForm : public TForm
 {

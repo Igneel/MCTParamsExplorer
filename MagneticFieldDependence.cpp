@@ -3,10 +3,18 @@
 
 MagneticFieldDependence::MagneticFieldDependence()
 {
-dependenceType=HALL_EFFECT;
-Current=0.001;
-h=0.001;
-NumberOfPoints=10;
+    dependenceType=HALL_EFFECT;
+    Current=0.001;
+    h=0.001;
+    NumberOfPoints=10;
+}
+
+MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step)
+{
+    dependenceType=dt;
+    Current=current;
+    h=step;
+    NumberOfPoints=10;
 }
 MagneticFieldDependence::~MagneticFieldDependence()
 {
@@ -22,23 +30,23 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
     switch(dataKind)
     {
     case CURRENT_DATA:
-    tempX=B;
-    tempY=Dependence;
-    break;
+        tempX=B;
+        tempY=Dependence;
+        break;
     case FILTERED_DATA:
-    tempX=FilteredB;
-    tempY=FilteredDependence;
-    break;
+        tempX=FilteredB;
+        tempY=FilteredDependence;
+        break;
     case EXTRAPOLATED_DATA:
-    tempX=ExtrapolatedB;
-    tempY=ExtrapolatedDependence;
-    break;
+        tempX=ExtrapolatedB;
+        tempY=ExtrapolatedDependence;
+        break;
     case ORIGINAL_DATA:
-    tempX=OriginalB;
-    tempY=OriginalDependence;
-    break;
+        tempX=OriginalB;
+        tempY=OriginalDependence;
+        break;
     default:
-    return;
+        return;
     }
 
 
@@ -89,7 +97,7 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
     case HALL_EFFECT:
     // формируем сигнал для фильтра.
 	// достраивая его в отрицательные магнитные поля.
-	for (int i = 0; i < NumberOfPoints; i++)
+	for (unsigned int i = 0; i < NumberOfPoints; i++)
 	{
 		tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];
 		tempInB[i]=-B[NumberOfPoints-i-1];
@@ -99,7 +107,7 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
     break;
     case MAGNETORESISTANCE:
 
-    for (int i = 0; i < NumberOfPoints; i++)
+    for (unsigned int i = 0; i < NumberOfPoints; i++)
 	{
 		tempInSignal[i]=Dependence[NumberOfPoints-i-1];   // чет
 		//tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет
@@ -111,7 +119,8 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
     }
 
     // фильтруем !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,2*NumberOfPoints,lengthFilter,5000,15,25);
+	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
+                2*NumberOfPoints,lengthFilter,SamplingFrequecy,BandwidthFrequency,AttenuationFrequency);
 // это надо перерабыватывать!
 
 /*
@@ -352,4 +361,5 @@ std::vector<MyDataType> const &  MagneticFieldDependence::getData()
     //extrapolateData();
     return OriginalB;
 }
+
 

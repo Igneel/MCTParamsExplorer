@@ -12,7 +12,13 @@ typedef long double MyDataType;
 class MagneticFieldDependence
 {
 public:
+enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
+enum FeatType {ODD_FEAT, EVEN_FEAT};
+enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
+
 MagneticFieldDependence();
+MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step);
+
 ~MagneticFieldDependence();
 
 //(получение, фильтраци€, экстрапол€ци€, увеличение/уменьшение, вырезка и т.п.,
@@ -22,14 +28,11 @@ MagneticFieldDependence();
 std::vector<MyDataType> const &  getData();
 
 bool saveData();
-enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
-enum FeatType {ODD_FEAT, EVEN_FEAT};
-enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
+
 
 void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
 
 private:
-
 DependenceType dependenceType;
 
 void extrapolateData();

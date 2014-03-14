@@ -1,10 +1,9 @@
 //---------------------------------------------------------------------------
-
-#include <vcl.h>
 #pragma hdrstop
+#include <vcl.h>
+
 
 #include "Unit1.h"
-
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -58,7 +57,7 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::FormCreate(TObject *Sender)
+void __fastcall TForm1::FormCreate(TObject *)
 {
    
 // Просматриваем все доступные драйверы и помещаем в список только те,
@@ -499,8 +498,19 @@ void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
     const int SIZEM=200;
-    double X[SIZEM][5]={0};
-    double Xt[5][SIZEM]={0};
+    std::vector<std::vector<double> > X;
+    X.resize(SIZEM);
+    for(int i=0;i<SIZEM;i++)
+    {
+    X[i].resize(5);
+    }
+    std::vector<std::vector<double> > Xt;
+    Xt.resize(5);
+    for(int i=0;i<5;i++)
+    {
+    X[i].resize(SIZEM);
+    }
+
     if (Series3->XValues->Count()==0)
     {
         ShowMessage("Пустой график!!!");
@@ -715,6 +725,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 {
     int len=SeriesRes1->XValues->Count();
 
+    if(len==0) return;
+
     double *x= new double [len];
     for(int i=0;i<len;i++)
     x[i]=SeriesRes1->XValues->Value[i];
@@ -761,7 +773,7 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
 if(adc)
 delete adc;
-delete params    
+delete params;    
 }
 //---------------------------------------------------------------------------
 

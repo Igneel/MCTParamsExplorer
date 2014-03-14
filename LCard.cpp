@@ -14,6 +14,7 @@ DataStep = 256*1024;
 Counter = 0x0;
 OldCounter = 0xFFFFFFFF;
 ReadBuffer=new SHORT[2*DataStep];
+AdcBuffer = new SHORT[2*DataStep];
 if(DriverInit())
 {
 if(SettingADCParams())
@@ -109,7 +110,9 @@ bool LCardADC::DriverInit()
     Error(" GET_ADC_PARS() --> Bad\n");
     return false;
     }
-	//else printf(" GET_ADC_PARS() --> OK\n");
+    	//else printf(" GET_ADC_PARS() --> OK\n");
+    return true;
+
 }
 
 bool LCardADC::SettingADCParams()
@@ -138,7 +141,7 @@ bool LCardADC::SettingADCParams()
     Error(" SET_ADC_PARS() --> Bad\n");
     return false;
     }
-
+    return true;
 	//else printf(" SET_ADC_PARS() --> OK\n");
 }
 
@@ -149,7 +152,7 @@ void LCardADC::StopMeasurement()
 
 void LCardADC::StartMeasurement()
 {
-        AdcBuffer = new SHORT[2*DataStep];
+
     needToStop=false;
     // Создаём и запускаем поток сбора данных
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -202,8 +205,7 @@ void LCardADC::StartMeasurement()
 
 std::string LCardADC::Error(std::string s)
 {
-//s.begin();
-;
+return s;
 }
 
 LCardADC::~LCardADC()
@@ -232,12 +234,13 @@ delete[] AdcBuffer;
 // Поток, в котором осуществляется сбор данных
 //------------------------------------------------------------------------
 
-DWORD WINAPI ServiceReadThread(PVOID /*Context*/)
+unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 {
     adc->ServiceReadThreadReal();
+    return 0;
 }
 
-DWORD WINAPI LCardADC::ServiceReadThreadReal()
+unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
 	WORD i;
 	WORD RequestNumber;
@@ -249,11 +252,11 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 
 	// остановим работу АЦП и одновременно сбросим USB-канал чтения данных
 	if(!pModule->STOP_ADC())
-    {
-    ReadThreadErrorNumber = 0x1;
-    IsReadThreadComplete = true;
-    return 0x0;
-    }
+        {
+            ReadThreadErrorNumber = 0x1;
+            IsReadThreadComplete = true;
+            return 0x0;
+        }
 
 	// формируем необходимые для сбора данных структуры
 	for(i = 0x0; i < 0x2; i++)
@@ -289,80 +292,60 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 		{
             if(needToStop)
             {
-            i=NDataBlock-1;
-            break;
+                i=NDataBlock-1;
+                break;
             }
 			// сделаем запрос на очередную порцию данных
 			RequestNumber ^= 0x1;
 			if(!pModule->ReadData(&IoReq[RequestNumber]))
             {
-            ReadThreadErrorNumber = 0x2;
-            break;
+                ReadThreadErrorNumber = 0x2;
+                break;
             }
-			if(ReadThreadErrorNumber) break;
+			if(ReadThreadErrorNumber)
+                break;
 
 			// ждём завершения операции сбора предыдущей порции данных
 			if(WaitForSingleObject(ReadOv[RequestNumber^0x1].hEvent, IoReq[RequestNumber^0x1].TimeOut) == WAIT_TIMEOUT)
             {
-            ReadThreadErrorNumber = 0x3;
-            break;
+                ReadThreadErrorNumber = 0x3;
+                break;
             }
-			if(ReadThreadErrorNumber) break;
+			if(ReadThreadErrorNumber)
+                break;
 
 			// запишем полученную порцию данных в вектор
             for(int i=0;i<DataStep;++i)
             {
-            ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
+                ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
             // надо выяснить в каком виде этот буфер хранит данные.
             // ну и как вставить весь буфер в вектор:)
             Sleep(20);
             ++Counter;
-			/*if(!WriteFile(	hFile,													// handle to file to write to
-		    					IoReq[RequestNumber^0x1].Buffer,					// pointer to data to write to file
-								2*DataStep,	 											// number of bytes to write
-	    						&FileBytesWritten,									// pointer to number of bytes written
-						   	NULL			  											// pointer to structure needed for overlapped I/O
-							   )) { ReadThreadErrorNumber = 0x4; break; }
 
-			if(ReadThreadErrorNumber) break;   */
-			//else
 
-            /*if(kbhit())
-            {
-                ReadThreadErrorNumber = 0x5;
-                break;
-            }
-			else
-            {   */
-
-            //}
-
-		}
-
+        	if(ReadThreadErrorNumber) break;
+            Application->ProcessMessages();
+        }
 		// последняя порция данных
 		if(!ReadThreadErrorNumber)
 		{
 			RequestNumber ^= 0x1;
 			// ждём окончания операции сбора последней порции данных
-			if(WaitForSingleObject(ReadOv[RequestNumber^0x1].hEvent, IoReq[RequestNumber^0x1].TimeOut) == WAIT_TIMEOUT) ReadThreadErrorNumber = 0x3;
+			if(WaitForSingleObject(ReadOv[RequestNumber^0x1].hEvent, IoReq[RequestNumber^0x1].TimeOut) == WAIT_TIMEOUT)
+                ReadThreadErrorNumber = 0x3;
 
             // запишем полученную порцию данных в вектор
             for(int i=0;i<DataStep;++i)
             {
-            double temp=IoReq[RequestNumber^0x1].Buffer[i];
-            ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
+                //double temp=IoReq[RequestNumber^0x1].Buffer[i];
+                ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
-			/*if(!WriteFile(	hFile,													// handle to file to write to
-		    					IoReq[RequestNumber^0x1].Buffer,					// pointer to data to write to file
-								2*DataStep,	 											// number of bytes to write
-	    						&FileBytesWritten,									// pointer to number of bytes written
-						   	NULL			  											// pointer to structure needed for overlapped I/O
-							   )) ReadThreadErrorNumber = 0x4;    */
 			Counter++;
 		}
 	}
-	else { ReadThreadErrorNumber = 0x6; }
+	
 
 	// остановим работу АЦП
 	if(!pModule->STOP_ADC()) ReadThreadErrorNumber = 0x1;
@@ -381,7 +364,14 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 
 std::vector<MyDataType> const &  LCardADC::getData()
 {
-return ReadData;
+    return ReadData;
+}
+
+void LCardADC::convertToVolt()
+{
+    std::vector<MyDataType>::iterator pos;
+    for(pos=ReadData.begin();pos!=ReadData.end();++pos)
+    *pos/=800.0;
 }
 
 

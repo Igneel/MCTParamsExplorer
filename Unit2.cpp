@@ -3,11 +3,10 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include <inifiles.hpp>
+
 #include "Unit2.h"
 #include "Unit1.h"
-#include <math.h>
-#include <time.h>
+
 
 TLineSeries *SaveSeries;
 TStringList *tts=new TStringList();

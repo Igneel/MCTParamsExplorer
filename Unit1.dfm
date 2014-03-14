@@ -1,15 +1,14 @@
 object Form1: TForm1
   Left = 321
   Top = 152
-  Width = 667
-  Height = 517
-  VertScrollBar.Position = 18
-  Caption = 'Измерение фотопроводимости и фотомагнитного эффекта'
+  Width = 700
+  Height = 530
+  Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
-  Constraints.MaxHeight = 517
-  Constraints.MaxWidth = 667
-  Constraints.MinHeight = 517
-  Constraints.MinWidth = 667
+  Constraints.MaxHeight = 530
+  Constraints.MaxWidth = 700
+  Constraints.MinHeight = 530
+  Constraints.MinWidth = 700
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -23,11 +22,12 @@ object Form1: TForm1
   TextHeight = 13
   object PC: TPageControl
     Left = 0
-    Top = -18
+    Top = 0
     Width = 657
     Height = 441
     ActivePage = Resistance
     MultiLine = True
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -36,14 +36,14 @@ object Form1: TForm1
         Top = 8
         Width = 48
         Height = 13
-        Caption = 'Драйвер:'
+        Caption = #1044#1088#1072#1081#1074#1077#1088':'
       end
       object Label2: TLabel
         Left = 472
         Top = 16
         Width = 45
         Height = 13
-        Caption = 'Частота:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072':'
       end
       object Label3: TLabel
         Left = 400
@@ -57,7 +57,7 @@ object Form1: TForm1
         Top = 96
         Width = 75
         Height = 13
-        Caption = 'Размер блока:'
+        Caption = #1056#1072#1079#1084#1077#1088' '#1073#1083#1086#1082#1072':'
       end
       object Label5: TLabel
         Left = 400
@@ -72,7 +72,7 @@ object Form1: TForm1
         Width = 43
         Height = 26
         Alignment = taCenter
-        Caption = 'Каналы: Первый:'
+        Caption = #1050#1072#1085#1072#1083#1099': '#1055#1077#1088#1074#1099#1081':'
         WordWrap = True
       end
       object Label7: TLabel
@@ -80,14 +80,14 @@ object Form1: TForm1
         Top = 232
         Width = 39
         Height = 13
-        Caption = 'Второй:'
+        Caption = #1042#1090#1086#1088#1086#1081':'
       end
       object Label8: TLabel
         Left = 400
         Top = 48
         Width = 34
         Height = 13
-        Caption = 'Адрес:'
+        Caption = #1040#1076#1088#1077#1089':'
       end
       object Chart1: TChart
         Left = 0
@@ -208,7 +208,7 @@ object Form1: TForm1
         Top = 24
         Width = 65
         Height = 21
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 3
         Text = 'LAVP'
         OnChange = uiDriverNameChange
@@ -219,7 +219,7 @@ object Form1: TForm1
         Width = 49
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 4
         OnChange = uiDRQChange
       end
@@ -263,7 +263,7 @@ object Form1: TForm1
         Width = 65
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 7
         OnChange = uiBaseChange
       end
@@ -272,7 +272,7 @@ object Form1: TForm1
         Top = 208
         Width = 75
         Height = 25
-        Caption = 'Матрицы'
+        Caption = #1052#1072#1090#1088#1080#1094#1099
         TabOrder = 8
         OnClick = Button1Click
       end
@@ -332,7 +332,7 @@ object Form1: TForm1
         Width = 49
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 13
         OnChange = uiIRQChange
       end
@@ -350,7 +350,7 @@ object Form1: TForm1
         Top = 176
         Width = 75
         Height = 25
-        Caption = 'пФурье'
+        Caption = #1087#1060#1091#1088#1100#1077
         Enabled = False
         TabOrder = 15
         OnClick = Button2Click
@@ -390,7 +390,7 @@ object Form1: TForm1
         Top = 208
         Width = 75
         Height = 25
-        Caption = 'Не нажимать!'
+        Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
         TabOrder = 19
       end
       object Button10: TButton
@@ -412,14 +412,14 @@ object Form1: TForm1
       end
     end
     object Resistance: TTabSheet
-      Caption = 'Сопротивление'
+      Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077
       ImageIndex = 1
       object Label9: TLabel
         Left = 384
         Top = 8
         Width = 95
         Height = 13
-        Caption = 'Протекающий ток:'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
       end
       object Label15: TLabel
         Left = 440
@@ -427,7 +427,7 @@ object Form1: TForm1
         Width = 82
         Height = 13
         Alignment = taCenter
-        Caption = 'Длина фильтра:'
+        Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label19: TLabel
         Left = 432
@@ -435,7 +435,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота дискрет:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090':'
       end
       object Label20: TLabel
         Left = 432
@@ -443,7 +443,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота пропуск:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1087#1088#1086#1087#1091#1089#1082':'
       end
       object Label21: TLabel
         Left = 424
@@ -451,7 +451,7 @@ object Form1: TForm1
         Width = 99
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота затухания:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
       end
       object ChartResist: TChart
         Left = 8
@@ -461,7 +461,7 @@ object Form1: TForm1
         BackWall.Brush.Color = clWhite
         BackWall.Brush.Style = bsClear
         Title.Text.Strings = (
-          'График магнитосопротивления')
+          #1043#1088#1072#1092#1080#1082' '#1084#1072#1075#1085#1080#1090#1086#1089#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1103)
         Legend.Visible = False
         View3D = False
         TabOrder = 0
@@ -553,7 +553,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Подгонка'
+        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
         TabOrder = 3
         OnClick = uiResFeatClick
       end
@@ -569,11 +569,11 @@ object Form1: TForm1
         Top = 24
         Width = 153
         Height = 57
-        Caption = 'Номер кривой:'
+        Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          'Первая (прямой ток)'
-          'Вторая (обратный ток)')
+          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
+          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
         TabOrder = 5
       end
       object bFilterRes: TButton
@@ -581,7 +581,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Фильтр'
+        Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 6
         OnClick = bFilterResClick
       end
@@ -626,7 +626,7 @@ object Form1: TForm1
         Top = 328
         Width = 107
         Height = 25
-        Caption = 'Очистить графики'
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         TabOrder = 11
         OnClick = bClearPlotsResClick
       end
@@ -653,7 +653,7 @@ object Form1: TForm1
         Top = 368
         Width = 105
         Height = 25
-        Caption = 'Убрать всплеск'
+        Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
         TabOrder = 14
         OnClick = ImpulsKillerClick
       end
@@ -662,7 +662,7 @@ object Form1: TForm1
         Top = 368
         Width = 75
         Height = 25
-        Caption = 'х10'
+        Caption = #1093'10'
         TabOrder = 15
         OnClick = bMultuplyBClick
       end
@@ -671,7 +671,7 @@ object Form1: TForm1
         Top = 368
         Width = 129
         Height = 25
-        Caption = 'Оптимальный фильтр'
+        Caption = #1054#1087#1090#1080#1084#1072#1083#1100#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
         Enabled = False
         TabOrder = 16
       end
@@ -680,7 +680,7 @@ object Form1: TForm1
         Top = 368
         Width = 121
         Height = 25
-        Caption = 'Увел кол-ва точек'
+        Caption = #1059#1074#1077#1083' '#1082#1086#1083'-'#1074#1072' '#1090#1086#1095#1077#1082
         Enabled = False
         TabOrder = 17
         OnClick = Button12Click
@@ -690,20 +690,20 @@ object Form1: TForm1
         Top = 368
         Width = 75
         Height = 25
-        Caption = 'Оценить шум'
+        Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
         TabOrder = 18
         OnClick = Button13Click
       end
     end
     object HallEffect: TTabSheet
-      Caption = 'Эффект Холла'
+      Caption = #1069#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072
       ImageIndex = 2
       object Label11: TLabel
         Left = 384
         Top = 8
         Width = 95
         Height = 13
-        Caption = 'Протекающий ток:'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
       end
       object Label16: TLabel
         Left = 440
@@ -711,7 +711,7 @@ object Form1: TForm1
         Width = 82
         Height = 13
         Alignment = taCenter
-        Caption = 'Длина фильтра:'
+        Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label22: TLabel
         Left = 432
@@ -719,7 +719,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота дискрет:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090':'
       end
       object Label23: TLabel
         Left = 432
@@ -727,7 +727,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота пропуск:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1087#1088#1086#1087#1091#1089#1082':'
       end
       object Label24: TLabel
         Left = 424
@@ -735,7 +735,7 @@ object Form1: TForm1
         Width = 99
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота затухания:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
       end
       object ChartHall: TChart
         Left = 8
@@ -819,11 +819,11 @@ object Form1: TForm1
         Top = 24
         Width = 153
         Height = 57
-        Caption = 'Номер кривой:'
+        Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          'Первая (прямой ток)'
-          'Вторая (обратный ток)')
+          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
+          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
         TabOrder = 1
       end
       object uiHallFeat: TButton
@@ -831,7 +831,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Подгонка'
+        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
         TabOrder = 2
         OnClick = uiHallFeatClick
       end
@@ -865,7 +865,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Фильтр'
+        Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 6
         OnClick = uiFFTHallClick
       end
@@ -874,7 +874,7 @@ object Form1: TForm1
         Top = 328
         Width = 107
         Height = 25
-        Caption = 'Очистить графики'
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         TabOrder = 7
         OnClick = Button6Click
       end
@@ -916,21 +916,21 @@ object Form1: TForm1
       end
     end
     object Faradey: TTabSheet
-      Caption = 'Фопроводимость (Фарадей) '
+      Caption = #1060#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100' ('#1060#1072#1088#1072#1076#1077#1081') '
       ImageIndex = 3
       object Label12: TLabel
         Left = 384
         Top = 8
         Width = 95
         Height = 13
-        Caption = 'Протекающий ток:'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
       end
       object Label13: TLabel
         Left = 384
         Top = 48
         Width = 144
         Height = 13
-        Caption = 'Коэффициент усиления(mV):'
+        Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090' '#1091#1089#1080#1083#1077#1085#1080#1103'(mV):'
       end
       object Label17: TLabel
         Left = 440
@@ -938,7 +938,7 @@ object Form1: TForm1
         Width = 82
         Height = 13
         Alignment = taCenter
-        Caption = 'Длина фильтра:'
+        Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label25: TLabel
         Left = 432
@@ -946,7 +946,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота дискрет:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090':'
       end
       object Label26: TLabel
         Left = 432
@@ -954,7 +954,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота пропуск:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1087#1088#1086#1087#1091#1089#1082':'
       end
       object Label27: TLabel
         Left = 424
@@ -962,7 +962,7 @@ object Form1: TForm1
         Width = 99
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота затухания:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
       end
       object ChartFaradey: TChart
         Left = 8
@@ -1070,11 +1070,11 @@ object Form1: TForm1
         Top = 24
         Width = 153
         Height = 57
-        Caption = 'Номер кривой:'
+        Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          'Первая (прямой ток)'
-          'Вторая (обратный ток)')
+          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
+          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
         TabOrder = 3
       end
       object uiFaradeyControl: TButton
@@ -1091,7 +1091,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Подгонка'
+        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
         TabOrder = 5
         OnClick = uiFaradeyFeatClick
       end
@@ -1107,7 +1107,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Фильтр'
+        Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 7
         OnClick = uiFFTFaradeyClick
       end
@@ -1116,7 +1116,7 @@ object Form1: TForm1
         Top = 328
         Width = 107
         Height = 25
-        Caption = 'Очистить графики'
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         TabOrder = 8
         OnClick = Button7Click
       end
@@ -1158,21 +1158,21 @@ object Form1: TForm1
       end
     end
     object Foygt: TTabSheet
-      Caption = 'Фотопроводимость (Фойгт)'
+      Caption = #1060#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100' ('#1060#1086#1081#1075#1090')'
       ImageIndex = 4
       object Label10: TLabel
         Left = 384
         Top = 48
         Width = 144
         Height = 13
-        Caption = 'Коэффициент усиления(mV):'
+        Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090' '#1091#1089#1080#1083#1077#1085#1080#1103'(mV):'
       end
       object Label14: TLabel
         Left = 384
         Top = 8
         Width = 95
         Height = 13
-        Caption = 'Протекающий ток:'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
       end
       object Label18: TLabel
         Left = 440
@@ -1180,7 +1180,7 @@ object Form1: TForm1
         Width = 82
         Height = 13
         Alignment = taCenter
-        Caption = 'Длина фильтра:'
+        Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label28: TLabel
         Left = 432
@@ -1188,7 +1188,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота дискрет:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090':'
       end
       object Label29: TLabel
         Left = 432
@@ -1196,7 +1196,7 @@ object Form1: TForm1
         Width = 89
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота пропуск:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1087#1088#1086#1087#1091#1089#1082':'
       end
       object Label30: TLabel
         Left = 424
@@ -1204,7 +1204,7 @@ object Form1: TForm1
         Width = 99
         Height = 13
         Alignment = taCenter
-        Caption = 'Частота затухания:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
       end
       object ChartFoygt: TChart
         Left = 8
@@ -1313,11 +1313,11 @@ object Form1: TForm1
         Top = 24
         Width = 153
         Height = 57
-        Caption = 'Номер кривой:'
+        Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          'Первая (прямой ток)'
-          'Вторая (обратный ток)')
+          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
+          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
         TabOrder = 3
       end
       object uiFoygtControl: TButton
@@ -1334,7 +1334,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Подгонка'
+        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
         TabOrder = 5
         OnClick = uiFoygtFeatClick
       end
@@ -1350,7 +1350,7 @@ object Form1: TForm1
         Top = 232
         Width = 75
         Height = 25
-        Caption = 'Фильтр'
+        Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 7
         OnClick = uiFFTFoygtClick
       end
@@ -1359,7 +1359,7 @@ object Form1: TForm1
         Top = 328
         Width = 107
         Height = 25
-        Caption = 'Очистить графики'
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         TabOrder = 8
         OnClick = Button8Click
       end
@@ -1403,16 +1403,16 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 423
-    Width = 657
+    Top = 453
+    Width = 684
     Height = 19
     Panels = <
       item
-        Text = 'Текущее состояние:'
+        Text = #1058#1077#1082#1091#1097#1077#1077' '#1089#1086#1089#1090#1086#1103#1085#1080#1077':'
         Width = 110
       end
       item
-        Text = 'Готова к работе. Тестовая версия'
+        Text = #1043#1086#1090#1086#1074#1072' '#1082' '#1088#1072#1073#1086#1090#1077'. '#1058#1077#1089#1090#1086#1074#1072#1103' '#1074#1077#1088#1089#1080#1103
         Width = 182
       end
       item
@@ -1424,47 +1424,47 @@ object Form1: TForm1
     Left = 16
     Top = 16
     object N1: TMenuItem
-      Caption = 'Файл'
+      Caption = #1060#1072#1081#1083
       object N4: TMenuItem
-        Caption = 'Открыть'
+        Caption = #1054#1090#1082#1088#1099#1090#1100
         ShortCut = 16463
         OnClick = N4Click
       end
       object N5: TMenuItem
-        Caption = 'Сохранить'
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
         ShortCut = 16467
         OnClick = N5Click
       end
       object N3: TMenuItem
-        Caption = 'Выход'
+        Caption = #1042#1099#1093#1086#1076
         OnClick = N3Click
       end
     end
     object N8: TMenuItem
-      Caption = 'Инструменты'
+      Caption = #1048#1085#1089#1090#1088#1091#1084#1077#1085#1090#1099
       object N101: TMenuItem
-        Caption = 'Умножить текущий график на 10'
+        Caption = #1059#1084#1085#1086#1078#1080#1090#1100' '#1090#1077#1082#1091#1097#1080#1081' '#1075#1088#1072#1092#1080#1082' '#1085#1072' 10'
         Enabled = False
       end
       object N9: TMenuItem
-        Caption = 'Очистить графики'
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         ShortCut = 8238
         OnClick = N9Click
       end
       object N10: TMenuItem
-        Caption = 'Убрать всплеск'
+        Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
         Enabled = False
       end
     end
     object N2: TMenuItem
-      Caption = 'Настройки'
+      Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
       Enabled = False
     end
     object N6: TMenuItem
-      Caption = 'Помощь'
+      Caption = #1055#1086#1084#1086#1097#1100
       Enabled = False
       object N7: TMenuItem
-        Caption = 'О программе'
+        Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
         ShortCut = 112
       end
     end

@@ -16,7 +16,7 @@ LCardADC();
 ~LCardADC();
 
 std::string Error(std::string);
-DWORD WINAPI ServiceReadThreadReal();
+unsigned long __stdcall ServiceReadThreadReal();
 bool SettingADCParams();
 
 void StartMeasurement();
@@ -28,9 +28,10 @@ void clearBuffer();
 private:
 bool DriverInit();
 
-
 bool successfullInit;
 bool needToStop;
+
+void convertToVolt();
 
 
 
@@ -39,10 +40,10 @@ HANDLE hFile;
 
 // идентификатор потока сбора данных
 HANDLE hReadThread;
-DWORD ReadTid;
+unsigned long ReadTid;
 
 // версия библиотеки
-DWORD DllVersion;
+unsigned long DllVersion;
 // указатель на интерфейс модуля
 ILE440 *pModule;
 // дескриптор устройства
@@ -50,21 +51,21 @@ HANDLE ModuleHandle;
 // название модуля
 char ModuleName[7];
 // скорость работы шины USB
-BYTE UsbSpeed;
+unsigned char UsbSpeed;
 // структура с полной информацией о модуле
 MODULE_DESCRIPTION_E440 ModuleDescription;
 // структура параметров работы АЦП модуля
 ADC_PARS_E440 ap;
 
 // кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
-DWORD DataStep;
+unsigned long DataStep;
 // будем собирать NDataBlock блоков по DataStep отсчётов в каждом
 const WORD NDataBlock;
 // буфер данных
-SHORT *ReadBuffer;
+short *ReadBuffer;
 
 // буфер данных
-SHORT *AdcBuffer;
+short *AdcBuffer;
 
 // флажок завершения работы потока сбора данных
 bool IsReadThreadComplete;
