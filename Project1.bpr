@@ -4,12 +4,8 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="Project1.exe"/>
-    <OBJFILES value="Project1.obj Unit1.obj Unit2.obj 
-      \\VBOXSVR\MCTParamsExplorer\ExtrapolateUnit.obj 
-      \\VBOXSVR\MCTParamsExplorer\FilteringUnit.obj 
-      \\VBOXSVR\MCTParamsExplorer\LCard.obj 
-      \\VBOXSVR\MCTParamsExplorer\MagneticFieldDependence.obj 
-      \\VBOXSVR\MCTParamsExplorer\FeatUnit.obj"/>
+    <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
+      FilteringUnit.obj LCard.obj MagneticFieldDependence.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -21,7 +17,7 @@
     <PACKAGES value="dbrtl.bpi vcldb.bpi bdertl.bpi vcldbx.bpi bcbsmp.bpi dclocx.bpi qrpt.bpi 
       teeui.bpi vclsmp.bpi teedb.bpi tee.bpi ibsmp.bpi dss.bpi nmfast.bpi 
       inetdb.bpi inet.bpi dsnap.bpi RXCTL.bpi RXDB.bpi sdlnumlab.bpi"/>
-    <PATHCPP value=".;\\VBOXSVR\MCTParamsExplorer"/>
+    <PATHCPP value=".;"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -114,7 +110,7 @@ Item0=_DEBUG
 Item1=_RTLDLL;USEPACKAGES
 
 [Debugging]
-DebugSourceDirs=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\
+DebugSourceDirs=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
 
 [Parameters]
 RunParams=

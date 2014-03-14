@@ -1,6 +1,18 @@
 #include "MagneticFieldDependence.h"
 #include "Unit1.h"
 
+MagneticFieldDependence::MagneticFieldDependence()
+{
+dependenceType=HALL_EFFECT;
+Current=0.001;
+h=0.001;
+NumberOfPoints=10;
+}
+MagneticFieldDependence::~MagneticFieldDependence()
+{
+
+}
+
 
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
 {
@@ -315,26 +327,29 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
 void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color)
 {
 	s->Clear();
-
+        NumberOfPoints=1000;
 	for (int i = 0; i < NumberOfPoints; i++)
 	{
-		s->AddXY(B[i],Dependence[i],"",color);
+		s->AddXY(OriginalB[i],OriginalDependence[i],"",color);
 	}
 }
 
 std::vector<MyDataType> const &  MagneticFieldDependence::getData()
 {
     std::vector<MyDataType> tempData;
-
+    tempData.resize(adc->getData().size());
     tempData=adc->getData();
     // тут дальше парсинг, в зависимости от структуры данных.
     // и вставить всё как надо в массивы B и Dependence
 
     // а также в массивы Original
-
+    OriginalB.resize(tempData.size());
+    OriginalB=tempData;
+    OriginalDependence.resize(tempData.size());
+    OriginalDependence=tempData;
     //после чего:
-    filterData(dependenceType,400000,50,100,50);
-    extrapolateData();
-    
+    //filterData(dependenceType,400000,50,100,50);
+    //extrapolateData();
+    return OriginalB;
 }
 

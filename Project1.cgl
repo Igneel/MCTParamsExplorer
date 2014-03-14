@@ -1,24 +1,13 @@
-Functions called:
- fflush (4 times)
- free (7 times)
- delete (12 times)
- vsnprintf (8 times)
- new (12 times)
- SysReallocMem (204 times)
- SysFreeMem (7350 times)
- lstrlenA (1 times)
- lstrcpyA (4 times)
- memset (2 times)
- SysGetMem (7351 times)
- calloc (1 times)
- strlen (65 times)
- realloc (1 times)
- strdup (1 times)
- malloc (4 times)
- memcpy (2 times)
-Resource types used:
- object (12 allocs, 12 max)
- memory block (7358 allocs, 2340 max)
-Modules used:
- 00400000 03/13/2014 06:52:30 Y:\Project1.exe
-==========================================
+Error 00064. 0x300010 (Thread 0x0C24):
+Resource leak: The object (0x4EC6F0) was never deleted
+
+The object (0x004EC6F0) [size: 296 bytes] was created with new
+Call Tree:
+   0x00401907(=Project1.exe:0x01:000907) C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Unit1.cpp#69
+   0x0045728B(=Project1.exe:0x01:05628B)
+   0x00456F87(=Project1.exe:0x01:055F87)
+   0x0045DDC4(=Project1.exe:0x01:05CDC4)
+   0x0040133D(=Project1.exe:0x01:00033D) C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Project1.cpp#19
+   0x004A7C5B(=Project1.exe:0x01:0A6C5B)
+
+------------------------------------------

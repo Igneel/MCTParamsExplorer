@@ -1,8 +1,9 @@
 object Form1: TForm1
-  Left = 277
-  Top = 175
+  Left = 321
+  Top = 152
   Width = 667
   Height = 517
+  VertScrollBar.Position = 18
   Caption = 'Измерение фотопроводимости и фотомагнитного эффекта'
   Color = clBtnFace
   Constraints.MaxHeight = 517
@@ -22,7 +23,7 @@ object Form1: TForm1
   TextHeight = 13
   object PC: TPageControl
     Left = 0
-    Top = 0
+    Top = -18
     Width = 657
     Height = 441
     ActivePage = Resistance
@@ -1402,8 +1403,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 444
-    Width = 659
+    Top = 423
+    Width = 657
     Height = 19
     Panels = <
       item

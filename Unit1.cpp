@@ -48,6 +48,7 @@ int BlockSize=1024;
 int Frequency=400000;
 double h=0.001;//0.02;
 LCardADC *adc;
+MagneticFieldDependence *params;
 bool MeasurementsIsStarted=false;
 
 //---------------------------------------------------------------------------
@@ -65,7 +66,7 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 
         // загружаем драйвер
     adc=new LCardADC();
-
+    params=new MagneticFieldDependence();
 
         //-------------------------------------------
     float       MaxFreq=400000;   //Максимальная частота
@@ -222,7 +223,8 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         GainKoefFoygt->Enabled=1;
 
         adc->StopMeasurement();
-        
+        params->getData();
+        params->constructPlotFromTwoMassive(SeriesRes1,clRed);
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");
@@ -758,7 +760,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
 if(adc)
-delete adc;    
+delete adc;
+delete params    
 }
 //---------------------------------------------------------------------------
 

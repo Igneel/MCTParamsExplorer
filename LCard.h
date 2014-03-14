@@ -59,9 +59,12 @@ ADC_PARS_E440 ap;
 // кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
 DWORD DataStep;
 // будем собирать NDataBlock блоков по DataStep отсчётов в каждом
-const WORD NDataBlock;//80
+const WORD NDataBlock;
 // буфер данных
 SHORT *ReadBuffer;
+
+// буфер данных
+SHORT *AdcBuffer;
 
 // флажок завершения работы потока сбора данных
 bool IsReadThreadComplete;

@@ -4,14 +4,16 @@
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
-LCardADC::LCardADC():NDataBlock(80)
+LCardADC::LCardADC():NDataBlock(10)
 {
+
 needToStop=true;
 successfullInit=false;
+ReadThreadErrorNumber=0;
 DataStep = 256*1024;
 Counter = 0x0;
 OldCounter = 0xFFFFFFFF;
-
+ReadBuffer=new SHORT[2*DataStep];
 if(DriverInit())
 {
 if(SettingADCParams())
@@ -147,6 +149,7 @@ void LCardADC::StopMeasurement()
 
 void LCardADC::StartMeasurement()
 {
+        AdcBuffer = new SHORT[2*DataStep];
     needToStop=false;
     // Создаём и запускаем поток сбора данных
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -205,6 +208,8 @@ std::string LCardADC::Error(std::string s)
 
 LCardADC::~LCardADC()
 {
+delete[] ReadBuffer;
+delete[] AdcBuffer;
 // завершение работы.
 // подчищаем интерфейс модуля
 	if(pModule)
@@ -305,7 +310,7 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 			if(ReadThreadErrorNumber) break;
 
 			// запишем полученную порцию данных в вектор
-            for(int i=0;i<2*DataStep;++i)
+            for(int i=0;i<DataStep;++i)
             {
             ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
@@ -343,8 +348,9 @@ DWORD WINAPI LCardADC::ServiceReadThreadReal()
 			if(WaitForSingleObject(ReadOv[RequestNumber^0x1].hEvent, IoReq[RequestNumber^0x1].TimeOut) == WAIT_TIMEOUT) ReadThreadErrorNumber = 0x3;
 
             // запишем полученную порцию данных в вектор
-            for(int i=0;i<2*DataStep;++i)
+            for(int i=0;i<DataStep;++i)
             {
+            double temp=IoReq[RequestNumber^0x1].Buffer[i];
             ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
 			/*if(!WriteFile(	hFile,													// handle to file to write to
