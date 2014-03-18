@@ -13,7 +13,7 @@ Functions called:
  memset (3 times)
  SysGetMem (6236 times)
  calloc (1 times)
- strlen (125 times)
+ strlen (127 times)
  realloc (1 times)
  strdup (1 times)
  malloc (4 times)

@@ -4,22 +4,23 @@
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
+
 LCardADC::LCardADC():NDataBlock(10)
 {
 
-needToStop=true;
-successfullInit=false;
-ReadThreadErrorNumber=0;
-DataStep = 256*1024;
-Counter = 0x0;
-OldCounter = 0xFFFFFFFF;
-ReadBuffer=new SHORT[2*DataStep];
-AdcBuffer = new SHORT[2*DataStep];
-if(DriverInit())
+needToStop=true;// флаг для остановки второго потока
+successfullInit=false; // флаг успешной инициализации
+ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
+DataStep = 256*1024;  // кол-во отсчетов, кратное 32
+Counter = 0x0;        // количество полученных кадров.
+OldCounter = 0xFFFFFFFF;// с его помощью следим за кол-вом измеренных и выводим их в строку состояния.
+ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
+AdcBuffer = new SHORT[2*DataStep];// понятия не имею зачем он нужен, надо разобраться.
+if(DriverInit()) // инициализиуем драйвер
 {
-if(SettingADCParams())
+if(SettingADCParams())// устанавливаем настройки
 {
-successfullInit=true;
+successfullInit=true; // всё прошло успешно.
 }
 }
 
@@ -115,16 +116,28 @@ bool LCardADC::DriverInit()
 
 }
 
+bool LCardADC::IsInitSuccessfull()
+{
+    return successfullInit;
+}
+
+// настройки по умолчанию.
+// 400 кГЦ, без межкадровой задержки, 4 канала, фирменные калибровочные коэффициенты.
 bool LCardADC::SettingADCParams()
 {
-// установим желаемые параметры работы АЦП
+    return SettingADCParams(4, 400.0);
+}
+
+bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquency)
+{
+    // установим желаемые параметры работы АЦП
 	ap.IsCorrectionEnabled = TRUE;			// разрешим корректировку данных на уровне драйвера DSP
-	ap.InputMode = NO_SYNC_E440;				// обычный сбор данных безо всякой синхронизации ввода
-	ap.ChannelsQuantity = 0x4;					// четыре активных канала
+	ap.InputMode = NO_SYNC_E440;			// обычный сбор данных безо всякой синхронизации ввода
+	ap.ChannelsQuantity = channelsQuantity;	// четыре активных канала
 	// формируем управляющую таблицу
 	for(int i = 0x0; i < ap.ChannelsQuantity; i++)
 		ap.ControlTable[i] = (WORD)(i | (ADC_INPUT_RANGE_2500mV_E440 << 0x6));
-	ap.AdcRate = 400.0;							// частота работы АЦП в кГц
+	ap.AdcRate = frenquency;							// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
 	ap.AdcFifoLength = MAX_ADC_FIFO_SIZE_E440;	// длина FIFO буфера АЦП в DSP модуля
@@ -138,11 +151,10 @@ bool LCardADC::SettingADCParams()
 	// передадим требуемые параметры работы АЦП в модуль
 	if(!pModule->SET_ADC_PARS(&ap))
     {
-    Error(" SET_ADC_PARS() --> Bad\n");
-    return false;
+        Error(" SET_ADC_PARS() --> Bad\n");
+        return false;
     }
     return true;
-	//else printf(" SET_ADC_PARS() --> OK\n");
 }
 
 void LCardADC::StopMeasurement()
@@ -155,46 +167,22 @@ void LCardADC::StartMeasurement()
 
     needToStop=false;
     // Создаём и запускаем поток сбора данных
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
+    hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
 	if(!hReadThread)
     {
     Error(" ServiceReadThread() --> Bad\n");
     return;
     }
-   	//else printf(" ServiceReadThread() --> OK\n");
-    
-	// отобразим параметры сбора данных модуля на экране монитора
-	/*printf(" \n");
-	printf(" Module E14-440 (S/N %s) is ready ... \n", ModuleDescription.Module.SerialNumber);
-	printf("   Module Info:\n");
-	printf("     Module  Revision   is '%c'\n", ModuleDescription.Module.Revision);
-	printf("     MCU Driver Version is %s (%s)\n", ModuleDescription.Mcu.Version.Version, ModuleDescription.Mcu.Version.Date);
-	printf("     LBIOS   Version    is %s (%s)\n", ModuleDescription.Dsp.Version.Version, ModuleDescription.Dsp.Version.Date);
-	printf("   Adc parameters:\n");
-	printf("     Data Correction is %s\n", ap.IsCorrectionEnabled ? "enabled" : "disabled");
-	printf("     ChannelsQuantity = %2d\n", ap.ChannelsQuantity);
-	printf("     AdcRate = %8.3f kHz\n", ap.AdcRate);
-	printf("     InterKadrDelay = %2.4f ms\n", ap.InterKadrDelay);
-	printf("     KadrRate = %8.3f kHz\n", ap.KadrRate);
-    */
+
     // цикл записи получаемых данных и ожидания окончания работы приложения
-//	DacSample = 0x1000;
-	//printf("\n Press any key if you want to terminate this program...\n\n");
+
 	while(!IsReadThreadComplete)
 	{
 		if(OldCounter != Counter)
         {
-            //printf(" Counter %3u from %3u\r", Counter, NDataBlock);
             OldCounter = Counter;
         }
 		else Sleep(20);
-//		if(!pModule->ENABLE_TTL_OUT(TRUE)) AbortProgram(" Ошибка разрешения выходных цифровых линий");
-//		if(!pModule->TTL_OUT(0xFFFF)) AbortProgram(" Ошибка установки выходных цифровых линий");
-//		if(!pModule->TTL_OUT(0x0000)) AbortProgram(" Ошибка установки выходных цифровых линий");
-//		if(!pModule->DAC_SAMPLE((SHORT *)&DacSample, 0x0)) AbortProgram(" Ошибка установки канала ЦАП");
 	}
 
 	// ждём окончания работы потока ввода данных
@@ -205,15 +193,15 @@ void LCardADC::StartMeasurement()
 
 std::string LCardADC::Error(std::string s)
 {
-return s;
+    return s;
 }
 
 LCardADC::~LCardADC()
 {
-delete[] ReadBuffer;
-delete[] AdcBuffer;
-// завершение работы.
-// подчищаем интерфейс модуля
+    delete[] ReadBuffer;
+    delete[] AdcBuffer;
+    // завершение работы.
+    // подчищаем интерфейс модуля
 	if(pModule)
 	{
 		// освободим интерфейс модуля
@@ -369,6 +357,7 @@ std::vector<MyDataType> const &  LCardADC::getData()
 
 void LCardADC::convertToVolt()
 {
+    // это работает только если пределы +- 10Вольт.
     std::vector<MyDataType>::iterator pos;
     for(pos=ReadData.begin();pos!=ReadData.end();++pos)
     *pos/=800.0;

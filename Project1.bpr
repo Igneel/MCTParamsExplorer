@@ -37,8 +37,8 @@
     <IDLCFLAGS value="-I\\VBOXSVR\MCTParamsExplorer -I$(BCB)\include -I$(BCB)\include\vcl 
       -IC:\Interfaces -I&quot;C:\Program Files\Vt\Samples\INTERFACES&quot; -src_suffix cpp 
       -D_DEBUG -boa"/>
-    <CFLAG1 value="-vGc -vGt -vGd -Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -w -Vx 
-      -Ve -Tkh30000 -X- -r- -a8 -b- -k -y -v -vi- -c -tW -tWM"/>
+    <CFLAG1 value="-vGc -vGt -vGd -Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Vx -Ve 
+      -Tkh30000 -X- -r- -a8 -b- -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
     <CFLAG3 value=""/>
     <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -M -JPHNE"/>
@@ -75,7 +75,7 @@ AutoIncBuild=1
 MajorVer=0
 MinorVer=8
 Release=35
-Build=1263
+Build=1264
 Debug=0
 PreRelease=0
 Special=0
@@ -87,7 +87,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.8.35.1263
+FileVersion=0.8.35.1264
 InternalName=
 LegalCopyright=
 LegalTrademarks=

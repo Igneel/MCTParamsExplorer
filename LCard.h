@@ -18,12 +18,14 @@ LCardADC();
 std::string Error(std::string);
 unsigned long __stdcall ServiceReadThreadReal();
 bool SettingADCParams();
+bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
 
 void StartMeasurement();
 void StopMeasurement();
 
 std::vector<MyDataType> const & getData();
 void clearBuffer();
+bool IsInitSuccessfull();
 
 private:
 bool DriverInit();
