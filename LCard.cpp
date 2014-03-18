@@ -5,13 +5,13 @@
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 
-LCardADC::LCardADC():NDataBlock(10)
+LCardADC::LCardADC():NDataBlock(2)
 {
 
 needToStop=true;// флаг для остановки второго потока
 successfullInit=false; // флаг успешной инициализации
 ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-DataStep = 256*1024;  // кол-во отсчетов, кратное 32
+DataStep =256*1024/16;  // кол-во отсчетов, кратное 32
 Counter = 0x0;        // количество полученных кадров.
 OldCounter = 0xFFFFFFFF;// с его помощью следим за кол-вом измеренных и выводим их в строку состояния.
 ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
@@ -136,7 +136,12 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
 	ap.ChannelsQuantity = channelsQuantity;	// четыре активных канала
 	// формируем управляющую таблицу
 	for(int i = 0x0; i < ap.ChannelsQuantity; i++)
-		ap.ControlTable[i] = (WORD)(i | (ADC_INPUT_RANGE_2500mV_E440 << 0x6));
+        {
+        unsigned short temp=
+        ap.ControlTable[i] =
+        (WORD)(i | (ADC_INPUT_RANGE_10000mV_E440 << 0x6));
+        temp=temp;
+        }
 	ap.AdcRate = frenquency;							// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
@@ -144,9 +149,15 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
 	// будем использовать фирменные калибровочные коэффициенты, которые храняться в ППЗУ модуля
 	for(int i = 0x0; i < ADC_CALIBR_COEFS_QUANTITY_E440; i++)
 	{
+
 		ap.AdcOffsetCoefs[i] =  ModuleDescription.Adc.OffsetCalibration[i];
+            double temp=ap.AdcOffsetCoefs[i];
 		ap.AdcScaleCoefs[i] =  ModuleDescription.Adc.ScaleCalibration[i];
+        temp=ap.AdcScaleCoefs[i];
+        temp=temp;
 	}
+    ap.AdcScaleCoefs[0]=1.0073960381;
+    ap.AdcOffsetCoefs[0]=0.5;
 
 	// передадим требуемые параметры работы АЦП в модуль
 	if(!pModule->SET_ADC_PARS(&ap))
@@ -160,6 +171,7 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
 void LCardADC::StopMeasurement()
 {
     needToStop=true;
+    convertToVolt();
 }
 
 void LCardADC::StartMeasurement()
@@ -361,6 +373,12 @@ void LCardADC::convertToVolt()
     std::vector<MyDataType>::iterator pos;
     for(pos=ReadData.begin();pos!=ReadData.end();++pos)
     *pos/=800.0;
+}
+
+void LCardADC::clearBuffer()
+{
+    ReadData.clear();
+
 }
 
 

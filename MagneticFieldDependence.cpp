@@ -342,6 +342,15 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor 
 		s->AddXY(OriginalB[i],OriginalDependence[i],"",color);
 	}
 }
+void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor color)
+{
+	s->Clear();
+        NumberOfPoints=OriginalDependence.size();
+	for (int i = 0; i < NumberOfPoints; i+=1)
+	{
+		s->AddY(OriginalDependence[i],"",color);
+	}
+}
 
 std::vector<MyDataType> const &  MagneticFieldDependence::getData()
 {

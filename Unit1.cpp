@@ -174,15 +174,17 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         FoygtCurveIndex->Enabled=0;
 
         GainKoefFoygt->Enabled=0;
-
-        adc->StartMeasurement();
-
+        adc->clearBuffer();
+        //adc->SettingADCParams(2,400);
         uiControl->Caption = AnsiString("Stop");
         uiResControl->Caption = AnsiString("Stop");
         uiHallControl->Caption = AnsiString("Stop");
         uiFaradeyControl->Caption = AnsiString("Stop");
         uiFoygtControl->Caption = AnsiString("Stop");
         StatusBar->Panels->Items[1]->Text="Проводится измерение";
+        
+        adc->StartMeasurement();
+        uiControlClick(this);
     }
     else
     {
@@ -223,7 +225,15 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
         adc->StopMeasurement();
         params->getData();
-        params->constructPlotFromTwoMassive(SeriesRes1,clRed);
+        params->constructPlotFromOneMassive(SeriesRes1,clRed);
+
+        long double temp=0;
+        for(int i=0;i<SeriesRes1->YValues->Count();i++)
+        {
+        temp+=SeriesRes1->YValues->Value[i];
+        }
+        temp/=SeriesRes1->YValues->Count();
+        Memo2->Lines->Add(FloatToStr(temp));
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");

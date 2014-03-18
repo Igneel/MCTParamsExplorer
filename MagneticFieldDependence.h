@@ -30,7 +30,8 @@ std::vector<MyDataType> const &  getData();
 bool saveData();
 
 
-void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
+ void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
+void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor color);
 
 private:
 DependenceType dependenceType;
