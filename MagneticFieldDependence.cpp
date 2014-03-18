@@ -86,11 +86,11 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
      MyDataType AttenuationFrequency,int lengthFilter)
 {
+    std::vector<long double> tempInB(2*NumberOfPoints);
+    std::vector<long double> tempInSignal(2*NumberOfPoints);
 
-    long double * tempInB=new long double[2*NumberOfPoints];
-	long double * tempInSignal=new long double[2*NumberOfPoints];
-	long double * tempOutB=new long double[2*NumberOfPoints+ceil(lengthFilter/2.0)];
-	long double * tempOutSignal=new long double[2*NumberOfPoints+ceil(lengthFilter/2.0)];
+    std::vector<long double> tempOutB(2*NumberOfPoints+ceil(lengthFilter/2.0));
+    std::vector<long double> tempOutSignal(2*NumberOfPoints+ceil(lengthFilter/2.0));
 
     switch(dependenceType)
     {
@@ -102,7 +102,7 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 		tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];
 		tempInB[i]=-B[NumberOfPoints-i-1];
 		tempInSignal[i+NumberOfPoints]=Dependence[i];
-		tempInB[i+NumberOfPoints]=B[i]; 
+		tempInB[i+NumberOfPoints]=B[i];
 	}
     break;
     case MAGNETORESISTANCE:
@@ -118,58 +118,25 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
     break;
     }
 
-    // фильтруем !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // фильтруем 
 	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
-                2*NumberOfPoints,lengthFilter,SamplingFrequecy,BandwidthFrequency,AttenuationFrequency);
-// это надо перерабыватывать!
-
-/*
+                lengthFilter,SamplingFrequecy,BandwidthFrequency,AttenuationFrequency);
 
 
-	// формируем сигнал дл€ фильтра.
-	// достраива€ его в отрицательные магнитные пол€.
-	for (int i = 0; i < NumberOfPoints; i++)
-	{
-		tempInSignal[i]=-idealUs[NumberOfPoints-i-1]+2*idealUs[0];
-		tempInB[i]=-B[NumberOfPoints-i-1];
-		tempInSignal[i+NumberOfPoints]=idealUs[i];
-		tempInB[i+NumberOfPoints]=B[i];
-	}
-
-
-    // фильтруем
-	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,2*NumberOfPoints,lengthFilter,5000,15,25);
-
-	// надо добавить обработку полученных результатов после фильтрации.
-	// и экстрапол€цию
-
-	// нагло записываем положительную часть фильтрованного сигнала обратно.
+    // нагло записываем положительную часть фильтрованного сигнала обратно.
 	for(int i=0;i<NumberOfPoints;i++)
 	{
-		Us[i]=tempOutSignal[i+NumberOfPoints-1];
-		//Us[i]=tempOutSignal[i];
+        FilteredB[i]=tempOutB[i+NumberOfPoints-1];
+		FilteredDependence[i]=tempOutSignal[i+NumberOfPoints-1];
     }
-    // делаем то же самое с другим сигналом, хм, надо предусмотреть функцию.
-	for (int i = 0; i < NumberOfPoints; i++)
-	{
-		tempInSignal[i]=idealUy[NumberOfPoints-i-1];   // чет
-		//tempInSignal[i]=-idealUy[NumberOfPoints-i-1]+2*idealUy[0];  // нечет
-		tempInB[i]=-B[NumberOfPoints-i-1];
-		tempInSignal[i+NumberOfPoints]=idealUy[i];
-		tempInB[i+NumberOfPoints]=B[i];
-	}
-
-	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,2*NumberOfPoints,lengthFilter,5000,15,25);
-
-	for(int i=0;i<NumberOfPoints;i++)
-	{
-		B[i]=tempOutB[i+NumberOfPoints-1];
-		Uy[i]=tempOutSignal[i+NumberOfPoints-1];
-	}
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	for(int i=0;i<NumberOfPoints;i++)
+    /*
+    switch(dependenceType)
+    {
+    case HALL_EFFECT:
+    // убираем отрицательные значени€ магнитного пол€, дл€ эффекта ’олла.
+    // —тавим его в точку 0.
+    // хот€ зачем...€ же добавл€ю это при экстрапол€ции...
+    for(int i=0;i<NumberOfPoints;i++)
 	{
 		if(B[i]<0)
 		{
@@ -178,103 +145,82 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 			Uy[i]=0;
 		}
 	}
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
+    break;
+    case MAGNETORESISTANCE:
 
-	// пересчитываем зависимости.
-
-
-	 */
-    delete[] tempInB;
-	delete[] tempInSignal;
-	delete[] tempOutB;
-	delete[] tempOutSignal;
-
-	//return 1;
+    break;
+    }   */
 }
 
-void MagneticFieldDependence::extrapolateData()
+bool MagneticFieldDependence::extrapolateData()
 {
 
 // тоже надо перерабатывать.
 
-/*
-int returnValue=1;
+
+bool returnValue=true;
 
 const int polinomPowForUs=4;
 const int polinomPowForUy=4;
 
-std::vector<long double> koefUs;
-std::vector<long double> koefUy;
+std::vector<long double> koefUs(polinomPowForUs+1);
+std::vector<long double> koefUy(polinomPowForUy+1);
 
 std::vector<long double> newB;
-std::vector<long double> newUs;
-std::vector<long double> newUy;
+std::vector<long double> newDependence;
+//std::vector<long double> newUy;
 
-koefUs.resize(polinomPowForUs+1);
-koefUy.resize(polinomPowForUy+1);
+std::vector<long double> inB;
+std::vector<long double> inDependence;
+
 
 int i=0;
-	switch(type)
-	{
-		case EXTRAPOLATE:
-
+        if(dependenceType==HALL_EFFECT)
 			for(int i=0;i<500;i++)
 			{
-				B.push_back(0);
-				Uy.push_back(0);
+				inB.push_back(0);
+				inDependence.push_back(0);
 			}
 
-			curveFittingUniversal(&B, &Us, &koefUs,polinomPowForUs);
-			curveFittingUniversal(&B, &Uy, &koefUy,polinomPowForUy);
-
-            for(int i=0;i<500;i++)
-			{
-				B.pop_back();
-				Uy.pop_back();
-			}
+        if(dependenceType==HALL_EFFECT)
+            curveFittingUniversal(&inB,&inDependence, &koefUy,polinomPowForUy);
+        if(dependenceType==MAGNETORESISTANCE)
+            curveFittingUniversal(&inB,&inDependence, &koefUs,polinomPowForUs);
 
 			newB.clear();
 			newB.push_back(0);
 			for (int i = 1; i < NumberOfPoints; i++) {
 				newB.push_back(newB[i-1]+h);
 			}
+        if(dependenceType==MAGNETORESISTANCE)
+			calculatePolinomByKoef(newB,koefUs,newDependence);
+        if(dependenceType==HALL_EFFECT)
+			calculatePolinomByKoef(newB,koefUy,newDependence);
 
-			calculatePolinomByKoef(newB,koefUs,newUs);
-			calculatePolinomByKoef(newB,koefUy,newUy);
+            ExtrapolatedB=newB;
 
-			extrapolatedParams->setB_Us_Uy(newB,newUs,newUy);
+            ExtrapolatedDependence=newDependence;
 
 			//----------ј вот тут прикручиваем недостающий кусочек в сигналы----
 
-			while(B[i++]<=0 && i<NumberOfPoints);
+			while(FilteredB[i++]<=0 && i<NumberOfPoints);
 			i-=2; // ищем где поле становитс€ положительным.
 
             for(int j=i;j<NumberOfPoints;j++)
 			{      // перемещаем эти значени€ в начало.
-				B[j-i]=B[j];
-				Us[j-i]=Us[j];
-				Uy[j-i]=Uy[j];
+				FilteredB[j-i]=FilteredB[j];
+				FilteredDependence[j-i]=FilteredDependence[j];
+				//Uy[j-i]=Uy[j];
 			}
 
 			for(int j=NumberOfPoints-i;j<NumberOfPoints;j++)
 			{     // в конце дописываем экстраполированные значени€.
-				B[j]=newB[j];
-				Us[j]=newUs[j];
-				Uy[j]=newUy[j];
+				FilteredB[j]=newB[j];
+				Dependence[j]=newDependence[j];
 			}
-
-			calculateEffectiveParamsFromSignals();
-			calculateTenzorFromEffectiveParams();
 			//------------------------------------------------------------------
 
-			break;
-		default:
-		returnValue=0;
-	}
-
-return returnValue;   */
+return returnValue;   
 }
 
 void MagneticFieldDependence::averagingData()

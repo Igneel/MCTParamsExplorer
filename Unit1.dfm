@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 177
-  Top = 144
+  Left = 202
+  Top = 128
   Width = 700
   Height = 530
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -208,7 +208,7 @@ object Form1: TForm1
         Top = 24
         Width = 65
         Height = 21
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 3
         Text = 'LAVP'
         OnChange = uiDriverNameChange
@@ -219,7 +219,7 @@ object Form1: TForm1
         Width = 49
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 4
         OnChange = uiDRQChange
       end
@@ -263,7 +263,7 @@ object Form1: TForm1
         Width = 65
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 7
         OnChange = uiBaseChange
       end
@@ -332,7 +332,7 @@ object Form1: TForm1
         Width = 49
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 13
         OnChange = uiIRQChange
       end
@@ -1403,8 +1403,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 457
-    Width = 692
+    Top = 453
+    Width = 684
     Height = 19
     Panels = <
       item

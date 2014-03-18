@@ -5,17 +5,18 @@
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 
-LCardADC::LCardADC():NDataBlock(2)
+LCardADC::LCardADC()
 {
-
+isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
 needToStop=true;// флаг для остановки второго потока
 successfullInit=false; // флаг успешной инициализации
 ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-DataStep =256*1024/16;  // кол-во отсчетов, кратное 32
-Counter = 0x0;        // количество полученных кадров.
-OldCounter = 0xFFFFFFFF;// с его помощью следим за кол-вом измеренных и выводим их в строку состояния.
+DataStep =256*64;  // кол-во отсчетов, кратное 32
+// оно явно должно зависеть от количества измеряемых каналов и частоты.
+Counter = 0;        // количество полученных кадров.
+
 ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
-AdcBuffer = new SHORT[2*DataStep];// понятия не имею зачем он нужен, надо разобраться.
+
 if(DriverInit()) // инициализиуем драйвер
 {
 if(SettingADCParams())// устанавливаем настройки
@@ -78,16 +79,13 @@ bool LCardADC::DriverInit()
     return false;
     }
 
-	// теперь отобразим скорость работы шины USB
-	//printf("   USB is in %s\n", UsbSpeed ? "High-Speed Mode (480 Mbit/s)" : "Full-Speed Mode (12 Mbit/s)");
-
 	// код LBIOS'а возьмём из соответствующего ресурса штатной DLL библиотеки
 	if(!pModule->LOAD_MODULE())
     {
     Error(" LOAD_MODULE() --> Bad\n");
     return false;
     }
-	//else printf(" LOAD_MODULE() --> OK\n");
+
 
 	// проверим загрузку модуля
  	if(!pModule->TEST_MODULE())
@@ -95,7 +93,6 @@ bool LCardADC::DriverInit()
     Error(" TEST_MODULE() --> Bad\n");
     return false;
     }
-	//else printf(" TEST_MODULE() --> OK\n");
 
 	// получим информацию из ППЗУ модуля
 	if(!pModule->GET_MODULE_DESCRIPTION(&ModuleDescription))
@@ -103,7 +100,6 @@ bool LCardADC::DriverInit()
     Error(" GET_MODULE_DESCRIPTION() --> Bad\n");
     return false;
     }
-	//else printf(" GET_MODULE_DESCRIPTION() --> OK\n");
 
 	// получим текущие параметры работы АЦП
 	if(!pModule->GET_ADC_PARS(&ap))
@@ -111,9 +107,8 @@ bool LCardADC::DriverInit()
     Error(" GET_ADC_PARS() --> Bad\n");
     return false;
     }
-    	//else printf(" GET_ADC_PARS() --> OK\n");
-    return true;
 
+    return true;
 }
 
 bool LCardADC::IsInitSuccessfull()
@@ -133,28 +128,27 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
     // установим желаемые параметры работы АЦП
 	ap.IsCorrectionEnabled = TRUE;			// разрешим корректировку данных на уровне драйвера DSP
 	ap.InputMode = NO_SYNC_E440;			// обычный сбор данных безо всякой синхронизации ввода
-	ap.ChannelsQuantity = channelsQuantity;	// четыре активных канала
+	ap.ChannelsQuantity = channelsQuantity;	// количество активных каналов
 	// формируем управляющую таблицу
 	for(int i = 0x0; i < ap.ChannelsQuantity; i++)
         {
         unsigned short temp=
-        ap.ControlTable[i] =
+        ap.ControlTable[i] =  // макс/мин +- 10Вольт, дифференциальный режим.
         (WORD)(i | (ADC_INPUT_RANGE_10000mV_E440 << 0x6));
         temp=temp;
         }
-	ap.AdcRate = frenquency;							// частота работы АЦП в кГц
+	ap.AdcRate = frenquency;					// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
 	ap.AdcFifoLength = MAX_ADC_FIFO_SIZE_E440;	// длина FIFO буфера АЦП в DSP модуля
 	// будем использовать фирменные калибровочные коэффициенты, которые храняться в ППЗУ модуля
 	for(int i = 0x0; i < ADC_CALIBR_COEFS_QUANTITY_E440; i++)
 	{
-
 		ap.AdcOffsetCoefs[i] =  ModuleDescription.Adc.OffsetCalibration[i];
-            double temp=ap.AdcOffsetCoefs[i];
+            //double temp=ap.AdcOffsetCoefs[i];
 		ap.AdcScaleCoefs[i] =  ModuleDescription.Adc.ScaleCalibration[i];
-        temp=ap.AdcScaleCoefs[i];
-        temp=temp;
+        //temp=ap.AdcScaleCoefs[i];
+        //temp=temp;
 	}
     ap.AdcScaleCoefs[0]=1.0073960381;
     ap.AdcOffsetCoefs[0]=0.5;
@@ -171,12 +165,12 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
 void LCardADC::StopMeasurement()
 {
     needToStop=true;
+    WaitForSingleObject(hReadThread, INFINITE);
     convertToVolt();
 }
 
 void LCardADC::StartMeasurement()
 {
-
     needToStop=false;
     // Создаём и запускаем поток сбора данных
     hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
@@ -187,7 +181,7 @@ void LCardADC::StartMeasurement()
     }
 
     // цикл записи получаемых данных и ожидания окончания работы приложения
-
+    /*
 	while(!IsReadThreadComplete)
 	{
 		if(OldCounter != Counter)
@@ -195,10 +189,10 @@ void LCardADC::StartMeasurement()
             OldCounter = Counter;
         }
 		else Sleep(20);
-	}
+	} */
 
 	// ждём окончания работы потока ввода данных
-	WaitForSingleObject(hReadThread, INFINITE);
+	//WaitForSingleObject(hReadThread, INFINITE);
 
 	// проверим была ли ошибка выполнения потока сбора данных
 }
@@ -211,7 +205,6 @@ std::string LCardADC::Error(std::string s)
 LCardADC::~LCardADC()
 {
     delete[] ReadBuffer;
-    delete[] AdcBuffer;
     // завершение работы.
     // подчищаем интерфейс модуля
 	if(pModule)
@@ -242,6 +235,8 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 
 unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
+    std::vector<long double> tempData;
+
 	WORD i;
 	WORD RequestNumber;
 	DWORD FileBytesWritten;
@@ -288,13 +283,8 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	if(pModule->START_ADC())
 	{
 		// цикл сбора данных
-		for(i = 0x1; i < NDataBlock; i++)
+        while(!needToStop) // пока мы не попросим
 		{
-            if(needToStop)
-            {
-                i=NDataBlock-1;
-                break;
-            }
 			// сделаем запрос на очередную порцию данных
 			RequestNumber ^= 0x1;
 			if(!pModule->ReadData(&IoReq[RequestNumber]))
@@ -317,8 +307,21 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 			// запишем полученную порцию данных в вектор
             for(int i=0;i<DataStep;++i)
             {
-                ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
+                tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
+            if(isMedianFilterEnabled)
+            {
+                ReadData.push_back(medianFilter(tempData));
+            }
+            else
+            {
+                for(int i=0;i<DataStep;++i)
+                {
+                    ReadData.push_back(tempData[i]);
+                }
+
+            }
+            tempData.clear();
             // надо выяснить в каком виде этот буфер хранит данные.
             // ну и как вставить весь буфер в вектор:)
             Sleep(20);
@@ -339,8 +342,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             // запишем полученную порцию данных в вектор
             for(int i=0;i<DataStep;++i)
             {
-                //double temp=IoReq[RequestNumber^0x1].Buffer[i];
-                ReadData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
+                tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
 			Counter++;
 		}

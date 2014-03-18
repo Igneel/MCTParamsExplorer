@@ -35,10 +35,9 @@ bool needToStop;
 
 void convertToVolt();
 
+bool isMedianFilterEnabled;
 
 
-// идентификатор файла
-HANDLE hFile;
 
 // идентификатор потока сбора данных
 HANDLE hReadThread;
@@ -61,21 +60,18 @@ ADC_PARS_E440 ap;
 
 // кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
 unsigned long DataStep;
-// будем собирать NDataBlock блоков по DataStep отсчётов в каждом
-const WORD NDataBlock;
+
 // буфер данных
 short *ReadBuffer;
 
-// буфер данных
-short *AdcBuffer;
 
 // флажок завершения работы потока сбора данных
 bool IsReadThreadComplete;
 // номер ошибки при выполнении сбора данных
 WORD ReadThreadErrorNumber;
 
-// экранный счетчик-индикатор
-DWORD Counter, OldCounter;
+// счетчик кадров
+int Counter;
 
 std::vector<MyDataType> ReadData;
 

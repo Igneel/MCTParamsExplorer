@@ -184,7 +184,6 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         StatusBar->Panels->Items[1]->Text="Проводится измерение";
         
         adc->StartMeasurement();
-        uiControlClick(this);
     }
     else
     {

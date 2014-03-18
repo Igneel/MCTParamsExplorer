@@ -36,7 +36,7 @@ void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor 
 private:
 DependenceType dependenceType;
 
-void extrapolateData();
+bool extrapolateData();
 // дискретизации, пропускания, затухания
 void filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
      MyDataType AttenuationFrequency,int filterLength);

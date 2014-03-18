@@ -398,3 +398,27 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 	return a;
 }
 //---------------------------------------------------------------------------
+
+void calculatePolinomByKoef(std::vector<long double> & inX, std::vector<long double> & koef, std::vector<long double> & outF )
+{
+	int NumberOfPoints=inX.size();
+	int NumberOfPolinomKoef=koef.size()-1;
+
+	outF.clear();
+
+	for(int i=0;i<NumberOfPoints;i++)
+	{
+		outF.push_back(0);
+		for (int koef_index = 0; koef_index <= NumberOfPolinomKoef; koef_index++)
+		{
+			long double powedB=0;
+			if(NumberOfPolinomKoef-koef_index==0)
+			powedB=1;
+			else
+			powedB=powl(inX[i],NumberOfPolinomKoef-koef_index);
+
+			outF[i]+=koef[koef_index]*powedB;
+		}
+	}
+
+}
