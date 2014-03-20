@@ -63,9 +63,9 @@ void __fastcall TForm1::FormCreate(TObject *)
 // Просматриваем все доступные драйверы и помещаем в список только те,
     // что поддерживают передачу данных по DMA
 
-        // загружаем драйвер
+    // загружаем драйвер
     adc=new LCardADC();
-    params=new MagneticFieldDependence();
+    
 
         //-------------------------------------------
     float       MaxFreq=400000;   //Максимальная частота
@@ -137,7 +137,26 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
     if (MeasurementsIsStarted)
     {
-        
+        if(params)
+        {
+        delete params;
+        }
+
+        DependenceType d;
+        if (PC->TabIndex==1) d=MAGNETORESISTANCE;
+        else if (PC->TabIndex==2) d=HALL_EFFECT;
+        else ShowMessage("Неподдерживаемый тип измерений! Вернитесь на вкладки Сопротивления или Эффекта Холла.");
+
+        params=new MagneticFieldDependence(d);
+
+        FilterParams fp=params->getFilterParams();
+        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
+        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
+        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
+        fp.filterLength=StrToInt(Lfilter1->Text);
+
+        params->setFilterParams(fp);
+
         uiIRQ->Enabled = false;
         uiDRQ->Enabled = false;
         uiBase->Enabled = false;
@@ -602,41 +621,6 @@ void __fastcall TForm1::bMultuplyBClick(TObject *Sender)
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
     Series3->Active=!Series3->Active;
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button12Click(TObject *Sender)
-{
-    // увеличение количества точек на графике в два раза
-    int length=SeriesRes1->XValues->Count();
-
-    double *x=new double [length];
-    double *y=new double [length];
-    double *x1=new double [2*length];
-    double *y1=new double [2*length];
-     
-    for(int i=0;i<length;i++)
-     {
-            x[i]=SeriesRes1->XValues->Value[i];
-            y[i]=SeriesRes1->YValues->Value[i];
-     }
-
-     for(int i=0,j=0;i<length;i++,j+=2)
-     {
-            x1[j]=x[i];
-            y1[j]=y[i];
-            if (i==length-1)
-            break;
-            x1[j+1]=(x[i]+x[i+1])/2;
-            y1[j+1]=(y[i]+y[i+1])/2;        
-     }
-     SeriesRes1->Clear();
-     for(int i=0;i<2*length;i++)
-     SeriesRes1->AddXY(x1[i],y1[i],"",clRed);
-
-    delete [] x;
-    delete [] y;
-    delete [] x1;
-    delete [] y1;
 }
 //---------------------------------------------------------------------------
 void fillspace(double *xm,double *ym, int l,int r)

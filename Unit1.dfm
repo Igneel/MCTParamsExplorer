@@ -675,23 +675,13 @@ object Form1: TForm1
         Enabled = False
         TabOrder = 16
       end
-      object Button12: TButton
-        Left = 504
-        Top = 368
-        Width = 121
-        Height = 25
-        Caption = #1059#1074#1077#1083' '#1082#1086#1083'-'#1074#1072' '#1090#1086#1095#1077#1082
-        Enabled = False
-        TabOrder = 17
-        OnClick = Button12Click
-      end
       object Button13: TButton
         Left = 256
         Top = 368
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
-        TabOrder = 18
+        TabOrder = 17
         OnClick = Button13Click
       end
     end

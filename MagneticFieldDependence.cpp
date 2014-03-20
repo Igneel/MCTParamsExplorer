@@ -1,9 +1,9 @@
 #include "MagneticFieldDependence.h"
 #include "Unit1.h"
 
-MagneticFieldDependence::MagneticFieldDependence()
+MagneticFieldDependence::MagneticFieldDependence(DependenceType d)
 {
-    dependenceType=HALL_EFFECT;
+    dependenceType=d;
     Current=0.001;
     h=0.001;
     NumberOfPoints=10;
@@ -168,7 +168,6 @@ std::vector<long double> koefUy(polinomPowForUy+1);
 
 std::vector<long double> newB;
 std::vector<long double> newDependence;
-//std::vector<long double> newUy;
 
 std::vector<long double> inB;
 std::vector<long double> inDependence;
@@ -317,4 +316,12 @@ std::vector<MyDataType> const &  MagneticFieldDependence::getData()
     return OriginalB;
 }
 
+bool MagneticFieldDependence::setFilterParams(FilterParams & fp)
+{
+filterParams=fp;
+}
 
+FilterParams MagneticFieldDependence::getFilterParams()
+{
+return filterParams;
+}

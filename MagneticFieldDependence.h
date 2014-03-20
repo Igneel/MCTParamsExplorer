@@ -9,14 +9,24 @@
 
 typedef long double MyDataType;
 
+enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
+
+struct FilterParams
+{
+MyDataType SamplingFrequecy;
+MyDataType BandwidthFrequency;
+MyDataType AttenuationFrequency;
+int filterLength;
+};
+
 class MagneticFieldDependence
 {
 public:
-enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
+
 enum FeatType {ODD_FEAT, EVEN_FEAT};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
-MagneticFieldDependence();
+MagneticFieldDependence(DependenceType d);
 MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step);
 
 ~MagneticFieldDependence();
@@ -33,8 +43,16 @@ bool saveData();
  void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
 void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor color);
 
+
+bool setFilterParams(FilterParams & fp);
+FilterParams getFilterParams();
+
 private:
 DependenceType dependenceType;
+
+FilterParams filterParams;
+
+
 
 bool extrapolateData();
 // дискретизации, пропускания, затухания

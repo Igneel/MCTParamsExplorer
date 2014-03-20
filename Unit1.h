@@ -174,7 +174,6 @@ __published:	// IDE-managed Components
         TButton *Button10;
         TEdit *Edit2;
         TButton *Button11;
-        TButton *Button12;
         TMenuItem *N9;
         TMenuItem *N10;
         TButton *Button13;
@@ -214,7 +213,6 @@ __published:	// IDE-managed Components
         void __fastcall ImpulsKillerClick(TObject *Sender);
         void __fastcall bMultuplyBClick(TObject *Sender);
         void __fastcall Button10Click(TObject *Sender);
-        void __fastcall Button12Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
         void __fastcall Button13Click(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
