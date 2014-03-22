@@ -287,17 +287,27 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor 
 		s->AddXY(OriginalB[i],OriginalDependence[i],"",color);
 	}
 }
-void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor color)
+void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)
 {
+    std::vector<MyDataType> * temp;
 	s->Clear();
-        NumberOfPoints=OriginalDependence.size();
+    switch(p)
+    {
+    case MAGNETIC_FIELD:
+    temp=&OriginalB;
+    break;
+    case DEPENDENCE:
+    temp=&OriginalDependence;
+    break;
+    }
+        NumberOfPoints=temp->size();
 	for (int i = 0; i < NumberOfPoints; i+=1)
 	{
-		s->AddY(OriginalDependence[i],"",color);
+		s->AddY((*temp)[i],"",color);
 	}
 }
 
-std::vector<MyDataType> const &  MagneticFieldDependence::getData()
+std::vector<MyDataType> const &  MagneticFieldDependence::getDataFromADC()
 {
     std::vector<MyDataType> tempData;
     tempData.resize(adc->getData().size());
@@ -314,6 +324,18 @@ std::vector<MyDataType> const &  MagneticFieldDependence::getData()
     //filterData(dependenceType,400000,50,100,50);
     //extrapolateData();
     return OriginalB;
+}
+
+void MagneticFieldDependence::getSplittedDataFromADC()
+{
+std::vector<std::vector<MyDataType> > tempData(adc->getSplittedData());
+if(tempData.size()>3) // если это не тестовые замерки
+{
+OriginalB=tempData[1]; // должно быть 2, но пока отладка
+OriginalDependence=tempData[0];
+
+}
+
 }
 
 bool MagneticFieldDependence::setFilterParams(FilterParams & fp)

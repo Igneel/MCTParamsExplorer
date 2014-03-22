@@ -10,6 +10,7 @@
 typedef long double MyDataType;
 
 enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
+enum PlotType {MAGNETIC_FIELD, DEPENDENCE};
 
 struct FilterParams
 {
@@ -35,13 +36,15 @@ MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType c
 //    построение графиков, сохранение результатов)
 
 // 
-std::vector<MyDataType> const &  getData();
+std::vector<MyDataType> const &  getDataFromADC();
+
+void getSplittedDataFromADC();
 
 bool saveData();
 
 
  void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
-void MagneticFieldDependence::constructPlotFromOneMassive(TLineSeries* s,TColor color);
+void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
 
 bool setFilterParams(FilterParams & fp);

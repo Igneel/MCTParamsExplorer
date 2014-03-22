@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+#include <Series.hpp>
 #include "include/lusbapi.h"
 #pragma link "Lib/lusbapi.lib"
 
@@ -24,20 +25,31 @@ void StartMeasurement();
 void StopMeasurement();
 
 std::vector<MyDataType> const & getData();
+std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
 void clearBuffer();
 bool IsInitSuccessfull();
 
+void setInteractiveSeries(TLineSeries *s);
+
 private:
 bool DriverInit();
+
+void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
+std::vector<std::vector<MyDataType> > &splittedData);
 
 bool successfullInit;
 bool needToStop;
 
 void convertToVolt();
 
+void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData);
+
 bool isMedianFilterEnabled;
 
 
+TLineSeries *interactiveSeries;
+
+std::vector<std::vector<MyDataType> > splittedData;
 
 // идентификатор потока сбора данных
 HANDLE hReadThread;

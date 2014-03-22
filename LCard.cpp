@@ -7,6 +7,7 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 LCardADC::LCardADC()
 {
+interactiveSeries=0;
 isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
 needToStop=true;// флаг дл€ остановки второго потока
 successfullInit=false; // флаг успешной инициализации
@@ -132,10 +133,10 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
 	// формируем управл€ющую таблицу
 	for(int i = 0x0; i < ap.ChannelsQuantity; i++)
         {
-        unsigned short temp=
+        //unsigned short temp=
         ap.ControlTable[i] =  // макс/мин +- 10¬ольт, дифференциальный режим.
         (WORD)(i | (ADC_INPUT_RANGE_10000mV_E440 << 0x6));
-        temp=temp;
+        //temp=temp;
         }
 	ap.AdcRate = frenquency;					// частота работы ј÷ѕ в к√ц
 	ap.InterKadrDelay = 0.0;					// межкадрова€ задержка в мс
@@ -179,22 +180,6 @@ void LCardADC::StartMeasurement()
     Error(" ServiceReadThread() --> Bad\n");
     return;
     }
-
-    // цикл записи получаемых данных и ожидани€ окончани€ работы приложени€
-    /*
-	while(!IsReadThreadComplete)
-	{
-		if(OldCounter != Counter)
-        {
-            OldCounter = Counter;
-        }
-		else Sleep(20);
-	} */
-
-	// ждЄм окончани€ работы потока ввода данных
-	//WaitForSingleObject(hReadThread, INFINITE);
-
-	// проверим была ли ошибка выполнени€ потока сбора данных
 }
 
 std::string LCardADC::Error(std::string s)
@@ -233,9 +218,32 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
     return 0;
 }
 
+void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
+{
+if(isMedianFilterEnabled)
+            {
+                splitToChannels(tempData,splittedData);
+                for(int i=0;i<ap.ChannelsQuantity;i++)
+                    ReadData.push_back(medianFilter(splittedData[i]));
+                if(interactiveSeries)
+                for(int i=ReadData.size()-ap.ChannelsQuantity;i<ReadData.size();i++)
+                interactiveSeries->AddY(ReadData.back(),"",clBlue);
+            }
+            else
+            {
+                for(int i=0;i<DataStep;++i)
+                {
+                    ReadData.push_back(tempData[i]);
+                }
+
+            }
+            tempData.clear();
+}
+
+
 unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
-    std::vector<long double> tempData;
+    std::vector<MyDataType> tempData;
 
 	WORD i;
 	WORD RequestNumber;
@@ -309,19 +317,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             {
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
-            if(isMedianFilterEnabled)
-            {
-                ReadData.push_back(medianFilter(tempData));
-            }
-            else
-            {
-                for(int i=0;i<DataStep;++i)
-                {
-                    ReadData.push_back(tempData[i]);
-                }
-
-            }
-            tempData.clear();
+            writeDataToVector(tempData);
             // надо вы€снить в каком виде этот буфер хранит данные.
             // ну и как вставить весь буфер в вектор:)
             Sleep(20);
@@ -344,6 +340,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             {
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
+            writeDataToVector(tempData);
 			Counter++;
 		}
 	}
@@ -363,6 +360,10 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	return 0x0;
 }
 
+std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
+{
+    return splittedData;
+}
 
 std::vector<MyDataType> const &  LCardADC::getData()
 {
@@ -382,6 +383,25 @@ void LCardADC::clearBuffer()
     ReadData.clear();
 
 }
+
+void LCardADC::setInteractiveSeries(TLineSeries *s)
+{
+interactiveSeries=s;
+}
+
+
+void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
+std::vector<std::vector<MyDataType> > &splittedData)
+{
+splittedData.resize(ap.ChannelsQuantity);
+for(int i=0;i<tempData.size();i+=ap.ChannelsQuantity)
+{
+    for(int channel=0;channel<ap.ChannelsQuantity;channel++,i<tempData.size(),i++)
+        splittedData[channel].push_back(tempData[i]);
+}
+
+}
+
 
 
 

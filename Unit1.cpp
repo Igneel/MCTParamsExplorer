@@ -194,6 +194,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
         GainKoefFoygt->Enabled=0;
         adc->clearBuffer();
+        adc->setInteractiveSeries(SeriesRes1);
         //adc->SettingADCParams(2,400);
         uiControl->Caption = AnsiString("Stop");
         uiResControl->Caption = AnsiString("Stop");
@@ -242,8 +243,11 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         GainKoefFoygt->Enabled=1;
 
         adc->StopMeasurement();
-        params->getData();
-        params->constructPlotFromOneMassive(SeriesRes1,clRed);
+        //params->getDataFromADC();
+        params->getSplittedDataFromADC();
+        params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
+        params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes2,clBlue);
+        
 
         long double temp=0;
         for(int i=0;i<SeriesRes1->YValues->Count();i++)
