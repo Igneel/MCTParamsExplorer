@@ -21,6 +21,20 @@ MagneticFieldDependence::~MagneticFieldDependence()
 
 }
 
+void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,string FileName)
+{
+switch(saveType)
+{
+    case ALL_POINTS:
+        break;
+    case SOME_POINTS:
+        break;
+    default:
+        break;
+}
+
+}
+
 
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
 {
@@ -154,10 +168,6 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 
 bool MagneticFieldDependence::extrapolateData()
 {
-
-// тоже надо перерабатывать.
-
-
 bool returnValue=true;
 
 const int polinomPowForUs=4;
@@ -278,13 +288,35 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
     out=s;
 }
 
-void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color)
+void MagneticFieldDependence::constructPlotFromTwoMassive(DataKind p,TLineSeries* s,TColor color)
 {
+    std::vector<MyDataType> * pointToX;
+    std::vector<MyDataType> * pointToY;
 	s->Clear();
-        NumberOfPoints=1000;
+    switch(p)
+    {
+    case CURRENT_DATA:
+    pointToX=&B;
+    pointToY=&Dependence;
+    break;
+    case FILTERED_DATA:
+    pointToX=&FilteredB;
+    pointToY=&FilteredDependence;
+    break;
+    case EXTRAPOLATED_DATA:
+    pointToX=&ExtrapolatedB;
+    pointToY=&ExtrapolatedDependence;
+    break;
+    case ORIGINAL_DATA:
+    pointToX=&OriginalB;
+    pointToY=&OriginalDependence;
+    break;
+    }
+
+    NumberOfPoints=pointToX->size();
 	for (int i = 0; i < NumberOfPoints; i++)
 	{
-		s->AddXY(OriginalB[i],OriginalDependence[i],"",color);
+		s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
 	}
 }
 void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)
@@ -307,6 +339,7 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
 	}
 }
 
+/*
 std::vector<MyDataType> const &  MagneticFieldDependence::getDataFromADC()
 {
     std::vector<MyDataType> tempData;
@@ -324,7 +357,7 @@ std::vector<MyDataType> const &  MagneticFieldDependence::getDataFromADC()
     //filterData(dependenceType,400000,50,100,50);
     //extrapolateData();
     return OriginalB;
-}
+}   */
 
 void MagneticFieldDependence::getSplittedDataFromADC()
 {

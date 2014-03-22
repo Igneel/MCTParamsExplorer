@@ -7,7 +7,7 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 LCardADC::LCardADC()
 {
-interactiveSeries=0;
+interactiveSeries=0;  // указатель на график
 isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
 needToStop=true;// флаг для остановки второго потока
 successfullInit=false; // флаг успешной инициализации
@@ -151,6 +151,9 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
         //temp=ap.AdcScaleCoefs[i];
         //temp=temp;
 	}
+    // наши калибровочные коэффициенты.
+    // на всякий случай - их нужно будет проверить ещё раз, возможно их придется уточнить.
+    // т.к. они определялись без медианной фильтрации.
     ap.AdcScaleCoefs[0]=1.0073960381;
     ap.AdcOffsetCoefs[0]=0.5;
 
@@ -218,26 +221,34 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
     return 0;
 }
 
+// сохранение данных из буфера
+// применяет медианный фильтр
 void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
 {
+ReadData.resize(ap.ChannelsQuantity);
+splitToChannels(tempData,splittedData);
+
 if(isMedianFilterEnabled)
             {
-                splitToChannels(tempData,splittedData);
+
                 for(int i=0;i<ap.ChannelsQuantity;i++)
-                    ReadData.push_back(medianFilter(splittedData[i]));
+                    ReadData[i].push_back(medianFilter(splittedData[i]));
                 if(interactiveSeries)
-                for(int i=ReadData.size()-ap.ChannelsQuantity;i<ReadData.size();i++)
-                interactiveSeries->AddY(ReadData.back(),"",clBlue);
+                for(int i=0; i<ap.ChannelsQuantity;i++)
+                    interactiveSeries->AddY(ReadData[i].back(),"",clBlue);
             }
             else
             {
-                for(int i=0;i<DataStep;++i)
+                for(int i=0;i<ap.ChannelsQuantity;i++)
                 {
-                    ReadData.push_back(tempData[i]);
+                for(int j=0;j<splittedData[i].size();++j)
+                {
+                    ReadData[i].push_back(splittedData[i][j]);
                 }
-
+                }
             }
             tempData.clear();
+            splittedData.clear();
 }
 
 
@@ -362,26 +373,26 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 
 std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
 {
-    return splittedData;
-}
-
-std::vector<MyDataType> const &  LCardADC::getData()
-{
     return ReadData;
 }
+
+/*std::vector<MyDataType> const &  LCardADC::getData()
+{
+    return ReadData;
+}*/
 
 void LCardADC::convertToVolt()
 {
     // это работает только если пределы +- 10Вольт.
     std::vector<MyDataType>::iterator pos;
-    for(pos=ReadData.begin();pos!=ReadData.end();++pos)
+    for(int i=0;i<ap.ChannelsQuantity;++i)
+    for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)
     *pos/=800.0;
 }
 
 void LCardADC::clearBuffer()
 {
     ReadData.clear();
-
 }
 
 void LCardADC::setInteractiveSeries(TLineSeries *s)

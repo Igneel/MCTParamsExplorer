@@ -18,43 +18,47 @@ LCardADC();
 
 std::string Error(std::string);
 unsigned long __stdcall ServiceReadThreadReal();
+
 bool SettingADCParams();
 bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
 
 void StartMeasurement();
 void StopMeasurement();
 
-std::vector<MyDataType> const & getData();
+//std::vector<MyDataType> const & getData();
 std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
+
+
 void clearBuffer();
 bool IsInitSuccessfull();
 
 void setInteractiveSeries(TLineSeries *s);
 
 private:
+bool successfullInit;
 bool DriverInit();
+
+
+TLineSeries *interactiveSeries;
+
+bool isMedianFilterEnabled;
 
 void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
 std::vector<std::vector<MyDataType> > &splittedData);
-
-bool successfullInit;
-bool needToStop;
 
 void convertToVolt();
 
 void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData);
 
-bool isMedianFilterEnabled;
-
-
-TLineSeries *interactiveSeries;
-
-std::vector<std::vector<MyDataType> > splittedData;
-
 // идентификатор потока сбора данных
 HANDLE hReadThread;
 unsigned long ReadTid;
-
+// флажок завершения работы потока сбора данных
+bool IsReadThreadComplete;
+// номер ошибки при выполнении сбора данных
+WORD ReadThreadErrorNumber;
+bool needToStop;
+//-------------------------Параметры работы АЦП---------------------------------
 // версия библиотеки
 unsigned long DllVersion;
 // указатель на интерфейс модуля
@@ -69,24 +73,21 @@ unsigned char UsbSpeed;
 MODULE_DESCRIPTION_E440 ModuleDescription;
 // структура параметров работы АЦП модуля
 ADC_PARS_E440 ap;
+//------------------------Конец параметров АЦП----------------------------------
+
+//------------------------Контейнеры для измерений и их размеры-----------------
 
 // кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
 unsigned long DataStep;
 
 // буфер данных
 short *ReadBuffer;
-
-
-// флажок завершения работы потока сбора данных
-bool IsReadThreadComplete;
-// номер ошибки при выполнении сбора данных
-WORD ReadThreadErrorNumber;
-
+//std::vector<MyDataType> ReadData;
+std::vector<std::vector<MyDataType> > ReadData;
+std::vector<std::vector<MyDataType> > splittedData;
 // счетчик кадров
 int Counter;
-
-std::vector<MyDataType> ReadData;
-
+//------------------------------------------------------------------------------
 
 };
 

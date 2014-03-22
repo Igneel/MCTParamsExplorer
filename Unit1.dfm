@@ -591,7 +591,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 7
-        Text = '20'
+        Text = '50'
         OnKeyPress = Edit1KeyPress
       end
       object Fd1: TEdit
@@ -600,7 +600,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 8
-        Text = '5000'
+        Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
       object Fp1: TEdit
@@ -1393,8 +1393,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 457
-    Width = 692
+    Top = 453
+    Width = 684
     Height = 19
     Panels = <
       item

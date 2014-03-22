@@ -11,6 +11,7 @@ typedef long double MyDataType;
 
 enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
 enum PlotType {MAGNETIC_FIELD, DEPENDENCE};
+enum SaveType {ALL_POINTS,SOME_POINTS};
 
 struct FilterParams
 {
@@ -28,23 +29,25 @@ enum FeatType {ODD_FEAT, EVEN_FEAT};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
 MagneticFieldDependence(DependenceType d);
-MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step);
+MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step);
 
 ~MagneticFieldDependence();
 
 //(получение, фильтраци€, экстрапол€ци€, увеличение/уменьшение, вырезка и т.п.,
 //    построение графиков, сохранение результатов)
 
-// 
-std::vector<MyDataType> const &  getDataFromADC();
+ 
+//std::vector<MyDataType> const &  getDataFromADC();
+
+void SaveData(DataKind dataKind,SaveType saveType,string FileName);
 
 void getSplittedDataFromADC();
 
 bool saveData();
 
 
- void MagneticFieldDependence::constructPlotFromTwoMassive(TLineSeries* s,TColor color);
-void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
+ void constructPlotFromTwoMassive(DataKind p,TLineSeries* s,TColor color);
+void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
 
 bool setFilterParams(FilterParams & fp);
@@ -67,6 +70,7 @@ void plotData();
 
 inline void ReplaceDotsToComma(std::string &in, std::string & out);
 inline void ReplaceCommaToDots(std::string &in, std::string & out);
+
 bool loadData();
 void featData(DataKind dataKind, long index, FeatType featType);
 void averagingData(); // усреднение зависимостей.
