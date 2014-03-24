@@ -13,81 +13,82 @@ typedef long double MyDataType;
 class LCardADC
 {
 public:
-LCardADC();
-~LCardADC();
+	LCardADC();
+	~LCardADC();
 
-std::string Error(std::string);
-unsigned long __stdcall ServiceReadThreadReal();
+	std::string Error(std::string);
+	unsigned long __stdcall ServiceReadThreadReal();
 
-bool SettingADCParams();
-bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
+	bool SettingADCParams();
+	bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
 
-void StartMeasurement();
-void StopMeasurement();
+	void StartMeasurement();
+	void StopMeasurement();
 
-//std::vector<MyDataType> const & getData();
-std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
+	//std::vector<MyDataType> const & getData();
+	std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
 
+    void testSetReadBuffer();
 
-void clearBuffer();
-bool IsInitSuccessfull();
+	void clearBuffer();
+	bool IsInitSuccessfull();
 
-void setInteractiveSeries(TLineSeries *s);
+	void setInteractiveSeries(TLineSeries *s);
 
 private:
-bool successfullInit;
-bool DriverInit();
+	bool successfullInit;
+	bool DriverInit();
 
 
-TLineSeries *interactiveSeries;
+	TLineSeries *interactiveSeries;
 
-bool isMedianFilterEnabled;
+	bool isMedianFilterEnabled;
 
-void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
-std::vector<std::vector<MyDataType> > &splittedData);
+	void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
+	std::vector<std::vector<MyDataType> > &splittedData);
 
-void convertToVolt();
+	void convertToVolt();
 
-void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData);
+	void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData);
 
-// идентификатор потока сбора данных
-HANDLE hReadThread;
-unsigned long ReadTid;
-// флажок завершения работы потока сбора данных
-bool IsReadThreadComplete;
-// номер ошибки при выполнении сбора данных
-WORD ReadThreadErrorNumber;
-bool needToStop;
-//-------------------------Параметры работы АЦП---------------------------------
-// версия библиотеки
-unsigned long DllVersion;
-// указатель на интерфейс модуля
-ILE440 *pModule;
-// дескриптор устройства
-HANDLE ModuleHandle;
-// название модуля
-char ModuleName[7];
-// скорость работы шины USB
-unsigned char UsbSpeed;
-// структура с полной информацией о модуле
-MODULE_DESCRIPTION_E440 ModuleDescription;
-// структура параметров работы АЦП модуля
-ADC_PARS_E440 ap;
-//------------------------Конец параметров АЦП----------------------------------
+	// идентификатор потока сбора данных
+	HANDLE hReadThread;
+	unsigned long ReadTid;
+	// флажок завершения работы потока сбора данных
+	bool IsReadThreadComplete;
+	// номер ошибки при выполнении сбора данных
+	WORD ReadThreadErrorNumber;
+	bool needToStop;
+	//-------------------------Параметры работы АЦП---------------------------------
+	// версия библиотеки
+	unsigned long DllVersion;
+	// указатель на интерфейс модуля
+	ILE440 *pModule;
+	// дескриптор устройства
+	HANDLE ModuleHandle;
+	// название модуля
+	char ModuleName[7];
+	// скорость работы шины USB
+	unsigned char UsbSpeed;
+	// структура с полной информацией о модуле
+	MODULE_DESCRIPTION_E440 ModuleDescription;
+	// структура параметров работы АЦП модуля
+	ADC_PARS_E440 ap;
+	//------------------------Конец параметров АЦП----------------------------------
 
-//------------------------Контейнеры для измерений и их размеры-----------------
+	//------------------------Контейнеры для измерений и их размеры-----------------
 
-// кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
-unsigned long DataStep;
+	// кол-во получаемых отсчетов (кратное 32) для Ф. ReadData()
+	unsigned long DataStep;
 
-// буфер данных
-short *ReadBuffer;
-//std::vector<MyDataType> ReadData;
-std::vector<std::vector<MyDataType> > ReadData;
-std::vector<std::vector<MyDataType> > splittedData;
-// счетчик кадров
-int Counter;
-//------------------------------------------------------------------------------
+	// буфер данных
+	short *ReadBuffer;
+	//std::vector<MyDataType> ReadData;
+	std::vector<std::vector<MyDataType> > ReadData;
+	std::vector<std::vector<MyDataType> > splittedData;
+	// счетчик кадров
+	int Counter;
+	//------------------------------------------------------------------------------
 
 };
 

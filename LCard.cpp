@@ -176,6 +176,7 @@ void LCardADC::StopMeasurement()
 void LCardADC::StartMeasurement()
 {
     needToStop=false;
+    ReadData.resize(ap.ChannelsQuantity);
     // Создаём и запускаем поток сбора данных
     hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
 	if(!hReadThread)
@@ -225,7 +226,7 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 // применяет медианный фильтр
 void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
 {
-ReadData.resize(ap.ChannelsQuantity);
+
 splitToChannels(tempData,splittedData);
 
 if(isMedianFilterEnabled)
@@ -239,9 +240,9 @@ if(isMedianFilterEnabled)
             }
             else
             {
-                for(int i=0;i<ap.ChannelsQuantity;i++)
+                for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
                 {
-                for(int j=0;j<splittedData[i].size();++j)
+                for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
                     ReadData[i].push_back(splittedData[i][j]);
                 }
@@ -324,7 +325,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
                 break;
 
 			// запишем полученную порцию данных в вектор
-            for(int i=0;i<DataStep;++i)
+            for(unsigned int i=0;i<DataStep;++i)
             {
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
@@ -347,7 +348,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
                 ReadThreadErrorNumber = 0x3;
 
             // запишем полученную порцию данных в вектор
-            for(int i=0;i<DataStep;++i)
+            for(unsigned int i=0;i<DataStep;++i)
             {
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
@@ -383,6 +384,8 @@ std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
 
 void LCardADC::convertToVolt()
 {
+    if(ReadData.size()==0)
+        return;
     // это работает только если пределы +- 10Вольт.
     std::vector<MyDataType>::iterator pos;
     for(int i=0;i<ap.ChannelsQuantity;++i)
@@ -405,12 +408,45 @@ void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
 std::vector<std::vector<MyDataType> > &splittedData)
 {
 splittedData.resize(ap.ChannelsQuantity);
-for(int i=0;i<tempData.size();i+=ap.ChannelsQuantity)
+for(unsigned int i=0;i<tempData.size();)
 {
     for(int channel=0;channel<ap.ChannelsQuantity;channel++,i<tempData.size(),i++)
         splittedData[channel].push_back(tempData[i]);
 }
 
+}
+
+void LCardADC::testSetReadBuffer()
+{
+int mk=400;
+short * B=new short [mk];
+
+B[0]=0;
+for(int i=1;i<mk;++i)
+    {
+    B[i]=B[i-1]+1600.0/mk;
+    }
+
+ap.ChannelsQuantity=2;
+ReadData.resize(ap.ChannelsQuantity);
+    std::vector<MyDataType> tempData;
+    int tsize=50;
+    short *tempBuffer=new short[tsize];
+    for(int nK=0;nK<mk;++nK)
+    {
+    for(int i=1;i<tsize;i+=ap.ChannelsQuantity)
+    tempBuffer[i]=B[nK];
+    for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
+    tempBuffer[i]=B[nK]+1000;
+    // запишем полученную порцию данных в вектор
+            for(unsigned int i=0;i<tsize;++i)
+            {
+                tempData.push_back(tempBuffer[i]);
+            }
+            writeDataToVector(tempData);
+    }
+    delete[] tempBuffer;
+    delete[] B;
 }
 
 

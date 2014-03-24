@@ -15,7 +15,7 @@ int lengthFilter,double Fdisk, double Fpropysk,double Fzatyh);
 long double TrForMassiveFilter(std::vector<long double> & inB,
 std::vector<long double> & inY,std::vector<long double> & outB,
 std::vector<long double> & outY,
-int lengthFilter,double Fdisk, double Fpropysk,double Fzatyh);
+int lengthFilter,long double Fdisk,long double Fpropysk,long double Fzatyh);
 
 long double medianFilter(std::vector <long double> & in);
 

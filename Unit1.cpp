@@ -202,7 +202,6 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         uiFaradeyControl->Caption = AnsiString("Stop");
         uiFoygtControl->Caption = AnsiString("Stop");
         StatusBar->Panels->Items[1]->Text="Проводится измерение";
-        
         adc->StartMeasurement();
     }
     else
@@ -245,8 +244,9 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         adc->StopMeasurement();
         //params->getDataFromADC();
         params->getSplittedDataFromADC();
-        params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
-        params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes2,clBlue);
+
+        params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
+        
         
 
         long double temp=0;
@@ -335,10 +335,19 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
+    FilterParams fp=params->getFilterParams();
+        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
+        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
+        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
+        fp.filterLength=StrToInt(Lfilter1->Text);
 
-    Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
+        //params->setFilterParams(fp);
+
+    params->filterData(fp);
+
+    /*Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
     Lfilter1->Text.ToInt(),Fd1->Text.ToInt(),
-    Fp1->Text.ToInt(),Fz1->Text.ToInt());
+    Fp1->Text.ToInt(),Fz1->Text.ToInt());*/
 
 }
 //---------------------------------------------------------------------------
@@ -640,11 +649,11 @@ void fillspace(double *xm,double *ym, int l,int r)
     ym[(l+r)/2]=(ym[l]+ym[r])/2;
     fillspace(xm,ym,l,(l+r)/2);
     fillspace(xm,ym,(l+r)/2,r);
-    }
-    //---------------------------------------------------------------------------
-    // убирает точки соответствующие всплескам
-    void KillImpulps(TLineSeries * a,double x, double y)
-    {
+}
+//---------------------------------------------------------------------------
+// убирает точки соответствующие всплескам
+void KillImpulps(TLineSeries * a,double x, double y)
+{
 
     int length=a->XValues->Count();
     if(length==0)
@@ -687,8 +696,8 @@ void fillspace(double *xm,double *ym, int l,int r)
             dx=k;
     }
     int i2=i;
-    int left=i1;
-    int right=i2;
+    //int left=i1;
+    //int right=i2;
 
     fillspace(xm,ym,i1,i2);
 
@@ -771,6 +780,47 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
 if(adc)
 delete adc;
 delete params;    
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::bTestClick(TObject *Sender)
+{
+
+ DependenceType d;
+        d=MAGNETORESISTANCE;
+        //else if (PC->TabIndex==2) d=HALL_EFFECT;
+
+if(params)
+delete params;
+params=new MagneticFieldDependence(d);
+
+        FilterParams fp=params->getFilterParams();
+        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
+        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
+        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
+        fp.filterLength=StrToInt(Lfilter1->Text);
+
+        params->setFilterParams(fp);
+ adc->clearBuffer();
+        adc->setInteractiveSeries(Series1);
+adc->testSetReadBuffer();
+
+adc->StopMeasurement();
+
+        params->getSplittedDataFromADC();
+        SeriesRes1->Clear();
+        //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clBlue);
+        params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
+        params->constructPlotFromTwoMassive(FILTERED_DATA,SeriesRes1,clRed);
+        params->constructPlotFromTwoMassive(EXTRAPOLATED_DATA,out1,clBlack);
+
+        std::vector<MyDataType> temp(params->getExtrapolatedDependence());
+        for(int i=0;i<temp.size();i++)
+        Memo1->Lines->Add(FloatToStr(temp[i]));
+
+        Memo1->Lines->Add(temp.size());
+        Memo1->Lines->Add(IntToStr((int)temp[0]));
+        //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
 }
 //---------------------------------------------------------------------------
 

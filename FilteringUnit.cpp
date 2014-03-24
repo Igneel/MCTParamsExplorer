@@ -212,7 +212,6 @@ std::vector<long double> & outY,int lengthFilter,long double Fdisk,
 long double Fpropysk,long double Fzatyh)
 {
     int lengthMassive=inY.size();
-
     std::vector<long double> in(inY);
     std::vector<long double> out(lengthMassive);
 

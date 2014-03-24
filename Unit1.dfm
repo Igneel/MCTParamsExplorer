@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 202
-  Top = 128
+  Left = 207
+  Top = 122
   Width = 700
   Height = 530
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -25,9 +25,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = Resistance
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -392,6 +392,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
         TabOrder = 19
+        OnClick = bTestClick
       end
       object Button10: TButton
         Left = 312
@@ -531,7 +532,7 @@ object Form1: TForm1
         end
       end
       object uiResControl: TButton
-        Left = 448
+        Left = 416
         Top = 200
         Width = 75
         Height = 25
@@ -549,7 +550,7 @@ object Form1: TForm1
         OnKeyPress = Edit1KeyPress
       end
       object uiResFeat: TButton
-        Left = 448
+        Left = 416
         Top = 232
         Width = 75
         Height = 25
@@ -577,11 +578,11 @@ object Form1: TForm1
         TabOrder = 5
       end
       object bFilterRes: TButton
-        Left = 528
+        Left = 496
         Top = 232
-        Width = 75
+        Width = 145
         Height = 25
-        Caption = #1060#1080#1083#1100#1090#1088
+        Caption = #1060#1080#1083#1100#1090#1088' '#1080' '#1069#1082#1089#1090#1088#1072#1087#1086#1083#1103#1094#1080#1103
         TabOrder = 6
         OnClick = bFilterResClick
       end

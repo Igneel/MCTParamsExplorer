@@ -261,36 +261,21 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 	int a=powPolinom+1;
 	// выражение f(x)=x^2*p1+x*p2+p3
 
-	std::vector<std::vector<long double> > fullMatrix;
-	std::vector<std::vector<long double> > K;
-	std::vector<std::vector<long double> > K5;
-	std::vector<long double> Ks;
-    std::vector<std::vector<std::vector<long double> > > delta;
-	std::vector<long double> p;
+	std::vector<std::vector<long double> > fullMatrix(lenght);
+	std::vector<std::vector<long double> > K(a+1,a+1);
+	std::vector<std::vector<long double> > K5(a,a);
+	std::vector<long double> Ks(a);
+    std::vector<std::vector<std::vector<long double> > > delta(a,a);
+	std::vector<long double> p(a);
 
-	fullMatrix.resize(lenght);
-	K.resize(a+1);
-
-	for(int i=0;i<=a;i++)
-		K[i].resize(a+1);
-
-	K5.resize(a);
-
-	for(int i=0;i<a;i++)
-		K5[i].resize(a);
-
-	Ks.resize(a);
-
-	delta.resize(a);
 	for(int i=0;i<a;i++)
 	{
-		delta[i].resize(a);
+
 		for (int j=0; j < a; j++) {
             delta[i][j].resize(a);
 		}
 	}
 
-    p.resize(a);
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
@@ -317,14 +302,11 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 			temp1=((a-j-1)==0?1:pow((*inX)[i],a-j-1));
 		}
 			fullMatrix[i].push_back(((a-j-1)==0?1:pow((*inX)[i],a-j-1)));
-			//fullMatrix[i][j]=((a-j-1)==0?1:pow((*inX)[i],a-j-1));
-
 		}
 		// последний столбец формируется здесь из значений игрек.
 		if(DEBUG)
 		temp2= (*inY)[i];
 		fullMatrix[i].push_back((*inY)[i]);
-		//fullMatrix[i][a]=(*inY)[i];
 	}
 
 	for (int i = 0; i <= a; i++) {

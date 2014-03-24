@@ -7,6 +7,7 @@ MagneticFieldDependence::MagneticFieldDependence(DependenceType d)
     Current=0.001;
     h=0.001;
     NumberOfPoints=10;
+    filterParams=new FilterParams();
 }
 
 MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step)
@@ -16,12 +17,13 @@ MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType c
     h=step;
     NumberOfPoints=10;
 }
+
 MagneticFieldDependence::~MagneticFieldDependence()
 {
-
+    delete filterParams;
 }
 
-void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,string FileName)
+void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,std::string FileName)
 {
 switch(saveType)
 {
@@ -97,9 +99,15 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 
 }
 
-void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataType SamplingFrequecy, MyDataType BandwidthFrequency,
-     MyDataType AttenuationFrequency,int lengthFilter)
+void MagneticFieldDependence::filterData(FilterParams &fP)
 {
+    MyDataType SamplingFrequecy=fP.SamplingFrequecy;
+    MyDataType BandwidthFrequency=fP.BandwidthFrequency;
+    MyDataType AttenuationFrequency=fP.AttenuationFrequency;
+    int lengthFilter=fP.filterLength;
+
+    NumberOfPoints=Dependence.size();
+
     std::vector<long double> tempInB(2*NumberOfPoints);
     std::vector<long double> tempInSignal(2*NumberOfPoints);
 
@@ -138,10 +146,13 @@ void MagneticFieldDependence::filterData(DependenceType dependenceType,MyDataTyp
 
 
     // нагло записываем положительную часть фильтрованного сигнала обратно.
-	for(int i=0;i<NumberOfPoints;i++)
+    //FilteredB.resize(NumberOfPoints);
+    //FilteredDependence.resize(NumberOfPoints);
+
+	for(unsigned int i=0;i<NumberOfPoints;i++)
 	{
-        FilteredB[i]=tempOutB[i+NumberOfPoints-1];
-		FilteredDependence[i]=tempOutSignal[i+NumberOfPoints-1];
+        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
+		FilteredDependence.push_back(tempOutSignal[i+NumberOfPoints-1]);
     }
     /*
     switch(dependenceType)
@@ -179,11 +190,11 @@ std::vector<long double> koefUy(polinomPowForUy+1);
 std::vector<long double> newB;
 std::vector<long double> newDependence;
 
-std::vector<long double> inB;
-std::vector<long double> inDependence;
+std::vector<long double> inB(FilteredB);
+std::vector<long double> inDependence(FilteredDependence);
 
-
-int i=0;
+h=2.0/NumberOfPoints;
+unsigned int i=0;
         if(dependenceType==HALL_EFFECT)
 			for(int i=0;i<500;i++)
 			{
@@ -198,7 +209,7 @@ int i=0;
 
 			newB.clear();
 			newB.push_back(0);
-			for (int i = 1; i < NumberOfPoints; i++) {
+			for (unsigned int i = 1; i < NumberOfPoints; i++) {
 				newB.push_back(newB[i-1]+h);
 			}
         if(dependenceType==MAGNETORESISTANCE)
@@ -213,22 +224,22 @@ int i=0;
 			//----------А вот тут прикручиваем недостающий кусочек в сигналы----
 
 			while(FilteredB[i++]<=0 && i<NumberOfPoints);
-			i-=2; // ищем где поле становится положительным.
+			i-=1; // ищем где поле становится положительным.
 
-            for(int j=i;j<NumberOfPoints;j++)
+            for(unsigned int j=i;j<NumberOfPoints;j++)
 			{      // перемещаем эти значения в начало.
 				FilteredB[j-i]=FilteredB[j];
 				FilteredDependence[j-i]=FilteredDependence[j];
 				//Uy[j-i]=Uy[j];
 			}
 
-			for(int j=NumberOfPoints-i;j<NumberOfPoints;j++)
+		   /*	for(unsigned int j=NumberOfPoints-i;j<NumberOfPoints;j++)
 			{     // в конце дописываем экстраполированные значения.
 				FilteredB[j]=newB[j];
 				Dependence[j]=newDependence[j];
 			}
 			//------------------------------------------------------------------
-
+           */
 return returnValue;   
 }
 
@@ -244,16 +255,16 @@ std::vector<MyDataType> * temp;
 switch (dataKind)
     {
     case CURRENT_DATA:
-    *temp=B;
+    temp=&B;
     break;
     case FILTERED_DATA:
-    *temp=FilteredB;
+    temp=&FilteredB;
     break;
     case EXTRAPOLATED_DATA:
-    *temp=ExtrapolatedB;
+    temp=&ExtrapolatedB;
     break;
     case ORIGINAL_DATA:
-    *temp=OriginalB;
+    temp=&OriginalB;
     break;
     default:
     return;
@@ -290,34 +301,42 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
 
 void MagneticFieldDependence::constructPlotFromTwoMassive(DataKind p,TLineSeries* s,TColor color)
 {
-    std::vector<MyDataType> * pointToX;
-    std::vector<MyDataType> * pointToY;
+    std::vector<MyDataType> * pointToX=0;
+    std::vector<MyDataType> * pointToY=0;
 	s->Clear();
     switch(p)
     {
     case CURRENT_DATA:
-    pointToX=&B;
-    pointToY=&Dependence;
-    break;
+        pointToX=&B;
+        pointToY=&Dependence;
+        break;
     case FILTERED_DATA:
-    pointToX=&FilteredB;
-    pointToY=&FilteredDependence;
-    break;
+        pointToX=&FilteredB;
+        pointToY=&FilteredDependence;
+        break;
     case EXTRAPOLATED_DATA:
-    pointToX=&ExtrapolatedB;
-    pointToY=&ExtrapolatedDependence;
-    break;
+        pointToX=&ExtrapolatedB;
+        pointToY=&ExtrapolatedDependence;
+        break;
     case ORIGINAL_DATA:
-    pointToX=&OriginalB;
-    pointToY=&OriginalDependence;
-    break;
+        pointToX=&OriginalB;
+        pointToY=&OriginalDependence;
+        break;
+    default:
+        break;
     }
 
     NumberOfPoints=pointToX->size();
-	for (int i = 0; i < NumberOfPoints; i++)
-	{
-		s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
-	}
+    if(NumberOfPoints==0)
+    {
+    ShowMessage("График пуст, строить нечего.");
+    return;
+    }
+    std::vector<MyDataType>::iterator posX;
+    std::vector<MyDataType>::iterator posY;
+    for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
+    	s->AddXY(*posX,*posY,"",color);
+	
 }
 void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)
 {
@@ -326,17 +345,19 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
     switch(p)
     {
     case MAGNETIC_FIELD:
-    temp=&OriginalB;
-    break;
+        temp=&B;
+        break;
     case DEPENDENCE:
-    temp=&OriginalDependence;
-    break;
+        temp=&Dependence;
+        break;
+    default:
+        break;
     }
         NumberOfPoints=temp->size();
-	for (int i = 0; i < NumberOfPoints; i+=1)
+	for (unsigned int i = 0; i < NumberOfPoints; i++)
 	{
 		s->AddY((*temp)[i],"",color);
-	}
+	} 
 }
 
 /*
@@ -361,22 +382,66 @@ std::vector<MyDataType> const &  MagneticFieldDependence::getDataFromADC()
 
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
-std::vector<std::vector<MyDataType> > tempData(adc->getSplittedData());
-if(tempData.size()>3) // если это не тестовые замерки
-{
-OriginalB=tempData[1]; // должно быть 2, но пока отладка
-OriginalDependence=tempData[0];
+    std::vector<std::vector<MyDataType> > tempData(adc->getSplittedData());
 
-}
+    //if(tempData.size()>3) // если это не тестовые замерки
+    {
+        OriginalB=tempData[1]; // должно быть 2, но пока отладка
+        OriginalDependence=tempData[0];
 
+        B=OriginalB;
+        Dependence=OriginalDependence;
+        multiplyB(CURRENT_DATA);
+        filterData(*filterParams);
+        extrapolateData();
+    }
 }
 
 bool MagneticFieldDependence::setFilterParams(FilterParams & fp)
 {
-filterParams=fp;
+    filterParams->SamplingFrequecy=fp.SamplingFrequecy;
+    filterParams->BandwidthFrequency=fp.BandwidthFrequency;
+    filterParams->AttenuationFrequency=fp.AttenuationFrequency;
+    filterParams->filterLength=fp.filterLength;
+    return true;
 }
 
-FilterParams MagneticFieldDependence::getFilterParams()
+FilterParams & MagneticFieldDependence::getFilterParams()
 {
-return filterParams;
+    return *filterParams;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getB()
+{
+    return B;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getDependence()
+{
+    return Dependence;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getOriginalB()
+{
+    return OriginalB;
+}
+std::vector<MyDataType> const & MagneticFieldDependence::getOriginalDependence()
+{
+    return OriginalDependence;
+}
+std::vector<MyDataType> const & MagneticFieldDependence::getFilteredB()
+{
+    return FilteredB;
+}
+std::vector<MyDataType> const & MagneticFieldDependence::getFilteredDependence()
+{
+    return FilteredDependence;
+}
+std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedB()
+{
+    return ExtrapolatedB;
+}
+std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedDependence()
+{
+    return ExtrapolatedDependence;
 }
