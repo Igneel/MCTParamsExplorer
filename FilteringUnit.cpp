@@ -1,11 +1,5 @@
 //---------------------------------------------------------------------------
-
-
-#pragma hdrstop
-
 #include "FilteringUnit.h"
-
-#pragma package(smart_init)
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -144,14 +138,14 @@ long double TrForMassiveFilter(long double *inB,long double *inY,long double* ou
 int lengthMassive,int lengthFilter,double Fdisk, double Fpropysk,double Fzatyh)
 {
 
-double *in=new double[lengthMassive];  // выделяем память
-for(int i=0;i<lengthMassive;i++)       // копируем
-{
-	in[i]=inY[i];
-}
-double *out=new double[lengthMassive]; // выделяем память для выходных значений
-double k=Filter(in,out,lengthMassive,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
- k*=(inB[lengthMassive-1]-inB[0])/(double)lengthMassive;// вычисляем сдвиг фаз
+    double *in=new double[lengthMassive];  // выделяем память
+    for(int i=0;i<lengthMassive;i++)       // копируем
+    {
+    	in[i]=inY[i];
+    }
+    double *out=new double[lengthMassive]; // выделяем память для выходных значений
+    double k=Filter(in,out,lengthMassive,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
+     k*=(inB[lengthMassive-1]-inB[0])/(double)lengthMassive;// вычисляем сдвиг фаз
  // если что тут максимум и минимум надо бы вычислять.
 
 //----------------------------------------------
@@ -173,35 +167,35 @@ for(int i=0;i<lengthMassive;i++) // выводим
 	outY[i]=out[i];
 }
 
-delete[] in;  // прибираемся
-delete[] out;
-return k;
+    delete[] in;  // прибираемся
+    delete[] out;
+    return k;
 }
 
 template <class T>
 inline T max_elem(const std::vector<T> & in)
 {
-std::vector<T>::const_iterator pos;
-T max=*in.begin();
-for(pos=in.begin();pos!=in.end();++pos)
-{
-    if(*pos>max)
-    max=*pos;
-}
-return max;
+    std::vector<T>::const_iterator pos;
+    T max=*in.begin();
+    for(pos=in.begin();pos!=in.end();++pos)
+    {
+        if(*pos>max)
+        max=*pos;
+    }
+    return max;
 }
 
 template <class T>
 inline T min_elem(const std::vector<T> & in)
 {
-std::vector<T>::const_iterator pos;
-T min=*in.begin();
-for(pos=in.begin();pos!=in.end();++pos)
-{
-    if(*pos<min)
-    min=*pos;
-}
-return min;
+    std::vector<T>::const_iterator pos;
+    T min=*in.begin();
+    for(pos=in.begin();pos!=in.end();++pos)
+    {
+        if(*pos<min)
+        min=*pos;
+    }
+    return min;
 }
 
 
@@ -250,7 +244,7 @@ k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;
 long double medianFilter(std::vector <long double> & in)
 {
     std::sort(in.begin(),in.end());
-    return in[in.size()/2.0];
+    return in[in.size()/2];
 }
 
 

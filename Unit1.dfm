@@ -25,46 +25,25 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
-      object Label1: TLabel
-        Left = 400
-        Top = 8
-        Width = 48
-        Height = 13
-        Caption = #1044#1088#1072#1081#1074#1077#1088':'
-      end
       object Label2: TLabel
-        Left = 472
+        Left = 408
         Top = 16
-        Width = 45
+        Width = 72
         Height = 13
-        Caption = #1063#1072#1089#1090#1086#1090#1072':'
-      end
-      object Label3: TLabel
-        Left = 400
-        Top = 88
-        Width = 27
-        Height = 13
-        Caption = 'DMA:'
+        Caption = #1063#1072#1089#1090#1086#1090#1072' ('#1082#1043#1094'):'
       end
       object Label4: TLabel
-        Left = 472
-        Top = 96
+        Left = 488
+        Top = 16
         Width = 75
         Height = 13
         Caption = #1056#1072#1079#1084#1077#1088' '#1073#1083#1086#1082#1072':'
-      end
-      object Label5: TLabel
-        Left = 400
-        Top = 128
-        Width = 19
-        Height = 13
-        Caption = 'IRQ'
       end
       object Label6: TLabel
         Left = 400
@@ -81,13 +60,6 @@ object Form1: TForm1
         Width = 39
         Height = 13
         Caption = #1042#1090#1086#1088#1086#1081':'
-      end
-      object Label8: TLabel
-        Left = 400
-        Top = 48
-        Width = 34
-        Height = 13
-        Caption = #1040#1076#1088#1077#1089':'
       end
       object Chart1: TChart
         Left = 0
@@ -166,25 +138,6 @@ object Form1: TForm1
           YValues.Multiplier = 1
           YValues.Order = loNone
         end
-        object Series5: TLineSeries
-          Marks.ArrowLength = 8
-          Marks.Visible = False
-          SeriesColor = clBlack
-          LinePen.Width = 3
-          Pointer.HorizSize = 5
-          Pointer.InflateMargins = True
-          Pointer.Style = psCircle
-          Pointer.VertSize = 5
-          Pointer.Visible = False
-          XValues.DateTime = False
-          XValues.Name = 'X'
-          XValues.Multiplier = 1
-          XValues.Order = loAscending
-          YValues.DateTime = False
-          YValues.Name = 'Y'
-          YValues.Multiplier = 1
-          YValues.Order = loNone
-        end
       end
       object Memo1: TMemo
         Left = 424
@@ -196,32 +149,12 @@ object Form1: TForm1
       end
       object uiControl: TButton
         Left = 472
-        Top = 176
+        Top = 208
         Width = 75
         Height = 25
         Caption = 'Start'
         TabOrder = 2
         OnClick = uiControlClick
-      end
-      object uiDriverName: TComboBox
-        Left = 400
-        Top = 24
-        Width = 65
-        Height = 21
-        ItemHeight = 13
-        TabOrder = 3
-        Text = 'LAVP'
-        OnChange = uiDriverNameChange
-      end
-      object uiDRQ: TComboBox
-        Left = 400
-        Top = 104
-        Width = 49
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        TabOrder = 4
-        OnChange = uiDRQChange
       end
       object Chan1: TComboBox
         Left = 400
@@ -230,7 +163,7 @@ object Form1: TForm1
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
-        TabOrder = 5
+        TabOrder = 3
         Items.Strings = (
           '0'
           '1'
@@ -247,7 +180,7 @@ object Form1: TForm1
         Height = 21
         Style = csDropDownList
         ItemHeight = 13
-        TabOrder = 6
+        TabOrder = 4
         Items.Strings = (
           '1'
           '2'
@@ -257,84 +190,23 @@ object Form1: TForm1
           '6'
           '7')
       end
-      object uiBase: TComboBox
-        Left = 400
-        Top = 64
-        Width = 65
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        TabOrder = 7
-        OnChange = uiBaseChange
-      end
-      object Button1: TButton
-        Left = 472
-        Top = 208
-        Width = 75
-        Height = 25
-        Caption = #1052#1072#1090#1088#1080#1094#1099
-        TabOrder = 8
-        OnClick = Button1Click
-      end
-      object uiFreq: TTrackBar
-        Left = 472
-        Top = 32
-        Width = 73
-        Height = 25
-        Orientation = trHorizontal
-        Frequency = 1
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
-        TabOrder = 9
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
-        OnChange = uiFreqChange
-      end
-      object uiBlockSize: TTrackBar
-        Left = 472
-        Top = 112
-        Width = 73
-        Height = 25
-        Orientation = trHorizontal
-        Frequency = 1
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
-        TabOrder = 10
-        TickMarks = tmBottomRight
-        TickStyle = tsAuto
-        OnChange = uiBlockSizeChange
-      end
       object uiBlockSize2: TEdit
-        Left = 472
-        Top = 144
+        Left = 488
+        Top = 32
         Width = 65
         Height = 21
-        TabOrder = 11
+        TabOrder = 5
         Text = '1024'
-        OnChange = uiBlockSize2Change
         OnKeyPress = Edit1KeyPress
       end
       object uiFrenq: TEdit
-        Left = 472
-        Top = 64
+        Left = 408
+        Top = 32
         Width = 65
         Height = 21
-        TabOrder = 12
-        Text = '200000'
-        OnChange = uiFrenqChange
+        TabOrder = 6
+        Text = '400'
         OnKeyPress = Edit1KeyPress
-      end
-      object uiIRQ: TComboBox
-        Left = 400
-        Top = 144
-        Width = 49
-        Height = 21
-        Style = csDropDownList
-        ItemHeight = 13
-        TabOrder = 13
-        OnChange = uiIRQChange
       end
       object bClear: TButton
         Left = 472
@@ -342,40 +214,8 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Clear'
-        TabOrder = 14
+        TabOrder = 7
         OnClick = bClearClick
-      end
-      object Button2: TButton
-        Left = 560
-        Top = 176
-        Width = 75
-        Height = 25
-        Caption = #1087#1060#1091#1088#1100#1077
-        Enabled = False
-        TabOrder = 15
-        OnClick = Button2Click
-      end
-      object Edit1: TEdit
-        Left = 288
-        Top = 328
-        Width = 121
-        Height = 21
-        TabOrder = 16
-        Text = '19'
-        OnChange = Edit1Change
-        OnKeyPress = Edit1KeyPress
-      end
-      object UpDown1: TUpDown
-        Left = 409
-        Top = 328
-        Width = 16
-        Height = 21
-        Associate = Edit1
-        Min = 0
-        Max = 32767
-        Position = 19
-        TabOrder = 17
-        Wrap = False
       end
       object Memo6: TMemo
         Left = 0
@@ -383,7 +223,7 @@ object Form1: TForm1
         Width = 289
         Height = 73
         ScrollBars = ssVertical
-        TabOrder = 18
+        TabOrder = 8
       end
       object bTest: TButton
         Left = 560
@@ -391,7 +231,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
-        TabOrder = 19
+        TabOrder = 9
         OnClick = bTestClick
       end
       object Button10: TButton
@@ -400,16 +240,8 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Button10'
-        TabOrder = 20
+        TabOrder = 10
         OnClick = Button10Click
-      end
-      object Edit2: TEdit
-        Left = 560
-        Top = 136
-        Width = 81
-        Height = 21
-        TabOrder = 21
-        Text = '2'
       end
     end
     object Resistance: TTabSheet
@@ -418,9 +250,9 @@ object Form1: TForm1
       object Label9: TLabel
         Left = 384
         Top = 8
-        Width = 95
+        Width = 116
         Height = 13
-        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082'('#1084#1040'):'
       end
       object Label15: TLabel
         Left = 440
@@ -555,6 +387,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1055#1086#1076#1075#1086#1085#1082#1072
+        Enabled = False
         TabOrder = 3
         OnClick = uiResFeatClick
       end
@@ -655,6 +488,7 @@ object Form1: TForm1
         Width = 105
         Height = 25
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
+        Enabled = False
         TabOrder = 14
         OnClick = ImpulsKillerClick
       end
@@ -664,6 +498,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1093'10'
+        Enabled = False
         TabOrder = 15
         OnClick = bMultuplyBClick
       end

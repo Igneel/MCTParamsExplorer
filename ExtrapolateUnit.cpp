@@ -11,7 +11,9 @@
 //---------------------------------------------------------------------------
 // Модуль экстраполяции.
 // Вычисление определителя.
-long double determinant (long double ** Arr,int size);
+
+
+
 // Функция вычисляет подгоночные коэффициенты.
 // Для поперечного сигнала.
 // Напрямую не вызывать, пользоваться extrapolate.
@@ -22,28 +24,28 @@ long double determinant (long double ** Arr,int size);
 
 long double determinant (long double ** Arr,int size)
 {
-int i,j;
-long double det=0;
-long double** matr;
-switch (size) {
-case 1: return Arr[0][0];
-case 2: return Arr[0][0]*Arr[1][1]-Arr[0][1]*Arr[1][0];
-default:
-  matr=new long double*[size-1];
-				for(i=0;i<size;++i)
-				{
-						for(j=0;j<size-1;++j)
-						{
-								if(j<i)
-										matr[j]=Arr[j];
-								else
-										matr[j]=Arr[j+1];
-						}
-						det+=pow((long double)-1, (i+j))*determinant(matr, size-1)*Arr[i][size-1];
-				}
-				delete[] matr;
-  return det;
-}
+	int i,j;
+	long double det=0;
+	long double** matr;
+	switch (size) {
+	case 1: return Arr[0][0];
+	case 2: return Arr[0][0]*Arr[1][1]-Arr[0][1]*Arr[1][0];
+	default:
+	  matr=new long double*[size-1];
+					for(i=0;i<size;++i)
+					{
+							for(j=0;j<size-1;++j)
+							{
+									if(j<i)
+											matr[j]=Arr[j];
+									else
+											matr[j]=Arr[j+1];
+							}
+							det+=pow((long double)-1, (i+j))*determinant(matr, size-1)*Arr[i][size-1];
+					}
+					delete[] matr;
+	return det;
+	}
 }
 
 
@@ -225,27 +227,27 @@ int curveFittingUniversal(long double * inX, long double *inY, const int length,
 
 long double determinant (std::vector<std::vector<long double> > & Arr,int size)
 {
-int i,j;
-long double det=0;
-std::vector<std::vector<long double> > matr;
-switch (size) {
-case 1: return Arr[0][0];
-case 2: return Arr[0][0]*Arr[1][1]-Arr[0][1]*Arr[1][0];
-default:
-	matr.resize(size-1);
-				for(i=0;i<size;++i)
-				{
-						for(j=0;j<size-1;++j)
-						{
-								if(j<i)
-										matr[j]=Arr[j];
-								else
-										matr[j]=Arr[j+1];
-						}
-						det+=pow((long double)-1, (i+j))*determinant(matr, size-1)*Arr[i][size-1];
-				}
-  return det;
-}
+	int i,j;
+	long double det=0;
+	std::vector<std::vector<long double> > matr;
+	switch (size) {
+	case 1: return Arr[0][0];
+	case 2: return Arr[0][0]*Arr[1][1]-Arr[0][1]*Arr[1][0];
+	default:
+		matr.resize(size-1);
+					for(i=0;i<size;++i)
+					{
+							for(j=0;j<size-1;++j)
+							{
+									if(j<i)
+											matr[j]=Arr[j];
+									else
+											matr[j]=Arr[j+1];
+							}
+							det+=pow((long double)-1, (i+j))*determinant(matr, size-1)*Arr[i][size-1];
+					}
+	  return det;
+	}
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------

@@ -5,14 +5,15 @@
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 
-LCardADC::LCardADC()
+LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
 {
+isMeasurementRunning=false;
 interactiveSeries=0;  // указатель на график
 isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
 needToStop=true;// флаг для остановки второго потока
-successfullInit=false; // флаг успешной инициализации
+successfullInit=true; // флаг успешной инициализации
 ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-DataStep =256*64;  // кол-во отсчетов, кратное 32
+DataStep =256*256; // 256*64  // кол-во отсчетов, кратное 32
 // оно явно должно зависеть от количества измеряемых каналов и частоты.
 Counter = 0;        // количество полученных кадров.
 
@@ -20,7 +21,7 @@ ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
 if(DriverInit()) // инициализиуем драйвер
 {
-if(SettingADCParams())// устанавливаем настройки
+if(SettingADCParams(channelsQuantity, frenquency))// устанавливаем настройки
 {
 successfullInit=true; // всё прошло успешно.
 }
@@ -33,14 +34,14 @@ bool LCardADC::DriverInit()
     if((DllVersion = GetDllVersion()) != CURRENT_VERSION_LUSBAPI)
 	{
     // надо пугаться и бежать обновлять драйвера.
-    return false;
+        return false;
     }
 
     // попробуем получить указатель на интерфейс
 	pModule = static_cast<ILE440 *>(CreateLInstance("e440"));
 	if(!pModule)
     {
-    return false;
+        return false;
     }
     int i;
     // попробуем обнаружить модуль E14-440 в первых MAX_VIRTUAL_SLOTS_QUANTITY_LUSBAPI виртуальных слотах
@@ -48,7 +49,7 @@ bool LCardADC::DriverInit()
 	// что-нибудь обнаружили?
 	if(i == MAX_VIRTUAL_SLOTS_QUANTITY_LUSBAPI)
     {
-    return false;
+        return false;
     // проверить подключен ли АЦП
     }
 
@@ -56,57 +57,57 @@ bool LCardADC::DriverInit()
 	ModuleHandle = pModule->GetModuleHandle();
 	if(ModuleHandle == INVALID_HANDLE_VALUE)
     {
-    return false;
+        return false;
     // может АЦП занят кем-то другим?
     }
 
     // прочитаем название модуля в обнаруженном виртуальном слоте
 	if(!pModule->GetModuleName(ModuleName))
     {
-    return false;
+        return false;
     }
 
     // проверим, что это 'E14-440'
 	if(strcmp(ModuleName, "E440"))
     {
-    return false;
+        return false;
     // главное чтобы это был нужный АЦП:)
     }
 
     // попробуем получить скорость работы шины USB
 	if(!pModule->GetUsbSpeed(&UsbSpeed))
     {
-    Error(" GetUsbSpeed() --> Bad\n");
-    return false;
+        Error(" GetUsbSpeed() --> Bad\n");
+        return false;
     }
 
 	// код LBIOS'а возьмём из соответствующего ресурса штатной DLL библиотеки
 	if(!pModule->LOAD_MODULE())
     {
-    Error(" LOAD_MODULE() --> Bad\n");
-    return false;
+        Error(" LOAD_MODULE() --> Bad\n");
+        return false;
     }
 
 
 	// проверим загрузку модуля
  	if(!pModule->TEST_MODULE())
     {
-    Error(" TEST_MODULE() --> Bad\n");
-    return false;
+        Error(" TEST_MODULE() --> Bad\n");
+        return false;
     }
 
 	// получим информацию из ППЗУ модуля
 	if(!pModule->GET_MODULE_DESCRIPTION(&ModuleDescription))
     {
-    Error(" GET_MODULE_DESCRIPTION() --> Bad\n");
-    return false;
+        Error(" GET_MODULE_DESCRIPTION() --> Bad\n");
+        return false;
     }
 
 	// получим текущие параметры работы АЦП
 	if(!pModule->GET_ADC_PARS(&ap))
     {
-    Error(" GET_ADC_PARS() --> Bad\n");
-    return false;
+        Error(" GET_ADC_PARS() --> Bad\n");
+        return false;
     }
 
     return true;
@@ -115,13 +116,6 @@ bool LCardADC::DriverInit()
 bool LCardADC::IsInitSuccessfull()
 {
     return successfullInit;
-}
-
-// настройки по умолчанию.
-// 400 кГЦ, без межкадровой задержки, 4 канала, фирменные калибровочные коэффициенты.
-bool LCardADC::SettingADCParams()
-{
-    return SettingADCParams(4, 400.0);
 }
 
 bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquency)
@@ -170,6 +164,7 @@ void LCardADC::StopMeasurement()
 {
     needToStop=true;
     WaitForSingleObject(hReadThread, INFINITE);
+    isMeasurementRunning=false;
     convertToVolt();
 }
 
@@ -184,6 +179,7 @@ void LCardADC::StartMeasurement()
     Error(" ServiceReadThread() --> Bad\n");
     return;
     }
+    isMeasurementRunning=true;
 }
 
 std::string LCardADC::Error(std::string s)
@@ -227,29 +223,29 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
 {
 
-splitToChannels(tempData,splittedData);
+    splitToChannels(tempData,splittedData);
 
-if(isMedianFilterEnabled)
-            {
+    if(isMedianFilterEnabled)
+    {
 
-                for(int i=0;i<ap.ChannelsQuantity;i++)
-                    ReadData[i].push_back(medianFilter(splittedData[i]));
-                if(interactiveSeries)
-                for(int i=0; i<ap.ChannelsQuantity;i++)
-                    interactiveSeries->AddY(ReadData[i].back(),"",clBlue);
-            }
-            else
-            {
-                for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
-                {
-                for(unsigned int j=0;j<splittedData[i].size();++j)
-                {
-                    ReadData[i].push_back(splittedData[i][j]);
-                }
-                }
-            }
-            tempData.clear();
-            splittedData.clear();
+        for(int i=0;i<ap.ChannelsQuantity;i++)
+            ReadData[i].push_back(medianFilter(splittedData[i]));
+        if(interactiveSeries)
+        for(int i=0; i<ap.ChannelsQuantity;i++)
+            interactiveSeries->AddY(ReadData[i].back(),"",clBlue);
+    }
+    else
+    {
+        for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+        {
+        for(unsigned int j=0;j<splittedData[i].size();++j)
+        {
+            ReadData[i].push_back(splittedData[i][j]);
+        }
+        }
+    }
+    tempData.clear();
+    splittedData.clear();
 }
 
 
@@ -377,11 +373,6 @@ std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
     return ReadData;
 }
 
-/*std::vector<MyDataType> const &  LCardADC::getData()
-{
-    return ReadData;
-}*/
-
 void LCardADC::convertToVolt()
 {
     if(ReadData.size()==0)
@@ -400,37 +391,36 @@ void LCardADC::clearBuffer()
 
 void LCardADC::setInteractiveSeries(TLineSeries *s)
 {
-interactiveSeries=s;
+    interactiveSeries=s;
 }
 
 
 void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
 std::vector<std::vector<MyDataType> > &splittedData)
 {
-splittedData.resize(ap.ChannelsQuantity);
-for(unsigned int i=0;i<tempData.size();)
-{
-    for(int channel=0;channel<ap.ChannelsQuantity;channel++,i<tempData.size(),i++)
-        splittedData[channel].push_back(tempData[i]);
-}
-
+    splittedData.resize(ap.ChannelsQuantity);
+    for(unsigned int i=0;i<tempData.size();)
+    {
+        for(int channel=0;channel<ap.ChannelsQuantity && i<tempData.size();channel++,i++)
+            splittedData[channel].push_back(tempData[i]);
+    }
 }
 
 void LCardADC::testSetReadBuffer()
 {
-int mk=400;
-short * B=new short [mk];
+    int mk=400;
+    short * B=new short [mk];
 
-B[0]=0;
-for(int i=1;i<mk;++i)
+    B[0]=0;
+    for(int i=1;i<mk;++i)
     {
-    B[i]=B[i-1]+1600.0/mk;
+        B[i]=B[i-1]+1600.0/mk;
     }
 
-ap.ChannelsQuantity=2;
-ReadData.resize(ap.ChannelsQuantity);
+    ap.ChannelsQuantity=2;
+    ReadData.resize(ap.ChannelsQuantity);
     std::vector<MyDataType> tempData;
-    int tsize=50;
+    unsigned int tsize=50;
     short *tempBuffer=new short[tsize];
     for(int nK=0;nK<mk;++nK)
     {
@@ -439,17 +429,20 @@ ReadData.resize(ap.ChannelsQuantity);
     for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK]+1000;
     // запишем полученную порцию данных в вектор
-            for(unsigned int i=0;i<tsize;++i)
-            {
-                tempData.push_back(tempBuffer[i]);
-            }
-            writeDataToVector(tempData);
+    for(unsigned int i=0;i<tsize;++i)
+    {
+        tempData.push_back(tempBuffer[i]);
+    }
+    writeDataToVector(tempData);
     }
     delete[] tempBuffer;
     delete[] B;
 }
 
-
+bool LCardADC::IsMeasurementRunning()
+{
+    return isMeasurementRunning;    
+}
 
 
 

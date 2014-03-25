@@ -33,29 +33,18 @@ __published:	// IDE-managed Components
     TMenuItem *N3;
     TPageControl *PC;
     TTabSheet *FirstTab;
-    TLabel *Label1;
     TLabel *Label2;
-    TLabel *Label3;
     TLabel *Label4;
-    TLabel *Label5;
     TLabel *Label6;
     TLabel *Label7;
-    TLabel *Label8;
     TChart *Chart1;
     TLineSeries *Series2;
     TMemo *Memo1;
     TButton *uiControl;
-    TComboBox *uiDriverName;
-    TComboBox *uiDRQ;
     TComboBox *Chan1;
     TComboBox *Chan2;
-    TComboBox *uiBase;
-    TButton *Button1;
-    TTrackBar *uiFreq;
-    TTrackBar *uiBlockSize;
     TEdit *uiBlockSize2;
     TEdit *uiFrenq;
-    TComboBox *uiIRQ;
     TTabSheet *Resistance;
     TChart *ChartResist;
     TButton *uiResControl;
@@ -108,10 +97,8 @@ __published:	// IDE-managed Components
     TLineSeries *SeriesFFTFaradey;
     TButton *bFilterRes;
     TLineSeries *SeriesFFTRes;
-    TButton *Button2;
     TLineSeries *Series1;
     TLineSeries *Series4;
-    TEdit *Edit1;
         TEdit *Lfilter1;
     TButton *uiFFTHall;
     TButton *uiFFTFaradey;
@@ -123,8 +110,6 @@ __published:	// IDE-managed Components
         TLineSeries *Series3;
         TSaveDialog *SaveDialog1;
         TOpenDialog *OpenDialog1;
-    TLineSeries *Series5;
-    TUpDown *UpDown1;
     TMemo *Memo6;
         TLineSeries *out1;
         TLineSeries *out2;
@@ -172,22 +157,13 @@ __published:	// IDE-managed Components
         TMenuItem *N8;
         TMenuItem *N101;
         TButton *Button10;
-        TEdit *Edit2;
         TButton *Button11;
         TMenuItem *N9;
         TMenuItem *N10;
         TButton *Button13;
     void __fastcall FormCreate(TObject *Sender);
-    void __fastcall uiDriverNameChange(TObject *Sender);
-    void __fastcall uiBaseChange(TObject *Sender);
-    void __fastcall uiDRQChange(TObject *Sender);
-    void __fastcall uiIRQChange(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
-    void __fastcall uiFrenqChange(TObject *Sender);
-    void __fastcall uiBlockSize2Change(TObject *Sender);
-    void __fastcall uiBlockSizeChange(TObject *Sender);
-    void __fastcall uiFreqChange(TObject *Sender);
     void __fastcall uiResFeatClick(TObject *Sender);
         void __fastcall bClearClick(TObject *Sender);
     void __fastcall uiHallFeatClick(TObject *Sender);
@@ -197,14 +173,11 @@ __published:	// IDE-managed Components
     void __fastcall uiFFTHallClick(TObject *Sender);
     void __fastcall uiFFTFaradeyClick(TObject *Sender);
     void __fastcall uiFFTFoygtClick(TObject *Sender);
-    void __fastcall Button2Click(TObject *Sender);
     void __fastcall N5Click(TObject *Sender);
         void __fastcall N4Click(TObject *Sender);
-    void __fastcall Edit1Change(TObject *Sender);
 
     TLineSeries * __fastcall GetCurrentSeries2(int curve);
     TLineSeries * __fastcall GetSelectedSeries(int curve);
-        void __fastcall Button1Click(TObject *Sender);
         void __fastcall bClearPlotsResClick(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);
         void __fastcall Button7Click(TObject *Sender);
@@ -229,9 +202,6 @@ extern PACKAGE TForm1 *Form1;
 
 
 extern int AllSeries[26];   
-extern int NumberOfChannels ;           // количество сканируемых каналов
-extern int BlockSize;                   // размер блока
-extern double h;                        // шаг по магнитному полю.
 
 extern LCardADC *adc;
 
@@ -241,9 +211,6 @@ void  MidCurve(TLineSeries* a, TLineSeries* b, long index);
 void  FoygtFeat(TLineSeries* a,TLineSeries* b, long index);
 
 void KillImpulps(TLineSeries * a,double Left, double Right);
-
-
-
 
 //---------------------------------------------------------------------------
 #endif

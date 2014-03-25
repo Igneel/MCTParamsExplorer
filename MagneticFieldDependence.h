@@ -28,18 +28,22 @@ public:
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 
+    MagneticFieldDependence();
+	MagneticFieldDependence::MagneticFieldDependence(MyDataType current);
+
     std::vector<MyDataType> const & getB();
-    std::vector<MyDataType> const & getDependence();
+    std::vector<MyDataType> const & getHallEffect();
+    std::vector<MyDataType> const & getMagnetoResistance();
     std::vector<MyDataType> const & getOriginalB();
-    std::vector<MyDataType> const & getOriginalDependence();
+    std::vector<MyDataType> const & getOriginalHallEffect();
+    std::vector<MyDataType> const & getOriginalMagnetoResistance();
     std::vector<MyDataType> const & getFilteredB();
-    std::vector<MyDataType> const & getFilteredDependence();
+    std::vector<MyDataType> const & getFilteredHallEffect();
+    std::vector<MyDataType> const & getFilteredMagnetoResistance();
     std::vector<MyDataType> const & getExtrapolatedB();
-    std::vector<MyDataType> const & getExtrapolatedDependence();
-
-	MagneticFieldDependence(DependenceType d);
-	MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step);
-
+    std::vector<MyDataType> const & getExtrapolatedHallEffect();
+    std::vector<MyDataType> const & getExtrapolatedMagnetoResistance();
+    
 	~MagneticFieldDependence();
 
 	//(получение, фильтраци€, экстрапол€ци€, увеличение/уменьшение, вырезка и т.п.,
@@ -81,24 +85,32 @@ private:
 	inline void ReplaceDotsToComma(std::string &in, std::string & out);
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);
 
+    void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
+    DependenceType dependenceType);
+
 	bool loadData();
 	void featData(DataKind dataKind, long index, FeatType featType);
-	void averagingData(); // усреднение зависимостей.
+	void averagingData(); // усреднение зависимостей. не реализована
 
 	MyDataType Current; // ток на образце, в амперах.
 	// “екущие магнитное поле и эффект ’олла/магнитосопротивление,
 	// после вс€ческих преобразований (вырезка, увеличение и т.п.).
 	std::vector<MyDataType> B;
-	std::vector<MyDataType> Dependence;
+	std::vector<MyDataType> HallEffect;
+    std::vector<MyDataType> MagnetoResistance;
 	// ѕервоначальные значени€, полученные от ј÷ѕ.
 	std::vector<MyDataType> OriginalB;
-	std::vector<MyDataType> OriginalDependence;
+    std::vector<MyDataType> OriginalHallEffect;
+    std::vector<MyDataType> OriginalMagnetoResistance;
 	// ‘ильтрованные значени€.
 	std::vector<MyDataType> FilteredB;
-	std::vector<MyDataType> FilteredDependence;
+    std::vector<MyDataType> FilteredHallEffect;
+    std::vector<MyDataType> FilteredMagnetoResistance;
+
 	// Ёкстраполированные значени€.
 	std::vector<MyDataType> ExtrapolatedB;
-	std::vector<MyDataType> ExtrapolatedDependence;
+    std::vector<MyDataType> ExtrapolatedHallEffect;
+    std::vector<MyDataType> ExtrapolatedMagnetoResistance;
 
 	MyDataType h; // шаг по магнитному полю, если он вообще понадобитс€:)
 

@@ -32,8 +32,8 @@ TODO
 4. Настройка измерений
 5. Экстраполяция         +
 
-Избавиться от глобальных переменных.
-Попытаться соорудить классы: драйвера и измерений.
+Избавиться от глобальных переменных. + Ачивка получена.
+Попытаться соорудить классы: драйвера и измерений. +
 
 Нормально назвать все кнопки и прочее.
 
@@ -42,13 +42,9 @@ TODO
 // Внимание, понадобится добавить что-нибудь,
 // не забудь внести это в заголовочный файл:)
 
-int NumberOfChannels =3;
-int BlockSize=1024;
-int Frequency=400000;
-double h=0.001;//0.02;
+
 LCardADC *adc;
 MagneticFieldDependence *params;
-bool MeasurementsIsStarted=false;
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -64,28 +60,15 @@ void __fastcall TForm1::FormCreate(TObject *)
     // что поддерживают передачу данных по DMA
 
     // загружаем драйвер
-    adc=new LCardADC();
-    
+    adc=new LCardADC(3,400);
 
-        //-------------------------------------------
-    float       MaxFreq=400000;   //Максимальная частота
+    float       MaxFreq=400;   //Максимальная частота
     // Допустимые частоты квантования и размеры блоков
     //Узнаем максимальную частоту
-    //Устанавливаем слайдеры
-    uiFreq->TickStyle = tsNone;
-    uiBlockSize->TickStyle = tsNone;
-    uiBlockSize->Max = 65536;
-    uiBlockSize->Min = 1024;
-    uiBlockSize->Position=1024;
+    //Устанавливаем слайдеры 
+
     uiBlockSize2->Text=1024;
 
-    uiFreq->Max = MaxFreq;
-    uiFreq->Min = 20000;
-    uiFreq->LineSize = (MaxFreq - 20000)/20;
-    uiFreq->Position = 200000;
-    //----Задаём максимальные значения для графика:---------------------------
-    Chart1->LeftAxis->Maximum=10;
-    Chart1->LeftAxis->Minimum=-10;
     //------------------------------------------------------------------------
     Chan1->ItemIndex=0;
     Chan2->ItemIndex=0;
@@ -96,35 +79,10 @@ void __fastcall TForm1::FormCreate(TObject *)
 
     // Тут заполняем необходимые данные интерфейса
 
-    // это прямая отсекающая высокие частоты
-    Series5->AddXY(0,-10,"",clBlack);
-    Series5->AddXY(0,1000,"",clBlack);
-
     GainKoefFoygt->ItemIndex=0;
 }
 //---------------------------------------------------------------------------
 
-// при смене имени драйвера - загружается выбранный драйвер
-void __fastcall TForm1::uiDriverNameChange(TObject *Sender)
-{
-;
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::uiBaseChange(TObject *Sender)
-{
-    //ADCBase = BaseList[uiBase->ItemIndex];
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::uiDRQChange(TObject *Sender)
-{
-    //ADCDRQ = DRQList[uiDRQ->ItemIndex];
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::uiIRQChange(TObject *Sender)
-{
-    //ADCIRQ = IRQList[uiIRQ->ItemIndex];
-}
-//---------------------------------------------------------------------------
 void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 {
     Form1->Close();
@@ -133,21 +91,19 @@ void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 //---------------------------------------
 void __fastcall TForm1::uiControlClick(TObject *Sender)
 {
-MeasurementsIsStarted = !MeasurementsIsStarted;
-
-    if (MeasurementsIsStarted)
+    if (!adc->IsMeasurementRunning())
     {
         if(params)
         {
         delete params;
         }
-
+        
         DependenceType d;
         if (PC->TabIndex==1) d=MAGNETORESISTANCE;
         else if (PC->TabIndex==2) d=HALL_EFFECT;
         else ShowMessage("Неподдерживаемый тип измерений! Вернитесь на вкладки Сопротивления или Эффекта Холла.");
 
-        params=new MagneticFieldDependence(d);
+        params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
 
         FilterParams fp=params->getFilterParams();
         fp.SamplingFrequecy=StrToFloat(Fd1->Text);
@@ -157,13 +113,8 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
         params->setFilterParams(fp);
 
-        uiIRQ->Enabled = false;
-        uiDRQ->Enabled = false;
-        uiBase->Enabled = false;
-        uiDriverName->Enabled = false;
+
         uiFrenq->Enabled = false;
-        uiFreq->Enabled = false;
-        uiBlockSize->Enabled=false;
         uiBlockSize2->Enabled=false;
         Chan1->Enabled=false;
         Chan2->Enabled=false;
@@ -183,8 +134,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         uiFoygtFeat->Enabled=0;
         uiFFTFoygt->Enabled=0;
 
-        // индексы отбрасывания частот для преобразования Фурье
-        Edit1->Enabled=0;
+        
 
         CurrentFaradey->Enabled=0;
         CurrentFoygt->Enabled=0;
@@ -211,13 +161,9 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         CurrentHall->Enabled=1;
         ResCurveIndex->Enabled=1;
         HallCurveIndex->Enabled=1;
-        uiIRQ->Enabled = true;
-        uiDRQ->Enabled = true;
-        uiBase->Enabled = true;
-        uiDriverName->Enabled = true;
+
         uiFrenq->Enabled =true;
-        uiFreq->Enabled = true;
-        uiBlockSize->Enabled=true;
+
         uiBlockSize2->Enabled=true;
         Chan1->Enabled=true;
         Chan2->Enabled=true;
@@ -231,9 +177,6 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         uiFoygtFeat->Enabled=1;
         uiFFTFoygt->Enabled=1;
 
-        // индексы отбрасывания частот для преобразования Фурье
-        Edit1->Enabled=1;
-
         CurrentFaradey->Enabled=1;
         CurrentFoygt->Enabled=1;
 
@@ -245,17 +188,26 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
         //params->getDataFromADC();
         params->getSplittedDataFromADC();
 
-        params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
-        
-        
+        //params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
+        SeriesRes1->Clear();
+        params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
+        //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clRed);
+        //params->constructPlotFromTwoMassive(CURRENT_DATA,out1,clBlack);
+        //std::vector<MyDataType> temp(params->getFilteredDependence());
+        //int NumberOfPoints=temp.size();
+        //out1->Clear();
+	//for (unsigned int i = 0; i < NumberOfPoints; i++)
+	{
+		//out1->AddY(temp[i],"",clBlack);
+	}
 
-        long double temp=0;
+        /*long double temp=0;
         for(int i=0;i<SeriesRes1->YValues->Count();i++)
         {
         temp+=SeriesRes1->YValues->Value[i];
         }
         temp/=SeriesRes1->YValues->Count();
-        Memo2->Lines->Add(FloatToStr(temp));
+        Memo2->Lines->Add(FloatToStr(temp));  */
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");
@@ -267,32 +219,7 @@ MeasurementsIsStarted = !MeasurementsIsStarted;
 
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::uiFrenqChange(TObject *Sender)
-{
-    uiFreq->Position=StrToInt(uiFrenq->Text);
-    Frequency=uiFreq->Position;
-}
-//---------------------------------------------------------------------------
 
-void __fastcall TForm1::uiBlockSize2Change(TObject *Sender)
-{
-    uiBlockSize->Position=StrToInt(uiBlockSize2->Text);
-    BlockSize= uiBlockSize->Position;
-}
-//---------------------------------------------------------------------------
-
-
-void __fastcall TForm1::uiBlockSizeChange(TObject *Sender)
-{
-    uiBlockSize2->Text=uiBlockSize->Position;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::uiFreqChange(TObject *Sender)
-{
-uiFrenq->Text=uiFreq->Position;
-}
-//---------------------------------------------------------------------------
 // Подгонка магнитосопротивления
 void __fastcall TForm1::uiResFeatClick(TObject *Sender)
 {
@@ -374,29 +301,6 @@ void __fastcall TForm1::uiFFTFoygtClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button2Click(TObject *Sender)
-{
-
-    Series3->Clear();
-    Series4->Clear();
-    Series2->Clear();
-    Series1->Clear();  // убираемся
-    Series5->Active=false;// чтобы не мешал
-    long double x=0;
-    for(int i=0;i<1500;i++)  // пишем тестовую на график
-    {
-
-    Series1->AddXY(x,x*x+rand()%3*sin(25*x)+rand()%2*sin(50*x),"",clRed);
-    x+=0.02+rand()%10/1000.;
-    }
-
-
-    // черная на графике - восстановленный
-    // красная - тестовый
-    // синий - спектр
-
-}
-//---------------------------------------------------------------------------
 //-------------------Открытие файла------------------------------------------
 
 void __fastcall TForm1::N4Click(TObject *Sender)
@@ -426,18 +330,7 @@ void __fastcall TForm1::N4Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-//---------Двигаем полосу "обрезания" для БФП-------------------------------
-void __fastcall TForm1::Edit1Change(TObject *Sender)
-{
-    if(Edit1->Text=="")
-        Edit1->Text=0;
-
-    Series5->XValues->Value[0]=Edit1->Text.ToDouble();
-    Series5->XValues->Value[1]=Edit1->Text.ToDouble();
-    Series5->Repaint();              // перерисовка графика
-}
-
-// выбор активного графика
+//---------Двигаем полосу "обрезания" для БФП-------------------------------// выбор активного графика
 TLineSeries * __fastcall TForm1::GetCurrentSeries2(int curve)
 {
 // вызывается при открытии файла.
@@ -497,7 +390,7 @@ TLineSeries * __fastcall TForm1::GetSelectedSeries(int index)
     AllSeries[1]=PtrToInt(Series2);
     AllSeries[2]=PtrToInt(Series3);
     AllSeries[3]=PtrToInt(Series4);
-    AllSeries[4]=PtrToInt(Series5);
+    AllSeries[4]=PtrToInt(0);
     AllSeries[5]=PtrToInt(SeriesRes1);
     AllSeries[6]=PtrToInt(SeriesRes2);
     AllSeries[7]=PtrToInt(SeriesFFTRes);
@@ -536,42 +429,6 @@ void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
 
 }
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
-{
-    const int SIZEM=200;
-    std::vector<std::vector<double> > X;
-    X.resize(SIZEM);
-    for(int i=0;i<SIZEM;i++)
-    {
-    X[i].resize(5);
-    }
-    std::vector<std::vector<double> > Xt;
-    Xt.resize(5);
-    for(int i=0;i<5;i++)
-    {
-    X[i].resize(SIZEM);
-    }
-
-    if (Series3->XValues->Count()==0)
-    {
-        ShowMessage("Пустой график!!!");
-        return;
-    }
-    if (Series3->XValues->Count()>SIZEM)
-    {
-        ShowMessage("Слишком много точек - увеличь размер массива!");
-        return;
-    }
-    for(int i=0;i<Series3->XValues->Count();i++)
-            {
-            X[i][0]=Xt[0][i]=pow(Series3->XValues->Value[i],3);
-            X[i][1]=Xt[1][i]=pow(Series3->XValues->Value[i],2);
-            X[i][2]=Xt[2][i]=Series3->XValues->Value[i];
-            X[i][3]=Xt[3][i]=1;
-            X[i][4]=Xt[4][i]=-Series3->YValues->Value[i];
-            }
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TForm1::bClearPlotsResClick(TObject *Sender)
 {
@@ -814,7 +671,7 @@ adc->StopMeasurement();
         params->constructPlotFromTwoMassive(FILTERED_DATA,SeriesRes1,clRed);
         params->constructPlotFromTwoMassive(EXTRAPOLATED_DATA,out1,clBlack);
 
-        std::vector<MyDataType> temp(params->getExtrapolatedDependence());
+        std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
         for(int i=0;i<temp.size();i++)
         Memo1->Lines->Add(FloatToStr(temp[i]));
 
@@ -823,4 +680,5 @@ adc->StopMeasurement();
         //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
 }
 //---------------------------------------------------------------------------
+
 

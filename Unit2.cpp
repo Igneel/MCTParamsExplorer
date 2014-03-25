@@ -207,7 +207,7 @@ default: // все значения
 
     }
 }
-  
+delete[] presetM;  
 }
 
 void __fastcall TSaveForm::FormCreate(TObject *Sender)

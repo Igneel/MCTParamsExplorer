@@ -13,43 +13,48 @@ typedef long double MyDataType;
 class LCardADC
 {
 public:
-	LCardADC();
+
+	LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency);
 	~LCardADC();
 
-	std::string Error(std::string);
-	unsigned long __stdcall ServiceReadThreadReal();
+	std::string Error(std::string); // ой, она пока не работает:)
 
-	bool SettingADCParams();
+	unsigned long __stdcall ServiceReadThreadReal(); // эта функция работает отдельным потоком и собирает данные.
+
 	bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
 
 	void StartMeasurement();
 	void StopMeasurement();
 
-	//std::vector<MyDataType> const & getData();
 	std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
 
-    void testSetReadBuffer();
+    void testSetReadBuffer(); // для отладки.
 
-	void clearBuffer();
-	bool IsInitSuccessfull();
+	void clearBuffer(); // очистка буфера.
+	bool IsInitSuccessfull(); // возвращает True если инициализация прошла успешно
 
-	void setInteractiveSeries(TLineSeries *s);
+    bool IsMeasurementRunning();
+
+	void setInteractiveSeries(TLineSeries *s); // вот над этим надо подумать.
 
 private:
 	bool successfullInit;
+    bool isMedianFilterEnabled;
+    bool isMeasurementRunning;
+    
 	bool DriverInit();
 
 
 	TLineSeries *interactiveSeries;
 
-	bool isMedianFilterEnabled;
+
 
 	void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
-	std::vector<std::vector<MyDataType> > &splittedData);
+	std::vector<std::vector<MyDataType> > &splittedData); // делим по каналам, прописанным в контрольной таблице.
 
-	void convertToVolt();
+	void convertToVolt(); // преобразование в вольты (работает для диапазона 10Вольт).
 
-	void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData);
+	void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData); // сохраняет полученные данные.
 
 	// идентификатор потока сбора данных
 	HANDLE hReadThread;
@@ -87,7 +92,7 @@ private:
 	std::vector<std::vector<MyDataType> > ReadData;
 	std::vector<std::vector<MyDataType> > splittedData;
 	// счетчик кадров
-	int Counter;
+	int Counter; // однако, это не совсем кадры, скорее снимки буфера.
 	//------------------------------------------------------------------------------
 
 };

@@ -7,6 +7,8 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
+#pragma hdrstop
+#pragma package(smart_init)
 
 double Tr_Filter(TLineSeries *inS,TLineSeries *outS,int length,double Fdisk, double Fpropysk,double Fzatyh);
 long double TrForMassiveFilter(long double *inB,long double *inY,long double* outB,long double *outY,

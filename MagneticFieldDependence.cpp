@@ -1,21 +1,18 @@
 #include "MagneticFieldDependence.h"
 #include "Unit1.h"
 
-MagneticFieldDependence::MagneticFieldDependence(DependenceType d)
+MagneticFieldDependence::MagneticFieldDependence()
 {
-    dependenceType=d;
     Current=0.001;
     h=0.001;
     NumberOfPoints=10;
     filterParams=new FilterParams();
 }
 
-MagneticFieldDependence::MagneticFieldDependence(DependenceType dt, MyDataType current, MyDataType step)
+MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
 {
-    dependenceType=dt;
+    MagneticFieldDependence();
     Current=current;
-    h=step;
-    NumberOfPoints=10;
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
@@ -42,7 +39,7 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 {
     std::vector<MyDataType> tempX;
     std::vector<MyDataType> tempY;
-
+    /*
     switch(dataKind)
     {
     case CURRENT_DATA:
@@ -63,8 +60,8 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
         break;
     default:
         return;
-    }
-
+    }  */
+    //------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     int size=tempX.size();
     if(size==0)
@@ -77,7 +74,7 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 
     if(index)
     {
-        tempX.swap(tempY);
+        tempX.swap(tempY);// возможно тут я хватил лишнего.
     }
     for(int i=0;i<size/2;i++)
     {
@@ -99,20 +96,14 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 
 }
 
-void MagneticFieldDependence::filterData(FilterParams &fP)
+void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
+    DependenceType dependenceType)
 {
-    MyDataType SamplingFrequecy=fP.SamplingFrequecy;
-    MyDataType BandwidthFrequency=fP.BandwidthFrequency;
-    MyDataType AttenuationFrequency=fP.AttenuationFrequency;
-    int lengthFilter=fP.filterLength;
-
-    NumberOfPoints=Dependence.size();
-
     std::vector<long double> tempInB(2*NumberOfPoints);
     std::vector<long double> tempInSignal(2*NumberOfPoints);
 
-    std::vector<long double> tempOutB(2*NumberOfPoints+ceil(lengthFilter/2.0));
-    std::vector<long double> tempOutSignal(2*NumberOfPoints+ceil(lengthFilter/2.0));
+    std::vector<long double> tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
+    std::vector<long double> tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
 
     switch(dependenceType)
     {
@@ -121,9 +112,9 @@ void MagneticFieldDependence::filterData(FilterParams &fP)
 	// достраивая его в отрицательные магнитные поля.
 	for (unsigned int i = 0; i < NumberOfPoints; i++)
 	{
-		tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];
+		tempInSignal[i]=-HallEffect[NumberOfPoints-i-1]+2*HallEffect[0];
 		tempInB[i]=-B[NumberOfPoints-i-1];
-		tempInSignal[i+NumberOfPoints]=Dependence[i];
+		tempInSignal[i+NumberOfPoints]=HallEffect[i];
 		tempInB[i+NumberOfPoints]=B[i];
 	}
     break;
@@ -131,67 +122,65 @@ void MagneticFieldDependence::filterData(FilterParams &fP)
 
     for (unsigned int i = 0; i < NumberOfPoints; i++)
 	{
-		tempInSignal[i]=Dependence[NumberOfPoints-i-1];   // чет
+		tempInSignal[i]=MagnetoResistance[NumberOfPoints-i-1];   // чет
 		//tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет
 		tempInB[i]=-B[NumberOfPoints-i-1];
-		tempInSignal[i+NumberOfPoints]=Dependence[i];
+		tempInSignal[i+NumberOfPoints]=MagnetoResistance[i];
 		tempInB[i+NumberOfPoints]=B[i];
 	}
     break;
+
+    default:
+        break;
     }
 
     // фильтруем 
 	TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
-                lengthFilter,SamplingFrequecy,BandwidthFrequency,AttenuationFrequency);
+                fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
 
     // нагло записываем положительную часть фильтрованного сигнала обратно.
-    //FilteredB.resize(NumberOfPoints);
-    //FilteredDependence.resize(NumberOfPoints);
 
 	for(unsigned int i=0;i<NumberOfPoints;i++)
 	{
-        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
-		FilteredDependence.push_back(tempOutSignal[i+NumberOfPoints-1]);
-    }
-    /*
     switch(dependenceType)
     {
+        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
     case HALL_EFFECT:
-    // убираем отрицательные значения магнитного поля, для эффекта Холла.
-    // Ставим его в точку 0.
-    // хотя зачем...я же добавляю это при экстраполяции...
-    for(int i=0;i<NumberOfPoints;i++)
-	{
-		if(B[i]<0)
-		{
-			B[i]=0;
-			//Us[i]=0;
-			Uy[i]=0;
-		}
-	}
-    break;
+		FilteredHallEffect.push_back(tempOutSignal[i+NumberOfPoints-1]);
+        break;
     case MAGNETORESISTANCE:
+        FilteredMagnetoResistance.push_back(tempOutSignal[i+NumberOfPoints-1]);
+        break;
+    default:
+        break;
+    }
+    }
+}
 
-    break;
-    }   */
+void MagneticFieldDependence::filterData(FilterParams &fP)
+{
+    filterDataHelper(fP,HALL_EFFECT);
+    filterDataHelper(fP,MAGNETORESISTANCE);
 }
 
 bool MagneticFieldDependence::extrapolateData()
 {
 bool returnValue=true;
 
-const int polinomPowForUs=4;
-const int polinomPowForUy=4;
+const int polinomPowForMagnetoResistance=4;
+const int polinomPowForHallEffect=4;
 
-std::vector<long double> koefUs(polinomPowForUs+1);
-std::vector<long double> koefUy(polinomPowForUy+1);
+std::vector<long double> koefMagnetoResistance(polinomPowForMagnetoResistance+1);
+std::vector<long double> koefHallEffect(polinomPowForHallEffect+1);
 
 std::vector<long double> newB;
-std::vector<long double> newDependence;
+std::vector<long double> newHallEffect;
+std::vector<long double> newMagnetoResistance;
 
 std::vector<long double> inB(FilteredB);
-std::vector<long double> inDependence(FilteredDependence);
+std::vector<long double> inHallEffect(FilteredHallEffect);
+std::vector<long double> inMagnetoResistance(FilteredMagnetoResistance);
 
 h=2.0/NumberOfPoints;
 unsigned int i=0;
@@ -199,13 +188,13 @@ unsigned int i=0;
 			for(int i=0;i<500;i++)
 			{
 				inB.push_back(0);
-				inDependence.push_back(0);
+				inHallEffect.push_back(0);
 			}
 
         if(dependenceType==HALL_EFFECT)
-            curveFittingUniversal(&inB,&inDependence, &koefUy,polinomPowForUy);
+            curveFittingUniversal(&inB,&inHallEffect, &koefHallEffect,polinomPowForHallEffect);
         if(dependenceType==MAGNETORESISTANCE)
-            curveFittingUniversal(&inB,&inDependence, &koefUs,polinomPowForUs);
+            curveFittingUniversal(&inB,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance);
 
 			newB.clear();
 			newB.push_back(0);
@@ -213,13 +202,14 @@ unsigned int i=0;
 				newB.push_back(newB[i-1]+h);
 			}
         if(dependenceType==MAGNETORESISTANCE)
-			calculatePolinomByKoef(newB,koefUs,newDependence);
+			calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
         if(dependenceType==HALL_EFFECT)
-			calculatePolinomByKoef(newB,koefUy,newDependence);
+			calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
 
             ExtrapolatedB=newB;
 
-            ExtrapolatedDependence=newDependence;
+            ExtrapolatedMagnetoResistance=newMagnetoResistance;
+            ExtrapolatedHallEffect=newHallEffect;
 
 			//----------А вот тут прикручиваем недостающий кусочек в сигналы----
 
@@ -229,7 +219,8 @@ unsigned int i=0;
             for(unsigned int j=i;j<NumberOfPoints;j++)
 			{      // перемещаем эти значения в начало.
 				FilteredB[j-i]=FilteredB[j];
-				FilteredDependence[j-i]=FilteredDependence[j];
+				FilteredMagnetoResistance[j-i]=FilteredMagnetoResistance[j];
+                FilteredHallEffect[j-i]=FilteredHallEffect[j];
 				//Uy[j-i]=Uy[j];
 			}
 
@@ -308,19 +299,23 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(DataKind p,TLineSeries
     {
     case CURRENT_DATA:
         pointToX=&B;
-        pointToY=&Dependence;
+        pointToY=&HallEffect;
+        pointToY=&MagnetoResistance;
         break;
     case FILTERED_DATA:
         pointToX=&FilteredB;
-        pointToY=&FilteredDependence;
+        pointToY=&FilteredHallEffect;
+        pointToY=&FilteredMagnetoResistance;
         break;
     case EXTRAPOLATED_DATA:
         pointToX=&ExtrapolatedB;
-        pointToY=&ExtrapolatedDependence;
+        pointToY=&ExtrapolatedHallEffect;
+        pointToY=&ExtrapolatedMagnetoResistance;
         break;
     case ORIGINAL_DATA:
         pointToX=&OriginalB;
-        pointToY=&OriginalDependence;
+        pointToY=&OriginalHallEffect;
+        pointToY=&OriginalMagnetoResistance;
         break;
     default:
         break;
@@ -348,7 +343,8 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
         temp=&B;
         break;
     case DEPENDENCE:
-        temp=&Dependence;
+        temp=&HallEffect;
+        temp=&MagnetoResistance;
         break;
     default:
         break;
@@ -386,11 +382,14 @@ void MagneticFieldDependence::getSplittedDataFromADC()
 
     //if(tempData.size()>3) // если это не тестовые замерки
     {
-        OriginalB=tempData[1]; // должно быть 2, но пока отладка
-        OriginalDependence=tempData[0];
-
+        OriginalB=tempData[2];
+        OriginalHallEffect=tempData[0];
+        OriginalMagnetoResistance=tempData[1];
+        
         B=OriginalB;
-        Dependence=OriginalDependence;
+        HallEffect=OriginalHallEffect;
+        MagnetoResistance=OriginalMagnetoResistance;
+
         multiplyB(CURRENT_DATA);
         filterData(*filterParams);
         extrapolateData();
@@ -416,32 +415,57 @@ std::vector<MyDataType> const & MagneticFieldDependence::getB()
     return B;
 }
 
-std::vector<MyDataType> const & MagneticFieldDependence::getDependence()
-{
-    return Dependence;
-}
-
 std::vector<MyDataType> const & MagneticFieldDependence::getOriginalB()
 {
     return OriginalB;
 }
-std::vector<MyDataType> const & MagneticFieldDependence::getOriginalDependence()
-{
-    return OriginalDependence;
-}
+
 std::vector<MyDataType> const & MagneticFieldDependence::getFilteredB()
 {
     return FilteredB;
 }
-std::vector<MyDataType> const & MagneticFieldDependence::getFilteredDependence()
-{
-    return FilteredDependence;
-}
+
 std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedB()
 {
     return ExtrapolatedB;
 }
-std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedDependence()
+
+std::vector<MyDataType> const & MagneticFieldDependence::getHallEffect()
 {
-    return ExtrapolatedDependence;
+    return HallEffect;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getMagnetoResistance()
+{
+    return MagnetoResistance;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getOriginalHallEffect()
+{
+    return OriginalHallEffect;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getOriginalMagnetoResistance()
+{
+    return OriginalMagnetoResistance;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getFilteredHallEffect()
+{
+    return FilteredHallEffect;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getFilteredMagnetoResistance()
+{
+    return FilteredMagnetoResistance;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedHallEffect()
+{
+    return ExtrapolatedHallEffect;
+}
+
+std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedMagnetoResistance()
+{
+    return ExtrapolatedMagnetoResistance;
 }
