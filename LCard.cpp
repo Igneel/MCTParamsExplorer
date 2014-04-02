@@ -7,25 +7,26 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
 {
-isMeasurementRunning=false;
-interactiveSeries=0;  // указатель на график
-isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
-needToStop=true;// флаг для остановки второго потока
-successfullInit=true; // флаг успешной инициализации
-ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-DataStep =256*256*3; // 256*64  // кол-во отсчетов, кратное 32
-// оно явно должно зависеть от количества измеряемых каналов и частоты.
-Counter = 0;        // количество полученных кадров.
+    isMeasurementRunning=false;
+    HallSeries=0;  // указатель на график
+    MagnetoResistanceSeries=0;
+    isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
+    needToStop=true;// флаг для остановки второго потока
+    successfullInit=false; // флаг успешной инициализации
+    ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
+    DataStep =256*256*channelsQuantity; // 256*64  // кол-во отсчетов, кратное 32
+    // оно явно должно зависеть от количества измеряемых каналов и частоты.
+    Counter = 0;        // количество полученных кадров.
 
-ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
+    ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
-if(DriverInit()) // инициализиуем драйвер
-{
-if(SettingADCParams(channelsQuantity, frenquency))// устанавливаем настройки
-{
-successfullInit=true; // всё прошло успешно.
-}
-}
+    if(DriverInit()) // инициализиуем драйвер
+    {
+    if(SettingADCParams(channelsQuantity, frenquency))// устанавливаем настройки
+    {
+    successfullInit=true; // всё прошло успешно.
+    }
+    }
 
 }
 
@@ -165,21 +166,25 @@ void LCardADC::StopMeasurement()
     needToStop=true;
     WaitForSingleObject(hReadThread, INFINITE);
     isMeasurementRunning=false;
-    convertToVolt();
+    //convertToVolt();
 }
 
-void LCardADC::StartMeasurement()
+bool LCardADC::StartMeasurement()
 {
-    needToStop=false;
-    ReadData.resize(ap.ChannelsQuantity);
-    // Создаём и запускаем поток сбора данных
-    hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
-	if(!hReadThread)
+    if(successfullInit)
     {
-    Error(" ServiceReadThread() --> Bad\n");
-    return;
-    }
-    isMeasurementRunning=true;
+        needToStop=false;
+        ReadData.resize(ap.ChannelsQuantity);
+        // Создаём и запускаем поток сбора данных
+        hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
+        if(!hReadThread)
+        {
+        Error(" ServiceReadThread() --> Bad\n");
+        return true;
+        }
+        isMeasurementRunning=true;
+    } 
+    return false;   
 }
 
 std::string LCardADC::Error(std::string s)
@@ -229,10 +234,12 @@ void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
     {
 
         for(int i=0;i<ap.ChannelsQuantity;i++)
-            ReadData[i].push_back(medianFilter(splittedData[i]));
-        if(interactiveSeries)
+            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i])));
+        if(HallSeries)
+            HallSeries->AddXY(ReadData[0].back(),ReadData[2].back(),"",clBlue);
+        if(MagnetoResistanceSeries)
         for(int i=0; i<ap.ChannelsQuantity;i++)
-            interactiveSeries->AddY(ReadData[i].back(),"",clBlue);
+            MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
     }
     else
     {
@@ -373,6 +380,11 @@ std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
     return ReadData;
 }
 
+MyDataType LCardADC::convertToVolt(MyDataType in)
+{
+    return in/800.0;
+}
+
 void LCardADC::convertToVolt()
 {
     if(ReadData.size()==0)
@@ -389,9 +401,14 @@ void LCardADC::clearBuffer()
     ReadData.clear();
 }
 
-void LCardADC::setInteractiveSeries(TLineSeries *s)
+
+void LCardADC::setHallSeries(TLineSeries *s)
 {
-    interactiveSeries=s;
+    HallSeries=s;    
+}
+void LCardADC::setMagnetoResistanceSeries(TLineSeries *s)
+{
+    MagnetoResistanceSeries=s;
 }
 
 
@@ -417,17 +434,19 @@ void LCardADC::testSetReadBuffer()
         B[i]=B[i-1]+1600.0/mk;
     }
 
-    ap.ChannelsQuantity=2;
+    ap.ChannelsQuantity=3;
     ReadData.resize(ap.ChannelsQuantity);
     std::vector<MyDataType> tempData;
-    unsigned int tsize=50;
-    short *tempBuffer=new short[tsize];
+    unsigned int tsize=500;
+    short *tempBuffer=new short[tsize];   
     for(int nK=0;nK<mk;++nK)
     {
     for(int i=1;i<tsize;i+=ap.ChannelsQuantity)
-    tempBuffer[i]=B[nK];
+    tempBuffer[i]=B[nK]*B[nK]*0.05;
     for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK]+1000;
+    for(int i=2;i<tsize;i+=ap.ChannelsQuantity)
+    tempBuffer[i]=B[nK];
     // запишем полученную порцию данных в вектор
     for(unsigned int i=0;i<tsize;++i)
     {

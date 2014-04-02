@@ -25,9 +25,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = HallEffect
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -1260,6 +1260,11 @@ object Form1: TForm1
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
         ShortCut = 16467
         OnClick = N5Click
+      end
+      object N11: TMenuItem
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074#1089#1105
+        ShortCut = 49235
+        OnClick = N11Click
       end
       object N3: TMenuItem
         Caption = #1042#1099#1093#1086#1076

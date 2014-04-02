@@ -23,8 +23,14 @@ enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};
 enum SaveType {ALL_POINTS,SOME_POINTS};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
-struct FilterParams
+class FilterParams
 {
+public:
+	FilterParams();
+	FilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
+	FilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
+	void setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
+
 	MyDataType SamplingFrequecy;
 	MyDataType BandwidthFrequency;
 	MyDataType AttenuationFrequency;
@@ -37,7 +43,6 @@ public:
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 
-    MagneticFieldDependence();
 	MagneticFieldDependence::MagneticFieldDependence(MyDataType current);
 
     std::vector<MyDataType> const & getB();
@@ -61,31 +66,40 @@ public:
 	 
 	//std::vector<MyDataType> const &  getDataFromADC();
 
-	void SaveData(DataKind dataKind,SaveType saveType,std::string FileName);
-
 	void getSplittedDataFromADC();
 
-	bool saveData();
-
+	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
+	void SaveAllData(AnsiString FileName);
 
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
 
-	bool setFilterParams(FilterParams & fp);
-	FilterParams & getFilterParams();
+	bool setFilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
+	bool setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
+
+	FilterParams const * getFilterParams();
 	bool extrapolateData();
 	// дискретизации, пропускания, затухания
 	void filterData(FilterParams &fP);
+	void filterData();
+
+	void setRoundNeeded(bool needRound);
+
+
 
 private:
 
+	bool isRoundNeeded;
+
+	AnsiString defaultExtension;
     template <class T>
     void MagneticFieldDependence::RoundM(T *pos, T* endPos);
 
     void MagneticFieldDependence::SaveDataHelper(std::vector<MyDataType> &saveB,
-    std::vector<MyDataType> & saveHall,
-    std::vector<MyDataType> & saveResistance,bool isRoundNeeded,SaveType mode);
+	std::vector<MyDataType> & saveHall,
+	std::vector<MyDataType> & saveResistance,SaveType mode,
+	AnsiString FileName);
 
 
 	FilterParams *filterParams;

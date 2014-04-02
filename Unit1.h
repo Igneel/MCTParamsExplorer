@@ -161,6 +161,7 @@ __published:	// IDE-managed Components
         TMenuItem *N9;
         TMenuItem *N10;
         TButton *Button13;
+    TMenuItem *N11;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -190,6 +191,7 @@ __published:	// IDE-managed Components
         void __fastcall Button13Click(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
+    void __fastcall N11Click(TObject *Sender);
     
 
 private:	// User declarations

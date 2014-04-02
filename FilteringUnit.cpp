@@ -175,6 +175,11 @@ for(int i=0;i<lengthMassive;i++) // выводим
 template <class T>
 inline T max_elem(const std::vector<T> & in)
 {
+    if(in.size()==0)
+    {
+        //"Сложно найти максимальный элемент, когда нет ни одного");
+        return 0;
+    }
     std::vector<T>::const_iterator pos;
     T max=*in.begin();
     for(pos=in.begin();pos!=in.end();++pos)
@@ -188,6 +193,11 @@ inline T max_elem(const std::vector<T> & in)
 template <class T>
 inline T min_elem(const std::vector<T> & in)
 {
+    if(in.size()==0)
+    {
+        //"Сложно найти максимальный элемент, когда нет ни одного");
+        return 0;
+    }
     std::vector<T>::const_iterator pos;
     T min=*in.begin();
     for(pos=in.begin();pos!=in.end();++pos)
@@ -206,6 +216,10 @@ std::vector<long double> & outY,int lengthFilter,long double Fdisk,
 long double Fpropysk,long double Fzatyh)
 {
     int lengthMassive=inY.size();
+    if(lengthMassive==0)
+    {
+    return 0;
+    }
     std::vector<long double> in(inY);
     std::vector<long double> out(lengthMassive);
 

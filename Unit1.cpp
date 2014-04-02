@@ -101,15 +101,15 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
 
-        FilterParams fp=params->getFilterParams();
-        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
-        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
-        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
-        fp.filterLength=StrToInt(Lfilter1->Text);
+        params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
 
-        params->setFilterParams(fp);
+        adc->clearBuffer();
+        adc->setMagnetoResistanceSeries(SeriesRes1);
+        adc->setHallSeries(SeriesHall1);
 
-
+        if(adc->StartMeasurement())
+        {
+        
         uiFrenq->Enabled = false;
         uiBlockSize2->Enabled=false;
         Chan1->Enabled=false;
@@ -128,9 +128,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         uiFaradeyFeat->Enabled=0;
         uiFFTFaradey->Enabled=0;
         uiFoygtFeat->Enabled=0;
-        uiFFTFoygt->Enabled=0;
-
-        
+        uiFFTFoygt->Enabled=0;         
 
         CurrentFaradey->Enabled=0;
         CurrentFoygt->Enabled=0;
@@ -139,16 +137,14 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         FoygtCurveIndex->Enabled=0;
 
         GainKoefFoygt->Enabled=0;
-        adc->clearBuffer();
-        adc->setInteractiveSeries(SeriesRes1);
-        //adc->SettingADCParams(2,400);
+
         uiControl->Caption = AnsiString("Stop");
         uiResControl->Caption = AnsiString("Stop");
         uiHallControl->Caption = AnsiString("Stop");
         uiFaradeyControl->Caption = AnsiString("Stop");
         uiFoygtControl->Caption = AnsiString("Stop");
         StatusBar->Panels->Items[1]->Text="Проводится измерение";
-        adc->StartMeasurement();
+        }
     }
     else
     {
@@ -264,15 +260,8 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
-    FilterParams fp=params->getFilterParams();
-        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
-        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
-        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
-        fp.filterLength=StrToInt(Lfilter1->Text);
-
-        //params->setFilterParams(fp);
-
-    params->filterData(fp);
+    params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
+    params->filterData();
 
     /*Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
     Lfilter1->Text.ToInt(),Fd1->Text.ToInt(),
@@ -642,23 +631,15 @@ delete params;
 void __fastcall TForm1::bTestClick(TObject *Sender)
 {
 
-
 if(params)
 {
 delete params;
 params=0;
 }
 params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
-
-        FilterParams fp=params->getFilterParams();
-        fp.SamplingFrequecy=StrToFloat(Fd1->Text);
-        fp.BandwidthFrequency=StrToFloat(Fp1->Text);
-        fp.AttenuationFrequency=StrToFloat(Fz1->Text);
-        fp.filterLength=StrToInt(Lfilter1->Text);
-
-        params->setFilterParams(fp);
+params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
  adc->clearBuffer();
-        adc->setInteractiveSeries(Series1);
+        //adc->setInteractiveSeries(Series1);  !
 adc->testSetReadBuffer();
 
 adc->StopMeasurement();
@@ -668,7 +649,7 @@ adc->StopMeasurement();
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clBlue);
         params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesRes2,clBlue);
         params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesRes1,clRed);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
+        //params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
 
         /*std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
         for(int i=0;i<temp.size();i++)
@@ -684,3 +665,13 @@ void __fastcall TForm1::Button10Click(TObject *Sender)
 {
 ;
 }
+void __fastcall TForm1::N11Click(TObject *Sender)
+{
+if(params)
+if(SaveDialog1->Execute())
+{
+    params->SaveAllData(SaveDialog1->FileName);
+}
+}
+//---------------------------------------------------------------------------
+

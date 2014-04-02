@@ -10,6 +10,21 @@
 typedef long double MyDataType;
 
 //инициализация драйвера, настройка, запуск/останов измерений, получение данных
+/*
+Создание объекта инициализирует драйвер, настраивает АЦП на нужное количество каналов.
+Настройки можно дополнительно изменить фукнцией SettingADCParams
+
+Запуск останов измерений осуществляется функциями 	StartMeasurement() StopMeasurement()
+
+Данные передаются во внешний мир функцией getSplittedData();
+
+Также есть очистка буфера
+Функция возврата состояния (идет ли измерение сейчас).
+
+И настройка интерактивного вывода.
+
+
+*/
 class LCardADC
 {
 public:
@@ -23,7 +38,7 @@ public:
 
 	bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
 
-	void StartMeasurement();
+	bool StartMeasurement();
 	void StopMeasurement();
 
 	std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
@@ -35,7 +50,8 @@ public:
 
     bool IsMeasurementRunning();
 
-	void setInteractiveSeries(TLineSeries *s); // вот над этим надо подумать.
+	void setHallSeries(TLineSeries *s);
+	void setMagnetoResistanceSeries(TLineSeries *s);
 
 private:
 	bool successfullInit;
@@ -45,14 +61,15 @@ private:
 	bool DriverInit();
 
 
-	TLineSeries *interactiveSeries;
-
+	TLineSeries *HallSeries;
+	TLineSeries *MagnetoResistanceSeries;
 
 
 	void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
 	std::vector<std::vector<MyDataType> > &splittedData); // делим по каналам, прописанным в контрольной таблице.
 
 	void convertToVolt(); // преобразование в вольты (работает для диапазона 10Вольт).
+	MyDataType LCardADC::convertToVolt(MyDataType in);
 
 	void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData); // сохраняет полученные данные.
 
