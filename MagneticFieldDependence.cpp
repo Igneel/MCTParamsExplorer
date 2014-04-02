@@ -3,6 +3,7 @@
 
 MagneticFieldDependence::MagneticFieldDependence()
 {
+    NumberOfDecimalPlaces=5;
     Current=0.001;
     h=0.001;
     NumberOfPoints=10;
@@ -22,17 +23,191 @@ MagneticFieldDependence::~MagneticFieldDependence()
 
 void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,std::string FileName)
 {
-switch(saveType)
+/*
+—охран€ть будем всЄ что есть.
+
+1. «ависи
+*/
+}
+//---------------------------------------------------------------------------
+// ќкругление с заданной точностью.
+template <class T>
+void MagneticFieldDependence::RoundM(T *pos, T* endPos)
 {
-    case ALL_POINTS:
-        break;
-    case SOME_POINTS:
-        break;
-    default:
-        break;
+	int S=pow(10,NumberOfDecimalPlaces);
+    for(;pos!=endPos;++pos)
+	{
+		int n=(int)(*pos*S)%10;
+		if(n<5)
+			*pos=floorl(*pos*S)/S;
+		else
+			*pos=ceill(*pos*S)/S;
+	}
 }
 
+
+void MagneticFieldDependence::SaveDataHelper(std::vector<MyDataType> &saveB,
+std::vector<MyDataType> & saveHall,
+std::vector<MyDataType> & saveResistance,bool isRoundNeeded,SaveType mode, AnsiString FileName)
+{
+    TStringList * tsl=new TStringList();
+
+    std::vector<MyDataType> savingXData;
+    std::vector<MyDataType> savingY1Data;
+    std::vector<MyDataType> savingY2Data;
+    std::vector<MyDataType>::iterator pos;
+	for (pos = saveB.begin(); pos!=saveB.end();++pos)
+    {
+        savingXData.push_back(*pos);
+    }
+    for (pos = saveHall.begin(); pos!=saveHall.end();++pos)
+    {
+        savingY1Data.push_back(*pos);
+    }
+    for (pos = saveResistance.begin(); pos!=saveResistance.end();++pos)
+    {
+        savingY2Data.push_back(*pos);
+    }
+    int length=savingXData.size();
+    if(isRoundNeeded==true)
+	{
+		RoundM(savingXData.begin(),savingXData.end());
+		RoundM(savingY1Data.begin(),savingY1Data.end());
+		RoundM(savingY2Data.begin(),savingY2Data.end());
+	}
+
+	if (mode==SOME_POINTS) {
+        const int SomePointsCount=11;
+		long double points[SomePointsCount]={0};
+		long double shag=0.2;
+		for (int i=1; i < SomePointsCount; i++) {
+			points[i]=points[i-1]+shag;
+		}
+
+		for (int i = 0; i < SomePointsCount; i++) {
+			int index=0;
+			long double r=4;
+			for(int k=0;k<length;k++)
+			{
+				if(fabs(fabs(savingXData[k])-fabs(points[i]))<=r)
+				{
+					r=fabs(savingXData[k]-points[i]);
+					index=k;
+				}
+			}
+
+			tsl->Add(FloatToStr(savingXData[index])+"\t"+FloatToStr(savingY1Data[index])+"\t"+FloatToStr(savingY2Data[index]));
+		}
+	}
+	if(mode==ALL_POINTS)
+	{
+		for(int i=0;i<length;i++)
+		{
+			tsl->Add(FloatToStr(savingXData[i])+"\t"+FloatToStr(savingY1Data[i])+"\t"+FloatToStr(savingY2Data[i]));
+		}
+	}
+    std::string text=tsl->Text.c_str();
+    
+    ReplaceCommaToDots(text,text);
+
+    tsl->Text=text.c_str();
+
+	tsl->SaveToFile(FileName); 	
+
+	delete tsl;
 }
+
+/*
+
+void TForm1::chooseAndSaveData(FileSaveMode mode)
+{
+    std::vector<MyDataType> *saveB=0;
+    std::vector<MyDataType> *saveHall=0;
+    std::vector<MyDataType> *saveResistance=0;
+	TLineSeries* Saving1=0;
+	TLineSeries* Saving2=0;
+
+	// ????????? ??????
+	if (rbIdealUPlot->Checked)
+	{
+		Saving1=gSeriesIdealParamsUs;
+		Saving2=gSeriesIdealParamsUy;
+	}
+
+	if (rbIdealTenzorPlot->Checked)
+	{
+		Saving1=gSeriesIdealParamsSxx;
+		Saving2=gSeriesIdealParamsSxy;
+	}
+
+	// ??????????? ??????
+	if (rbNoisyU->Checked)
+	{
+		Saving1=gSeriesParamsWithNoiseUs;
+		Saving2=gSeriesParamsWithNoiseUy;
+	}
+
+	if(rbNoisyTenzor->Checked)
+	{
+		Saving1=gSeriesParamsWithNoiseSxx;
+		Saving2=gSeriesParamsWithNoiseSxy;
+	}
+
+	// ????????????? ??????
+	if (rbFilteredUPlot->Checked)
+	{
+		 Saving1=gSeriesFilteredParamsUs;
+		 Saving2=gSeriesFilteredParamsUy;
+	}
+
+	if (rbFilteredTenzor->Checked)
+	{
+		Saving1=gSeriesFilteredParamsSxx;
+		Saving2=gSeriesFilteredParamsSxy;
+	}
+	// ?????????????????? ??????
+	if (rbExtrapolatedU->Checked)
+	{
+		Saving1=gSeriesExtrapolatedParamsUs;
+		Saving2=gSeriesExtrapolatedParamsUy;
+	}
+
+	if (rbExtrapolatedTenzor->Checked)
+	{
+		Saving1=gSeriesExtrapolatedParamsSxx;
+		Saving2=gSeriesExtrapolatedParamsSxy;
+	}
+
+	if(!Saving1)
+		return;
+
+	int length=Saving1->XValues->Count;
+	int length2=Saving2->XValues->Count;
+
+	if(!(length || length2))
+	{
+	 ShowMessage("?????? ????! ?????? ????????: "+ IntToStr(length) +"?????? ????????: "+ IntToStr(length2));
+	 return;
+	}
+	if(length!=length2)
+	{
+	 ShowMessage("?????? ?????????? ????? ?? ????????!");
+	 return;
+	}
+
+
+	delete [] savingXData;
+	delete [] savingY1Data;
+	delete [] savingY2Data;
+}
+
+	TStringList * tsl=new TStringList();
+
+	for(int i=0;i<NumberOfPoints;i++)
+	{
+		tsl->Add(FloatToStr(B[i])+"\t"+FloatToStr(HallEffect[i])+"\t"+FloatToStr(sxy[i]));
+	}
+}  */
 
 
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
@@ -97,7 +272,7 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 }
 
 void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
-    DependenceType dependenceType)
+    PlotType dependenceType)
 {
     std::vector<long double> tempInB(2*NumberOfPoints);
     std::vector<long double> tempInSignal(2*NumberOfPoints);
@@ -184,16 +359,13 @@ std::vector<long double> inMagnetoResistance(FilteredMagnetoResistance);
 
 h=2.0/NumberOfPoints;
 unsigned int i=0;
-        if(dependenceType==HALL_EFFECT)
 			for(int i=0;i<500;i++)
 			{
 				inB.push_back(0);
 				inHallEffect.push_back(0);
 			}
 
-        if(dependenceType==HALL_EFFECT)
             curveFittingUniversal(&inB,&inHallEffect, &koefHallEffect,polinomPowForHallEffect);
-        if(dependenceType==MAGNETORESISTANCE)
             curveFittingUniversal(&inB,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance);
 
 			newB.clear();
@@ -201,9 +373,8 @@ unsigned int i=0;
 			for (unsigned int i = 1; i < NumberOfPoints; i++) {
 				newB.push_back(newB[i-1]+h);
 			}
-        if(dependenceType==MAGNETORESISTANCE)
+
 			calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
-        if(dependenceType==HALL_EFFECT)
 			calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
 
             ExtrapolatedB=newB;
@@ -236,7 +407,7 @@ return returnValue;
 
 void MagneticFieldDependence::averagingData()
 {
-;
+;              
 }
 
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
@@ -290,37 +461,62 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
     out=s;
 }
 
-void MagneticFieldDependence::constructPlotFromTwoMassive(DataKind p,TLineSeries* s,TColor color)
+void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color)
 {
     std::vector<MyDataType> * pointToX=0;
     std::vector<MyDataType> * pointToY=0;
 	s->Clear();
-    switch(p)
+    switch(pt)
+    {
+    case HALL_EFFECT:
+    switch(dk)
     {
     case CURRENT_DATA:
         pointToX=&B;
         pointToY=&HallEffect;
-        pointToY=&MagnetoResistance;
         break;
     case FILTERED_DATA:
         pointToX=&FilteredB;
         pointToY=&FilteredHallEffect;
-        pointToY=&FilteredMagnetoResistance;
         break;
     case EXTRAPOLATED_DATA:
         pointToX=&ExtrapolatedB;
         pointToY=&ExtrapolatedHallEffect;
-        pointToY=&ExtrapolatedMagnetoResistance;
         break;
     case ORIGINAL_DATA:
         pointToX=&OriginalB;
         pointToY=&OriginalHallEffect;
+        break;
+    default:
+        break;
+    }
+    break;
+    case MAGNETORESISTANCE:
+    switch(dk)
+    {
+    case CURRENT_DATA:
+        pointToX=&B;
+        pointToY=&MagnetoResistance;
+        break;
+    case FILTERED_DATA:
+        pointToX=&FilteredB;
+        pointToY=&FilteredMagnetoResistance;
+        break;
+    case EXTRAPOLATED_DATA:
+        pointToX=&ExtrapolatedB;
+        pointToY=&ExtrapolatedMagnetoResistance;
+        break;
+    case ORIGINAL_DATA:
+        pointToX=&OriginalB;
         pointToY=&OriginalMagnetoResistance;
         break;
     default:
         break;
     }
-
+    break;
+    default:
+    break;
+    }
     NumberOfPoints=pointToX->size();
     if(NumberOfPoints==0)
     {
@@ -342,8 +538,10 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
     case MAGNETIC_FIELD:
         temp=&B;
         break;
-    case DEPENDENCE:
+    case HALL_EFFECT:
         temp=&HallEffect;
+        break;
+    case MAGNETORESISTANCE:
         temp=&MagnetoResistance;
         break;
     default:
@@ -356,26 +554,6 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
 	} 
 }
 
-/*
-std::vector<MyDataType> const &  MagneticFieldDependence::getDataFromADC()
-{
-    std::vector<MyDataType> tempData;
-    tempData.resize(adc->getData().size());
-    tempData=adc->getData();
-    // тут дальше парсинг, в зависимости от структуры данных.
-    // и вставить всЄ как надо в массивы B и Dependence
-
-    // а также в массивы Original
-    OriginalB.resize(tempData.size());
-    OriginalB=tempData;
-    OriginalDependence.resize(tempData.size());
-    OriginalDependence=tempData;
-    //после чего:
-    //filterData(dependenceType,400000,50,100,50);
-    //extrapolateData();
-    return OriginalB;
-}   */
-
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
     std::vector<std::vector<MyDataType> > tempData(adc->getSplittedData());
@@ -383,7 +561,7 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     //if(tempData.size()>3) // если это не тестовые замерки
     {
         OriginalB=tempData[2];
-        OriginalHallEffect=tempData[0];
+        OriginalHallEffect=tempData[0]; // вот тут мог перепутать, надо будеть проверить.
         OriginalMagnetoResistance=tempData[1];
         
         B=OriginalB;
@@ -469,3 +647,6 @@ std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedMagnetoR
 {
     return ExtrapolatedMagnetoResistance;
 }
+
+
+

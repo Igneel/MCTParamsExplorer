@@ -43,8 +43,8 @@ TODO
 // не забудь внести это в заголовочный файл:)
 
 
-LCardADC *adc;
-MagneticFieldDependence *params;
+LCardADC *adc=0;
+MagneticFieldDependence *params=0;
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -96,12 +96,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         if(params)
         {
         delete params;
+        params=0;
         }
-        
-        DependenceType d;
-        if (PC->TabIndex==1) d=MAGNETORESISTANCE;
-        else if (PC->TabIndex==2) d=HALL_EFFECT;
-        else ShowMessage("Неподдерживаемый тип измерений! Вернитесь на вкладки Сопротивления или Эффекта Холла.");
 
         params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
 
@@ -185,14 +181,20 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         GainKoefFoygt->Enabled=1;
 
         adc->StopMeasurement();
-        //params->getDataFromADC();
         params->getSplittedDataFromADC();
 
-        //params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
-        SeriesRes1->Clear();
-        params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
+
+        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
+
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+
+
+        //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clRed);
-        //params->constructPlotFromTwoMassive(CURRENT_DATA,out1,clBlack);
         //std::vector<MyDataType> temp(params->getFilteredDependence());
         //int NumberOfPoints=temp.size();
         //out1->Clear();
@@ -488,10 +490,7 @@ void __fastcall TForm1::bMultuplyBClick(TObject *Sender)
         SeriesRes1->XValues->Value[i]*=10;
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::Button10Click(TObject *Sender)
-{
-    Series3->Active=!Series3->Active;
-}
+
 //---------------------------------------------------------------------------
 void fillspace(double *xm,double *ym, int l,int r)
 {
@@ -643,13 +642,13 @@ delete params;
 void __fastcall TForm1::bTestClick(TObject *Sender)
 {
 
- DependenceType d;
-        d=MAGNETORESISTANCE;
-        //else if (PC->TabIndex==2) d=HALL_EFFECT;
 
 if(params)
+{
 delete params;
-params=new MagneticFieldDependence(d);
+params=0;
+}
+params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
 
         FilterParams fp=params->getFilterParams();
         fp.SamplingFrequecy=StrToFloat(Fd1->Text);
@@ -667,18 +666,21 @@ adc->StopMeasurement();
         params->getSplittedDataFromADC();
         SeriesRes1->Clear();
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clBlue);
-        params->constructPlotFromTwoMassive(CURRENT_DATA,SeriesRes2,clBlue);
-        params->constructPlotFromTwoMassive(FILTERED_DATA,SeriesRes1,clRed);
-        params->constructPlotFromTwoMassive(EXTRAPOLATED_DATA,out1,clBlack);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesRes2,clBlue);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesRes1,clRed);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
 
-        std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
+        /*std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
         for(int i=0;i<temp.size();i++)
         Memo1->Lines->Add(FloatToStr(temp[i]));
 
         Memo1->Lines->Add(temp.size());
-        Memo1->Lines->Add(IntToStr((int)temp[0]));
+        Memo1->Lines->Add(IntToStr((int)temp[0])); */
         //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
 }
 //---------------------------------------------------------------------------
 
-
+void __fastcall TForm1::Button10Click(TObject *Sender)
+{
+;
+}

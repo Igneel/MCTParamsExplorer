@@ -7,10 +7,19 @@
 #include "LCard.h"
 #include <Series.hpp>
 
+/*
+На данный момент:
+1. Архитектура не была продумана до конца, так что придется кое-что править.
+2. Нужно реализовать функции сохранения/генерации имен и т.д.
+3. Явно надо разобраться с перечислимыми типами, т.к. кое-где есть дубляж. +
+
+
+*/
+
+
 typedef long double MyDataType;
 
-enum DependenceType {HALL_EFFECT, MAGNETORESISTANCE};
-enum PlotType {MAGNETIC_FIELD, DEPENDENCE};
+enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};
 enum SaveType {ALL_POINTS,SOME_POINTS};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
@@ -59,7 +68,7 @@ public:
 	bool saveData();
 
 
-	void constructPlotFromTwoMassive(DataKind p,TLineSeries* s,TColor color);
+	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
 
@@ -70,13 +79,16 @@ public:
 	void filterData(FilterParams &fP);
 
 private:
-	DependenceType dependenceType;
+
+    template <class T>
+    void MagneticFieldDependence::RoundM(T *pos, T* endPos);
+
+    void MagneticFieldDependence::SaveDataHelper(std::vector<MyDataType> &saveB,
+    std::vector<MyDataType> & saveHall,
+    std::vector<MyDataType> & saveResistance,bool isRoundNeeded,SaveType mode);
+
 
 	FilterParams *filterParams;
-
-
-
-
 
 	void multiplyB(DataKind dataKind);
 	void cutData();
@@ -86,7 +98,7 @@ private:
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);
 
     void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
-    DependenceType dependenceType);
+    PlotType dependenceType);
 
 	bool loadData();
 	void featData(DataKind dataKind, long index, FeatType featType);
@@ -116,6 +128,7 @@ private:
 
 	unsigned int NumberOfPoints;
 
+    unsigned int NumberOfDecimalPlaces;
 };
 
 #endif

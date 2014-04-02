@@ -25,9 +25,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = Resistance
+    ActivePage = HallEffect
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -571,7 +571,7 @@ object Form1: TForm1
         BackWall.Brush.Color = clWhite
         BackWall.Brush.Style = bsClear
         Title.Text.Strings = (
-          'TChart')
+          #1043#1088#1072#1092#1080#1082' '#1101#1092#1092#1077#1082#1090#1072' '#1061#1086#1083#1083#1072)
         Legend.Visible = False
         View3D = False
         TabOrder = 0

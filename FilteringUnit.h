@@ -7,6 +7,7 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #pragma hdrstop
 #pragma package(smart_init)
 
@@ -19,7 +20,23 @@ std::vector<long double> & inY,std::vector<long double> & outB,
 std::vector<long double> & outY,
 int lengthFilter,long double Fdisk,long double Fpropysk,long double Fzatyh);
 
-long double medianFilter(std::vector <long double> & in);
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+/*
+Медианный фильтр.
+Просто возвращает медиану массива.
+*/
+template <class T>
+T medianFilter(std::vector <T> & in)
+{
+    std::sort(in.begin(),in.end());
+    return in[in.size()/2];
+}
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+
 
 //---------------------------------------------------------------------------
 #endif
