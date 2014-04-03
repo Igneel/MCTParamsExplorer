@@ -272,23 +272,23 @@ void __fastcall TForm1::bFilterResClick(TObject *Sender)
 
 void __fastcall TForm1::uiFFTHallClick(TObject *Sender)
 {
-    Tr_Filter((HallCurveIndex->ItemIndex==0?SeriesHall1:SeriesHall2),SeriesFFTHall,Lfilter2->Text.ToInt(),Fd2->Text.ToInt(),
-    Fp2->Text.ToInt(),Fz2->Text.ToInt());
+   /* Tr_Filter((HallCurveIndex->ItemIndex==0?SeriesHall1:SeriesHall2),SeriesFFTHall,Lfilter2->Text.ToInt(),Fd2->Text.ToInt(),
+    Fp2->Text.ToInt(),Fz2->Text.ToInt());  */
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::uiFFTFaradeyClick(TObject *Sender)
 {
-    Tr_Filter((FaradeyCurveIndex->ItemIndex==0?SeriesFaradey1:SeriesFaradey2),SeriesFFTFaradey,Lfilter3->Text.ToInt(),Fd3->Text.ToInt(),
-    Fp3->Text.ToInt(),Fz3->Text.ToInt());
+  /*  Tr_Filter((FaradeyCurveIndex->ItemIndex==0?SeriesFaradey1:SeriesFaradey2),SeriesFFTFaradey,Lfilter3->Text.ToInt(),Fd3->Text.ToInt(),
+    Fp3->Text.ToInt(),Fz3->Text.ToInt()); */
 
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::uiFFTFoygtClick(TObject *Sender)
 {
-    Tr_Filter((FoygtCurveIndex->ItemIndex==0?SeriesFoygt1:SeriesFoygt2),SeriesFFTFoygt,Lfilter4->Text.ToInt(),Fd4->Text.ToInt(),
-    Fp4->Text.ToInt(),Fz4->Text.ToInt());
+  /*  Tr_Filter((FoygtCurveIndex->ItemIndex==0?SeriesFoygt1:SeriesFoygt2),SeriesFFTFoygt,Lfilter4->Text.ToInt(),Fd4->Text.ToInt(),
+    Fp4->Text.ToInt(),Fz4->Text.ToInt());  */
 }
 //---------------------------------------------------------------------------
 
@@ -647,8 +647,12 @@ adc->StopMeasurement();
         params->getSplittedDataFromADC();
         SeriesRes1->Clear();
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesRes2,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesRes1,clRed);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall2,clBlue);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall1,clRed);
+
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes2,clBlue);
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes1,clRed);
+
         //params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
 
         /*std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());

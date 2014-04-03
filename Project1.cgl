@@ -1,34 +1,21 @@
-Functions called:
- fflush (4 times)
- free (7 times)
- powl (3200 times)
- pow (6220 times)
- sinl (98 times)
- cosl (200 times)
- memset (2 times)
- ceil (4 times)
- delete[] (3 times)
- delete (6111 times)
- memmove (15280 times)
- vsnprintf (2 times)
- new[] (3 times)
- new (6127 times)
- SysReallocMem (337 times)
- SysFreeMem (130926 times)
- SysGetMem (130927 times)
- lstrlenA (1 times)
- lstrcpynA (4 times)
- calloc (1 times)
- strlen (127 times)
- realloc (1 times)
- strdup (1 times)
- malloc (4 times)
- memcpy (2 times)
-Resource types used:
- object array (3 allocs, 3 max)
- object (6127 allocs, 54 max)
- memory block (130934 allocs, 3811 max)
-Modules used:
- 00400000 04/02/2014 21:40:58 K:\Дела\Институт физики
- полупроводников\Lcard\MCTParamsExplorer\Project1.exe
-==========================================
+Error 00048. 0x130410 (Thread 0x0E78):
+Access overrun: Attempt to access 10 byte(s) at 0x02E9F930, that is at offset
+ 5120 in heap block 0x02E9E530 which is only 5120 bytes long.
+Call Tree:
+   0x0041CBC9(=Project1.exe:0x01:01BBC9) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\MagneticFieldDependence.cpp#368
+   0x0041D69E(=Project1.exe:0x01:01C69E) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\MagneticFieldDependence.cpp#552
+   0x00405AB0(=Project1.exe:0x01:004AB0) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\Unit1.cpp#647
+   0x004A0CCE(=Project1.exe:0x01:09FCCE)
+   0x004A3AD8(=Project1.exe:0x01:0A2AD8)
+   0x004A3C10(=Project1.exe:0x01:0A2C10)
+
+The object (0x02E9E530) [size: 5120 bytes] was created with new
+Call Tree:
+   0x00411798(=Project1.exe:0x01:010798) j:\program files (x86)\borland\cbuilder6\include\stlport\new#116
+   0x00410B65(=Project1.exe:0x01:00FB65) j:\program files (x86)\borland\cbuilder6\include\stl/_alloc.h#251
+   0x0040F8DE(=Project1.exe:0x01:00E8DE) j:\program files (x86)\borland\cbuilder6\include\stl/_alloc.h#355
+   0x004105C8(=Project1.exe:0x01:00F5C8) j:\program files (x86)\borland\cbuilder6\include\stl/_vector.h#152
+   0x0040F0B5(=Project1.exe:0x01:00E0B5) j:\program files (x86)\borland\cbuilder6\include\stl/_vector.h#334
+   0x0041C280(=Project1.exe:0x01:01B280) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\MagneticFieldDependence.cpp#291
+
+------------------------------------------

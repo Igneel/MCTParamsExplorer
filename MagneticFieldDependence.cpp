@@ -37,6 +37,7 @@ MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
     filterParams=new FilterParams();
     isRoundNeeded=true;
     Current=current;
+    defaultExtension=".txt";
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
@@ -160,10 +161,10 @@ std::vector<MyDataType> & saveResistance,SaveType mode, AnsiString FileName)
 		}
 	}
     std::string text=tsl->Text.c_str();
-    
+   
     ReplaceCommaToDots(text,text);
-
     tsl->Text=text.c_str();
+
     FileName+=defaultExtension;
 	tsl->SaveToFile(FileName); 	
 
@@ -284,10 +285,11 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     {        
     case HALL_EFFECT:
 		FilteredHallEffect.push_back(tempOutSignal[i+NumberOfPoints-1]);
-        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
+        
         break;
     case MAGNETORESISTANCE:
         FilteredMagnetoResistance.push_back(tempOutSignal[i+NumberOfPoints-1]);
+        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
         break;
     default:
         break;
@@ -428,9 +430,12 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
 	std::string s=in;
 	std::string strToReplaceWhich="."; // на что меняем
 	std::string strToSearch=",";   // что ищем
-	findIndex=s.find(strToSearch,strToSearch.length());
+    while ((findIndex=s.find(strToSearch,findIndex))!=std::string::npos)
+    {
+       // s.replace(findIndex,strToSearch.length(),strToReplaceWhich);
 	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),
     strToReplaceWhich.begin(),strToReplaceWhich.end());
+    } 
     out=s;
 }
 
