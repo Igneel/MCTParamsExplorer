@@ -46,6 +46,19 @@ TODO
 LCardADC *adc=0;
 MagneticFieldDependence *params=0;
 
+
+void TForm1::UpdatePlots()
+{
+    params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
+        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
+        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+
+}
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
@@ -101,7 +114,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
 
-        params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
+        params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+         eAttenuationFRes->Text, eLengthFilterRes->Text);
 
         adc->clearBuffer();
         adc->setMagnetoResistanceSeries(SeriesRes1);
@@ -179,14 +193,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         adc->StopMeasurement();
         params->getSplittedDataFromADC();
 
-
-        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
-
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+        UpdatePlots();
 
 
         //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
@@ -260,37 +267,19 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
-    params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
+    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
     params->filterData();
+    params->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
-    /*Tr_Filter((ResCurveIndex->ItemIndex==0?SeriesRes1:SeriesRes2),SeriesFFTRes,
-    Lfilter1->Text.ToInt(),Fd1->Text.ToInt(),
-    Fp1->Text.ToInt(),Fz1->Text.ToInt());*/
-
+    UpdatePlots();
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::uiFFTHallClick(TObject *Sender)
-{
-   /* Tr_Filter((HallCurveIndex->ItemIndex==0?SeriesHall1:SeriesHall2),SeriesFFTHall,Lfilter2->Text.ToInt(),Fd2->Text.ToInt(),
-    Fp2->Text.ToInt(),Fz2->Text.ToInt());  */
-}
-//---------------------------------------------------------------------------
 
-void __fastcall TForm1::uiFFTFaradeyClick(TObject *Sender)
-{
-  /*  Tr_Filter((FaradeyCurveIndex->ItemIndex==0?SeriesFaradey1:SeriesFaradey2),SeriesFFTFaradey,Lfilter3->Text.ToInt(),Fd3->Text.ToInt(),
-    Fp3->Text.ToInt(),Fz3->Text.ToInt()); */
 
-}
-//---------------------------------------------------------------------------
 
-void __fastcall TForm1::uiFFTFoygtClick(TObject *Sender)
-{
-  /*  Tr_Filter((FoygtCurveIndex->ItemIndex==0?SeriesFoygt1:SeriesFoygt2),SeriesFFTFoygt,Lfilter4->Text.ToInt(),Fd4->Text.ToInt(),
-    Fp4->Text.ToInt(),Fz4->Text.ToInt());  */
-}
-//---------------------------------------------------------------------------
+
 
 //-------------------Открытие файла------------------------------------------
 
@@ -637,7 +626,8 @@ delete params;
 params=0;
 }
 params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
-params->setFilterParams(Fd1->Text, Fp1->Text, Fz1->Text, Lfilter1->Text);
+params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+eAttenuationFRes->Text, eLengthFilterRes->Text);
  adc->clearBuffer();
         //adc->setInteractiveSeries(Series1);  !
 adc->testSetReadBuffer();
@@ -645,16 +635,8 @@ adc->testSetReadBuffer();
 adc->StopMeasurement();
 
         params->getSplittedDataFromADC();
-        SeriesRes1->Clear();
-        //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall2,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall1,clRed);
-
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes2,clBlue);
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes1,clRed);
-
-        //params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out1,clBlack);
-
+        UpdatePlots();
+        
         /*std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
         for(int i=0;i<temp.size();i++)
         Memo1->Lines->Add(FloatToStr(temp[i]));
@@ -678,4 +660,6 @@ if(SaveDialog1->Execute())
 }
 }
 //---------------------------------------------------------------------------
+
+
 

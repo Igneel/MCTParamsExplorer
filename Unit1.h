@@ -99,7 +99,7 @@ __published:	// IDE-managed Components
     TLineSeries *SeriesFFTRes;
     TLineSeries *Series1;
     TLineSeries *Series4;
-        TEdit *Lfilter1;
+    TEdit *eLengthFilterRes;
     TButton *uiFFTHall;
     TButton *uiFFTFaradey;
     TButton *uiFFTFoygt;
@@ -116,9 +116,9 @@ __published:	// IDE-managed Components
         TLineSeries *out3;
         TLineSeries *out4;
         TButton *bTest;
-        TEdit *Fd1;
-        TEdit *Fp1;
-        TEdit *Fz1;
+    TEdit *eSamplingFRes;
+    TEdit *eBandWidthFRes;
+    TEdit *eAttenuationFRes;
         TLabel *Label19;
         TLabel *Label20;
         TLabel *Label21;
@@ -127,13 +127,13 @@ __published:	// IDE-managed Components
         TButton *Button7;
         TButton *Button8;
         TLabel *Label16;
-        TEdit *Lfilter2;
+    TEdit *eLengthFilterHall;
         TLabel *Label22;
-        TEdit *Fd2;
-        TEdit *Fp2;
+    TEdit *eSamplingFHall;
+    TEdit *eBandWidthFHall;
         TLabel *Label23;
         TLabel *Label24;
-        TEdit *Fz2;
+    TEdit *eAttenuationFHall;
         TLabel *Label17;
         TEdit *Lfilter3;
         TEdit *Fd3;
@@ -162,6 +162,8 @@ __published:	// IDE-managed Components
         TMenuItem *N10;
         TButton *Button13;
     TMenuItem *N11;
+    TLabeledEdit *PowPolinomRes;
+    TLabeledEdit *PowPolinomHall;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -171,9 +173,6 @@ __published:	// IDE-managed Components
     void __fastcall uiFaradeyFeatClick(TObject *Sender);
     void __fastcall uiFoygtFeatClick(TObject *Sender);
     void __fastcall bFilterResClick(TObject *Sender);
-    void __fastcall uiFFTHallClick(TObject *Sender);
-    void __fastcall uiFFTFaradeyClick(TObject *Sender);
-    void __fastcall uiFFTFoygtClick(TObject *Sender);
     void __fastcall N5Click(TObject *Sender);
         void __fastcall N4Click(TObject *Sender);
 
@@ -197,6 +196,7 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
+    void TForm1::UpdatePlots();
 
 };
 //---------------------------------------------------------------------------

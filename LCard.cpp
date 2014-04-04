@@ -425,24 +425,27 @@ std::vector<std::vector<MyDataType> > &splittedData)
 
 void LCardADC::testSetReadBuffer()
 {
-    int mk=400;
+    int mk=200;
     short * B=new short [mk];
 
     B[0]=0;
     for(int i=1;i<mk;++i)
     {
-        B[i]=B[i-1]+1600.0/mk;
+        B[i]=B[i-1]+200.0/mk;
     }
 
     ap.ChannelsQuantity=3;
     ReadData.resize(ap.ChannelsQuantity);
     std::vector<MyDataType> tempData;
-    unsigned int tsize=500;
-    short *tempBuffer=new short[tsize];   
+    unsigned int tsize=5;
+
+    short *tempBuffer=new short[tsize]; 
+
     for(int nK=0;nK<mk;++nK)
     {
+
     for(int i=1;i<tsize;i+=ap.ChannelsQuantity)
-    tempBuffer[i]=B[nK]*B[nK]*0.05;
+    tempBuffer[i]=(B[nK]+1)*0.05;
     for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK]+1000;
     for(int i=2;i<tsize;i+=ap.ChannelsQuantity)

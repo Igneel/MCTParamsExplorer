@@ -25,9 +25,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -404,6 +404,7 @@ object Form1: TForm1
         Width = 153
         Height = 57
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
+        Enabled = False
         ItemIndex = 0
         Items.Strings = (
           #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
@@ -419,7 +420,7 @@ object Form1: TForm1
         TabOrder = 6
         OnClick = bFilterResClick
       end
-      object Lfilter1: TEdit
+      object eLengthFilterRes: TEdit
         Left = 528
         Top = 96
         Width = 73
@@ -428,7 +429,7 @@ object Form1: TForm1
         Text = '50'
         OnKeyPress = Edit1KeyPress
       end
-      object Fd1: TEdit
+      object eSamplingFRes: TEdit
         Left = 528
         Top = 120
         Width = 73
@@ -437,7 +438,7 @@ object Form1: TForm1
         Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
-      object Fp1: TEdit
+      object eBandWidthFRes: TEdit
         Left = 528
         Top = 144
         Width = 73
@@ -446,7 +447,7 @@ object Form1: TForm1
         Text = '15'
         OnKeyPress = Edit1KeyPress
       end
-      object Fz1: TEdit
+      object eAttenuationFRes: TEdit
         Left = 528
         Top = 168
         Width = 73
@@ -519,6 +520,19 @@ object Form1: TForm1
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
         TabOrder = 17
         OnClick = Button13Click
+      end
+      object PowPolinomRes: TLabeledEdit
+        Left = 184
+        Top = 344
+        Width = 81
+        Height = 21
+        EditLabel.Width = 98
+        EditLabel.Height = 13
+        EditLabel.Caption = #1057#1090#1077#1087#1077#1085#1100' '#1087#1086#1083#1080#1085#1086#1084#1072':'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 18
+        Text = '4'
       end
     end
     object HallEffect: TTabSheet
@@ -646,6 +660,7 @@ object Form1: TForm1
         Width = 153
         Height = 57
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
+        Enabled = False
         ItemIndex = 0
         Items.Strings = (
           #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
@@ -693,7 +708,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 6
-        OnClick = uiFFTHallClick
+        OnClick = bFilterResClick
       end
       object Button6: TButton
         Left = 296
@@ -704,7 +719,7 @@ object Form1: TForm1
         TabOrder = 7
         OnClick = Button6Click
       end
-      object Lfilter2: TEdit
+      object eLengthFilterHall: TEdit
         Left = 528
         Top = 96
         Width = 73
@@ -713,7 +728,7 @@ object Form1: TForm1
         Text = '20'
         OnKeyPress = Edit1KeyPress
       end
-      object Fd2: TEdit
+      object eSamplingFHall: TEdit
         Left = 528
         Top = 120
         Width = 73
@@ -722,7 +737,7 @@ object Form1: TForm1
         Text = '5000'
         OnKeyPress = Edit1KeyPress
       end
-      object Fp2: TEdit
+      object eBandWidthFHall: TEdit
         Left = 528
         Top = 144
         Width = 73
@@ -731,7 +746,7 @@ object Form1: TForm1
         Text = '15'
         OnKeyPress = Edit1KeyPress
       end
-      object Fz2: TEdit
+      object eAttenuationFHall: TEdit
         Left = 528
         Top = 168
         Width = 73
@@ -739,6 +754,19 @@ object Form1: TForm1
         TabOrder = 11
         Text = '25'
         OnKeyPress = Edit1KeyPress
+      end
+      object PowPolinomHall: TLabeledEdit
+        Left = 184
+        Top = 344
+        Width = 81
+        Height = 21
+        EditLabel.Width = 98
+        EditLabel.Height = 13
+        EditLabel.Caption = #1057#1090#1077#1087#1077#1085#1100' '#1087#1086#1083#1080#1085#1086#1084#1072':'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 12
+        Text = '4'
       end
     end
     object Faradey: TTabSheet
@@ -935,7 +963,6 @@ object Form1: TForm1
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 7
-        OnClick = uiFFTFaradeyClick
       end
       object Button7: TButton
         Left = 296
@@ -1178,7 +1205,6 @@ object Form1: TForm1
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
         TabOrder = 7
-        OnClick = uiFFTFoygtClick
       end
       object Button8: TButton
         Left = 296
