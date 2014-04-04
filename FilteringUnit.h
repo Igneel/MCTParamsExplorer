@@ -8,13 +8,14 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include "UsedTypes.h"
 #pragma hdrstop
 #pragma package(smart_init)
 
-long double TrForMassiveFilter(std::vector<long double> & inB,
-std::vector<long double> & inY,std::vector<long double> & outB,
-std::vector<long double> & outY,
-int lengthFilter,long double Fdisk,long double Fpropysk,long double Fzatyh);
+MyDataType TrForMassiveFilter(DataTypeInContainer & inB,
+DataTypeInContainer & inY,DataTypeInContainer & outB,
+DataTypeInContainer & outY,
+int lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh);
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

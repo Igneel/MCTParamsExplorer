@@ -3,6 +3,7 @@
 #ifndef Unit1H
 #define Unit1H
 //---------------------------------------------------------------------------
+
 #include <TeEngine.hpp>
 #include <TeeProcs.hpp>
 #include <Chart.hpp>
@@ -206,11 +207,6 @@ extern PACKAGE TForm1 *Form1;
 extern int AllSeries[26];   
 
 extern LCardADC *adc;
-
-void  OddFeat(TLineSeries* a, long index);
-void  EvenFeat(TLineSeries* a, long index);
-void  MidCurve(TLineSeries* a, TLineSeries* b, long index);
-void  FoygtFeat(TLineSeries* a,TLineSeries* b, long index);
 
 void KillImpulps(TLineSeries * a,double Left, double Right);
 

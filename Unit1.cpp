@@ -1,7 +1,5 @@
 //---------------------------------------------------------------------------
 #pragma hdrstop
-#include <vcl.h>
-
 
 #include "Unit1.h"
 
@@ -49,13 +47,15 @@ MagneticFieldDependence *params=0;
 
 void TForm1::UpdatePlots()
 {
-    params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
-        params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
-        params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    // Обновление все используемых графиков.
+    params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
+    params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
+    params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+
+    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
+    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
+    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
 
 }
 
@@ -198,7 +198,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clRed);
-        //std::vector<MyDataType> temp(params->getFilteredDependence());
+        //DataTypeInContainer temp(params->getFilteredDependence());
         //int NumberOfPoints=temp.size();
         //out1->Clear();
 	//for (unsigned int i = 0; i < NumberOfPoints; i++)
@@ -611,33 +611,34 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
-if(adc)
-delete adc;
-delete params;    
+    if(adc)
+        delete adc;
+    if(params)
+        delete params;    
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::bTestClick(TObject *Sender)
 {
 
-if(params)
-{
-delete params;
-params=0;
-}
-params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
-params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-eAttenuationFRes->Text, eLengthFilterRes->Text);
- adc->clearBuffer();
-        //adc->setInteractiveSeries(Series1);  !
-adc->testSetReadBuffer();
+    if(params)
+    {
+        delete params;
+        params=0;
+    }
+    params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
+    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+    eAttenuationFRes->Text, eLengthFilterRes->Text);
+    adc->clearBuffer();
+            //adc->setInteractiveSeries(Series1);  !
+    adc->testSetReadBuffer();
 
-adc->StopMeasurement();
+    adc->StopMeasurement();
 
-        params->getSplittedDataFromADC();
-        UpdatePlots();
+    params->getSplittedDataFromADC();
+    UpdatePlots();
         
-        /*std::vector<MyDataType> temp(params->getExtrapolatedHallEffect());
+        /*DataTypeInContainer temp(params->getExtrapolatedHallEffect());
         for(int i=0;i<temp.size();i++)
         Memo1->Lines->Add(FloatToStr(temp[i]));
 
@@ -653,11 +654,11 @@ void __fastcall TForm1::Button10Click(TObject *Sender)
 }
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
-if(params)
-if(SaveDialog1->Execute())
-{
-    params->SaveAllData(SaveDialog1->FileName);
-}
+    if(params)
+        if(SaveDialog1->Execute())
+        {
+            params->SaveAllData(SaveDialog1->FileName);
+        }
 }
 //---------------------------------------------------------------------------
 

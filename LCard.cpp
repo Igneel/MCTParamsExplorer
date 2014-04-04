@@ -225,7 +225,7 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 
 // сохранение данных из буфера
 // применяет медианный фильтр
-void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
+void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 {
 
     splitToChannels(tempData,splittedData);
@@ -258,7 +258,7 @@ void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData)
 
 unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
-    std::vector<MyDataType> tempData;
+    DataTypeInContainer tempData;
 
 	WORD i;
 	WORD RequestNumber;
@@ -375,7 +375,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	return 0x0;
 }
 
-std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData()
+std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
 {
     return ReadData;
 }
@@ -390,7 +390,7 @@ void LCardADC::convertToVolt()
     if(ReadData.size()==0)
         return;
     // это работает только если пределы +- 10Вольт.
-    std::vector<MyDataType>::iterator pos;
+    DataTypeInContainer::iterator pos;
     for(int i=0;i<ap.ChannelsQuantity;++i)
     for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)
     *pos/=800.0;
@@ -412,8 +412,8 @@ void LCardADC::setMagnetoResistanceSeries(TLineSeries *s)
 }
 
 
-void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
-std::vector<std::vector<MyDataType> > &splittedData)
+void LCardADC::splitToChannels(DataTypeInContainer &tempData,
+std::vector<DataTypeInContainer > &splittedData)
 {
     splittedData.resize(ap.ChannelsQuantity);
     for(unsigned int i=0;i<tempData.size();)
@@ -436,7 +436,7 @@ void LCardADC::testSetReadBuffer()
 
     ap.ChannelsQuantity=3;
     ReadData.resize(ap.ChannelsQuantity);
-    std::vector<MyDataType> tempData;
+    DataTypeInContainer tempData;
     unsigned int tsize=5;
 
     short *tempBuffer=new short[tsize]; 

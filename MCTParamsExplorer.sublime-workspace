@@ -1,0 +1,339 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Filte",
+				"FilterParams"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"filter",
+				"filterLength"
+			],
+			[
+				"str",
+				"strToSearch"
+			],
+			[
+				"st",
+				"strToReplaceWhich"
+			],
+			[
+				"r",
+				"replace"
+			],
+			[
+				"find",
+				"findIndex"
+			],
+			[
+				"de",
+				"defaultExtension"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "LCard.cpp",
+			"settings":
+			{
+				"buffer_size": 12878,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Project1.cpp",
+			"settings":
+			{
+				"buffer_size": 638,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
+			"settings":
+			{
+				"buffer_size": 87,
+				"line_ending": "Windows",
+				"name": "untitled.sublime-build"
+			}
+		}
+	],
+	"build_system": "Packages/User/CBuilder6.sublime-build",
+	"command_palette":
+	{
+		"height": 81.0,
+		"selected_items":
+		[
+			[
+				"add",
+				"Project: Add Folder"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/J/Program Files/Sublime Text 3/Packages/Scala.sublime-package",
+		"/J/Program Files/Sublime Text 3/Packages/C++.sublime-package",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/J/Program Files (x86)/Borland/CBuilder6/Include/oldstl/string.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/3_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_extrapolated_data_AllPoints",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints",
+		"/J/Program Files/Wireshark/capinfos.html"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"SYMBOL",
+			"extra",
+			"extr",
+			"test",
+			"filterd",
+			"filterData",
+			"extr",
+			"filterd",
+			"filter",
+			"ReplaceCommaToDots",
+			"save",
+			"filter"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "LCard.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12878,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1353,
+								1353
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Project1.cpp",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								557,
+								557
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 87,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								85,
+								85
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "MCTParamsExplorer.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 244.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

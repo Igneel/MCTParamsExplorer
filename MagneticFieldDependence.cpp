@@ -2,31 +2,7 @@
 #include "Unit1.h"
 
 
-FilterParams::FilterParams()
-{
-    SamplingFrequecy=10000;
-    BandwidthFrequency=15;
-    AttenuationFrequency=25;
-    filterLength=50;
-}
 
-FilterParams::FilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)
-{
-    setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);
-}
-
-FilterParams::FilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)
-{
-    setFilterParams(StrToFloat(samplingFrequecy),StrToFloat(bandwidthFrequency),StrToFloat(attenuationFrequency),StrToInt(length));
-}
-
-void FilterParams::setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)
-{
-    SamplingFrequecy=samplingFrequecy;
-    BandwidthFrequency=bandwidthFrequency;
-    AttenuationFrequency=attenuationFrequency;
-    filterLength=length;    
-}
 
 MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
 
@@ -87,17 +63,17 @@ switch(dataKind)
 }
 
 
-void MagneticFieldDependence::SaveDataHelper(std::vector<MyDataType> &saveB,
-std::vector<MyDataType> & saveHall,
-std::vector<MyDataType> & saveResistance,SaveType mode, AnsiString FileName)
+void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
+DataTypeInContainer & saveHall,
+DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 {
     TStringList * tsl=new TStringList();
 
-    std::vector<MyDataType> savingXData(saveB.begin(),saveB.end());
-    std::vector<MyDataType> savingY1Data(saveResistance.begin(),saveResistance.end());
-    std::vector<MyDataType> savingY2Data(saveHall.begin(),saveHall.end());
+    DataTypeInContainer savingXData(saveB.begin(),saveB.end());
+    DataTypeInContainer savingY1Data(saveResistance.begin(),saveResistance.end());
+    DataTypeInContainer savingY2Data(saveHall.begin(),saveHall.end());
 
-    std::vector<MyDataType>::iterator pos;
+    DataTypeInContainer::iterator pos;
 
     int length=savingXData.size();
     if(isRoundNeeded==true)
@@ -174,8 +150,8 @@ void MagneticFieldDependence::RoundM(T *pos, T* endPos)
 
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
 {
-    std::vector<MyDataType> tempX;
-    std::vector<MyDataType> tempY;
+    DataTypeInContainer tempX;
+    DataTypeInContainer tempY;
     /*
     switch(dataKind)
     {
@@ -388,7 +364,7 @@ void MagneticFieldDependence::averagingData()
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
 {
-    std::vector<MyDataType> * temp;
+    DataTypeInContainer * temp;
 
     switch (dataKind)
     {
@@ -408,7 +384,7 @@ void MagneticFieldDependence::multiplyB(DataKind dataKind)
         return;
     }
 
-    std::vector<MyDataType>::iterator pos;
+    DataTypeInContainer::iterator pos;
     for(pos=temp->begin();pos!=temp->end();++pos)
     *pos*=10;
 }  
@@ -443,8 +419,8 @@ inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::st
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color)
 {
-    std::vector<MyDataType> * pointToX=0;
-    std::vector<MyDataType> * pointToY=0;
+    DataTypeInContainer * pointToX=0;
+    DataTypeInContainer * pointToY=0;
 	s->Clear();
     switch(pt)
     {
@@ -503,8 +479,8 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     ShowMessage("График пуст, строить нечего.");
     return;
     }
-    std::vector<MyDataType>::iterator posX;
-    std::vector<MyDataType>::iterator posY;
+    DataTypeInContainer::iterator posX;
+    DataTypeInContainer::iterator posY;
     for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
     	s->AddXY(*posX,*posY,"",color);
 	
@@ -512,7 +488,7 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)
 {
-    std::vector<MyDataType> * temp;
+    DataTypeInContainer * temp;
 	s->Clear();
     switch(p)
     {
@@ -556,7 +532,7 @@ void MagneticFieldDependence::setRoundNeeded(bool needRound)
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
-    std::vector<std::vector<MyDataType> > tempData(adc->getSplittedData());
+    std::vector<DataTypeInContainer > tempData(adc->getSplittedData());
     int t=tempData[2].size();
     t;
     //if(tempData.size()>3) // если это не тестовые замерки
@@ -582,62 +558,62 @@ FilterParams const * MagneticFieldDependence::getFilterParams()
     return filterParams;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getB()
+DataTypeInContainer const & MagneticFieldDependence::getB()
 {
     return B;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getOriginalB()
+DataTypeInContainer const & MagneticFieldDependence::getOriginalB()
 {
     return OriginalB;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getFilteredB()
+DataTypeInContainer const & MagneticFieldDependence::getFilteredB()
 {
     return FilteredB;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedB()
+DataTypeInContainer const & MagneticFieldDependence::getExtrapolatedB()
 {
     return ExtrapolatedB;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getHallEffect()
+DataTypeInContainer const & MagneticFieldDependence::getHallEffect()
 {
     return HallEffect;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getMagnetoResistance()
+DataTypeInContainer const & MagneticFieldDependence::getMagnetoResistance()
 {
     return MagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getOriginalHallEffect()
+DataTypeInContainer const & MagneticFieldDependence::getOriginalHallEffect()
 {
     return OriginalHallEffect;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getOriginalMagnetoResistance()
+DataTypeInContainer const & MagneticFieldDependence::getOriginalMagnetoResistance()
 {
     return OriginalMagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getFilteredHallEffect()
+DataTypeInContainer const & MagneticFieldDependence::getFilteredHallEffect()
 {
     return FilteredHallEffect;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getFilteredMagnetoResistance()
+DataTypeInContainer const & MagneticFieldDependence::getFilteredMagnetoResistance()
 {
     return FilteredMagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedHallEffect()
+DataTypeInContainer const & MagneticFieldDependence::getExtrapolatedHallEffect()
 {
     return ExtrapolatedHallEffect;
 }
 //-------------------------------------------------------------------------------
-std::vector<MyDataType> const & MagneticFieldDependence::getExtrapolatedMagnetoResistance()
+DataTypeInContainer const & MagneticFieldDependence::getExtrapolatedMagnetoResistance()
 {
     return ExtrapolatedMagnetoResistance;
 }

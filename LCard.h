@@ -2,12 +2,12 @@
 #define LCardH
 #include <vector>
 #include <string>
+#include "UsedTypes.h"
 
 #include <Series.hpp>
 #include "include/lusbapi.h"
 #pragma link "Lib/lusbapi.lib"
 
-typedef long double MyDataType;
 
 //инициализация драйвера, настройка, запуск/останов измерений, получение данных
 /*
@@ -41,7 +41,7 @@ public:
 	bool StartMeasurement();
 	void StopMeasurement();
 
-	std::vector<std::vector<MyDataType> > const &  LCardADC::getSplittedData();
+	std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData();
 
     void testSetReadBuffer(); // для отладки.
 
@@ -65,13 +65,13 @@ private:
 	TLineSeries *MagnetoResistanceSeries;
 
 
-	void LCardADC::splitToChannels(std::vector<MyDataType> &tempData,
-	std::vector<std::vector<MyDataType> > &splittedData); // делим по каналам, прописанным в контрольной таблице.
+	void LCardADC::splitToChannels(DataTypeInContainer &tempData,
+	std::vector<DataTypeInContainer > &splittedData); // делим по каналам, прописанным в контрольной таблице.
 
 	void convertToVolt(); // преобразование в вольты (работает для диапазона 10Вольт).
 	MyDataType LCardADC::convertToVolt(MyDataType in);
 
-	void LCardADC::writeDataToVector(std::vector<MyDataType> & tempData); // сохраняет полученные данные.
+	void LCardADC::writeDataToVector(DataTypeInContainer & tempData); // сохраняет полученные данные.
 
 	// идентификатор потока сбора данных
 	HANDLE hReadThread;
@@ -105,9 +105,9 @@ private:
 
 	// буфер данных
 	short *ReadBuffer;
-	//std::vector<MyDataType> ReadData;
-	std::vector<std::vector<MyDataType> > ReadData;
-	std::vector<std::vector<MyDataType> > splittedData;
+	//DataTypeInContainer ReadData;
+	std::vector<DataTypeInContainer > ReadData;
+	std::vector<DataTypeInContainer > splittedData;
 	// счетчик кадров
 	int Counter; // однако, это не совсем кадры, скорее снимки буфера.
 	//------------------------------------------------------------------------------

@@ -35,18 +35,18 @@ public:
 
 	MagneticFieldDependence::MagneticFieldDependence(MyDataType current);
 
-    std::vector<MyDataType> const & getB();
-    std::vector<MyDataType> const & getHallEffect();
-    std::vector<MyDataType> const & getMagnetoResistance();
-    std::vector<MyDataType> const & getOriginalB();
-    std::vector<MyDataType> const & getOriginalHallEffect();
-    std::vector<MyDataType> const & getOriginalMagnetoResistance();
-    std::vector<MyDataType> const & getFilteredB();
-    std::vector<MyDataType> const & getFilteredHallEffect();
-    std::vector<MyDataType> const & getFilteredMagnetoResistance();
-    std::vector<MyDataType> const & getExtrapolatedB();
-    std::vector<MyDataType> const & getExtrapolatedHallEffect();
-    std::vector<MyDataType> const & getExtrapolatedMagnetoResistance();
+    DataTypeInContainer const & getB();
+    DataTypeInContainer const & getHallEffect();
+    DataTypeInContainer const & getMagnetoResistance();
+    DataTypeInContainer const & getOriginalB();
+    DataTypeInContainer const & getOriginalHallEffect();
+    DataTypeInContainer const & getOriginalMagnetoResistance();
+    DataTypeInContainer const & getFilteredB();
+    DataTypeInContainer const & getFilteredHallEffect();
+    DataTypeInContainer const & getFilteredMagnetoResistance();
+    DataTypeInContainer const & getExtrapolatedB();
+    DataTypeInContainer const & getExtrapolatedHallEffect();
+    DataTypeInContainer const & getExtrapolatedMagnetoResistance();
     
 	~MagneticFieldDependence();
 
@@ -54,7 +54,7 @@ public:
 	//    построение графиков, сохранение результатов)
 
 	 
-	//std::vector<MyDataType> const &  getDataFromADC();
+	//DataTypeInContainer const &  getDataFromADC();
 
 	void getSplittedDataFromADC();
 
@@ -86,9 +86,9 @@ private:
     template <class T>
     void MagneticFieldDependence::RoundM(T *pos, T* endPos);
 
-    void MagneticFieldDependence::SaveDataHelper(std::vector<MyDataType> &saveB,
-	std::vector<MyDataType> & saveHall,
-	std::vector<MyDataType> & saveResistance,SaveType mode,
+    void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
+	DataTypeInContainer & saveHall,
+	DataTypeInContainer & saveResistance,SaveType mode,
 	AnsiString FileName);
 
 
@@ -111,22 +111,22 @@ private:
 	MyDataType Current; // ток на образце, в амперах.
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
-	std::vector<MyDataType> B;
-	std::vector<MyDataType> HallEffect;
-    std::vector<MyDataType> MagnetoResistance;
+	DataTypeInContainer B;
+	DataTypeInContainer HallEffect;
+    DataTypeInContainer MagnetoResistance;
 	// Первоначальные значения, полученные от АЦП.
-	std::vector<MyDataType> OriginalB;
-    std::vector<MyDataType> OriginalHallEffect;
-    std::vector<MyDataType> OriginalMagnetoResistance;
+	DataTypeInContainer OriginalB;
+    DataTypeInContainer OriginalHallEffect;
+    DataTypeInContainer OriginalMagnetoResistance;
 	// Фильтрованные значения.
-	std::vector<MyDataType> FilteredB;
-    std::vector<MyDataType> FilteredHallEffect;
-    std::vector<MyDataType> FilteredMagnetoResistance;
+	DataTypeInContainer FilteredB;
+    DataTypeInContainer FilteredHallEffect;
+    DataTypeInContainer FilteredMagnetoResistance;
 
 	// Экстраполированные значения.
-	std::vector<MyDataType> ExtrapolatedB;
-    std::vector<MyDataType> ExtrapolatedHallEffect;
-    std::vector<MyDataType> ExtrapolatedMagnetoResistance;
+	DataTypeInContainer ExtrapolatedB;
+    DataTypeInContainer ExtrapolatedHallEffect;
+    DataTypeInContainer ExtrapolatedMagnetoResistance;
 
 	MyDataType h; // шаг по магнитному полю, если он вообще понадобится:)
 

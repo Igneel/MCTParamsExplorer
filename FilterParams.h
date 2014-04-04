@@ -2,7 +2,8 @@
 #define FILTERPARAMSH
 
 #include "UsedTypes.h"
-#include <vcl.h>
+#include <system.hpp>
+#include <SysUtils.hpp>
 
 class FilterParams
 {

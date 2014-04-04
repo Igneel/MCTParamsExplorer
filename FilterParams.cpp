@@ -1,6 +1,7 @@
 
 #include "FilterParams.h"
 
+
 FilterParams::FilterParams()
 {
     SamplingFrequecy=10000;
