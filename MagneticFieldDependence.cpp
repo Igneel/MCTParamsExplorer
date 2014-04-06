@@ -300,25 +300,29 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     std::vector<long double> newHallEffect;
     std::vector<long double> newMagnetoResistance;
 
-    std::vector<long double> inB(FilteredB);
+    std::vector<long double> inBHall(FilteredB);
+    std::vector<long double> inBMagnetoResistance(FilteredB);
     std::vector<long double> inHallEffect(FilteredHallEffect);
     std::vector<long double> inMagnetoResistance(FilteredMagnetoResistance);
-    NumberOfPoints=inB.size();
+    NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
     ShowMessage("Количество точек равно нулю! Я не хочу делить на ноль:)");
     return false;
     }
     h=2.0/NumberOfPoints;
+    
     unsigned int i=0;
 	for(int i=0;i<500;i++)
 	{
-		inB.push_back(0);
+		inBHall.push_back(0);
 		inHallEffect.push_back(0);
 	}
 
-    curveFittingUniversal(&inB,&inHallEffect, &koefHallEffect,polinomPowForHallEffect);
-    curveFittingUniversal(&inB,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance);
+    curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance);
+    curveFittingUniversal(&inBHall,&inHallEffect, &koefHallEffect,polinomPowForHallEffect);
+
+    
 
 	newB.clear();
 	newB.push_back(0);

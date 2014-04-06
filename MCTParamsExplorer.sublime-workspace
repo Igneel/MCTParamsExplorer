@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Fil",
+				"FilteredB"
+			],
+			[
 				"Filte",
 				"FilterParams"
 			],
@@ -40,28 +44,35 @@
 	"buffers":
 	[
 		{
-			"file": "LCard.cpp",
+			"file": "FilteringUnit.h",
 			"settings":
 			{
-				"buffer_size": 12878,
+				"buffer_size": 1103,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Project1.cpp",
+			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 638,
+				"buffer_size": 18888,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
+			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 87,
-				"line_ending": "Windows",
-				"name": "untitled.sublime-build"
+				"buffer_size": 19068,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "UsedTypes.h",
+			"settings":
+			{
+				"buffer_size": 152,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -96,16 +107,27 @@
 	},
 	"file_history":
 	[
+		"/K/Книги/IT/Программирование/Функциональное программирование/Haskell/CD/04 - Примеры программ/01 - Примеры из книги/tasks_6.hs",
+		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/C++.sublime-settings",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
+		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/README.md",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.cpp",
 		"/J/Program Files/Sublime Text 3/Packages/Scala.sublime-package",
 		"/J/Program Files/Sublime Text 3/Packages/C++.sublime-package",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
 		"/J/Program Files (x86)/Borland/CBuilder6/Include/oldstl/string.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints.txt",
@@ -132,6 +154,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"extr",
+			"long double",
+			"std::vector<long double>",
+			"std::vector<MyDataType>",
+			"{\n",
+			"std::vector<MyDataType>",
+			"vector",
+			"DataTypeInContainer",
+			"OddFeat",
 			"SYMBOL",
 			"extra",
 			"extr",
@@ -161,24 +192,52 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "LCard.cpp",
+					"file": "FilteringUnit.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12878,
+						"buffer_size": 1103,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1353,
-								1353
+								431,
+								431
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Unit1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								666,
+								666
 							]
 						],
 						"settings":
@@ -195,20 +254,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "Project1.cpp",
-					"semi_transient": true,
+					"buffer": 2,
+					"file": "MagneticFieldDependence.cpp",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 638,
+						"buffer_size": 19068,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								557,
-								557
+								9099,
+								9099
 							]
 						],
 						"settings":
@@ -218,38 +277,38 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 5124.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
+					"buffer": 3,
+					"file": "UsedTypes.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 87,
+						"buffer_size": 152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								85,
-								85
+								151,
+								151
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

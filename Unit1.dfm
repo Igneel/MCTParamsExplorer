@@ -493,16 +493,6 @@ object Form1: TForm1
         TabOrder = 14
         OnClick = ImpulsKillerClick
       end
-      object bMultuplyB: TButton
-        Left = 168
-        Top = 368
-        Width = 75
-        Height = 25
-        Caption = #1093'10'
-        Enabled = False
-        TabOrder = 15
-        OnClick = bMultuplyBClick
-      end
       object Button11: TButton
         Left = 344
         Top = 368
@@ -510,7 +500,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1054#1087#1090#1080#1084#1072#1083#1100#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
         Enabled = False
-        TabOrder = 16
+        TabOrder = 15
       end
       object Button13: TButton
         Left = 256
@@ -518,7 +508,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
-        TabOrder = 17
+        TabOrder = 16
         OnClick = Button13Click
       end
       object PowPolinomRes: TLabeledEdit
@@ -531,7 +521,7 @@ object Form1: TForm1
         EditLabel.Caption = #1057#1090#1077#1087#1077#1085#1100' '#1087#1086#1083#1080#1085#1086#1084#1072':'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 18
+        TabOrder = 17
         Text = '4'
       end
     end

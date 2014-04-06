@@ -154,7 +154,6 @@ __published:	// IDE-managed Components
         TEdit *Interval1;
         TEdit *Interval2;
         TButton *ImpulsKiller;
-    TButton *bMultuplyB;
         TMenuItem *N8;
         TMenuItem *N101;
         TButton *Button10;
