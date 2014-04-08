@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"p",
+				"penny"
+			],
+			[
+				"co",
+				"coins"
+			],
+			[
+				"c",
+				"coins"
+			],
+			[
+				"m",
+				"money"
+			],
+			[
 				"Fil",
 				"FilteredB"
 			],
@@ -107,6 +123,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonatan Livingston/Desktop/recfun/src/test/scala/recfun/CountChangeSuite.scala",
+		"/C/Users/Jonatan Livingston/Desktop/recfun/src/main/scala/recfun/Main.scala",
 		"/K/Книги/IT/Программирование/Функциональное программирование/Haskell/CD/04 - Примеры программ/01 - Примеры из книги/tasks_6.hs",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/C++.sublime-settings",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
@@ -140,7 +158,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
