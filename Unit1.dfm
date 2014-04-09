@@ -243,6 +243,16 @@ object Form1: TForm1
         TabOrder = 10
         OnClick = Button10Click
       end
+      object CheckBox1: TCheckBox
+        Left = 408
+        Top = 64
+        Width = 97
+        Height = 17
+        Caption = #1052#1077#1076#1080#1072#1085#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
+        Checked = True
+        State = cbChecked
+        TabOrder = 11
+      end
     end
     object Resistance: TTabSheet
       Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077
@@ -1245,8 +1255,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 453
-    Width = 684
+    Top = 457
+    Width = 692
     Height = 19
     Panels = <
       item

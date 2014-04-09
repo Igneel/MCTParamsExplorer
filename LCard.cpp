@@ -14,7 +14,7 @@ LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
     needToStop=true;// флаг для остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-    DataStep =256*256*channelsQuantity; // 256*64  // кол-во отсчетов, кратное 32
+    DataStep =256*32*channelsQuantity; // 256*64  // кол-во отсчетов, кратное 32
     // оно явно должно зависеть от количества измеряемых каналов и частоты.
     Counter = 0;        // количество полученных кадров.
 
@@ -180,9 +180,10 @@ bool LCardADC::StartMeasurement()
         if(!hReadThread)
         {
         Error(" ServiceReadThread() --> Bad\n");
-        return true;
+
         }
         isMeasurementRunning=true;
+        return true;
     } 
     return false;   
 }
@@ -238,7 +239,6 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         if(HallSeries)
             HallSeries->AddXY(ReadData[0].back(),ReadData[2].back(),"",clBlue);
         if(MagnetoResistanceSeries)
-        for(int i=0; i<ap.ChannelsQuantity;i++)
             MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
     }
     else
@@ -464,6 +464,15 @@ void LCardADC::testSetReadBuffer()
 bool LCardADC::IsMeasurementRunning()
 {
     return isMeasurementRunning;    
+}
+
+void LCardADC::EnableMedianFilter()
+{
+isMedianFilterEnabled=true;
+}
+void LCardADC::DisableMedianFilter()
+{
+isMedianFilterEnabled=false;
 }
 
 

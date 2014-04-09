@@ -164,6 +164,7 @@ __published:	// IDE-managed Components
     TMenuItem *N11;
     TLabeledEdit *PowPolinomRes;
     TLabeledEdit *PowPolinomHall;
+    TCheckBox *CheckBox1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);

@@ -32,7 +32,10 @@ MagneticFieldDependence *params=0;
 
 void TForm1::UpdatePlots()
 {
-
+    params->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
+    params->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
+    params->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
+     /*
     // Обновление все используемых графиков.
     params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
     params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
@@ -41,7 +44,7 @@ void TForm1::UpdatePlots()
     params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
     params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
     params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
-
+    */
 }
 
 //---------------------------------------------------------------------------
@@ -59,7 +62,8 @@ void __fastcall TForm1::FormCreate(TObject *)
 
     // загружаем драйвер
     adc=new LCardADC(3,400);
-
+    if(CheckBox1->Enabled) adc->EnableMedianFilter();
+    else adc->DisableMedianFilter();
     float       MaxFreq=400;   //Максимальная частота
     // Допустимые частоты квантования и размеры блоков
     //Узнаем максимальную частоту

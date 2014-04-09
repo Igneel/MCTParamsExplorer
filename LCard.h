@@ -41,6 +41,9 @@ public:
 	bool StartMeasurement();
 	void StopMeasurement();
 
+    void EnableMedianFilter();
+    void DisableMedianFilter();
+
 	std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData();
 
     void testSetReadBuffer(); // для отладки.
