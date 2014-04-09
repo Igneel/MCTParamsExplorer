@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "UsedTypes.h"
+#include <deque>
 
 #include <Series.hpp>
 #include "include/lusbapi.h"
@@ -44,6 +45,9 @@ public:
     void EnableMedianFilter();
     void DisableMedianFilter();
 
+    void EnableTestingMode();
+    void DisableTestingMode();
+
 	std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData();
 
     void testSetReadBuffer(); // для отладки.
@@ -55,15 +59,18 @@ public:
 
 	void setHallSeries(TLineSeries *s);
 	void setMagnetoResistanceSeries(TLineSeries *s);
+	void setBSeries (TLineSeries * s);
 
 private:
 	bool successfullInit;
     bool isMedianFilterEnabled;
     bool isMeasurementRunning;
+
+    bool TestingMode;
     
 	bool DriverInit();
 
-
+	TLineSeries *B;
 	TLineSeries *HallSeries;
 	TLineSeries *MagnetoResistanceSeries;
 
@@ -75,6 +82,9 @@ private:
 	MyDataType LCardADC::convertToVolt(MyDataType in);
 
 	void LCardADC::writeDataToVector(DataTypeInContainer & tempData); // сохраняет полученные данные.
+
+	void InteractivePlottingData();
+	void InteractivePlottingDataOne();
 
 	// идентификатор потока сбора данных
 	HANDLE hReadThread;
@@ -114,7 +124,7 @@ private:
 	// счетчик кадров
 	int Counter; // однако, это не совсем кадры, скорее снимки буфера.
 	//------------------------------------------------------------------------------
-
+	std::deque<std::deque<MyDataType> > DequeBuffer;
 };
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);

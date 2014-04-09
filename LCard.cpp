@@ -7,7 +7,9 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
 {
+    TestingMode=false;
     isMeasurementRunning=false;
+    B=0;
     HallSeries=0;  // указатель на график
     MagnetoResistanceSeries=0;
     isMedianFilterEnabled=true;// включение медианной фильтрации кадров.
@@ -166,7 +168,6 @@ void LCardADC::StopMeasurement()
     needToStop=true;
     WaitForSingleObject(hReadThread, INFINITE);
     isMeasurementRunning=false;
-    //convertToVolt();
 }
 
 bool LCardADC::StartMeasurement()
@@ -175,6 +176,8 @@ bool LCardADC::StartMeasurement()
     {
         needToStop=false;
         ReadData.resize(ap.ChannelsQuantity);
+
+        clearBuffer();
         // —оздаЄм и запускаем поток сбора данных
         hReadThread = CreateThread(0, 0x2000, ServiceReadThread, 0, 0, &ReadTid);
         if(!hReadThread)
@@ -183,6 +186,8 @@ bool LCardADC::StartMeasurement()
 
         }
         isMeasurementRunning=true;
+        if(HallSeries) HallSeries->Clear();
+        if(MagnetoResistanceSeries) MagnetoResistanceSeries->Clear();
         return true;
     } 
     return false;   
@@ -224,33 +229,93 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
     return 0;
 }
 
+void LCardADC::InteractivePlottingDataOne()
+{
+    long double bigNumber=1E20;
+    // если определены графики - делаем вывод.
+
+    if(B)
+    {
+        B->Clear();
+        for (int i = 0; i < DequeBuffer[2].size(); ++i)
+        {
+            B->AddY(DequeBuffer[2].back(),"",clBlue);
+        }
+    }        
+    if(HallSeries)
+    {
+        HallSeries->Clear();
+        for (int i = 0; i < DequeBuffer[0].size(); ++i)
+        {
+            HallSeries->AddY(DequeBuffer[0].back(),"",clBlue);
+        }   
+    }
+    if(MagnetoResistanceSeries)
+    {
+        MagnetoResistanceSeries->Clear();
+        for (int i = 0; i < DequeBuffer[1].size(); ++i)
+        {
+            MagnetoResistanceSeries->AddY(DequeBuffer[1].back(),"",clBlue);
+        }
+    }
+}
+
+void LCardADC::InteractivePlottingData()
+{
+    long double bigNumber=1E20;
+    // если определены графики - делаем вывод.
+    if(HallSeries)
+        if (ReadData[0].back()<bigNumber || ReadData[2].back()<bigNumber)
+            HallSeries->AddXY(ReadData[0].back(),ReadData[2].back(),"",clBlue);
+    if(MagnetoResistanceSeries)
+        if (ReadData[1].back()<bigNumber || ReadData[2].back()<bigNumber)
+            MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
+}
+
 // сохранение данных из буфера
 // примен€ет медианный фильтр
 void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 {
 
-    splitToChannels(tempData,splittedData);
+    splitToChannels(tempData,splittedData); // раздел€ем данные по каналам.
 
     if(isMedianFilterEnabled)
-    {
+    { // примен€ем медианный фильтр, преобразование в вольты и добавл€ем к уже собранным данным.
 
         for(int i=0;i<ap.ChannelsQuantity;i++)
-            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i])));
-        if(HallSeries)
-            HallSeries->AddXY(ReadData[0].back(),ReadData[2].back(),"",clBlue);
-        if(MagnetoResistanceSeries)
-            MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
+            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i])));        
     }
     else
     {
-        for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+        if(TestingMode)
         {
-        for(unsigned int j=0;j<splittedData[i].size();++j)
-        {
-            ReadData[i].push_back(splittedData[i][j]);
+        int TestBufferSize = 500;
+        DequeBuffer.resize(ap.ChannelsQuantity);
+
+            for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+            {
+                for(unsigned int j=0;j<splittedData[i].size();++j)
+                {
+                    if(DequeBuffer[i].size()>TestBufferSize && !DequeBuffer[i].empty())
+                        DequeBuffer[i].pop_front();
+                    DequeBuffer[i].push_back(convertToVolt(splittedData[i][j]));
+                }
+            }  
+            InteractivePlottingDataOne();  
         }
+        else
+        {
+            for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+            {
+                for(unsigned int j=0;j<splittedData[i].size();++j)
+                {
+                    ReadData[i].push_back(convertToVolt(splittedData[i][j]));
+                }
+            }
         }
     }
+    if(!TestingMode)
+    InteractivePlottingData();
     tempData.clear();
     splittedData.clear();
 }
@@ -334,7 +399,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             }
             writeDataToVector(tempData);
             // надо вы€снить в каком виде этот буфер хранит данные.
-            // ну и как вставить весь буфер в вектор:)
+            // данные идут вот так: значение 1 канала, значение 2 канала, значение 3 канала, значение 1 канала...
             Sleep(20);
             ++Counter;
 
@@ -399,8 +464,14 @@ void LCardADC::convertToVolt()
 void LCardADC::clearBuffer()
 {
     ReadData.clear();
+    DequeBuffer.clear();
+    splittedData.clear();
 }
 
+void LCardADC::setBSeries(TLineSeries *s)
+{
+    B=s;
+}
 
 void LCardADC::setHallSeries(TLineSeries *s)
 {
@@ -416,22 +487,23 @@ void LCardADC::splitToChannels(DataTypeInContainer &tempData,
 std::vector<DataTypeInContainer > &splittedData)
 {
     splittedData.resize(ap.ChannelsQuantity);
-    for(unsigned int i=0;i<tempData.size();)
+    unsigned int bound=(tempData.size()/(unsigned int)ap.ChannelsQuantity)*ap.ChannelsQuantity;
+    for(unsigned int i=0;i<bound;)
     {
-        for(int channel=0;channel<ap.ChannelsQuantity && i<tempData.size();channel++,i++)
+        for(int channel=0;channel<ap.ChannelsQuantity && i<bound;channel++,i++)
             splittedData[channel].push_back(tempData[i]);
     }
 }
 
 void LCardADC::testSetReadBuffer()
 {
-    int mk=200;
+    int mk=300;
     short * B=new short [mk];
 
     B[0]=0;
     for(int i=1;i<mk;++i)
     {
-        B[i]=B[i-1]+200.0/mk;
+        B[i]=B[i-1]+300.0/mk;
     }
 
     ap.ChannelsQuantity=3;
@@ -445,7 +517,7 @@ void LCardADC::testSetReadBuffer()
     {
 
     for(int i=1;i<tsize;i+=ap.ChannelsQuantity)
-    tempBuffer[i]=(B[nK]+1)*0.05;
+    tempBuffer[i]=8000;
     for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK]+1000;
     for(int i=2;i<tsize;i+=ap.ChannelsQuantity)
@@ -468,13 +540,20 @@ bool LCardADC::IsMeasurementRunning()
 
 void LCardADC::EnableMedianFilter()
 {
-isMedianFilterEnabled=true;
+    isMedianFilterEnabled=true;
 }
 void LCardADC::DisableMedianFilter()
 {
-isMedianFilterEnabled=false;
+    isMedianFilterEnabled=false;
 }
 
-
+void LCardADC::EnableTestingMode()
+{
+    TestingMode=true;
+}
+void LCardADC::DisableTestingMode()
+{
+    TestingMode=false;
+}
 
 

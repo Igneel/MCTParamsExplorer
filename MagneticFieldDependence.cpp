@@ -226,7 +226,12 @@ void MagneticFieldDependence::filterData(FilterParams &fP)
 void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     PlotType dependenceType)
 {
-    NumberOfPoints=HallEffect.size();   
+    if(HallEffect.size()!=B.size())
+    {
+        ShowMessage("Количество точек магнитного поля и эффекта Холла не совпадает! filterdataHelper");
+        return;
+    }
+    NumberOfPoints=HallEffect.size();
     std::vector<long double> tempInB(2*NumberOfPoints);
     std::vector<long double> tempInSignal(2*NumberOfPoints);
 
@@ -538,7 +543,8 @@ void MagneticFieldDependence::getSplittedDataFromADC()
 {
     std::vector<DataTypeInContainer > tempData(adc->getSplittedData());
     int t=tempData[2].size();
-    t;
+    t=tempData[1].size();
+    t=tempData[0].size();
     //if(tempData.size()>3) // если это не тестовые замерки
     {
         OriginalB=tempData[2];

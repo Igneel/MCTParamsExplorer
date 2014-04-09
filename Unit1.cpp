@@ -56,32 +56,16 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormCreate(TObject *)
 {
-   
-// Просматриваем все доступные драйверы и помещаем в список только те,
-    // что поддерживают передачу данных по DMA
-
     // загружаем драйвер
-    adc=new LCardADC(3,400);
-    if(CheckBox1->Enabled) adc->EnableMedianFilter();
+    adc=new LCardADC(eChannelsCount->Text.ToInt(),uiFrenq->Text.ToDouble());
+    if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
-    float       MaxFreq=400;   //Максимальная частота
-    // Допустимые частоты квантования и размеры блоков
-    //Узнаем максимальную частоту
-    //Устанавливаем слайдеры 
+    if(CheckBox2->Checked) adc->EnableTestingMode();
+    else adc->DisableTestingMode();
 
-    uiBlockSize2->Text=1024;
-
-    //------------------------------------------------------------------------
-    Chan1->ItemIndex=0;
-    Chan2->ItemIndex=0;
-    GainKoefFaradey->ItemIndex=0;
-    //------------------------------------------------------------------------
-    //-----------------------------------------------------------------
-    
-
-    // Тут заполняем необходимые данные интерфейса
-
-    GainKoefFoygt->ItemIndex=0;
+    adc->setMagnetoResistanceSeries(SeriesRes1);
+    adc->setHallSeries(SeriesHall1);
+    adc->setBSeries(Series1);
 }
 //---------------------------------------------------------------------------
 
@@ -107,8 +91,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
          eAttenuationFRes->Text, eLengthFilterRes->Text);
 
         adc->clearBuffer();
-        adc->setMagnetoResistanceSeries(SeriesRes1);
-        adc->setHallSeries(SeriesHall1);
+
 
         if(adc->StartMeasurement())
         {
@@ -180,11 +163,13 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         GainKoefFoygt->Enabled=1;
 
         adc->StopMeasurement();
-        params->getSplittedDataFromADC();
 
+        if(CheckBox2->Enabled==false)
+        {
+        params->getSplittedDataFromADC();
         UpdatePlots();
 
-
+        }
         //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
         //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clRed);
         //DataTypeInContainer temp(params->getFilteredDependence());
@@ -207,7 +192,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         uiHallControl->Caption = AnsiString("Start");
         uiFaradeyControl->Caption = AnsiString("Start");
         uiFoygtControl->Caption = AnsiString("Start");
-        StatusBar->Panels->Items[1]->Text="Готова к работе. Тестовая версия";
+        StatusBar->Panels->Items[1]->Text="Готова к работе.";
       }
 }
 
@@ -626,14 +611,8 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
 
     params->getSplittedDataFromADC();
     UpdatePlots();
-        
-        /*DataTypeInContainer temp(params->getExtrapolatedHallEffect());
-        for(int i=0;i<temp.size();i++)
-        Memo1->Lines->Add(FloatToStr(temp[i]));
+       
 
-        Memo1->Lines->Add(temp.size());
-        Memo1->Lines->Add(IntToStr((int)temp[0])); */
-        //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes1,clRed);
 }
 //---------------------------------------------------------------------------
 
@@ -652,4 +631,15 @@ void __fastcall TForm1::N11Click(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+
+void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
+{
+    adc->StopMeasurement();
+    adc->SettingADCParams(eChannelsCount->Text.ToInt(),uiFrenq->Text.ToDouble());
+    if(CheckBox1->Checked) adc->EnableMedianFilter();
+    else adc->DisableMedianFilter();
+    if(CheckBox2->Checked) adc->EnableTestingMode();
+    else adc->DisableTestingMode();
+}
+//---------------------------------------------------------------------------
 

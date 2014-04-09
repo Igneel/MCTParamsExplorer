@@ -3,26 +3,24 @@ Functions called:
  free (7 times)
  delete (12 times)
  delete[] (1 times)
- vsnprintf (2 times)
- strcmp (1 times)
  new[] (1 times)
- new (12 times)
- SysReallocMem (224 times)
- SysFreeMem (5828 times)
- SysGetMem (5829 times)
+ new (13 times)
+ SysReallocMem (226 times)
+ SysFreeMem (5900 times)
+ SysGetMem (5901 times)
  lstrlenA (1 times)
  lstrcpynA (4 times)
  calloc (1 times)
- strlen (73 times)
+ strlen (125 times)
  realloc (1 times)
  strdup (1 times)
  malloc (4 times)
  memcpy (2 times)
 Resource types used:
  object array (1 allocs, 1 max)
- object (12 allocs, 12 max)
- memory block (5836 allocs, 2264 max)
+ object (13 allocs, 13 max)
+ memory block (5908 allocs, 2291 max)
 Modules used:
- 00400000 04/09/2014 13:04:56 C:\Documents and Settings\Serjo\Рабочий
- стол\MCTParamsExplorer\Project1.exe
+ 00400000 04/09/2014 18:07:22 K:\Дела\Институт физики
+ полупроводников\Lcard\MCTParamsExplorer\Project1.exe
 ==========================================

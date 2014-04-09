@@ -165,6 +165,10 @@ __published:	// IDE-managed Components
     TLabeledEdit *PowPolinomRes;
     TLabeledEdit *PowPolinomHall;
     TCheckBox *CheckBox1;
+    TCheckBox *CheckBox2;
+    TButton *bApplyADCSettings;
+    TEdit *eChannelsCount;
+    TLabel *Label1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -192,6 +196,7 @@ __published:	// IDE-managed Components
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall N11Click(TObject *Sender);
+    void __fastcall bApplyADCSettingsClick(TObject *Sender);
     
 
 private:	// User declarations
