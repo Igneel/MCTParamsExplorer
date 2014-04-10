@@ -616,10 +616,59 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+template <class T>
+void Rounding(T *pos, T* endPos)
+{
+    int S=1;
+    for(;pos!=endPos;++pos)
+    {
+        int n=(int)(*pos*S)%10;
+        if(n<5)
+            *pos=floorl(*pos*S)/S;
+        else
+            *pos=ceill(*pos*S)/S;
+    }
+}
+
+void Gist(std::vector<long double> & in)
+{
+    Rounding(in.begin(),in.end());
+    int max = max_elem(in);
+    int min = min_elem(in);
+
+    int size=max-min+1;
+    std::vector<long double>::iterator pos;
+    std::vector<long double> gist(size);
+    for(pos=gist.begin(); pos!=gist.end();++pos)
+    {
+        *pos=0;
+    }
+
+
+    for(pos=in.begin(); pos!=in.end();++pos)
+    {
+        gist[*pos]++;
+
+    }
+    for(int i=0; i<size;++i)
+    {
+        Form1->Series5->AddXY(i,gist[i],"",clWhite);
+    }
+
+}
+
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
-;
+std::vector<long double> y;
+
+for(int i=0;i<400;i++)
+{
+y.push_back(rand()%10);
 }
+
+Gist(y);
+}
+
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
     if(params)

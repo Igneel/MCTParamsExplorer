@@ -169,6 +169,7 @@ __published:	// IDE-managed Components
     TButton *bApplyADCSettings;
     TEdit *eChannelsCount;
     TLabel *Label1;
+    TBarSeries *Series5;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -212,6 +213,7 @@ extern PACKAGE TForm1 *Form1;
 extern int AllSeries[26];   
 
 extern LCardADC *adc;
+void Gist(std::vector<long double> & in);
 
 void KillImpulps(TLineSeries * a,double Left, double Right);
 

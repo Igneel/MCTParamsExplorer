@@ -187,6 +187,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonatan Livingston/AppData/Roaming/Microsoft/Bibliography/Sources.xml",
+		"/K/Дела/Институт СГГА/Практика 5 курс/Кондауров/Организация, руководитель и тема ВКР.txt",
 		"/C/Users/Jonatan Livingston/Desktop/recfun/src/test/scala/recfun/CountChangeSuite.scala",
 		"/C/Users/Jonatan Livingston/Desktop/recfun/src/main/scala/recfun/Main.scala",
 		"/K/Книги/IT/Программирование/Функциональное программирование/Haskell/CD/04 - Примеры программ/01 - Примеры из книги/tasks_6.hs",
@@ -222,7 +224,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{

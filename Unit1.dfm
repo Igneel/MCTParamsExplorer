@@ -145,6 +145,19 @@ object Form1: TForm1
           YValues.Multiplier = 1
           YValues.Order = loNone
         end
+        object Series5: TBarSeries
+          Marks.ArrowLength = 20
+          Marks.Visible = True
+          SeriesColor = clWhite
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Bar'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
       end
       object Memo1: TMemo
         Left = 424
