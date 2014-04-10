@@ -630,8 +630,37 @@ void Rounding(T *pos, T* endPos)
     }
 }
 
+//--------------------------------------------------------------------------
+// расчет среднего квадратичного отклонения
+//--------------------------------------------------------------------------
+template <class T>
+T Sko (std::vector<T> const &x0,std::vector<T> const &x)
+{
+    int l=x0.size();
+    T z=0;
+    for(int i=0;i<l;i++)
+    z+= pow(fabs((fabs(x[i])-fabs(x0[i]))),2);
+    z/=(T)l;
+    return sqrt(z);
+}
+
+//---------------------------------------------------
+// расчет математического ожидания
+//-------------------------------------------------
+
+template <class T>
+ T Mo (std::vector<T> const &x)
+ {
+    int l=x.size();
+     T M=0;
+     for(int i=0;i<l;i++)
+     M+=x[i];
+     return M/l;
+ }
+
 void Gist(std::vector<long double> & in)
 {
+    Form1->Series5->Clear();
     Rounding(in.begin(),in.end());
     int max = max_elem(in);
     int min = min_elem(in);
@@ -645,6 +674,8 @@ void Gist(std::vector<long double> & in)
     }
 
 
+
+
     for(pos=in.begin(); pos!=in.end();++pos)
     {
         gist[*pos]++;
@@ -655,6 +686,18 @@ void Gist(std::vector<long double> & in)
         Form1->Series5->AddXY(i,gist[i],"",clWhite);
     }
 
+    long double m=Mo(in);
+
+    std::vector<long double> zeros(size);
+    for(pos=zeros.begin(); pos!=zeros.end();++pos)
+    {
+        *pos=m;
+    }
+    long double sko=Sko(zeros,in);
+
+    Form1->Memo1->Lines->Add("Мат ожидание: "+FloatToStr(m));
+    Form1->Memo1->Lines->Add("СКО: "+FloatToStr(sko));
+
 }
 
 void __fastcall TForm1::Button10Click(TObject *Sender)
@@ -663,7 +706,7 @@ std::vector<long double> y;
 
 for(int i=0;i<400;i++)
 {
-y.push_back(rand()%10);
+y.push_back(rand()%100);
 }
 
 Gist(y);
