@@ -548,8 +548,10 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     //if(tempData.size()>3) // если это не тестовые замерки
     {
         OriginalB=tempData[2];
-        OriginalHallEffect=tempData[0]; // вот тут мог перепутать, надо будеть проверить.
+        OriginalHallEffect=tempData[0]; // последовательность закреплена и не важна.
         OriginalMagnetoResistance=tempData[1];
+        // при смене каналов на вкладке настроек - эти настройки можно не трогать.
+        // программа сама разберется, т.к. АЦП возвращает данные согласно контрольной таблице:).
         
         B=OriginalB;
         HallEffect=OriginalHallEffect;

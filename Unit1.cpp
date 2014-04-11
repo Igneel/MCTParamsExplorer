@@ -57,16 +57,16 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormCreate(TObject *)
 {
-    // загружаем драйвер
-    adc=new LCardADC(eChannelsCount->Text.ToInt(),uiFrenq->Text.ToDouble());
-    if(CheckBox1->Checked) adc->EnableMedianFilter();
-    else adc->DisableMedianFilter();
-    if(CheckBox2->Checked) adc->EnableTestingMode();
-    else adc->DisableTestingMode();
+    channelsInfo cI;
+    cI.push_back(std::pair<int,int> (1,ComboBox1->ItemIndex));
+    cI.push_back(std::pair<int,int> (2,ComboBox2->ItemIndex));
+    cI.push_back(std::pair<int,int> (3,ComboBox3->ItemIndex));
 
-    adc->setMagnetoResistanceSeries(SeriesRes1);
-    adc->setHallSeries(SeriesHall1);
-    adc->setBSeries(Series1);
+    // загружаем драйвер
+    adc=new LCardADC(uiFrenq->Text.ToDouble(),
+    LabelChan1,LabelChan2,LabelChan3,cI);
+
+    bApplyADCSettings->Click();
 }
 //---------------------------------------------------------------------------
 
@@ -99,8 +99,6 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         
         uiFrenq->Enabled = false;
         uiBlockSize2->Enabled=false;
-        Chan1->Enabled=false;
-        Chan2->Enabled=false;
         CurrentRes->Enabled=0;
         CurrentHall->Enabled=0;
         ResCurveIndex->Enabled=0;
@@ -144,8 +142,6 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         uiFrenq->Enabled =true;
 
         uiBlockSize2->Enabled=true;
-        Chan1->Enabled=true;
-        Chan2->Enabled=true;
 
         uiResFeat->Enabled=1;
         bFilterRes->Enabled=1;
@@ -727,12 +723,21 @@ void __fastcall TForm1::N11Click(TObject *Sender)
 
 void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 {
+    channelsInfo cI;
+    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
+    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
+    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
+
     adc->StopMeasurement();
-    adc->SettingADCParams(eChannelsCount->Text.ToInt(),uiFrenq->Text.ToDouble());
+    adc->SettingADCParams(uiFrenq->Text.ToDouble(), cI);
     if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
     if(CheckBox2->Checked) adc->EnableTestingMode();
     else adc->DisableTestingMode();
+
+    adc->setMagnetoResistanceSeries(SeriesRes1);
+    adc->setHallSeries(SeriesHall1);
+    adc->setBSeries(Series1);
 }
 //---------------------------------------------------------------------------
 

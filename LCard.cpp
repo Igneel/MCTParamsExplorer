@@ -5,8 +5,14 @@
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 
-LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
+LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
+    channelsInfo cI)
 {
+    ChannelLabels.push_back(l1);
+    ChannelLabels.push_back(l2);
+    ChannelLabels.push_back(l3);
+
+
     TestingMode=false;
     isMeasurementRunning=false;
     B=0;
@@ -16,15 +22,16 @@ LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency)
     needToStop=true;// флаг для остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-    DataStep =256*32*channelsQuantity; // 256*64  // кол-во отсчетов, кратное 32
+    DataStep =256*32*cI.size(); // 256*64  // кол-во отсчетов, кратное 32
     // оно явно должно зависеть от количества измеряемых каналов и частоты.
-    Counter = 0;        // количество полученных кадров.
+    
+
 
     ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
     if(DriverInit()) // инициализиуем драйвер
     {
-    if(SettingADCParams(channelsQuantity, frenquency))// устанавливаем настройки
+    if(SettingADCParams(frenquency,cI))// устанавливаем настройки
     {
     successfullInit=true; // всё прошло успешно.
     }
@@ -121,14 +128,21 @@ bool LCardADC::IsInitSuccessfull()
     return successfullInit;
 }
 
-bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquency)
+bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
 {
     // установим желаемые параметры работы АЦП
 	ap.IsCorrectionEnabled = TRUE;			// разрешим корректировку данных на уровне драйвера DSP
 	ap.InputMode = NO_SYNC_E440;			// обычный сбор данных безо всякой синхронизации ввода
-	ap.ChannelsQuantity = channelsQuantity;	// количество активных каналов
+	ap.ChannelsQuantity = chanInfo.size();	// количество активных каналов
 	// формируем управляющую таблицу
-	for(int i = 0x0; i < ap.ChannelsQuantity; i++)
+    channelsInfo::iterator pos;
+    int i;
+    for(i=0,pos=chanInfo.begin();pos!=chanInfo.end();++pos,++i)
+    { 
+        ap.ControlTable[i]=(WORD)(pos->first | (pos->second << 0x6));
+    }
+
+	/*for(int i = 0x0; i < ap.ChannelsQuantity; i++)
         {
         //unsigned short temp=
         ap.ControlTable[i] =  // макс/мин +- 10Вольт, дифференциальный режим.
@@ -136,7 +150,9 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
         //temp=temp;
         }
         ap.ControlTable[2] =  // макс/мин +- 10Вольт, дифференциальный режим.
-        (WORD)(2 | (ADC_INPUT_RANGE_625mV_E440 << 0x6));
+        (WORD)(2 | (ADC_INPUT_RANGE_625mV_E440 << 0x6)); */
+
+        
 	ap.AdcRate = frenquency;					// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
@@ -274,6 +290,11 @@ void LCardADC::InteractivePlottingData()
             MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
 }
 
+void LCardADC::DisplayOnForm(int i1, MyDataType v1)
+{
+    ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,6,6);
+}
+
 // сохранение данных из буфера
 // применяет медианный фильтр
 void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
@@ -285,7 +306,10 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
     { // применяем медианный фильтр, преобразование в вольты и добавляем к уже собранным данным.
 
         for(int i=0;i<ap.ChannelsQuantity;i++)
+        {
             ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i])));        
+            DisplayOnForm(i,ReadData[i].back());
+        }
     }
     else
     {
@@ -312,6 +336,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
                     ReadData[i].push_back(convertToVolt(splittedData[i][j]));
+                    DisplayOnForm(i,ReadData[i].back());
                 }
             }
         }
@@ -403,7 +428,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             // надо выяснить в каком виде этот буфер хранит данные.
             // данные идут вот так: значение 1 канала, значение 2 канала, значение 3 канала, значение 1 канала...
             Sleep(20);
-            ++Counter;
+           
 
 
         	if(ReadThreadErrorNumber) break;
@@ -423,7 +448,6 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
             writeDataToVector(tempData);
-			Counter++;
 		}
 	}
 	

@@ -12,9 +12,6 @@
 /*
 На данный момент:
 1. Архитектура не была продумана до конца, так что придется кое-что править.
-2. Нужно реализовать функции сохранения/генерации имен и т.д.
-3. Явно надо разобраться с перечислимыми типами, т.к. кое-где есть дубляж. +
-
 
 */
 
@@ -53,61 +50,73 @@ public:
 	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,
 	//    построение графиков, сохранение результатов)
 
-	 
-	//DataTypeInContainer const &  getDataFromADC();
-
 	void getSplittedDataFromADC();
+
+	// Сохранение данных.
 
 	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
 	void SaveAllData(AnsiString FileName);
 
+	//-------Построение графиков-------------------------------------- 
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
-
+	//------Фильтрация результатов-------------------------------------
 	bool setFilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
 	bool setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
 
 	FilterParams const * getFilterParams();
-	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
 	// дискретизации, пропускания, затухания
 	void filterData(FilterParams &fP);
 	void filterData();
+
+	// Экстраполяция результатов
+
+	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
+	
 
 	void setRoundNeeded(bool needRound);
 
 
 
-private:
+private:	
 
+	//-------Построение графиков-------------------------------------- 
+	void plotData();
+
+	// Сохранение результатов и т.д.----------------------------------
+	unsigned int NumberOfDecimalPlaces;
 	bool isRoundNeeded;
 
-	AnsiString defaultExtension;
+	
     template <class T>
     void MagneticFieldDependence::RoundM(T *pos, T* endPos);
 
+    AnsiString defaultExtension;
     void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
 	DataTypeInContainer & saveHall,
 	DataTypeInContainer & saveResistance,SaveType mode,
 	AnsiString FileName);
-
-
-	FilterParams *filterParams;
-
-	void multiplyB(DataKind dataKind);
-	void cutData();
-	void plotData();
-
 	inline void ReplaceDotsToComma(std::string &in, std::string & out);
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);
+
+	//------Фильтрация результатов-------------------------------------
+	FilterParams *filterParams;
 
     void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     PlotType dependenceType);
 
+    //------Загрузка данных-------------------------------------------- 
 	bool loadData();
+
+	//---------Обработка данных----------------------------------------
 	void featData(DataKind dataKind, long index, FeatType featType);
 	void averagingData(); // усреднение зависимостей. не реализована
+	void multiplyB(DataKind dataKind);
+	void cutData();
 
+	//---------------Много переменных----------------------------------
+	MyDataType Temperature; // температура образца во время измерений.
 	MyDataType Current; // ток на образце, в амперах.
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
@@ -132,7 +141,7 @@ private:
 
 	unsigned int NumberOfPoints;
 
-    unsigned int NumberOfDecimalPlaces;
+    
 };
 
 #endif

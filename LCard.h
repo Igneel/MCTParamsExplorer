@@ -1,6 +1,5 @@
 #ifndef LCardH
 #define LCardH
-#include <vector>
 #include <string>
 #include "UsedTypes.h"
 #include <deque>
@@ -30,14 +29,15 @@ class LCardADC
 {
 public:
 
-	LCardADC::LCardADC(unsigned short channelsQuantity, double frenquency);
+	LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
+        channelsInfo cI);
 	~LCardADC();
 
 	std::string Error(std::string); // ой, она пока не работает:)
 
 	unsigned long __stdcall ServiceReadThreadReal(); // эта функция работает отдельным потоком и собирает данные.
 
-	bool SettingADCParams(unsigned short channelsQuantity, double frenquency);
+	bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo);
 
 	bool StartMeasurement();
 	void StopMeasurement();
@@ -62,6 +62,10 @@ public:
 	void setBSeries (TLineSeries * s);
 
 private:
+
+    std::deque<TLabel *> ChannelLabels;
+
+
 	bool successfullInit;
     bool isMedianFilterEnabled;
     bool isMeasurementRunning;
@@ -83,6 +87,7 @@ private:
 
 	void LCardADC::writeDataToVector(DataTypeInContainer & tempData); // сохраняет полученные данные.
 
+	void LCardADC::DisplayOnForm(int i1, MyDataType v1);
 	void InteractivePlottingData();
 	void InteractivePlottingDataOne();
 
@@ -121,8 +126,6 @@ private:
 	//DataTypeInContainer ReadData;
 	std::vector<DataTypeInContainer > ReadData;
 	std::vector<DataTypeInContainer > splittedData;
-	// счетчик кадров
-	int Counter; // однако, это не совсем кадры, скорее снимки буфера.
 	//------------------------------------------------------------------------------
 	std::deque<std::deque<MyDataType> > DequeBuffer;
 };
