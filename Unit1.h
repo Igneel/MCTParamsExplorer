@@ -170,6 +170,7 @@ __published:	// IDE-managed Components
     TEdit *eChannelsCount;
     TLabel *Label1;
     TBarSeries *Series5;
+    TLabel *Label3;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);

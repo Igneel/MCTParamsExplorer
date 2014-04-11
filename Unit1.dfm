@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 207
-  Top = 122
+  Left = 191
+  Top = 111
   Width = 700
   Height = 530
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -340,6 +340,19 @@ object Form1: TForm1
         Height = 13
         Alignment = taCenter
         Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
+      end
+      object Label3: TLabel
+        Left = 488
+        Top = 360
+        Width = 123
+        Height = 48
+        Caption = 'Label3'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -43
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
       end
       object ChartResist: TChart
         Left = 8
@@ -1300,8 +1313,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 453
-    Width = 684
+    Top = 457
+    Width = 692
     Height = 19
     Panels = <
       item

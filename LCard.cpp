@@ -132,9 +132,11 @@ bool LCardADC::SettingADCParams(unsigned short channelsQuantity, double frenquen
         {
         //unsigned short temp=
         ap.ControlTable[i] =  // макс/мин +- 10Вольт, дифференциальный режим.
-        (WORD)(i | (ADC_INPUT_RANGE_10000mV_E440 << 0x6));
+        (WORD)(i | (ADC_INPUT_RANGE_2500mV_E440 << 0x6));
         //temp=temp;
         }
+        ap.ControlTable[2] =  // макс/мин +- 10Вольт, дифференциальный режим.
+        (WORD)(2 | (ADC_INPUT_RANGE_625mV_E440 << 0x6));
 	ap.AdcRate = frenquency;					// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
