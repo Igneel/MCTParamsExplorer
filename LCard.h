@@ -65,6 +65,7 @@ private:
 
     std::deque<TLabel *> ChannelLabels;
 
+    channelsInfo chanInfo;
 
 	bool successfullInit;
     bool isMedianFilterEnabled;
@@ -82,8 +83,8 @@ private:
 	void LCardADC::splitToChannels(DataTypeInContainer &tempData,
 	std::vector<DataTypeInContainer > &splittedData); // делим по каналам, прописанным в контрольной таблице.
 
-	void convertToVolt(); // преобразование в вольты (работает дл€ диапазона 10¬ольт).
-	MyDataType LCardADC::convertToVolt(MyDataType in);
+	void convertToVolt(); // преобразование в вольты.
+	MyDataType LCardADC::convertToVolt(MyDataType in,int channel);
 
 	void LCardADC::writeDataToVector(DataTypeInContainer & tempData); // сохран€ет полученные данные.
 

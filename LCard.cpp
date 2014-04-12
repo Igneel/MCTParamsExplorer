@@ -12,6 +12,7 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     ChannelLabels.push_back(l2);
     ChannelLabels.push_back(l3);
 
+    chanInfo=cI;
 
     TestingMode=false;
     isMeasurementRunning=false;
@@ -307,7 +308,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 
         for(int i=0;i<ap.ChannelsQuantity;i++)
         {
-            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i])));        
+            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));        
             DisplayOnForm(i,ReadData[i].back());
         }
     }
@@ -324,7 +325,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
                 {
                     if(DequeBuffer[i].size()>TestBufferSize && !DequeBuffer[i].empty())
                         DequeBuffer[i].pop_front();
-                    DequeBuffer[i].push_back(convertToVolt(splittedData[i][j]));
+                    DequeBuffer[i].push_back(convertToVolt(splittedData[i][j],i));
                 }
             }  
             InteractivePlottingDataOne();  
@@ -335,7 +336,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
-                    ReadData[i].push_back(convertToVolt(splittedData[i][j]));
+                    ReadData[i].push_back(convertToVolt(splittedData[i][j],i));
                     DisplayOnForm(i,ReadData[i].back());
                 }
             }
@@ -471,9 +472,27 @@ std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
     return ReadData;
 }
 
-MyDataType LCardADC::convertToVolt(MyDataType in)
+MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
 {
-    return in/800.0;
+    MyDataType koef;
+    switch(chanInfo[channel].second)
+    {
+        case 0: // +- 10V
+            koef=8000.0/10.0;
+            break;
+        case 1: // +- 2.5V
+            koef=8000.0/2.5;
+            break;
+        case 2: // 0.625V
+            koef=8000.0/0.625;
+            break;
+        case 3: // 0.156V
+            koef=8000.0/0.156;
+            break;
+        default:
+            break;
+    }
+    return in/koef;
 }
 
 void LCardADC::convertToVolt()
