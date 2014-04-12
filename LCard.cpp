@@ -4,7 +4,7 @@
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
-
+//------------------------------------------------------------------
 LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     channelsInfo cI)
 {
@@ -39,7 +39,7 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     }
 
 }
-
+//------------------------------------------------------------------
 bool LCardADC::DriverInit()
 {
     if((DllVersion = GetDllVersion()) != CURRENT_VERSION_LUSBAPI)
@@ -123,12 +123,12 @@ bool LCardADC::DriverInit()
 
     return true;
 }
-
+//------------------------------------------------------------------
 bool LCardADC::IsInitSuccessfull()
 {
     return successfullInit;
 }
-
+//------------------------------------------------------------------
 bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
 {
     // установим желаемые параметры работы АЦП
@@ -181,14 +181,14 @@ bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
     }
     return true;
 }
-
+//------------------------------------------------------------------
 void LCardADC::StopMeasurement()
 {
     needToStop=true;
     WaitForSingleObject(hReadThread, INFINITE);
     isMeasurementRunning=false;
 }
-
+//------------------------------------------------------------------
 bool LCardADC::StartMeasurement()
 {
     if(successfullInit)
@@ -211,12 +211,12 @@ bool LCardADC::StartMeasurement()
     } 
     return false;   
 }
-
+//------------------------------------------------------------------
 std::string LCardADC::Error(std::string s)
 {
     return s;
 }
-
+//------------------------------------------------------------------
 LCardADC::~LCardADC()
 {
     delete[] ReadBuffer;
@@ -247,7 +247,7 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
     adc->ServiceReadThreadReal();
     return 0;
 }
-
+//------------------------------------------------------------------
 void LCardADC::InteractivePlottingDataOne()
 {
     long double bigNumber=1E20;
@@ -278,7 +278,7 @@ void LCardADC::InteractivePlottingDataOne()
         }
     }
 }
-
+//------------------------------------------------------------------
 void LCardADC::InteractivePlottingData()
 {
     long double bigNumber=1E20;
@@ -290,12 +290,12 @@ void LCardADC::InteractivePlottingData()
         if (ReadData[1].back()<bigNumber || ReadData[2].back()<bigNumber)
             MagnetoResistanceSeries->AddXY(ReadData[1].back(),ReadData[2].back(),"",clBlue);
 }
-
+//------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)
 {
     ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,6,6);
 }
-
+//------------------------------------------------------------------
 // сохранение данных из буфера
 // применяет медианный фильтр
 void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
@@ -348,7 +348,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
     splittedData.clear();
 }
 
-
+//------------------------------------------------------------------
 unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
     DataTypeInContainer tempData;
@@ -466,12 +466,12 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	// теперь можно спокойно выходить из потока
 	return 0x0;
 }
-
+//------------------------------------------------------------------
 std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
 {
     return ReadData;
 }
-
+//------------------------------------------------------------------
 MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
 {
     MyDataType koef;
@@ -494,7 +494,7 @@ MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
     }
     return in/koef;
 }
-
+//------------------------------------------------------------------
 void LCardADC::convertToVolt()
 {
     if(ReadData.size()==0)
@@ -503,30 +503,32 @@ void LCardADC::convertToVolt()
     DataTypeInContainer::iterator pos;
     for(int i=0;i<ap.ChannelsQuantity;++i)
     for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)
-    *pos/=800.0;
+    *pos=convertToVolt(*pos,i);
 }
-
+//------------------------------------------------------------------
 void LCardADC::clearBuffer()
 {
     ReadData.clear();
     DequeBuffer.clear();
     splittedData.clear();
 }
-
+//------------------------------------------------------------------
 void LCardADC::setBSeries(TLineSeries *s)
 {
     B=s;
 }
-
+//------------------------------------------------------------------
 void LCardADC::setHallSeries(TLineSeries *s)
 {
     HallSeries=s;    
 }
+//------------------------------------------------------------------
 void LCardADC::setMagnetoResistanceSeries(TLineSeries *s)
 {
     MagnetoResistanceSeries=s;
 }
 
+//------------------------------------------------------------------
 
 void LCardADC::splitToChannels(DataTypeInContainer &tempData,
 std::vector<DataTypeInContainer > &splittedData)

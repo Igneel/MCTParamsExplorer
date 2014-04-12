@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"con",
+				"convertToVolt"
+			],
+			[
+				"b",
+				"break"
+			],
+			[
+				"c",
+				"channel"
+			],
+			[
+				"ch",
+				"chanInfo"
+			],
+			[
+				"p",
+				"push_back"
+			],
+			[
+				"cha",
+				"channel"
+			],
+			[
 				"chan",
 				"chanInfo"
 			],
@@ -80,15 +104,7 @@
 				"clear"
 			],
 			[
-				"p",
-				"penny"
-			],
-			[
 				"co",
-				"coins"
-			],
-			[
-				"c",
 				"coins"
 			],
 			[
@@ -135,94 +151,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "FilteringUnit.h",
-			"settings":
-			{
-				"buffer_size": 1829,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Unit1.cpp",
-			"settings":
-			{
-				"buffer_size": 20859,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "SaveUnit.cpp",
-			"settings":
-			{
-				"buffer_size": 4833,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "SaveUnit.h",
-			"settings":
-			{
-				"buffer_size": 835,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "FilteringUnit.cpp",
-			"settings":
-			{
-				"buffer_size": 3071,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "FilterParams.h",
-			"settings":
-			{
-				"buffer_size": 640,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "MagneticFieldDependence.cpp",
-			"settings":
-			{
-				"buffer_size": 19453,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "MagneticFieldDependence.h",
-			"settings":
-			{
-				"buffer_size": 4790,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "UsedTypes.h",
-			"settings":
-			{
-				"buffer_size": 228,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "LCard.h",
-			"settings":
-			{
-				"buffer_size": 3803,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "LCard.cpp",
-			"settings":
-			{
-				"buffer_size": 15929,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/User/CBuilder6.sublime-build",
 	"command_palette":
@@ -255,6 +183,18 @@
 	},
 	"file_history":
 	[
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
+		"/K/Дела/Институт физики полупроводников/Постановка задачи/КРТv2/Optim1.pas",
 		"/J/Program Files (x86)/Borland/CBuilder6/Include/stl/_pair.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
@@ -266,24 +206,15 @@
 		"/C/Users/Jonatan Livingston/Desktop/recfun/src/main/scala/recfun/Main.scala",
 		"/K/Книги/IT/Программирование/Функциональное программирование/Haskell/CD/04 - Примеры программ/01 - Примеры из книги/tasks_6.hs",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/C++.sublime-settings",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/README.md",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.cpp",
 		"/J/Program Files/Sublime Text 3/Packages/Scala.sublime-package",
 		"/J/Program Files/Sublime Text 3/Packages/C++.sublime-package",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
 		"/J/Program Files (x86)/Borland/CBuilder6/Include/oldstl/string.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints.txt",
@@ -311,6 +242,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"convert",
 			"counter",
 			"MagneticFieldDependence",
 			"SYMBOL",
@@ -362,326 +294,8 @@
 	"groups":
 	[
 		{
-			"selected": 10,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "FilteringUnit.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1829,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1059,
-								1061
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Unit1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 20859,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 11636.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "SaveUnit.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4833,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1478,
-								1478
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 162.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "SaveUnit.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 835,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								102,
-								102
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "FilteringUnit.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3071,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2955,
-								2955
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 594.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "FilterParams.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 640,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "MagneticFieldDependence.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19453,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3926,
-								415
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "MagneticFieldDependence.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4790,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1366,
-								1366
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": -0.0,
-						"translation.y": 108.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "UsedTypes.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 228,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "LCard.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3803,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2384,
-								2384
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1070.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "LCard.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15929,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8139,
-								8139
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4914.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
