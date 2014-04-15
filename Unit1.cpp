@@ -20,6 +20,11 @@ TODO
 
 Нормально назвать все кнопки и прочее.
 
+
+Уменьшить размер буфера в два раза.
+Проверить интерактивый вывод графиков, там явно перепутаны оси.
+Добавить работу с обратными измерениями.
+
 */
 
 // Внимание, понадобится добавить что-нибудь,
@@ -40,11 +45,11 @@ void TForm1::UpdatePlots()
     // Обновление все используемых графиков.
     params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
     params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
-    params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    //params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
     params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
-    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    //params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     
 }
 
@@ -62,6 +67,7 @@ void __fastcall TForm1::FormCreate(TObject *)
     cI.push_back(std::pair<int,int> (2,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (3,ComboBox3->ItemIndex));
 
+    Memo1->Lines->Add(cI.size());
     // загружаем драйвер
     adc=new LCardADC(uiFrenq->Text.ToDouble(),
     LabelChan1,LabelChan2,LabelChan3,cI);
@@ -91,7 +97,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
          eAttenuationFRes->Text, eLengthFilterRes->Text);
 
-        adc->clearBuffer();
+        //adc->clearBuffer();
 
 
         if(adc->StartMeasurement())
@@ -161,7 +167,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         adc->StopMeasurement();
 
-        if(CheckBox2->Enabled==false)
+        if(CheckBox2->Checked==false)
         {
         params->getSplittedDataFromADC();
         UpdatePlots();

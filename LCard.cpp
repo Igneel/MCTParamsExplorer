@@ -293,7 +293,7 @@ void LCardADC::InteractivePlottingData()
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)
 {
-    ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,6,6);
+    ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,5,5);
 }
 //------------------------------------------------------------------
 // сохранение данных из буфера
@@ -308,7 +308,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 
         for(int i=0;i<ap.ChannelsQuantity;i++)
         {
-            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));        
+            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
             DisplayOnForm(i,ReadData[i].back());
         }
     }
@@ -467,6 +467,10 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	return 0x0;
 }
 //------------------------------------------------------------------
+std::vector<DataTypeInContainer > *  LCardADC::getSplittedData(int a)
+{
+    return &ReadData;
+}
 std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
 {
     return ReadData;
@@ -474,7 +478,7 @@ std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
 //------------------------------------------------------------------
 MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
 {
-    MyDataType koef;
+    MyDataType koef=1;
     switch(chanInfo[channel].second)
     {
         case 0: // +- 10V
@@ -499,7 +503,7 @@ void LCardADC::convertToVolt()
 {
     if(ReadData.size()==0)
         return;
-    // это работает только если пределы +- 10Вольт.
+    
     DataTypeInContainer::iterator pos;
     for(int i=0;i<ap.ChannelsQuantity;++i)
     for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)

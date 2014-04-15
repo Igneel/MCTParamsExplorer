@@ -1,28 +1,13 @@
-Functions called:
- fflush (4 times)
- free (7 times)
- delete (12 times)
- delete[] (1 times)
- memmove (1 times)
- new[] (1 times)
- new (14 times)
- SysReallocMem (265 times)
- SysFreeMem (6436 times)
- lstrlenA (1 times)
- lstrcpynA (4 times)
- memset (2 times)
- SysGetMem (6437 times)
- calloc (1 times)
- strlen (128 times)
- realloc (1 times)
- strdup (1 times)
- malloc (4 times)
- memcpy (2 times)
-Resource types used:
- object array (1 allocs, 1 max)
- object (14 allocs, 14 max)
- memory block (6444 allocs, 2411 max)
-Modules used:
- 00400000 04/12/2014 14:20:06 K:\Дела\Институт физики
- полупроводников\Lcard\MCTParamsExplorer\Project1.exe
-==========================================
+Error 00239. 0x300010 (Thread 0x0850):
+Resource leak: The object (0x20B8008) was never deleted
+
+The object (0x020B8008) [size: 1280 bytes] was created with new
+Call Tree:
+   0x00409A38(=Project1.exe:0x01:008A38) d:\program files\borland\cbuilder6\include\stlport\new#116
+   0x0040981D(=Project1.exe:0x01:00881D) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
+   0x00409282(=Project1.exe:0x01:008282) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
+   0x004087D8(=Project1.exe:0x01:0077D8) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
+   0x004073F5(=Project1.exe:0x01:0063F5) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
+   0x0041C403(=Project1.exe:0x01:01B403) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#311
+
+------------------------------------------

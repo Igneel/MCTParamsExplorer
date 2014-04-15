@@ -106,7 +106,7 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 					index=k;
 				}
 			}
-
+            if(index<savingXData.size())
 			tsl->Add(FloatToStr(savingXData[index])+"\t"+FloatToStr(savingY1Data[index])+"\t"+FloatToStr(savingY2Data[index]));
 		}
 	}
@@ -541,7 +541,9 @@ void MagneticFieldDependence::setRoundNeeded(bool needRound)
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
-    std::vector<DataTypeInContainer > tempData(adc->getSplittedData());
+    std::vector<DataTypeInContainer >* tempData1=adc->getSplittedData(1);
+
+    std::vector<DataTypeInContainer >& tempData(*tempData1);
     int t=tempData[2].size();
     t=tempData[1].size();
     t=tempData[0].size();

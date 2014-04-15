@@ -49,6 +49,7 @@ public:
     void DisableTestingMode();
 
 	std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData();
+    std::vector<DataTypeInContainer >  *  LCardADC::getSplittedData(int a);
 
     void testSetReadBuffer(); // для отладки.
 

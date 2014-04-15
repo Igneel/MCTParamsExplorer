@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 191
-  Top = 123
+  Left = 190
+  Top = 64
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -24,7 +24,7 @@ object Form1: TForm1
     Left = 24
     Top = 472
     Width = 203
-    Height = 68
+    Height = 65
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 203
@@ -41,7 +41,7 @@ object Form1: TForm1
     Left = 240
     Top = 472
     Width = 203
-    Height = 68
+    Height = 65
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 203
@@ -58,7 +58,7 @@ object Form1: TForm1
     Left = 456
     Top = 472
     Width = 203
-    Height = 68
+    Height = 65
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 203
@@ -87,7 +87,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 496
     Top = 448
-    Width = 118
+    Width = 120
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083':'
     Font.Charset = DEFAULT_CHARSET
@@ -100,7 +100,7 @@ object Form1: TForm1
   object Label33: TLabel
     Left = 280
     Top = 448
-    Width = 121
+    Width = 122
     Height = 22
     Caption = #1042#1090#1086#1088#1086#1081' '#1082#1072#1085#1072#1083':'
     Font.Charset = DEFAULT_CHARSET
@@ -115,9 +115,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -1471,8 +1471,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 553
-    Width = 684
+    Top = 557
+    Width = 692
     Height = 19
     Panels = <
       item
