@@ -102,7 +102,7 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 			{
 				if(fabs(fabs(savingXData[k])-fabs(points[i]))<=r)
 				{
-					r=fabs(savingXData[k]-points[i]);
+					r=fabs(fabs(savingXData[k])-fabs(points[i]));
 					index=k;
 				}
 			}
@@ -539,6 +539,34 @@ void MagneticFieldDependence::setRoundNeeded(bool needRound)
 }
 
 //-------------------------------------------------------------------------------
+
+
+void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB, 
+        DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
+        DataTypeInContainer::iterator beginResistance)
+{
+    OriginalB.clear();
+    OriginalHallEffect.clear();
+    OriginalMagnetoResistance.clear();
+
+    for ( ; beginB != endB; ++beginB, ++beginResistance, ++beginHall)
+    {
+        OriginalB.push_back(*beginB);
+        OriginalMagnetoResistance.push_back(*beginResistance);
+        OriginalHallEffect.push_back(*beginHall); 
+    }
+
+    B=OriginalB;
+    HallEffect=OriginalHallEffect;
+    MagnetoResistance=OriginalMagnetoResistance;
+
+    filterData();
+    extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.
+    // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.      
+}
+
+//---------------------------------------------------------------------------------
+
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
     std::vector<DataTypeInContainer >* tempData1=adc->getSplittedData(1);
@@ -632,5 +660,4 @@ DataTypeInContainer const & MagneticFieldDependence::getExtrapolatedMagnetoResis
     return ExtrapolatedMagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-
 

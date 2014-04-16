@@ -33,6 +33,8 @@ TODO
 
 LCardADC *adc=0;
 MagneticFieldDependence *params=0;
+MagneticFieldDependence *paramsDirect=0;
+MagneticFieldDependence *paramsReverse=0;
 
 
 void TForm1::UpdatePlots()
@@ -86,18 +88,39 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 {
     if (!adc->IsMeasurementRunning())
     {
+        switch (ResCurveIndex->ItemIndex)
+        {
+            case 0:
+                if (paramsDirect)
+                    delete paramsDirect;
+                paramsDirect=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+                paramsDirect->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+                eAttenuationFRes->Text, eLengthFilterRes->Text);
+            break;
+            case 1:
+            if (paramsReverse)
+                    delete paramsReverse;
+                paramsReverse=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+                paramsReverse->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+                eAttenuationFRes->Text, eLengthFilterRes->Text);
+            break;
+            default:
+            break;
+        }
+        /*
         if(params)
         {
         delete params;
         params=0;
         }
 
+
+
+
         params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
 
         params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-         eAttenuationFRes->Text, eLengthFilterRes->Text);
-
-        //adc->clearBuffer();
+         eAttenuationFRes->Text, eLengthFilterRes->Text);*/
 
 
         if(adc->StartMeasurement())
@@ -169,27 +192,21 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         if(CheckBox2->Checked==false)
         {
-        params->getSplittedDataFromADC();
-        UpdatePlots();
+            switch (ResCurveIndex->ItemIndex)
+            {
+                case 0:                
+                    paramsDirect->getSplittedDataFromADC();
+                break;
+                case 1:
+                    paramsReverse->getSplittedDataFromADC();
+                break;
+                default:
+                break;
+            }
+            UpdatePlots();
 
         }
-        //params->constructPlotFromOneMassive(MAGNETIC_FIELD,SeriesRes2,clBlue);
-        //params->constructPlotFromOneMassive(DEPENDENCE,SeriesRes1,clRed);
-        //DataTypeInContainer temp(params->getFilteredDependence());
-        //int NumberOfPoints=temp.size();
-        //out1->Clear();
-	//for (unsigned int i = 0; i < NumberOfPoints; i++)
-	{
-		//out1->AddY(temp[i],"",clBlack);
-	}
-
-        /*long double temp=0;
-        for(int i=0;i<SeriesRes1->YValues->Count();i++)
-        {
-        temp+=SeriesRes1->YValues->Value[i];
-        }
-        temp/=SeriesRes1->YValues->Count();
-        Memo2->Lines->Add(FloatToStr(temp));  */
+        
         uiControl->Caption = AnsiString("Start");
         uiResControl->Caption = AnsiString("Start");
         uiHallControl->Caption = AnsiString("Start");
@@ -262,12 +279,27 @@ void __fastcall TForm1::bFilterResClick(TObject *Sender)
 
 void __fastcall TForm1::N4Click(TObject *Sender)
 {
+
+/*
+std::string s("1<br>2<br>3<br>4");
+    const std::string delimiter = "<br>";
+    std::string::size_type start = 0;
+    std::string::size_type finish = 0;
+    do {
+        finish = s.find(delimiter, start);
+        std::string word = s.substr(start, finish-start);
+        std::cout << word;
+        start = finish + delimiter.size();
+    } while (finish != std::string::npos);
+    return 0;
+*/
+
     if(OpenDialog1->Execute())  // если мы что-то выбрали
     {
-    TLineSeries * S=GetCurrentSeries2(1);  // получаем активный график
-
-    S->Clear(); // очищаем сначала график, куда пишем:)
-
+        DataTypeInContainer B;
+        DataTypeInContainer Hall;
+        DataTypeInContainer Resistance;
+    
     TStringList *tts=new TStringList();  // сюда будем загружать из файла
     int b;
     tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
@@ -287,7 +319,7 @@ void __fastcall TForm1::N4Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-//---------Двигаем полосу "обрезания" для БФП-------------------------------// выбор активного графика
+// выбор активного графика
 TLineSeries * __fastcall TForm1::GetCurrentSeries2(int curve)
 {
 // вызывается при открытии файла.
@@ -437,14 +469,6 @@ void __fastcall TForm1::ImpulsKillerClick(TObject *Sender)
     KillImpulps(SeriesRes1,x,y);
 
 }
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::bMultuplyBClick(TObject *Sender)
-{
-    for(int i=0;i<SeriesRes1->XValues->Count();i++)
-        SeriesRes1->XValues->Value[i]*=10;
-}
-//---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 void fillspace(double *xm,double *ym, int l,int r)
@@ -591,7 +615,16 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
     if(adc)
         delete adc;
     if(params)
-        delete params;    
+        delete params;   
+
+    if (paramsDirect)
+    {
+        delete paramsDirect;
+    }
+    if (paramsReverse)
+    {
+        delete paramsReverse;
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -660,7 +693,7 @@ template <class T>
      M+=x[i];
      return M/l;
  }
-
+// построение амплитудной гистограммы
 void Gist(std::vector<long double> & in)
 {
     Form1->Series5->Clear();
@@ -715,18 +748,43 @@ y.push_back(rand()%100);
 Gist(y);
 }
 
+// Сохранить всё.
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
     if(params)
+    {
+        SaveDialog1->Title="Сохранение объединенных данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName);
+            params->SaveAllData(SaveDialog1->FileName+"_Combine_");
         }
+    }
+
+    if(paramsDirect)
+    {
+        SaveDialog1->Title="Сохранение данных для положительного магнитного поля:";
+        if(SaveDialog1->Execute())
+        {
+            paramsDirect->SaveAllData(SaveDialog1->FileName+"_Direct_");
+        }
+    }
+
+    if(paramsReverse)
+    {
+        SaveDialog1->Title="Сохранение данных для отрицательного магнитного поля:";
+        if(SaveDialog1->Execute())
+        {
+            paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
+        }
+    }
+
+
+
 }
 //---------------------------------------------------------------------------
 
 
-
+// применение настроек АЦП
 void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 {
     channelsInfo cI;
@@ -744,6 +802,58 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     adc->setMagnetoResistanceSeries(SeriesRes1);
     adc->setHallSeries(SeriesHall1);
     adc->setBSeries(Series1);
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+    if (params)
+    {
+        delete params;        
+    }
+
+    params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+    eAttenuationFRes->Text, eLengthFilterRes->Text);
+
+    DataTypeInContainer B;
+    DataTypeInContainer Hall;
+    DataTypeInContainer Resistance;
+
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB().rbegin(); i != paramsReverse->getB().rend(); ++i)
+    {
+        B.push_back(*i);    
+    }
+
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getHallEffect().rbegin(); i != paramsReverse->getHallEffect().rend(); ++i)
+    {
+        Hall.push_back(*i);    
+    }
+
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getMagnetoResistance().rbegin(); i != paramsReverse->getMagnetoResistance().rend(); ++i)
+    {
+        Resistance.push_back(*i);    
+    }
+
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getB().begin(); i != paramsDirect->getB().end(); ++i)
+    {
+        B.push_back(*i);    
+    }
+
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect().begin(); i != paramsDirect->getHallEffect().end(); ++i)
+    {
+        Hall.push_back(*i);    
+    }
+
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance().begin(); i != paramsDirect->getMagnetoResistance().end(); ++i)
+    {
+        Resistance.push_back(*i);    
+    }
+
+    params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
+
 }
 //---------------------------------------------------------------------------
 

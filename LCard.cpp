@@ -23,7 +23,7 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     needToStop=true;// флаг для остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-    DataStep =256*32*cI.size(); // 256*64  // кол-во отсчетов, кратное 32
+    DataStep =256*8*cI.size(); // 256*32 даёт 120 точек. это медленно.  // кол-во отсчетов, кратное 32
     // оно явно должно зависеть от количества измеряемых каналов и частоты.
     
 

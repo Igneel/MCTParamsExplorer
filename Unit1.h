@@ -179,6 +179,7 @@ __published:	// IDE-managed Components
     TLabel *Label1;
     TLabel *Label5;
     TLabel *Label6;
+    TButton *Button1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -199,7 +200,6 @@ __published:	// IDE-managed Components
         void __fastcall Button8Click(TObject *Sender);
         void __fastcall Edit1KeyPress(TObject *Sender, char &Key);
         void __fastcall ImpulsKillerClick(TObject *Sender);
-        void __fastcall bMultuplyBClick(TObject *Sender);
         void __fastcall Button10Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
         void __fastcall Button13Click(TObject *Sender);
@@ -207,6 +207,7 @@ __published:	// IDE-managed Components
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall N11Click(TObject *Sender);
     void __fastcall bApplyADCSettingsClick(TObject *Sender);
+    void __fastcall Button1Click(TObject *Sender);
     
 
 private:	// User declarations

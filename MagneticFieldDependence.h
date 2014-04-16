@@ -52,6 +52,9 @@ public:
 
 	void getSplittedDataFromADC();
 
+	void setDependence(DataTypeInContainer::iterator beginB, 
+		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
+		DataTypeInContainer::iterator beginResistance);
 	// Сохранение данных.
 
 	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
