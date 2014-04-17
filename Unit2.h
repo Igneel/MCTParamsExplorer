@@ -52,6 +52,6 @@ public:		// User declarations
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TSaveForm *SaveForm;
-int AllSeries[26];
+extern int AllSeries[26];
 //---------------------------------------------------------------------------
 #endif

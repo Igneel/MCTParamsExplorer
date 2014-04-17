@@ -1,5 +1,5 @@
 #include "MagneticFieldDependence.h"
-#include "Unit1.h"
+extern LCardADC *adc;
 
 
 
@@ -151,7 +151,7 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 		}
 
 		for (int i = 0; i < SomePointsCount; i++) {
-			int index=0;
+			unsigned int index=0;
 			long double r=4;
 			for(int k=0;k<length;k++)
 			{
@@ -288,11 +288,11 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         return;
     }
     NumberOfPoints=HallEffect.size();
-    std::vector<long double> tempInB(2*NumberOfPoints);
-    std::vector<long double> tempInSignal(2*NumberOfPoints);
+    DataTypeInContainer tempInB(2*NumberOfPoints);
+    DataTypeInContainer tempInSignal(2*NumberOfPoints);
 
-    std::vector<long double> tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
-    std::vector<long double> tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
+    DataTypeInContainer tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
+    DataTypeInContainer tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
 
 
 
@@ -361,17 +361,17 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 {
     bool returnValue=true;
 
-    std::vector<long double> koefMagnetoResistance(polinomPowForMagnetoResistance+1);
-    std::vector<long double> koefHallEffect(polinomPowForHallEffect+1);
+    DataTypeInContainer koefMagnetoResistance(polinomPowForMagnetoResistance+1);
+    DataTypeInContainer koefHallEffect(polinomPowForHallEffect+1);
 
-    std::vector<long double> newB;
-    std::vector<long double> newHallEffect;
-    std::vector<long double> newMagnetoResistance;
+    DataTypeInContainer newB;
+    DataTypeInContainer newHallEffect;
+    DataTypeInContainer newMagnetoResistance;
 
-    std::vector<long double> inBHall(FilteredB);
-    std::vector<long double> inBMagnetoResistance(FilteredB);
-    std::vector<long double> inHallEffect(FilteredHallEffect);
-    std::vector<long double> inMagnetoResistance(FilteredMagnetoResistance);
+    DataTypeInContainer inBHall(FilteredB);
+    DataTypeInContainer inBMagnetoResistance(FilteredB);
+    DataTypeInContainer inHallEffect(FilteredHallEffect);
+    DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
     NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
@@ -644,9 +644,9 @@ void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB
 
 void MagneticFieldDependence::getSplittedDataFromADC()
 {
-    std::vector<DataTypeInContainer >* tempData1=adc->getSplittedData(1);
+    TwoDimensionalContainer * tempData1=adc->getSplittedData(1);
 
-    std::vector<DataTypeInContainer >& tempData(*tempData1);
+    TwoDimensionalContainer & tempData(*tempData1);
     int t=tempData[2].size();
     t=tempData[1].size();
     t=tempData[0].size();

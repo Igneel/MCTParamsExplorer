@@ -8,13 +8,13 @@ Functions called:
  vsnprintf (2 times)
  new (14 times)
  SysReallocMem (266 times)
- SysFreeMem (6498 times)
+ SysFreeMem (6512 times)
  lstrlenA (1 times)
  lstrcpynA (4 times)
  memset (2 times)
- SysGetMem (6499 times)
+ SysGetMem (6513 times)
  calloc (1 times)
- strlen (126 times)
+ strlen (128 times)
  realloc (1 times)
  strdup (1 times)
  malloc (4 times)
@@ -22,8 +22,8 @@ Functions called:
 Resource types used:
  object array (1 allocs, 1 max)
  object (14 allocs, 14 max)
- memory block (6506 allocs, 2427 max)
+ memory block (6520 allocs, 2437 max)
 Modules used:
- 00400000 04/17/2014 14:47:14 K:\Дела\Институт физики
+ 00400000 04/17/2014 19:31:54 K:\Дела\Институт физики
  полупроводников\Lcard\MCTParamsExplorer\Project1.exe
 ==========================================

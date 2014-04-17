@@ -1,12 +1,17 @@
 #ifndef LCardH
 #define LCardH
 #include <string>
-#include "UsedTypes.h"
-#include <deque>
-
 #include <Series.hpp>
+#include <deque>
 #include "include/lusbapi.h"
 #pragma link "Lib/lusbapi.lib"
+#pragma hdrstop
+
+#include "UsedTypes.h"
+#include "FilteringUnit.h"
+
+
+
 
 
 //инициализация драйвера, настройка, запуск/останов измерений, получение данных

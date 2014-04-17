@@ -758,7 +758,7 @@ void Gist(std::vector<long double> & in)
     Form1->Memo1->Lines->Add("СКО: "+FloatToStr(sko));
 
 }
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
 std::vector<long double> y;
@@ -770,10 +770,23 @@ y.push_back(rand()%100);
 
 Gist(y);
 }
-
+//------------------------------------------------------------------------------
 // Сохранить всё.
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
+    if(params && paramsDirect && paramsReverse)
+    {
+        SaveDialog1->Title="Сохранение всех данных:";
+        if(SaveDialog1->Execute())
+        {
+            params->SaveAllData(SaveDialog1->FileName+"_Combine_");
+            paramsDirect->SaveAllData(SaveDialog1->FileName+"_Direct_");
+            paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
+        }
+    }
+
+    else
+    {
     if(params)
     {
         SaveDialog1->Title="Сохранение объединенных данных:";
@@ -800,7 +813,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
             paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
         }
     }
-
+    }
 
 
 }
@@ -881,6 +894,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     UpdatePlots();
 }
 //---------------------------------------------------------------------------
+
 
 
 

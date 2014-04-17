@@ -769,9 +769,9 @@ object Form1: TForm1
       object Label11: TLabel
         Left = 384
         Top = 8
-        Width = 95
+        Width = 116
         Height = 13
-        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082':'
+        Caption = #1055#1088#1086#1090#1077#1082#1072#1102#1097#1080#1081' '#1090#1086#1082'('#1084#1040'):'
       end
       object Label16: TLabel
         Left = 440
@@ -884,7 +884,7 @@ object Form1: TForm1
       end
       object HallCurveIndex: TRadioGroup
         Left = 488
-        Top = 8
+        Top = 24
         Width = 153
         Height = 57
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
@@ -962,7 +962,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 9
-        Text = '5000'
+        Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
       object eBandWidthFHall: TEdit
@@ -1155,8 +1155,9 @@ object Form1: TForm1
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
-          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
+          #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
         TabOrder = 3
       end
       object uiFaradeyControl: TButton
@@ -1397,8 +1398,9 @@ object Form1: TForm1
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
-          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
+          #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
         TabOrder = 3
       end
       object uiFoygtControl: TButton
@@ -1501,8 +1503,7 @@ object Form1: TForm1
     SimplePanel = False
   end
   object MainMenu1: TMainMenu
-    Left = 16
-    Top = 16
+    Top = 440
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
       object N4: TMenuItem
@@ -1555,11 +1556,11 @@ object Form1: TForm1
     end
   end
   object SaveDialog1: TSaveDialog
-    Left = 56
-    Top = 24
+    Left = 24
+    Top = 440
   end
   object OpenDialog1: TOpenDialog
-    Left = 96
-    Top = 24
+    Left = 48
+    Top = 440
   end
 end

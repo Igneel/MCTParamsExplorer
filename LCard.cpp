@@ -1,6 +1,6 @@
 
 #include "LCard.h"
-#include "Unit1.h"
+extern LCardADC *adc;
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
@@ -250,13 +250,13 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
 //------------------------------------------------------------------
 void LCardADC::InteractivePlottingDataOne()
 {
-    long double bigNumber=1E20;
+    //long double bigNumber=1E20;
     // если определены графики - делаем вывод.
 
     if(B)
     {
         B->Clear();
-        for (int i = 0; i < DequeBuffer[2].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[2].size(); ++i)
         {
             B->AddY(DequeBuffer[2].back(),"",clBlue);
         }
@@ -264,7 +264,7 @@ void LCardADC::InteractivePlottingDataOne()
     if(HallSeries)
     {
         HallSeries->Clear();
-        for (int i = 0; i < DequeBuffer[0].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[0].size(); ++i)
         {
             HallSeries->AddY(DequeBuffer[0].back(),"",clBlue);
         }   
@@ -272,7 +272,7 @@ void LCardADC::InteractivePlottingDataOne()
     if(MagnetoResistanceSeries)
     {
         MagnetoResistanceSeries->Clear();
-        for (int i = 0; i < DequeBuffer[1].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[1].size(); ++i)
         {
             MagnetoResistanceSeries->AddY(DequeBuffer[1].back(),"",clBlue);
         }
@@ -316,10 +316,10 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
     {
         if(TestingMode)
         {
-        int TestBufferSize = 500;
+        unsigned int TestBufferSize = 500;
         DequeBuffer.resize(ap.ChannelsQuantity);
 
-            for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+            for( int i=0;i<ap.ChannelsQuantity;i++)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
@@ -332,7 +332,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         }
         else
         {
-            for(unsigned int i=0;i<ap.ChannelsQuantity;i++)
+            for(int i=0;i<ap.ChannelsQuantity;i++)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
@@ -567,11 +567,11 @@ void LCardADC::testSetReadBuffer()
     for(int nK=0;nK<mk;++nK)
     {
 
-    for(int i=1;i<tsize;i+=ap.ChannelsQuantity)
+    for(unsigned int i=1;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=8000;
-    for(int i=0;i<tsize;i+=ap.ChannelsQuantity)
+    for(unsigned int i=0;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK]+1000;
-    for(int i=2;i<tsize;i+=ap.ChannelsQuantity)
+    for(unsigned int i=2;i<tsize;i+=ap.ChannelsQuantity)
     tempBuffer[i]=B[nK];
     // запишем полученную порцию данных в вектор
     for(unsigned int i=0;i<tsize;++i)

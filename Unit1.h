@@ -4,7 +4,7 @@
 #define Unit1H
 //---------------------------------------------------------------------------
 
-#include <TeEngine.hpp>
+
 #include <TeeProcs.hpp>
 #include <Chart.hpp>
 #include <Classes.hpp>
@@ -15,14 +15,17 @@
 #include <Menus.hpp>
 #include <Series.hpp>
 #include <StdCtrls.hpp>
+#include <math.h>
+#include <TeEngine.hpp>
+#pragma hdrstop
 
 #include "Unit2.h"
 #include "ExtrapolateUnit.h"
-#include "FilteringUnit.h"
-#include <math.h>
+#include "FilteringUnit.h"  
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
 #include "FeatUnit.h"
+
 
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
@@ -220,9 +223,10 @@ public:		// User declarations
 extern PACKAGE TForm1 *Form1;
 
 
-extern int AllSeries[26];   
+int AllSeries[26];   
 
 extern LCardADC *adc;
+
 void Gist(std::vector<long double> & in);
 
 void KillImpulps(TLineSeries * a,double Left, double Right);

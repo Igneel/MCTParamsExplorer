@@ -3,18 +3,79 @@
 
 #include <vector>
 #include <algorithm>
+#include <System.hpp>
 #include "FilteringUnit.h"
 #include "LCard.h"
-#include <Series.hpp>
+
+#include <vcl.h>
+
 #include "FilterParams.h"
 #include "UsedTypes.h"
+#include "ExtrapolateUnit.h"
 
 /*
 На данный момент:
 1. Архитектура не была продумана до конца, так что придется кое-что править.
 
-*/
+По поводу продолжения рефакторинга.
 
+Думаю нужен класс Loader/Saver - убрать туда все функции связанные с сохранением, чтобы они не усложняли этот класс.
+
+Также можно разнести данные Холла и магнитосопротивления по разным классам и хранить их как составные части этого класса.
+
+class MagneticFieldDependence
+{
+	HallEffect * hallEffect;
+	MagnetoResistance * magnetoResistance;
+
+	Saver * saver;
+	Loader * loader;
+
+} 
+
+*/
+/*
+class Loader
+{
+public:
+	Loader(AnsiString FileName);
+	~Loader();
+
+	DataTypeInContainer getLoadedData();
+
+private:
+	void loadData(TStringList * tsl);	
+	inline void ReplaceDotsToComma(std::string &in, std::string & out);
+};
+
+
+enum SaveType {ALL_POINTS,SOME_POINTS};
+class Saver
+{
+public:
+	Saver();
+	~Saver();
+
+	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
+	void SaveAllData(AnsiString FileName);
+	void setRoundNeeded(bool needRound);
+private:
+
+	// Сохранение результатов и т.д.----------------------------------
+	unsigned int NumberOfDecimalPlaces;
+	bool isRoundNeeded;
+	
+    template <class T>
+    void MagneticFieldDependence::RoundM(T *pos, T* endPos);
+
+    AnsiString defaultExtension;
+    void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
+	DataTypeInContainer & saveHall,
+	DataTypeInContainer & saveResistance,SaveType mode,
+	AnsiString FileName);
+	inline void ReplaceCommaToDots(std::string &in, std::string & out);
+	
+};*/
 
 
 
@@ -75,7 +136,7 @@ public:
 	FilterParams const * getFilterParamsHall();
 	FilterParams const * getFilterParamsResistance();
 	// дискретизации, пропускания, затухания
-	void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance);
+	void filterData(FilterParams &fPHall, FilterParams &fPResistance);
 	void filterData();
 
 	// Экстраполяция результатов
@@ -98,10 +159,10 @@ private:
 
 	
     template <class T>
-    void MagneticFieldDependence::RoundM(T *pos, T* endPos);
+    void RoundM(T *pos, T* endPos);
 
     AnsiString defaultExtension;
-    void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
+    void SaveDataHelper(DataTypeInContainer &saveB,
 	DataTypeInContainer & saveHall,
 	DataTypeInContainer & saveResistance,SaveType mode,
 	AnsiString FileName);
