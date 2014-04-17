@@ -115,9 +115,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = HallEffect
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -632,8 +632,9 @@ object Form1: TForm1
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
-          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
+          #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
         TabOrder = 5
       end
       object bFilterRes: TButton
@@ -691,8 +692,8 @@ object Form1: TForm1
         OnClick = bClearPlotsResClick
       end
       object Interval1: TEdit
-        Left = 48
-        Top = 344
+        Left = 528
+        Top = 360
         Width = 49
         Height = 21
         TabOrder = 12
@@ -700,8 +701,8 @@ object Form1: TForm1
         OnKeyPress = Edit1KeyPress
       end
       object Interval2: TEdit
-        Left = 104
-        Top = 344
+        Left = 584
+        Top = 360
         Width = 49
         Height = 21
         TabOrder = 13
@@ -709,8 +710,8 @@ object Form1: TForm1
         OnKeyPress = Edit1KeyPress
       end
       object ImpulsKiller: TButton
-        Left = 48
-        Top = 368
+        Left = 528
+        Top = 384
         Width = 105
         Height = 25
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
@@ -718,22 +719,13 @@ object Form1: TForm1
         TabOrder = 14
         OnClick = ImpulsKillerClick
       end
-      object Button11: TButton
-        Left = 344
-        Top = 368
-        Width = 129
-        Height = 25
-        Caption = #1054#1087#1090#1080#1084#1072#1083#1100#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
-        Enabled = False
-        TabOrder = 15
-      end
       object Button13: TButton
-        Left = 256
-        Top = 368
+        Left = 296
+        Top = 360
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
-        TabOrder = 16
+        TabOrder = 15
         OnClick = Button13Click
       end
       object PowPolinomRes: TLabeledEdit
@@ -746,7 +738,7 @@ object Form1: TForm1
         EditLabel.Caption = #1057#1090#1077#1087#1077#1085#1100' '#1087#1086#1083#1080#1085#1086#1084#1072':'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 17
+        TabOrder = 16
         Text = '4'
       end
       object Button1: TButton
@@ -755,8 +747,20 @@ object Form1: TForm1
         Width = 145
         Height = 25
         Caption = #1054#1073#1098#1077#1076#1080#1085#1080#1090#1100' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080
-        TabOrder = 18
+        TabOrder = 17
         OnClick = Button1Click
+      end
+      object Memo6: TMemo
+        Left = 8
+        Top = 336
+        Width = 161
+        Height = 65
+        Lines.Strings = (
+          #1050#1088#1072#1089#1085#1099#1081' - '#1080#1079#1084#1077#1088#1077#1085#1085#1099#1081
+          #1057#1080#1085#1080#1081' - '#1092#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081' '
+          #1063#1077#1088#1085#1099#1081' - '
+          #1101#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081)
+        TabOrder = 18
       end
     end
     object HallEffect: TTabSheet
@@ -880,14 +884,15 @@ object Form1: TForm1
       end
       object HallCurveIndex: TRadioGroup
         Left = 488
-        Top = 24
+        Top = 8
         Width = 153
         Height = 57
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
         ItemIndex = 0
         Items.Strings = (
-          #1055#1077#1088#1074#1072#1103' ('#1087#1088#1103#1084#1086#1081' '#1090#1086#1082')'
-          #1042#1090#1086#1088#1072#1103' ('#1086#1073#1088#1072#1090#1085#1099#1081' '#1090#1086#1082')')
+          #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
+          #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
         TabOrder = 1
       end
       object uiHallFeat: TButton

@@ -39,20 +39,37 @@ MagneticFieldDependence *paramsReverse=0;
 
 void TForm1::UpdatePlots()
 {
-    /*params->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
-    params->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
-    params->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
+    MagneticFieldDependence * p;
+
+    switch(ResCurveIndex->ItemIndex)
+    {
+        case 0:
+            p=paramsDirect;
+        break;
+        case 1:
+            p=paramsReverse;
+        break;
+        case 2:
+            p=params;
+        break;        
+    }
+
+    if(p)
+    {
+    /*p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
+    p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
+    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
     */
 
-    // Обновление все используемых графиков.
-    params->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clBlue);
-    params->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clRed);
-    //params->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    // Обновление всех используемых графиков.
+    p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
+    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
-    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clBlue);
-    params->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clRed);
-    //params->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
-    
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
+    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -94,15 +111,19 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
                 if (paramsDirect)
                     delete paramsDirect;
                 paramsDirect=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsDirect->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-                eAttenuationFRes->Text, eLengthFilterRes->Text);
+                paramsDirect->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    paramsDirect->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
             break;
             case 1:
             if (paramsReverse)
                     delete paramsReverse;
                 paramsReverse=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsReverse->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-                eAttenuationFRes->Text, eLengthFilterRes->Text);
+                paramsReverse->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    paramsReverse->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
             break;
             default:
             break;
@@ -261,8 +282,10 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
-    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+    params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
+    params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
     params->filterData();
     params->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
@@ -273,49 +296,49 @@ void __fastcall TForm1::bFilterResClick(TObject *Sender)
 
 
 
-
-
 //-------------------Открытие файла------------------------------------------
 
 void __fastcall TForm1::N4Click(TObject *Sender)
 {
 
-/*
-std::string s("1<br>2<br>3<br>4");
-    const std::string delimiter = "<br>";
-    std::string::size_type start = 0;
-    std::string::size_type finish = 0;
-    do {
-        finish = s.find(delimiter, start);
-        std::string word = s.substr(start, finish-start);
-        std::cout << word;
-        start = finish + delimiter.size();
-    } while (finish != std::string::npos);
-    return 0;
-*/
 
     if(OpenDialog1->Execute())  // если мы что-то выбрали
     {
-        DataTypeInContainer B;
-        DataTypeInContainer Hall;
-        DataTypeInContainer Resistance;
-    
-    TStringList *tts=new TStringList();  // сюда будем загружать из файла
-    int b;
-    tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
-    for(int i=0;i<tts->Count;i++) // по количеству строк
-    {
-        if(tts->Strings[i].IsEmpty()) // пустые строки пропускаем
-            continue;
-        
-        for(b=1;b<tts->Strings[i].Length();b++) // в непустых строках ищем пробел
-            if(tts->Strings[i].operator [](b)==' ' || tts->Strings[i].operator [](b)=='\t')
-                break;
-            S->AddXY(tts->Strings[i].SubString(1,b-1).ToDouble(), // первая часть до пробела это х, вторая после у
-            tts->Strings[i].SubString(b+1,tts->Strings[i].Length()).ToDouble(),
-            "",clRed);
-    }    
+        TStringList *tts=new TStringList();  // сюда будем загружать из файла
+        tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
+
+        switch ( ResCurveIndex->ItemIndex)
+        {
+            case 0:
+            if(paramsDirect)
+            {
+                delete paramsDirect;
+            }
+            paramsDirect=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+                paramsDirect->loadData(tts);
+            
+            break;
+            case 1:
+            if(paramsReverse)
+            {
+                delete paramsReverse;
+            }
+            paramsReverse=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+                paramsReverse->loadData(tts);
+            
+            break;
+            case 2:
+            if(params)
+            {
+                delete params;
+            }
+            params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
+                params->loadData(tts);
+            
+            break;
+        }
     }
+    UpdatePlots();
 }
 //---------------------------------------------------------------------------
 
@@ -630,14 +653,14 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
 
 void __fastcall TForm1::bTestClick(TObject *Sender)
 {
-
+    /*
     if(params)
     {
         delete params;
         params=0;
     }
     params=new MagneticFieldDependence(CurrentRes->Text.ToDouble());
-    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
+    params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
     eAttenuationFRes->Text, eLengthFilterRes->Text);
     adc->clearBuffer();
             //adc->setInteractiveSeries(Series1);  !
@@ -647,7 +670,7 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
 
     params->getSplittedDataFromADC();
     UpdatePlots();
-       
+      */ 
 
 }
 //---------------------------------------------------------------------------
@@ -805,8 +828,6 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
     if (params)
@@ -815,8 +836,10 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     }
 
     params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-    params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-    eAttenuationFRes->Text, eLengthFilterRes->Text);
+    params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
 
     DataTypeInContainer B;
     DataTypeInContainer Hall;
@@ -854,6 +877,10 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
     params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
 
+    ResCurveIndex->ItemIndex=2;
+    UpdatePlots();
 }
 //---------------------------------------------------------------------------
+
+
 

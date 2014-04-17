@@ -285,10 +285,10 @@ void LCardADC::InteractivePlottingData()
     // если определены графики - делаем вывод.
     if(HallSeries)
         if (ReadData[0].back()<bigNumber || ReadData[2].back()<bigNumber)
-            HallSeries->AddXY(ReadData[2].back(),ReadData[0].back(),"",clBlue);
+            HallSeries->AddXY(10*ReadData[2].back(),ReadData[0].back(),"",clBlue);
     if(MagnetoResistanceSeries)
         if (ReadData[1].back()<bigNumber || ReadData[2].back()<bigNumber)
-            MagnetoResistanceSeries->AddXY(ReadData[2].back(),ReadData[1].back(),"",clBlue);
+            MagnetoResistanceSeries->AddXY(10*ReadData[2].back(),ReadData[1].back(),"",clBlue);
 }
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)

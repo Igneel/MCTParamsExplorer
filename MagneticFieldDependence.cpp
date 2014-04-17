@@ -10,7 +10,9 @@ MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
     NumberOfDecimalPlaces=5;
     h=0.001;
     NumberOfPoints=10;
-    filterParams=new FilterParams();
+    //filterParams=new FilterParams();
+    filterParamsHall=new FilterParams();
+    filterParamsResistance=new FilterParams();
     isRoundNeeded=true;
     Current=current;
     defaultExtension=".txt";
@@ -18,10 +20,63 @@ MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
 
 MagneticFieldDependence::~MagneticFieldDependence()
 {
-    delete filterParams;
-    filterParams=0;
+    delete filterParamsHall;
+    filterParamsHall=0;
+    delete filterParamsResistance;
+    filterParamsResistance=0;
 }
 
+
+void MagneticFieldDependence::loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter)
+{
+    temp.clear();
+    std::string s1 = AnsiS.c_str();
+    std::string s; 
+    std::string::size_type start = 0;
+    std::string::size_type finish = 0;
+    ReplaceDotsToComma(s1,s);
+    do 
+        {
+            finish = s.find(delimiter, start);
+            std::string word = s.substr(start, finish-start);
+            temp.push_back(StrToFloat(word.c_str()));
+            start=finish+1;
+        } while (finish != std::string::npos);
+}
+
+void MagneticFieldDependence::loadData(TStringList * tts)
+{
+    const std::string delimiterTab = "\t";
+    const std::string delimiterSpace = " ";
+    const int numberOfColls=3;
+
+    DataTypeInContainer B;
+    DataTypeInContainer Hall;
+    DataTypeInContainer Resistance;
+    DataTypeInContainer temp;
+
+    for(int i=0;i<tts->Count;i++) // по количеству строк
+    {
+        if(tts->Strings[i].IsEmpty()) // пустые строки пропускаем
+            continue;
+            
+        loadDataHelper(temp,tts->Strings[i],delimiterTab);
+
+        if(temp.size()!=numberOfColls)
+        {          
+        loadDataHelper(temp,tts->Strings[i],delimiterSpace);
+        if(temp.size()!=numberOfColls)
+            return;
+        }
+
+        B.push_back(temp[0]);
+        Resistance.push_back(temp[1]);
+        Hall.push_back(temp[2]);
+    }
+
+    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
+
+}
 
 
 void MagneticFieldDependence::SaveAllData(AnsiString FileName)
@@ -213,13 +268,14 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData()
 {
-    filterDataHelper((*filterParams),HALL_EFFECT);
-    filterDataHelper((*filterParams),MAGNETORESISTANCE);
+    filterDataHelper((*filterParamsHall),HALL_EFFECT);
+    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
 }
 //-------------------------------------------------------------------------------
-void MagneticFieldDependence::filterData(FilterParams &fP)
+void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)
 {
-    setFilterParams(fP.SamplingFrequecy, fP.BandwidthFrequency, fP.AttenuationFrequency, fP.filterLength);
+    setFilterParamsHall(fPHall.SamplingFrequecy, fPHall.BandwidthFrequency, fPHall.AttenuationFrequency, fPHall.filterLength);
+    setFilterParamsResistance(fPResistance.SamplingFrequecy, fPResistance.BandwidthFrequency, fPResistance.AttenuationFrequency, fPResistance.filterLength);
     filterData();
 }
 //-------------------------------------------------------------------------------
@@ -238,9 +294,13 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     std::vector<long double> tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
     std::vector<long double> tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
 
+
+
     switch(dependenceType)
     {
     case HALL_EFFECT:
+
+    FilteredHallEffect.clear();
     // формируем сигнал для фильтра.
     // достраивая его в отрицательные магнитные поля.
     for (unsigned int i = 0; i < NumberOfPoints; i++)
@@ -252,6 +312,9 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     }
     break;
     case MAGNETORESISTANCE:
+
+    FilteredB.clear();
+    FilteredMagnetoResistance.clear();
 
     for (unsigned int i = 0; i < NumberOfPoints; i++)
     {
@@ -521,15 +584,27 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
 }
 
 //-------------------------------------------------------------------------------
-bool MagneticFieldDependence::setFilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)
+bool MagneticFieldDependence::setFilterParamsHall(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)
 {
-    filterParams->setFilterParams(StrToFloat(samplingFrequecy), StrToFloat(bandwidthFrequency), StrToFloat(attenuationFrequency), StrToInt(length));
+    filterParamsHall->setFilterParams(StrToFloat(samplingFrequecy), StrToFloat(bandwidthFrequency), StrToFloat(attenuationFrequency), StrToInt(length));
     return true;
 }
 //-------------------------------------------------------------------------------
-bool MagneticFieldDependence::setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)
+bool MagneticFieldDependence::setFilterParamsHall(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)
 {
-    filterParams->setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);
+    filterParamsHall->setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);
+    return true;
+}
+//-------------------------------------------------------------------------------
+bool MagneticFieldDependence::setFilterParamsResistance(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)
+{
+    filterParamsResistance->setFilterParams(StrToFloat(samplingFrequecy), StrToFloat(bandwidthFrequency), StrToFloat(attenuationFrequency), StrToInt(length));
+    return true;
+}
+//-------------------------------------------------------------------------------
+bool MagneticFieldDependence::setFilterParamsResistance(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)
+{
+    filterParamsResistance->setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);
     return true;
 }
 //-------------------------------------------------------------------------------
@@ -595,9 +670,14 @@ void MagneticFieldDependence::getSplittedDataFromADC()
 }
 //-------------------------------------------------------------------------------
 
-FilterParams const * MagneticFieldDependence::getFilterParams()
+FilterParams const * MagneticFieldDependence::getFilterParamsHall()
 {
-    return filterParams;
+    return filterParamsHall;
+}
+//------------------------------------------------------------------------------
+FilterParams const * MagneticFieldDependence::getFilterParamsResistance()
+{
+    return filterParamsResistance;
 }
 //-------------------------------------------------------------------------------
 DataTypeInContainer const & MagneticFieldDependence::getB()

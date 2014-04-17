@@ -52,6 +52,8 @@ public:
 
 	void getSplittedDataFromADC();
 
+	void loadData(TStringList * tsl);
+
 	void setDependence(DataTypeInContainer::iterator beginB, 
 		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
 		DataTypeInContainer::iterator beginResistance);
@@ -65,12 +67,15 @@ public:
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
 	//------Фильтрация результатов-------------------------------------
-	bool setFilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
-	bool setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
+	bool setFilterParamsHall(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
+	bool setFilterParamsHall(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
+	bool setFilterParamsResistance(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
+	bool setFilterParamsResistance(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
 
-	FilterParams const * getFilterParams();
+	FilterParams const * getFilterParamsHall();
+	FilterParams const * getFilterParamsResistance();
 	// дискретизации, пропускания, затухания
-	void filterData(FilterParams &fP);
+	void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance);
 	void filterData();
 
 	// Экстраполяция результатов
@@ -104,13 +109,15 @@ private:
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);
 
 	//------Фильтрация результатов-------------------------------------
-	FilterParams *filterParams;
+	FilterParams *filterParamsHall;
+	FilterParams *filterParamsResistance;
 
-    void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
+    void filterDataHelper(FilterParams &fP,
     PlotType dependenceType);
 
     //------Загрузка данных-------------------------------------------- 
-	bool loadData();
+	void loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter);
+
 
 	//---------Обработка данных----------------------------------------
 	void featData(DataKind dataKind, long index, FeatType featType);

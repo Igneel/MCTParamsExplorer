@@ -4,8 +4,72 @@
 		"selected_items":
 		[
 			[
+				"filterParamsR",
+				"filterParamsResistance"
+			],
+			[
+				"filterParamsH",
+				"filterParamsHall"
+			],
+			[
+				"fPH",
+				"fPHall"
+			],
+			[
+				"filterP",
+				"filterParamsResistance"
+			],
+			[
+				"fi",
+				"filterParamsHall"
+			],
+			[
+				"F",
+				"FilterParams"
+			],
+			[
+				"Fi",
+				"FilteredB"
+			],
+			[
+				"Fil",
+				"FilteredMagnetoResistance"
+			],
+			[
+				"b",
+				"break"
+			],
+			[
+				"Re",
+				"ResCurveIndex"
+			],
+			[
+				"s",
+				"switch"
+			],
+			[
+				"Ma",
+				"MagneticFieldDependence"
+			],
+			[
 				"pa",
-				"paramsReverse"
+				"paramsDirect"
+			],
+			[
+				"S",
+				"Strings"
+			],
+			[
+				"op",
+				"openFileHelper"
+			],
+			[
+				"d",
+				"delimiter"
+			],
+			[
+				"st",
+				"string"
 			],
 			[
 				"be",
@@ -22,10 +86,6 @@
 			[
 				"Or",
 				"OriginalMagnetoResistance"
-			],
-			[
-				"b",
-				"beginHall"
 			],
 			[
 				"O",
@@ -68,10 +128,6 @@
 				"ItemIndex"
 			],
 			[
-				"d",
-				"delete"
-			],
-			[
 				"con",
 				"convertToVolt"
 			],
@@ -94,10 +150,6 @@
 			[
 				"L",
 				"LCardADC"
-			],
-			[
-				"S",
-				"SaveUnit"
 			],
 			[
 				"i",
@@ -152,10 +204,6 @@
 				"money"
 			],
 			[
-				"Fil",
-				"FilteredB"
-			],
-			[
 				"Filte",
 				"FilterParams"
 			],
@@ -170,10 +218,6 @@
 			[
 				"str",
 				"strToSearch"
-			],
-			[
-				"st",
-				"strToReplaceWhich"
 			],
 			[
 				"r",
@@ -191,7 +235,7 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 17888,
+				"buffer_size": 17894,
 				"line_ending": "Windows"
 			}
 		},
@@ -199,7 +243,7 @@
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 20524,
+				"buffer_size": 23469,
 				"line_ending": "Windows"
 			}
 		},
@@ -207,7 +251,7 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 4979,
+				"buffer_size": 5490,
 				"line_ending": "Windows"
 			}
 		},
@@ -215,7 +259,7 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 24080,
+				"buffer_size": 24741,
 				"line_ending": "Windows"
 			}
 		},
@@ -223,7 +267,7 @@
 			"file": "Unit1.h",
 			"settings":
 			{
-				"buffer_size": 6569,
+				"buffer_size": 6560,
 				"line_ending": "Windows"
 			}
 		}
@@ -259,6 +303,18 @@
 	},
 	"file_history":
 	[
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Combine__original_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Combine__original_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Direct__current_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Combine__current_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Combine__current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/U2_2_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/U2_1_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/InAs U11/3_current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/InAs U11/3_current_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/U12/U2__current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
@@ -293,9 +349,7 @@
 		"/J/Program Files/Sublime Text 3/Packages/C++.sublime-package",
 		"/J/Program Files (x86)/Borland/CBuilder6/Include/oldstl/string.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/3_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_extrapolated_data_AllPoints",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_filtered_data_AllPoints",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_AllPoints",
@@ -318,6 +372,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"filterDa",
+			"Hall",
+			"filterP",
+			"filterParamsHall",
+			"filterD",
+			"filterDa",
+			"multiplyB",
+			";\n",
+			"params",
+			"update",
+			"repla",
+			"openFileHelper",
+			"loadData",
+			"3",
 			"paramsDirect",
 			"params",
 			"paramsDirect",
@@ -381,7 +449,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -390,15 +458,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17888,
+						"buffer_size": 17894,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8389,
-								8389
+								9001,
+								9001
 							]
 						],
 						"settings":
@@ -411,7 +479,7 @@
 						"translation.y": 4482.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -420,15 +488,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20524,
+						"buffer_size": 23469,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16005,
-								16024
+								7612,
+								7522
 							]
 						],
 						"settings":
@@ -438,10 +506,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9612.0,
+						"translation.y": 4314.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -450,15 +518,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4979,
+						"buffer_size": 5490,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1481,
-								1481
+								2807,
+								2807
 							]
 						],
 						"settings":
@@ -466,10 +534,10 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 594.0,
+						"translation.y": 1182.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -478,15 +546,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 24080,
+						"buffer_size": 24741,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8996,
-								8996
+								17412,
+								17413
 							]
 						],
 						"settings":
@@ -496,10 +564,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4812.0,
+						"translation.y": 10326.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -508,7 +576,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6569,
+						"buffer_size": 6560,
 						"regions":
 						{
 						},

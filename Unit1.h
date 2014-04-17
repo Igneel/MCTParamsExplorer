@@ -152,7 +152,6 @@ __published:	// IDE-managed Components
         TMenuItem *N8;
         TMenuItem *N101;
         TButton *Button10;
-        TButton *Button11;
         TMenuItem *N9;
         TMenuItem *N10;
         TButton *Button13;
@@ -180,6 +179,7 @@ __published:	// IDE-managed Components
     TLabel *Label5;
     TLabel *Label6;
     TButton *Button1;
+    TMemo *Memo6;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
