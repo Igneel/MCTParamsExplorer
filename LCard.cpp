@@ -23,19 +23,19 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     needToStop=true;// флаг для остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменная с кодом ошибки инициализации.
-    DataStep =256*8*cI.size(); // 256*32 даёт 120 точек. это медленно.  // кол-во отсчетов, кратное 32
+    DataStep =256*4*cI.size(); // 256*8 даёт 350 точек. достаточно быстро. Хотя точек возможно маловато.  // кол-во отсчетов, кратное 32
     // оно явно должно зависеть от количества измеряемых каналов и частоты.
     
-
+    lowBandFilter=new FilterLowBand(256,400000,20,55);
 
     ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
     if(DriverInit()) // инициализиуем драйвер
     {
-    if(SettingADCParams(frenquency,cI))// устанавливаем настройки
-    {
-    successfullInit=true; // всё прошло успешно.
-    }
+        if(SettingADCParams(frenquency,cI))// устанавливаем настройки
+        {
+            successfullInit=true; // всё прошло успешно.
+        }
     }
 
 }
@@ -143,16 +143,6 @@ bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
         ap.ControlTable[i]=(WORD)(pos->first | (pos->second << 0x6));
     }
 
-	/*for(int i = 0x0; i < ap.ChannelsQuantity; i++)
-        {
-        //unsigned short temp=
-        ap.ControlTable[i] =  // макс/мин +- 10Вольт, дифференциальный режим.
-        (WORD)(i | (ADC_INPUT_RANGE_2500mV_E440 << 0x6));
-        //temp=temp;
-        }
-        ap.ControlTable[2] =  // макс/мин +- 10Вольт, дифференциальный режим.
-        (WORD)(2 | (ADC_INPUT_RANGE_625mV_E440 << 0x6)); */
-
         
 	ap.AdcRate = frenquency;					// частота работы АЦП в кГц
 	ap.InterKadrDelay = 0.0;					// межкадровая задержка в мс
@@ -219,7 +209,10 @@ std::string LCardADC::Error(std::string s)
 //------------------------------------------------------------------
 LCardADC::~LCardADC()
 {
+    if(ReadBuffer)
     delete[] ReadBuffer;
+    if(lowBandFilter)
+    delete lowBandFilter;
     // завершение работы.
     // подчищаем интерфейс модуля
 	if(pModule)
@@ -296,6 +289,17 @@ void LCardADC::DisplayOnForm(int i1, MyDataType v1)
     ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,5,5);
 }
 //------------------------------------------------------------------
+void LCardADC::realTimeFilter(DataTypeInContainer & inData,
+DataTypeInContainer & outData)
+{
+    DataTypeInContainer tempOutData;
+    tempOutData.resize(inData.size());
+    //outData.resize(inData.size());
+    Filter (inData, tempOutData, 512, 400000, 45, 55);
+    outData=tempOutData;
+
+}
+//------------------------------------------------------------------
 // сохранение данных из буфера
 // применяет медианный фильтр
 void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
@@ -309,9 +313,8 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 
         for(int i=0;i<ap.ChannelsQuantity;++i)
         {  // ахтунг!
-           // realTimeFilter( splittedData[i], splittedData[i]);
+            realTimeFilter( splittedData[i], splittedData[i]);
             ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
-            //ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
             DisplayOnForm(i,ReadData[i].back());
         }
     }
@@ -512,17 +515,7 @@ void LCardADC::convertToVolt()
     for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)
     *pos=convertToVolt(*pos,i);
 }
-//------------------------------------------------------------------
-void LCardADC::realTimeFilter(DataTypeInContainer & inData,
-DataTypeInContainer & outData)
-{
-    DataTypeInContainer tempOutData;
-    tempOutData.resize(inData.size());
-    //outData.resize(inData.size());
-    Filter (inData, tempOutData, 512, 400000, 45, 55);
-    outData=tempOutData;
 
-}
 //------------------------------------------------------------------
 void LCardADC::clearBuffer()
 {

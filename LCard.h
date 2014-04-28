@@ -137,6 +137,10 @@ DataTypeInContainer & outData);
 	std::vector<DataTypeInContainer > splittedData;
 	//------------------------------------------------------------------------------
 	std::deque<std::deque<MyDataType> > DequeBuffer;
+
+	//-----------------------------------------------------------------------------
+	FilterLowBand * lowBandFilter;
+
 };
 
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);

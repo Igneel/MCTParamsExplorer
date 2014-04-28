@@ -80,7 +80,7 @@ private:
 
 
 enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};
-enum SaveType {ALL_POINTS,SOME_POINTS};
+enum SaveType {ALL_POINTS,POINTS_11,POINTS_21};
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
 
@@ -121,7 +121,17 @@ public:
 	// Сохранение данных.
 
 	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
-	void SaveAllData(AnsiString FileName);
+	void SaveAllData(AnsiString FileName,bool isCombinedParams=false)
+{
+    SaveData(CURRENT_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    SaveData(CURRENT_DATA,ALL_POINTS,FileName);
+    SaveData(FILTERED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    SaveData(FILTERED_DATA,ALL_POINTS,FileName);
+    SaveData(EXTRAPOLATED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    SaveData(EXTRAPOLATED_DATA,ALL_POINTS,FileName);
+    SaveData(ORIGINAL_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    SaveData(ORIGINAL_DATA,ALL_POINTS,FileName);
+}
 
 	//-------Построение графиков-------------------------------------- 
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);

@@ -20,7 +20,6 @@ MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
     NumberOfDecimalPlaces=5;
     h=0.001;
     NumberOfPoints=10;
-    //filterParams=new FilterParams();
     filterParamsHall=new FilterParams();
     filterParamsResistance=new FilterParams();
     isRoundNeeded=true;
@@ -89,18 +88,6 @@ void MagneticFieldDependence::loadData(TStringList * tts)
 }
 
 
-void MagneticFieldDependence::SaveAllData(AnsiString FileName)
-{
-    SaveData(CURRENT_DATA,SOME_POINTS,FileName);
-    SaveData(CURRENT_DATA,ALL_POINTS,FileName);
-    SaveData(FILTERED_DATA,SOME_POINTS,FileName);
-    SaveData(FILTERED_DATA,ALL_POINTS,FileName);
-    SaveData(EXTRAPOLATED_DATA,SOME_POINTS,FileName);
-    SaveData(EXTRAPOLATED_DATA,ALL_POINTS,FileName);
-    SaveData(ORIGINAL_DATA,SOME_POINTS,FileName);
-    SaveData(ORIGINAL_DATA,ALL_POINTS,FileName);
-}
-
 void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName)
 {
 
@@ -148,7 +135,7 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 		RoundM(savingY2Data.begin(),savingY2Data.end());
 	}
 
-	if (mode==SOME_POINTS) {
+	if (mode==POINTS_11) {
 
         FileName+="_11Points";
         const int SomePointsCount=11;
@@ -172,20 +159,47 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 				}
 			}
             if(index<savingXData.size())
-			tsl->Add(FloatToStr(savingXData[index])+"\t"+FloatToStr(savingY1Data[index])+"\t"+FloatToStr(savingY2Data[index]));
+			tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
 		}
 	}
+    if (mode==POINTS_21)
+    {
+        FileName+="_21Points";
+        const int SomePointsCount=21;
+        long double points[SomePointsCount]={-2.0};
+
+        long double shag=4.0/(SomePointsCount-1.0);
+
+        for (int i=1; i < SomePointsCount; i++) {
+            points[i]=points[i-1]+shag;
+        }
+
+        for (int i = 0; i < SomePointsCount; i++) {
+            unsigned int index=0;
+            long double r=4;
+            for(int k=0;k<length;k++)
+            {
+                if(fabs(savingXData[k]-points[i])<=r)
+                {
+                    r=fabs(savingXData[k]-points[i]);
+                    index=k;
+                }
+            }
+            if(index<savingXData.size())
+            tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
+        }
+    }
 	if(mode==ALL_POINTS)
 	{
         FileName+="_AllPoints";
 		for(int i=0;i<length;i++)
 		{
-			tsl->Add(FloatToStr(savingXData[i])+"\t"+FloatToStr(savingY1Data[i])+"\t"+FloatToStr(savingY2Data[i]));
+			tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
 		}
 	}
     std::string text=tsl->Text.c_str();
    
-    ReplaceCommaToDots(text,text);
+    //ReplaceCommaToDots(text,text);
     tsl->Text=text.c_str();
 
     FileName+=defaultExtension;

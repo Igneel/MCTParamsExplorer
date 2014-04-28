@@ -803,7 +803,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение всех данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"_Combine_");
+            params->SaveAllData(SaveDialog1->FileName+"_Combine_",true);
             paramsDirect->SaveAllData(SaveDialog1->FileName+"_Direct_");
             paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
         }
@@ -816,7 +816,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение объединенных данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"_Combine_");
+            params->SaveAllData(SaveDialog1->FileName+"_Combine_",true);
         }
     }
 

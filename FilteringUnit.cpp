@@ -1,6 +1,89 @@
 //---------------------------------------------------------------------------
 #include "FilteringUnit.h"
 
+FilterLowBand::FilterLowBand(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
+{
+    N=0;
+    calculateImpulseResponse(length, Fdisk, Fpropysk, Fzatyh);
+}
+
+FilterLowBand::~FilterLowBand()
+{
+    ;
+}
+
+void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
+{
+    if (N!=length || Fd!=Fdisk || Fs!=Fpropysk || Fx != Fzatyh)
+    {
+        N = length; //Длина фильтра
+        Fd = Fdisk; //Частота дискретизации входных данных 
+        Fs = Fpropysk; //Частота конца полосы пропускания  
+        Fx = Fzatyh; //Частота начала полосы затухания    
+
+        H.resize(N);
+        H_id.resize(N);
+        W.resize(N);
+        //Расчет импульсной характеристики фильтра
+        long double Fc = (Fs + Fx) / (2.0 * Fd);
+
+        for (int i=0;i<N;++i)
+        {
+            if (i==0) H_id[i] = 2.0*M_PI*Fc;
+            else H_id[i] = sinl(2.0*M_PI*Fc*i )/(M_PI*i);
+            // весовая функция Блекмена
+            W[i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( N-1.0)) + 0.08 * cosl((4.0*M_PI*i) /( N-1.0));
+            H[i] = H_id[i] * W[i];
+        }
+        //Нормировка импульсной характеристики
+        long double SUM=0.0;
+        for (int i=0; i<N; ++i) SUM +=H[i];
+        for (int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
+    }
+}
+
+void FilterLowBand::setFilterParams(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
+{
+    calculateImpulseResponse(length, Fdisk, Fpropysk, Fzatyh);
+}
+
+double FilterLowBand::FilterData (const std::vector<long double> &in, std::vector<long double> & out)
+{
+    //Фильтрация входных данных
+    unsigned int dataSize=in.size();
+    out.resize(dataSize);
+    for (int i=0; i<dataSize; ++i)
+    {
+        out[i]=0.0;
+        for (int j=0; j<(i>N-1?N-1:i); ++j)// та самая формула фильтра
+            out[i]+= H[j]*in[i-j];
+    }
+    return (N-1.0)/2.0;
+}
+
+void FilterLowBand::FilterDataWithAutoShift(DataTypeInContainer & inB,
+    DataTypeInContainer & inY,DataTypeInContainer & outB,
+    DataTypeInContainer & outY)
+{
+    int lengthMassive=inY.size();
+    if(lengthMassive==0)
+    {
+    return ;
+    }
+    std::vector<long double> out(lengthMassive);
+
+    double k=FilterData(inY,out); // вызываем фильтр
+    k*=(max_elem(inB)-min_elem(inB))/(double)lengthMassive;// вычисляем сдвиг фаз
+    // разность максимума и минимума на длину массива
+    outB.resize(lengthMassive);
+    outY=out;
+    for(int i=0;i<lengthMassive;i++) // выводим
+    {
+        outB[i]=inB[i]-k;
+    }
+}
+
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 

@@ -1,13 +1,35 @@
-Error 00121. 0x300010 (Thread 0x0F2C):
-Resource leak: The object (0x189516C) was never deleted
-
-The object (0x0189516C) [size: 5120 bytes] was created with new
-Call Tree:
-   0x0040B32C(=Project1.exe:0x01:00A32C) d:\program files\borland\cbuilder6\include\stlport\new#116
-   0x0040B10E(=Project1.exe:0x01:00A10E) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
-   0x0040AB0B(=Project1.exe:0x01:009B0B) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
-   0x00409F6E(=Project1.exe:0x01:008F6E) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
-   0x004078C3(=Project1.exe:0x01:0068C3) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
-   0x0041DEB4(=Project1.exe:0x01:01CEB4) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#313
-
-------------------------------------------
+Functions called:
+ fflush (4 times)
+ free (7 times)
+ delete[] (1 times)
+ ceill (2588 times)
+ powl (4176 times)
+ pow (10240 times)
+ ceil (8 times)
+ delete (270 times)
+ memmove (11327 times)
+ new[] (1 times)
+ sinl (451 times)
+ cosl (912 times)
+ vsnprintf (2 times)
+ new (287 times)
+ SysReallocMem (1212 times)
+ SysFreeMem (26221 times)
+ lstrlenA (1 times)
+ lstrcpynA (4 times)
+ memset (12 times)
+ SysGetMem (26748 times)
+ calloc (1 times)
+ strlen (1706 times)
+ realloc (1 times)
+ strdup (1 times)
+ malloc (4 times)
+ memcpy (2 times)
+Resource types used:
+ object array (1 allocs, 1 max)
+ object (287 allocs, 73 max)
+ memory block (26755 allocs, 5321 max)
+Modules used:
+ 00400000 04/28/2014 19:49:18 K:\Дела\Институт физики
+ полупроводников\Lcard\MCTParamsExplorer\Project1.exe
+==========================================
