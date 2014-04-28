@@ -770,7 +770,7 @@ object Form1: TForm1
           #1101#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081)
         TabOrder = 18
       end
-      object LabeledEdit1: TLabeledEdit
+      object SampleTemperature: TLabeledEdit
         Left = 384
         Top = 64
         Width = 89
@@ -783,7 +783,7 @@ object Form1: TForm1
         TabOrder = 19
         Text = '77'
       end
-      object LabeledEdit2: TLabeledEdit
+      object eSampleInventoryNumber: TLabeledEdit
         Left = 384
         Top = 104
         Width = 65
@@ -794,7 +794,7 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 20
-        Text = '000000'
+        Text = '000'
       end
     end
     object HallEffect: TTabSheet

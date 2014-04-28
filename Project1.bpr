@@ -5,7 +5,8 @@
     <VERSION value="BCB.06.00"/>
     <PROJECT value="Project1.exe"/>
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
-      FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj"/>
+      FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
+      DataSaver.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -63,6 +64,7 @@
       <FILE FILENAME="LCard.cpp" FORMNAME="" UNITNAME="LCard" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="MagneticFieldDependence.cpp" FORMNAME="" UNITNAME="MagneticFieldDependence" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="FilterParams.cpp" FORMNAME="" UNITNAME="FilterParams" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="DataSaver.cpp" FORMNAME="" UNITNAME="DataSaver" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

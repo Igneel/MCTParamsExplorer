@@ -13,22 +13,22 @@ ChangeChannels=true;
 
 
 
-MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
+MagneticFieldDependence::MagneticFieldDependence(MyDataType current, MyDataType temperature, AnsiString SampleInventoryNumber)
 
 {
     ChangeChannels=false;
-    NumberOfDecimalPlaces=5;
     h=0.001;
     NumberOfPoints=10;
     filterParamsHall=new FilterParams();
     filterParamsResistance=new FilterParams();
-    isRoundNeeded=true;
-    Current=current;
-    defaultExtension=".txt";
+    saver =new DataSaver(temperature,current,SampleInventoryNumber);
+    //defaultExtension=".txt";
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
 {
+    delete saver;
+    saver=0;
     delete filterParamsHall;
     filterParamsHall=0;
     delete filterParamsResistance;
@@ -87,141 +87,19 @@ void MagneticFieldDependence::loadData(TStringList * tts)
 
 }
 
-
-void MagneticFieldDependence::SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName)
+void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams)
 {
+    saver->SaveData(CURRENT_DATA,B,HallEffect,MagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    saver->SaveData(CURRENT_DATA,B,HallEffect,MagnetoResistance,ALL_POINTS,FileName);
 
-AnsiString NewFileName;
-switch(dataKind)
-{
-    case CURRENT_DATA:
-        NewFileName=FileName+"_current_data";
-        SaveDataHelper(B,HallEffect,MagnetoResistance,saveType,NewFileName);
-        break;
-    case FILTERED_DATA:
-        NewFileName=FileName+"_filtered_data";
-        SaveDataHelper(FilteredB,FilteredHallEffect,FilteredMagnetoResistance,saveType,NewFileName);       
-        break;
-    case EXTRAPOLATED_DATA:
-        NewFileName=FileName+"_extrapolated_data";
-        SaveDataHelper(ExtrapolatedB,ExtrapolatedHallEffect,ExtrapolatedMagnetoResistance,saveType,NewFileName);      
-        break;
-    case ORIGINAL_DATA:
-        NewFileName=FileName+"_original_data";
-        SaveDataHelper(OriginalB,OriginalHallEffect,OriginalMagnetoResistance,saveType,NewFileName);       
-        break;
-}
+    saver->SaveData(FILTERED_DATA,FilteredB,FilteredHallEffect,FilteredMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    saver->SaveData(FILTERED_DATA,FilteredB,FilteredHallEffect,FilteredMagnetoResistance,ALL_POINTS,FileName);
 
-}
+    saver->SaveData(EXTRAPOLATED_DATA,ExtrapolatedB,ExtrapolatedHallEffect,ExtrapolatedMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    saver->SaveData(EXTRAPOLATED_DATA,ExtrapolatedB,ExtrapolatedHallEffect,ExtrapolatedMagnetoResistance,ALL_POINTS,FileName);
 
-
-void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
-DataTypeInContainer & saveHall,
-DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
-{
-    TStringList * tsl=new TStringList();
-
-    DataTypeInContainer savingXData(saveB.begin(),saveB.end());
-    DataTypeInContainer savingY1Data(saveResistance.begin(),saveResistance.end());
-    DataTypeInContainer savingY2Data(saveHall.begin(),saveHall.end());
-
-    DataTypeInContainer::iterator pos;
-
-    int length=savingXData.size();
-    if(isRoundNeeded==true)
-	{
-		RoundM(savingXData.begin(),savingXData.end());
-		RoundM(savingY1Data.begin(),savingY1Data.end());
-		RoundM(savingY2Data.begin(),savingY2Data.end());
-	}
-
-	if (mode==POINTS_11) {
-
-        FileName+="_11Points";
-        const int SomePointsCount=11;
-		long double points[SomePointsCount]={0};
-
-		long double shag=2.0/(SomePointsCount-1.0);
-
-		for (int i=1; i < SomePointsCount; i++) {
-			points[i]=points[i-1]+shag;
-		}
-
-		for (int i = 0; i < SomePointsCount; i++) {
-			unsigned int index=0;
-			long double r=4;
-			for(int k=0;k<length;k++)
-			{
-				if(fabs(fabs(savingXData[k])-fabs(points[i]))<=r)
-				{
-					r=fabs(fabs(savingXData[k])-fabs(points[i]));
-					index=k;
-				}
-			}
-            if(index<savingXData.size())
-			tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
-		}
-	}
-    if (mode==POINTS_21)
-    {
-        FileName+="_21Points";
-        const int SomePointsCount=21;
-        long double points[SomePointsCount]={-2.0};
-
-        long double shag=4.0/(SomePointsCount-1.0);
-
-        for (int i=1; i < SomePointsCount; i++) {
-            points[i]=points[i-1]+shag;
-        }
-
-        for (int i = 0; i < SomePointsCount; i++) {
-            unsigned int index=0;
-            long double r=4;
-            for(int k=0;k<length;k++)
-            {
-                if(fabs(savingXData[k]-points[i])<=r)
-                {
-                    r=fabs(savingXData[k]-points[i]);
-                    index=k;
-                }
-            }
-            if(index<savingXData.size())
-            tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
-        }
-    }
-	if(mode==ALL_POINTS)
-	{
-        FileName+="_AllPoints";
-		for(int i=0;i<length;i++)
-		{
-			tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
-		}
-	}
-    std::string text=tsl->Text.c_str();
-   
-    //ReplaceCommaToDots(text,text);
-    tsl->Text=text.c_str();
-
-    FileName+=defaultExtension;
-	tsl->SaveToFile(FileName); 	
-
-	delete tsl;
-}
-
-//---------------------------------------------------------------------------
-// Округление с заданной точностью.
-template <class T>
-void MagneticFieldDependence::RoundM(T *pos, T* endPos)
-{
-    int S=pow(10,NumberOfDecimalPlaces);
-    for(;pos!=endPos;++pos)
-    {
-        int n=(int)(*pos*S)%10;
-        if(n<5)
-            *pos=floorl(*pos*S)/S;
-        else
-            *pos=ceill(*pos*S)/S;
-    }
+    saver->SaveData(ORIGINAL_DATA,OriginalB,OriginalHallEffect,OriginalMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    saver->SaveData(ORIGINAL_DATA,OriginalB,OriginalHallEffect,OriginalMagnetoResistance,ALL_POINTS,FileName);
 }
 
 //------------Подгонка данных-------------------------------------------------
@@ -560,21 +438,7 @@ inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::st
     } 
     out=s;
 }
-//-------------------------------------------------------------------------------
-inline void MagneticFieldDependence::ReplaceCommaToDots(std::string &in, std::string & out)
-{
-    unsigned int findIndex=0;
-	std::string s=in;
-	std::string strToReplaceWhich="."; // на что меняем
-	std::string strToSearch=",";   // что ищем
-    while ((findIndex=s.find(strToSearch,findIndex))!=std::string::npos)
-    {
-    	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),
-        strToReplaceWhich.begin(),strToReplaceWhich.end());
-    } 
-    out=s;
-}
-//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------*/
 void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color)
 {
     DataTypeInContainer * pointToX=0;
@@ -696,7 +560,7 @@ bool MagneticFieldDependence::setFilterParamsResistance(MyDataType samplingFrequ
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::setRoundNeeded(bool needRound)
 {
-    isRoundNeeded=needRound;
+    saver->setRoundNeeded(needRound);
 }
 
 //-------------------------------------------------------------------------------

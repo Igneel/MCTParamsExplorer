@@ -8,10 +8,11 @@
 #include "LCard.h"
 
 #include <vcl.h>
-
+#include "DataSaver.h"
 #include "FilterParams.h"
 #include "UsedTypes.h"
 #include "ExtrapolateUnit.h"
+
 
 /*
 На данный момент:
@@ -49,40 +50,11 @@ private:
 };
 
 
-enum SaveType {ALL_POINTS,SOME_POINTS};
-class Saver
-{
-public:
-	Saver();
-	~Saver();
-
-	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
-	void SaveAllData(AnsiString FileName);
-	void setRoundNeeded(bool needRound);
-private:
-
-	// Сохранение результатов и т.д.----------------------------------
-	unsigned int NumberOfDecimalPlaces;
-	bool isRoundNeeded;
-	
-    template <class T>
-    void MagneticFieldDependence::RoundM(T *pos, T* endPos);
-
-    AnsiString defaultExtension;
-    void MagneticFieldDependence::SaveDataHelper(DataTypeInContainer &saveB,
-	DataTypeInContainer & saveHall,
-	DataTypeInContainer & saveResistance,SaveType mode,
-	AnsiString FileName);
-	inline void ReplaceCommaToDots(std::string &in, std::string & out);
-	
-};*/
+*/
 
 
 
 enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};
-enum SaveType {ALL_POINTS,POINTS_11,POINTS_21};
-enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
-
 
 
 class MagneticFieldDependence
@@ -91,7 +63,7 @@ public:
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 
-	MagneticFieldDependence::MagneticFieldDependence(MyDataType current);
+	MagneticFieldDependence(MyDataType current, MyDataType temperature, AnsiString SampleInventoryNumber);
 
     DataTypeInContainer const & getB();
     DataTypeInContainer const & getHallEffect();
@@ -120,18 +92,8 @@ public:
 		DataTypeInContainer::iterator beginResistance);
 	// Сохранение данных.
 
-	void SaveData(DataKind dataKind,SaveType saveType,AnsiString FileName);
-	void SaveAllData(AnsiString FileName,bool isCombinedParams=false)
-{
-    SaveData(CURRENT_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(CURRENT_DATA,ALL_POINTS,FileName);
-    SaveData(FILTERED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(FILTERED_DATA,ALL_POINTS,FileName);
-    SaveData(EXTRAPOLATED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(EXTRAPOLATED_DATA,ALL_POINTS,FileName);
-    SaveData(ORIGINAL_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(ORIGINAL_DATA,ALL_POINTS,FileName);
-}
+
+	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 
 	//-------Построение графиков-------------------------------------- 
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
@@ -165,20 +127,9 @@ private:
 	void plotData();
 
 	// Сохранение результатов и т.д.----------------------------------
-	unsigned int NumberOfDecimalPlaces;
-	bool isRoundNeeded;
 
+	DataSaver * saver;
 	
-    template <class T>
-    void RoundM(T *pos, T* endPos);
-
-    AnsiString defaultExtension;
-    void SaveDataHelper(DataTypeInContainer &saveB,
-	DataTypeInContainer & saveHall,
-	DataTypeInContainer & saveResistance,SaveType mode,
-	AnsiString FileName);
-	inline void ReplaceDotsToComma(std::string &in, std::string & out);
-	inline void ReplaceCommaToDots(std::string &in, std::string & out);
 
 	//------Фильтрация результатов-------------------------------------
 	FilterParams *filterParamsHall;
@@ -191,7 +142,7 @@ private:
 
     //------Загрузка данных-------------------------------------------- 
 	void loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter);
-
+	inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out);
 
 	//---------Обработка данных----------------------------------------
 	void featData(DataKind dataKind, long index, FeatType featType);
@@ -200,8 +151,6 @@ private:
 	void cutData();
 
 	//---------------Много переменных----------------------------------
-	MyDataType Temperature; // температура образца во время измерений.
-	MyDataType Current; // ток на образце, в амперах.
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
 	DataTypeInContainer B;

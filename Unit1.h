@@ -184,8 +184,8 @@ __published:	// IDE-managed Components
     TButton *Button1;
     TMemo *Memo6;
     TCheckBox *CheckBox3;
-    TLabeledEdit *LabeledEdit1;
-    TLabeledEdit *LabeledEdit2;
+    TLabeledEdit *SampleTemperature;
+    TLabeledEdit *eSampleInventoryNumber;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -220,6 +220,8 @@ private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
     void TForm1::UpdatePlots();
+    MagneticFieldDependence * TForm1::InitParams();
+    MagneticFieldDependence ** TForm1::ActiveParams();
 
 };
 //---------------------------------------------------------------------------

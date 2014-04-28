@@ -36,26 +36,47 @@ MagneticFieldDependence *params=0;
 MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
 
+MagneticFieldDependence * TForm1::InitParams()
+{
+    MagneticFieldDependence ** p=ActiveParams();
+
+    if (*p)
+        delete *p;
+    *p=new MagneticFieldDependence(StrToFloat(CurrentRes->Text),StrToFloat(SampleTemperature->Text),eSampleInventoryNumber->Text);
+    return *p;    
+}
+
+MagneticFieldDependence ** TForm1::ActiveParams()
+{
+    MagneticFieldDependence ** p=NULL;
+    switch (ResCurveIndex->ItemIndex)
+    {
+    case 0:
+        p=&paramsDirect;
+        
+    break;
+    case 1:
+        p=&paramsReverse;
+    break;            
+    case 2:
+        p=&params;
+    
+    break;
+    default:
+    break;
+    }
+    return p;          
+}
+
+
 
 void TForm1::UpdatePlots()
 {
-    MagneticFieldDependence * p;
+    MagneticFieldDependence ** par=ActiveParams();
 
-    switch(ResCurveIndex->ItemIndex)
+    if(*par)
     {
-        case 0:
-            p=paramsDirect;
-        break;
-        case 1:
-            p=paramsReverse;
-        break;
-        case 2:
-            p=params;
-        break;        
-    }
-
-    if(p)
-    {
+    MagneticFieldDependence * p=*par;
     /*p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
     p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
     p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
@@ -105,44 +126,15 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 {
     if (!adc->IsMeasurementRunning())
     {
-        switch (ResCurveIndex->ItemIndex)
+        MagneticFieldDependence * p=InitParams();
+
+        if(p!=NULL)
         {
-            case 0:
-                if (paramsDirect)
-                    delete paramsDirect;
-                paramsDirect=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsDirect->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    paramsDirect->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
-            break;
-            case 1:
-            if (paramsReverse)
-                    delete paramsReverse;
-                paramsReverse=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsReverse->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    paramsReverse->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
-            break;
-            default:
-            break;
-        }
-        /*
-        if(params)
-        {
-        delete params;
-        params=0;
-        }
-
-
-
-
-        params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-
-        params->setFilterParams(eSamplingFRes->Text, eBandWidthFRes->Text,
-         eAttenuationFRes->Text, eLengthFilterRes->Text);*/
-
+            p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+            eAttenuationFRes->Text, eLengthFilterRes->Text);
+            p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+            eAttenuationFHall->Text, eLengthFilterHall->Text);
+        } 
 
         if(adc->StartMeasurement())
         {
@@ -212,18 +204,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         adc->StopMeasurement();
 
         if(CheckBox2->Checked==false)
-        {
-            switch (ResCurveIndex->ItemIndex)
-            {
-                case 0:                
-                    paramsDirect->getSplittedDataFromADC();
-                break;
-                case 1:
-                    paramsReverse->getSplittedDataFromADC();
-                break;
-                default:
-                break;
-            }
+        {              
+            (*ActiveParams())->getSplittedDataFromADC();
             UpdatePlots();
 
         }
@@ -282,40 +264,24 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
-MagneticFieldDependence * p=NULL;
-switch ( ResCurveIndex->ItemIndex)
-        {
-            case 0:
-            if(paramsDirect)
-            p=paramsDirect;
-            else
-            ShowMessage("Вероятно выбран не тот график.");
-            break;
-            case 1:
-            if(paramsReverse)
-            p=paramsReverse;
-            else
-            ShowMessage("Вероятно выбран не тот график.");
-            break;
-            case 2:
-            if(params)
-            p=params;
-            else
-            ShowMessage("Вероятно выбран не тот график.");
-            break;
-        }
-if(p!=NULL)
+MagneticFieldDependence ** par=ActiveParams();
+
+if (*par==NULL)
 {
-        p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+    ShowMessage("Вероятно выбран не тот график.");    
+}
+else
+{
+MagneticFieldDependence * p=*par;
+    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
     p->filterData();
     p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
-
     UpdatePlots();
-    }
+}
 }
 //---------------------------------------------------------------------------
 
@@ -331,35 +297,10 @@ void __fastcall TForm1::N4Click(TObject *Sender)
         TStringList *tts=new TStringList();  // сюда будем загружать из файла
         tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
 
-        switch ( ResCurveIndex->ItemIndex)
+        MagneticFieldDependence * p=InitParams();
+        if (p)
         {
-            case 0:
-            if(paramsDirect)
-            {
-                delete paramsDirect;
-            }
-            paramsDirect=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsDirect->loadData(tts);
-            
-            break;
-            case 1:
-            if(paramsReverse)
-            {
-                delete paramsReverse;
-            }
-            paramsReverse=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                paramsReverse->loadData(tts);
-            
-            break;
-            case 2:
-            if(params)
-            {
-                delete params;
-            }
-            params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-                params->loadData(tts);
-            
-            break;
+            p->loadData(tts);
         }
     }
     UpdatePlots();
@@ -872,16 +813,17 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     ShowMessage("Для объединения нужно измерить две зависимости");
     return;
     }
-    if (params)
-    {
-        delete params;        
-    }
 
-    params=new MagneticFieldDependence(StrToFloat(CurrentRes->Text));
-    params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
+    ResCurveIndex->ItemIndex=2;    
+    MagneticFieldDependence * p=InitParams();
+    if(p)
+
+    {
+        params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+         eAttenuationFRes->Text, eLengthFilterRes->Text);
+        params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+         eAttenuationFHall->Text, eLengthFilterHall->Text);
+    }
 
     DataTypeInContainer B;
     DataTypeInContainer Hall;
@@ -917,9 +859,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
         Resistance.push_back(*i);    
     }
 
-    params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
-
-    ResCurveIndex->ItemIndex=2;
+    params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
     UpdatePlots();
 }
 //---------------------------------------------------------------------------
