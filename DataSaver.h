@@ -16,6 +16,8 @@ public:
 	DataSaver(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
 	~DataSaver();
 
+	void setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
+
 
 void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
 DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,

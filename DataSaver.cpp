@@ -3,12 +3,17 @@
 
 DataSaver::DataSaver(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
 {
-	this->Current=Current;
-	this->SampleInventoryNumber=SampleInventoryNumber;
-	this->Temperature=Temperature;
+	setSampleDescription(Temperature, Current, SampleInventoryNumber);
 	isRoundNeeded=true;
 	defaultExtension=".txt";
 	NumberOfDecimalPlaces=5;
+}
+
+void DataSaver::setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
+{
+	this->Current=Current;
+	this->SampleInventoryNumber=SampleInventoryNumber;
+	this->Temperature=Temperature;	
 }
 
 DataSaver::~DataSaver()
@@ -22,19 +27,20 @@ SaveType saveType,AnsiString FileName)
 {
 
 	AnsiString NewFileName;
+	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+FloatToStr(Temperature)+"_I_"+FloatToStr(Current);
 	switch(dataKind)
 	{
 	    case CURRENT_DATA:
-	        NewFileName=FileName+"_current_data";
+	        NewFileName+="_current_data";
 	        break;
 	    case FILTERED_DATA:
-	        NewFileName=FileName+"_filtered_data";
+	        NewFileName+="_filtered_data";
 	        break;
 	    case EXTRAPOLATED_DATA:
-	        NewFileName=FileName+"_extrapolated_data";
+	        NewFileName+="_extrapolated_data";
 	        break;
 	    case ORIGINAL_DATA:
-	        NewFileName=FileName+"_original_data";
+	        NewFileName+="_original_data";
 	        break;
 	}
 

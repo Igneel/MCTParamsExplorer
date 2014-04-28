@@ -868,3 +868,21 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
 
 
+
+void __fastcall TForm1::CurrentResChange(TObject *Sender)
+{
+Panel1->Color=clRed;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+if((*ActiveParams()))
+{
+(*ActiveParams())->setSampleDescription(StrToFloat(CurrentRes->Text),StrToFloat(SampleTemperature->Text),eSampleInventoryNumber->Text);
+
+Panel1->Color=clBtnFace;
+}
+}
+//---------------------------------------------------------------------------
+

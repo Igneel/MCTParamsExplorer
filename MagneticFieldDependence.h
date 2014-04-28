@@ -91,7 +91,7 @@ public:
 		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
 		DataTypeInContainer::iterator beginResistance);
 	// Сохранение данных.
-
+	void setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
 
 	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 

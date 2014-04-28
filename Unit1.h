@@ -186,6 +186,8 @@ __published:	// IDE-managed Components
     TCheckBox *CheckBox3;
     TLabeledEdit *SampleTemperature;
     TLabeledEdit *eSampleInventoryNumber;
+    TPanel *Panel1;
+    TButton *Button2;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -214,6 +216,8 @@ __published:	// IDE-managed Components
     void __fastcall N11Click(TObject *Sender);
     void __fastcall bApplyADCSettingsClick(TObject *Sender);
     void __fastcall Button1Click(TObject *Sender);
+    void __fastcall CurrentResChange(TObject *Sender);
+    void __fastcall Button2Click(TObject *Sender);
     
 
 private:	// User declarations

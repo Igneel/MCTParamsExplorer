@@ -4,6 +4,90 @@
 		"selected_items":
 		[
 			[
+				"se",
+				"setSampleDescription"
+			],
+			[
+				"A",
+				"ALL_POINTS"
+			],
+			[
+				"M",
+				"MagnetoResistance"
+			],
+			[
+				"H",
+				"HallEffect"
+			],
+			[
+				"I",
+				"InitParams"
+			],
+			[
+				"p",
+				"p"
+			],
+			[
+				"pa",
+				"paramsReverse"
+			],
+			[
+				"c",
+				"current"
+			],
+			[
+				"te",
+				"temperature"
+			],
+			[
+				"T",
+				"Temperature"
+			],
+			[
+				"S",
+				"SampleInventoryNumber"
+			],
+			[
+				"Data",
+				"DataSaver"
+			],
+			[
+				"tem",
+				"Temperature"
+			],
+			[
+				"F",
+				"FileName"
+			],
+			[
+				"D",
+				"DataSaver"
+			],
+			[
+				"d",
+				"def	#ifndef … #define … #endif"
+			],
+			[
+				"P",
+				"POINTS_11"
+			],
+			[
+				"11_",
+				"11_POINTS"
+			],
+			[
+				"l",
+				"lowBandFilter"
+			],
+			[
+				"re",
+				"resize"
+			],
+			[
+				"do",
+				"double"
+			],
+			[
 				"filterParamsR",
 				"filterParamsResistance"
 			],
@@ -22,10 +106,6 @@
 			[
 				"fi",
 				"filterParamsHall"
-			],
-			[
-				"F",
-				"FilterParams"
 			],
 			[
 				"Fi",
@@ -52,20 +132,8 @@
 				"MagneticFieldDependence"
 			],
 			[
-				"pa",
-				"paramsDirect"
-			],
-			[
-				"S",
-				"Strings"
-			],
-			[
 				"op",
 				"openFileHelper"
-			],
-			[
-				"d",
-				"delimiter"
 			],
 			[
 				"st",
@@ -100,14 +168,6 @@
 				"endB"
 			],
 			[
-				"D",
-				"DataTypeInContainer"
-			],
-			[
-				"p",
-				"params"
-			],
-			[
 				"paramsRe",
 				"paramsReverse"
 			],
@@ -116,24 +176,12 @@
 				"CurrentRes"
 			],
 			[
-				"M",
-				"MagneticFieldDependence"
-			],
-			[
 				"de",
 				"delete"
 			],
 			[
-				"I",
-				"ItemIndex"
-			],
-			[
 				"con",
 				"convertToVolt"
-			],
-			[
-				"c",
-				"channel"
 			],
 			[
 				"ch",
@@ -156,10 +204,6 @@
 				"inc	#include \"…\""
 			],
 			[
-				"l",
-				"long"
-			],
-			[
 				"max",
 				"max_elem"
 			],
@@ -178,14 +222,6 @@
 			[
 				"In",
 				"InteractivePlottingDataOne"
-			],
-			[
-				"T",
-				"TLineSeries"
-			],
-			[
-				"tem",
-				"tempData"
 			],
 			[
 				"cle",
@@ -232,10 +268,26 @@
 	"buffers":
 	[
 		{
+			"file": "FilteringUnit.h",
+			"settings":
+			{
+				"buffer_size": 3060,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "FilteringUnit.cpp",
+			"settings":
+			{
+				"buffer_size": 5650,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 17945,
+				"buffer_size": 18158,
 				"line_ending": "Windows"
 			}
 		},
@@ -243,7 +295,7 @@
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 23398,
+				"buffer_size": 22478,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,42 +303,23 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 6858,
+				"buffer_size": 5838,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Unit2.h",
+			"file": "DataSaver.h",
 			"settings":
 			{
-				"buffer_size": 1870,
+				"buffer_size": 2125,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "FilterParams.h",
+			"file": "DataSaver.cpp",
 			"settings":
 			{
-				"buffer_size": 640,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "UsedTypes.h",
-			"settings":
-			{
-				"buffer_size": 295,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "\n#ifndef HALLEFFECT_H\n#define HALLEFFECT_H\n\n#include <vector>\n#include <algorithm>\n#include \"FilteringUnit.h\"\n#include \"LCard.h\"\n#include <Series.hpp>\n#include \"FilterParams.h\"\n#include \"UsedTypes.h\"\n\n/*\nПод эгидой упрощения монструозного класс Магнитополевых зависимостей.\n\n*/\n\nenum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};\nenum SaveType {ALL_POINTS,SOME_POINTS};\nenum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};\n\n\nclass HallEffect\n{\npublic:\n\n	enum FeatType {ODD_FEAT, EVEN_FEAT};\n\n	HallEffect::HallEffect(MyDataType current, MyDataType Temperature);\n\n    DataTypeInContainer const & getB();\n    DataTypeInContainer const & getHallEffect();\n    DataTypeInContainer const & getOriginalB();\n    DataTypeInContainer const & getOriginalHallEffect();\n    DataTypeInContainer const & getFilteredB();\n    DataTypeInContainer const & getFilteredHallEffect();\n    DataTypeInContainer const & getExtrapolatedB();\n    DataTypeInContainer const & getExtrapolatedHallEffect();\n    \n	~HallEffect();\n\n	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,\n	//    построение графиков, сохранение результатов)\n\n	 \n	//DataTypeInContainer const &  getDataFromADC();\n\n	void getHallEffect();\n\n	// дискретизации, пропускания, затухания\n	bool setFilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);\n	bool setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);\n\n	FilterParams const * getFilterParams();\n\n	void filterData(FilterParams &fP);\n	void filterData();\n\n	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);	\n\nprivate:\n\n	FilterParams *filterParams;\n\n	void multiplyB(DataKind dataKind);\n	void cutData();\n	void plotData();\n\n    void HallEffect::filterDataHelper(FilterParams &fP,\n    PlotType dependenceType);\n\n	MyDataType Current; // ток на образце, в амперах.\n	// Текущие магнитное поле и эффект Холла,\n	// после всяческих преобразований (вырезка, увеличение и т.п.).\n	DataTypeInContainer B;\n	DataTypeInContainer HallEffect;\n	// Первоначальные значения, полученные от АЦП.\n	DataTypeInContainer OriginalB;\n    DataTypeInContainer OriginalHallEffect;\n	// Фильтрованные значения.\n	DataTypeInContainer FilteredB;\n    DataTypeInContainer FilteredHallEffect;\n\n	// Экстраполированные значения.\n	DataTypeInContainer ExtrapolatedB;\n    DataTypeInContainer ExtrapolatedHallEffect;\n\n	MyDataType h; // шаг по магнитному полю, если он вообще понадобится:)\n\n	unsigned int NumberOfPoints; // не уверен что оно надо.\n\n    \n};\n\n\n#endif",
-			"file": "HallEffect.h",
-			"file_size": 3516,
-			"file_write_time": 130415957189182578,
-			"settings":
-			{
-				"buffer_size": 2642,
+				"buffer_size": 5661,
 				"line_ending": "Windows"
 			}
 		},
@@ -294,7 +327,7 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 25308,
+				"buffer_size": 24465,
 				"line_ending": "Windows"
 			}
 		},
@@ -302,7 +335,7 @@
 			"file": "Unit1.h",
 			"settings":
 			{
-				"buffer_size": 6574,
+				"buffer_size": 6934,
 				"line_ending": "Windows"
 			}
 		},
@@ -310,7 +343,7 @@
 			"file": "LCard.h",
 			"settings":
 			{
-				"buffer_size": 3931,
+				"buffer_size": 4142,
 				"line_ending": "Windows"
 			}
 		}
@@ -346,6 +379,25 @@
 	},
 	"file_history":
 	[
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__filtered_data_21Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__current_data_21Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_21Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__filtered_data_21Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_11Points.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (2)/U2_1_Direct__current_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка (2)/I-250_T77__Direct__original_data_AllPoints.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка/U_Combine__original_data_AllPoints.txt",
@@ -361,19 +413,11 @@
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/U12/U2__current_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/1_current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
 		"/K/Дела/Институт физики полупроводников/Постановка задачи/КРТv2/Optim1.pas",
 		"/J/Program Files (x86)/Borland/CBuilder6/Include/stl/_pair.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.cpp",
 		"/K/Дела/Институт физики полупроводников/La-7/MctErrorEstimating/NoiseUnit.cpp",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Microsoft/Bibliography/Sources.xml",
@@ -386,7 +430,6 @@
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/Jonatan Livingston/AppData/Roaming/Sublime Text 3/Packages/User/CBuilder6.sublime-build",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/README.md",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.cpp",
 		"/J/Program Files/Sublime Text 3/Packages/Scala.sublime-package",
@@ -416,6 +459,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"CURRENT_DATA",
+			"paramsDirect",
+			"aramsDirect",
+			"MagneticFieldDependence",
+			"repla",
+			"void MagneticFieldDependence::setRoundNeeded(bool needRound)\n{\n    isRoundNeeded=needRound;\n}",
+			"FileName",
+			"MagneticFieldDependence",
+			"DataSaver",
+			"SYMBOL",
+			"fabs(",
+			"21_POINTS",
+			"11_POINTS",
+			"SOME_POINTS",
 			"AllSeries",
 			"MagneticFieldDependence::",
 			"std::vector",
@@ -499,16 +556,46 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "LCard.cpp",
+					"file": "FilteringUnit.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17945,
+						"buffer_size": 3060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								263,
+								263
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "FilteringUnit.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5650,
 						"regions":
 						{
 						},
@@ -529,24 +616,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "MagneticFieldDependence.cpp",
+					"buffer": 2,
+					"file": "LCard.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23398,
+						"buffer_size": 18158,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58,
-								58
+								812,
+								812
 							]
 						],
 						"settings":
@@ -554,6 +641,92 @@
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3780.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "MagneticFieldDependence.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22478,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19523,
+								19523
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 10674.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "MagneticFieldDependence.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5838,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2516,
+								2516
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "DataSaver.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2125,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								409,
+								409
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -563,27 +736,27 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "MagneticFieldDependence.h",
+					"buffer": 6,
+					"file": "DataSaver.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6858,
+						"buffer_size": 5661,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								406,
-								406
+								240,
+								240
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -591,20 +764,50 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "Unit2.h",
+					"buffer": 7,
+					"file": "Unit1.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1870,
+						"buffer_size": 24465,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1870,
-								1870
+								1207,
+								1207
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Unit1.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6934,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6419,
+								6419
 							]
 						],
 						"settings":
@@ -614,154 +817,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": -0.0,
-						"translation.y": 216.0,
+						"translation.y": 3672.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "FilterParams.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 640,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "UsedTypes.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 295,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								285,
-								285
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "HallEffect.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2642,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								678,
-								678
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 432.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Unit1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25308,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								17412,
-								17413
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 10326.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Unit1.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6574,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -770,15 +829,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3931,
+						"buffer_size": 4142,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								30,
+								47
 							]
 						],
 						"settings":
@@ -790,7 +849,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

@@ -1,31 +1,11 @@
-Functions called:
- fflush (4 times)
- free (7 times)
- delete (16 times)
- delete[] (1 times)
- memmove (1 times)
- new[] (1 times)
- sinl (255 times)
- cosl (512 times)
- vsnprintf (2 times)
- new (18 times)
- SysReallocMem (267 times)
- SysFreeMem (6656 times)
- lstrlenA (1 times)
- lstrcpynA (4 times)
- memset (2 times)
- SysGetMem (6657 times)
- calloc (1 times)
- strlen (128 times)
- realloc (1 times)
- strdup (1 times)
- malloc (4 times)
- memcpy (2 times)
-Resource types used:
- object array (1 allocs, 1 max)
- object (18 allocs, 18 max)
- memory block (6664 allocs, 2485 max)
-Modules used:
- 00400000 04/28/2014 21:43:28 K:\Дела\Институт физики
- полупроводников\Lcard\MCTParamsExplorer\Project1.exe
-==========================================
+Error 00048. 0x100C00 (Thread 0x15C8):
+Method called on invalid object: Attempt to access 320 byte(s) at 0x00000000.
+Call Tree:
+   0x0042FE83(=Project1.exe:0x01:02EE83) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\MagneticFieldDependence.cpp#622
+   0x00408BAC(=Project1.exe:0x01:007BAC) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\Unit1.cpp#880
+   0x004B7EDA(=Project1.exe:0x01:0B6EDA)
+   0x004BACE4(=Project1.exe:0x01:0B9CE4)
+   0x004BAE1C(=Project1.exe:0x01:0B9E1C)
+   0x004BACE4(=Project1.exe:0x01:0B9CE4)
+
+------------------------------------------

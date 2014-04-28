@@ -618,6 +618,11 @@ void MagneticFieldDependence::getSplittedDataFromADC()
         // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.
     }
 }
+
+void MagneticFieldDependence::setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
+{
+    saver->setSampleDescription(Temperature, Current, SampleInventoryNumber);
+}
 //-------------------------------------------------------------------------------
 
 FilterParams const * MagneticFieldDependence::getFilterParamsHall()

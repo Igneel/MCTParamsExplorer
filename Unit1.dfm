@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 211
-  Top = 133
+  Left = 368
+  Top = 152
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -613,6 +613,7 @@ object Form1: TForm1
         Height = 21
         TabOrder = 2
         Text = '1'
+        OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
       object uiResFeat: TButton
@@ -795,6 +796,23 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 20
         Text = '000'
+      end
+      object Panel1: TPanel
+        Left = 376
+        Top = 128
+        Width = 89
+        Height = 41
+        Caption = 'Panel1'
+        TabOrder = 21
+        object Button2: TButton
+          Left = 8
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Button2'
+          TabOrder = 0
+          OnClick = Button2Click
+        end
       end
     end
     object HallEffect: TTabSheet
