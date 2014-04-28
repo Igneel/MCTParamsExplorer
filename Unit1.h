@@ -183,6 +183,7 @@ __published:	// IDE-managed Components
     TLabel *Label6;
     TButton *Button1;
     TMemo *Memo6;
+    TCheckBox *CheckBox3;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);

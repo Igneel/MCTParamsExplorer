@@ -69,6 +69,8 @@ public:
 
 private:
 
+    void LCardADC::realTimeFilter(DataTypeInContainer & inData,
+DataTypeInContainer & outData);
     std::deque<TLabel *> ChannelLabels;
 
     channelsInfo chanInfo;

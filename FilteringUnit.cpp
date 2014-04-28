@@ -19,7 +19,7 @@ std::vector<long double> W(N);   //Весовая функция
 //Расчет импульсной характеристики фильтра
 long double Fc = (Fs + Fx) / (2.0 * Fd);
 
-for (int i=0;i<N;i++)
+for (int i=0;i<N;++i)
 {
 if (i==0) H_id[i] = 2.0*M_PI*Fc;
 else H_id[i] = sinl(2.0*M_PI*Fc*i )/(M_PI*i);
@@ -30,14 +30,15 @@ H [i] = H_id[i] * W[i];
 
 //Нормировка импульсной характеристики
 long double SUM=0;
-for (int i=0; i<N; i++) SUM +=H[i];
-for (int i=0; i<N; i++) H[i]/=SUM; //сумма коэффициентов равна 1
+for (int i=0; i<N; ++i) SUM +=H[i];
+for (int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
 
 //Фильтрация входных данных
-for (int i=0; i<in.size(); i++)
+unsigned int dataSize=in.size();
+for (int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;
-for (int j=0; j<(i>N-1?N-1:i); j++)// та самая формула фильтра
+for (int j=0; j<(i>N-1?N-1:i); ++j)// та самая формула фильтра
 out[i]+= H[j]*in[i-j];
 }
 

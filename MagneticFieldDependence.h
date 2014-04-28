@@ -146,10 +146,11 @@ public:
 
 	void setRoundNeeded(bool needRound);
 
+    void enableChangeChannels();
+    void disableChangeChannels();
 
-
-private:	
-
+private:
+    bool ChangeChannels;
 	//-------Построение графиков-------------------------------------- 
 	void plotData();
 
@@ -174,6 +175,8 @@ private:
 	FilterParams *filterParamsResistance;
 
     void filterDataHelper(FilterParams &fP,
+    PlotType dependenceType);
+    void filterDataHelper2(FilterParams &fP,
     PlotType dependenceType);
 
     //------Загрузка данных-------------------------------------------- 

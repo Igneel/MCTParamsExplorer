@@ -282,14 +282,40 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
-    params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+MagneticFieldDependence * p=NULL;
+switch ( ResCurveIndex->ItemIndex)
+        {
+            case 0:
+            if(paramsDirect)
+            p=paramsDirect;
+            else
+            ShowMessage("Вероятно выбран не тот график.");
+            break;
+            case 1:
+            if(paramsReverse)
+            p=paramsReverse;
+            else
+            ShowMessage("Вероятно выбран не тот график.");
+            break;
+            case 2:
+            if(params)
+            p=params;
+            else
+            ShowMessage("Вероятно выбран не тот график.");
+            break;
+        }
+if(p!=NULL)
+{
+        p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
-    params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
-    params->filterData();
-    params->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+    p->filterData();
+    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+
 
     UpdatePlots();
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -299,9 +325,7 @@ void __fastcall TForm1::bFilterResClick(TObject *Sender)
 //-------------------Открытие файла------------------------------------------
 
 void __fastcall TForm1::N4Click(TObject *Sender)
-{
-
-
+{ 
     if(OpenDialog1->Execute())  // если мы что-то выбрали
     {
         TStringList *tts=new TStringList();  // сюда будем загружать из файла
@@ -843,6 +867,11 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
+    if(!(paramsDirect && paramsReverse))
+    {
+    ShowMessage("Для объединения нужно измерить две зависимости");
+    return;
+    }
     if (params)
     {
         delete params;        
@@ -894,6 +923,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     UpdatePlots();
 }
 //---------------------------------------------------------------------------
+
 
 
 

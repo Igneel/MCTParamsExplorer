@@ -2,11 +2,21 @@
 extern LCardADC *adc;
 
 
+void MagneticFieldDependence::enableChangeChannels()
+{
+ChangeChannels=true;
+}
+    void MagneticFieldDependence::disableChangeChannels()
+    {
+    ChangeChannels=false;
+    }
+
 
 
 MagneticFieldDependence::MagneticFieldDependence(MyDataType current)
 
 {
+    ChangeChannels=false;
     NumberOfDecimalPlaces=5;
     h=0.001;
     NumberOfPoints=10;
@@ -352,6 +362,68 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     default:
         break;
     }
+    }
+}
+
+//------------------------------------------------------------------------------
+ // эта функция фильтрует как есть, не достраивая симметричную часть зависимости.
+void MagneticFieldDependence::filterDataHelper2(FilterParams &fP,
+    PlotType dependenceType)
+{
+    if(HallEffect.size()!=B.size())
+    {
+        ShowMessage("Количество точек магнитного поля и эффекта Холла не совпадает! filterdataHelper");
+        return;
+    }
+    NumberOfPoints=HallEffect.size();
+    DataTypeInContainer tempInB(NumberOfPoints);
+    DataTypeInContainer tempInSignal(NumberOfPoints);
+
+    DataTypeInContainer tempOutB(NumberOfPoints+ceil(fP.filterLength/2.0));
+    DataTypeInContainer tempOutSignal(NumberOfPoints+ceil(fP.filterLength/2.0));
+
+
+
+    switch(dependenceType)
+    {
+    case HALL_EFFECT:
+
+    FilteredHallEffect.clear();
+    // формируем сигнал для фильтра.
+        tempInSignal=HallEffect;
+        tempInB=B;
+    break;
+    case MAGNETORESISTANCE:
+
+    FilteredB.clear();
+    FilteredMagnetoResistance.clear();
+
+        tempInSignal=MagnetoResistance;
+        tempInB=B;
+
+    break;
+
+    default:
+        break;
+    }
+    // фильтруем 
+    TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
+                fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
+
+
+    // нагло записываем положительную часть фильтрованного сигнала обратно.
+    switch(dependenceType)
+    {        
+    case HALL_EFFECT:
+        FilteredHallEffect=tempOutSignal;
+        
+        break;
+    case MAGNETORESISTANCE:
+        FilteredMagnetoResistance=tempOutSignal;
+        FilteredB=tempOutB;
+        break;
+    default:
+        break;
     }
 }
 

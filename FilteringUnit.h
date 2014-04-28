@@ -17,6 +17,10 @@ DataTypeInContainer & inY,DataTypeInContainer & outB,
 DataTypeInContainer & outY,
 int lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh);
 
+double Filter (const std::vector<long double> &in,
+std::vector<long double> & out, int length,
+double Fdisk, double Fpropysk,double Fzatyh);
+
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 /*

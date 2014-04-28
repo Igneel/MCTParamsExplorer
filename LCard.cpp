@@ -306,9 +306,12 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
     if(isMedianFilterEnabled)
     { // применяем медианный фильтр, преобразование в вольты и добавляем к уже собранным данным.
 
-        for(int i=0;i<ap.ChannelsQuantity;i++)
-        {
+
+        for(int i=0;i<ap.ChannelsQuantity;++i)
+        {  // ахтунг!
+           // realTimeFilter( splittedData[i], splittedData[i]);
             ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
+            //ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
             DisplayOnForm(i,ReadData[i].back());
         }
     }
@@ -319,7 +322,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         unsigned int TestBufferSize = 500;
         DequeBuffer.resize(ap.ChannelsQuantity);
 
-            for( int i=0;i<ap.ChannelsQuantity;i++)
+            for( int i=0;i<ap.ChannelsQuantity;++i)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
@@ -332,7 +335,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         }
         else
         {
-            for(int i=0;i<ap.ChannelsQuantity;i++)
+            for(int i=0;i<ap.ChannelsQuantity;++i)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
@@ -510,6 +513,17 @@ void LCardADC::convertToVolt()
     *pos=convertToVolt(*pos,i);
 }
 //------------------------------------------------------------------
+void LCardADC::realTimeFilter(DataTypeInContainer & inData,
+DataTypeInContainer & outData)
+{
+    DataTypeInContainer tempOutData;
+    tempOutData.resize(inData.size());
+    //outData.resize(inData.size());
+    Filter (inData, tempOutData, 512, 400000, 45, 55);
+    outData=tempOutData;
+
+}
+//------------------------------------------------------------------
 void LCardADC::clearBuffer()
 {
     ReadData.clear();
@@ -541,7 +555,7 @@ std::vector<DataTypeInContainer > &splittedData)
     unsigned int bound=(tempData.size()/(unsigned int)ap.ChannelsQuantity)*ap.ChannelsQuantity;
     for(unsigned int i=0;i<bound;)
     {
-        for(int channel=0;channel<ap.ChannelsQuantity && i<bound;channel++,i++)
+        for(int channel=0;channel<ap.ChannelsQuantity && i<bound;++channel,++i)
             splittedData[channel].push_back(tempData[i]);
     }
 }
