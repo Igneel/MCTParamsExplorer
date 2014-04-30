@@ -188,6 +188,11 @@ __published:	// IDE-managed Components
     TLabeledEdit *eSampleInventoryNumber;
     TPanel *Panel1;
     TButton *Button2;
+    TButton *Button3;
+    TLabeledEdit *SampleLength;
+    TLabeledEdit *SampleWidth;
+    TLabeledEdit *SampleThickness;
+    TCheckBox *CheckBox4;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -218,6 +223,7 @@ __published:	// IDE-managed Components
     void __fastcall Button1Click(TObject *Sender);
     void __fastcall CurrentResChange(TObject *Sender);
     void __fastcall Button2Click(TObject *Sender);
+    void __fastcall Button3Click(TObject *Sender);
     
 
 private:	// User declarations

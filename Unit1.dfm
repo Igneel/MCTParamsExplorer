@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 368
-  Top = 152
+  Left = 198
+  Top = 108
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -87,7 +87,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 472
     Top = 448
-    Width = 175
+    Width = 177
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
     Font.Charset = DEFAULT_CHARSET
@@ -612,7 +612,7 @@ object Form1: TForm1
         Width = 89
         Height = 21
         TabOrder = 2
-        Text = '1'
+        Text = '251'
         OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
@@ -813,6 +813,62 @@ object Form1: TForm1
           TabOrder = 0
           OnClick = Button2Click
         end
+      end
+      object Button3: TButton
+        Left = 544
+        Top = 264
+        Width = 97
+        Height = 25
+        Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1086#1074
+        TabOrder = 22
+        OnClick = Button3Click
+      end
+      object SampleLength: TLabeledEdit
+        Left = 392
+        Top = 272
+        Width = 41
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = #1044#1083#1080#1085#1072
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 23
+        Text = '3,25'
+      end
+      object SampleWidth: TLabeledEdit
+        Left = 448
+        Top = 272
+        Width = 41
+        Height = 21
+        EditLabel.Width = 63
+        EditLabel.Height = 13
+        EditLabel.Caption = 'SampleWidth'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 24
+        Text = '1,4'
+      end
+      object SampleThickness: TLabeledEdit
+        Left = 408
+        Top = 312
+        Width = 81
+        Height = 21
+        EditLabel.Width = 80
+        EditLabel.Height = 13
+        EditLabel.Caption = #1058#1086#1083#1097#1080#1085#1072' ('#1084#1082#1084'):'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 25
+        Text = '10,03'
+      end
+      object CheckBox4: TCheckBox
+        Left = 392
+        Top = 360
+        Width = 97
+        Height = 17
+        Caption = 'CheckBox4'
+        TabOrder = 26
       end
     end
     object HallEffect: TTabSheet
@@ -1539,8 +1595,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 553
-    Width = 684
+    Top = 557
+    Width = 692
     Height = 19
     Panels = <
       item

@@ -886,3 +886,83 @@ Panel1->Color=clBtnFace;
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::Button3Click(TObject *Sender)
+{
+long double I=CurrentRes->Text.ToDouble()/1E+6;
+
+long double SLength=SampleLength->Text.ToDouble()/1E+3;
+long double SWidth = SampleWidth->Text.ToDouble()/1E+3;
+long double SThickness = SampleThickness->Text.ToDouble()/1E+6;
+bool filtered=CheckBox4->Checked;
+
+if(params==NULL)
+return;
+
+std::vector<long double> B(params->getB());
+std::vector<long double> Us(params->getMagnetoResistance());
+std::vector<long double> Uy(params->getHallEffect());
+
+if(filtered)
+{
+B=params->getFilteredB();
+Us=params->getFilteredMagnetoResistance();
+Uy=params->getFilteredHallEffect();
+}
+
+unsigned int NumberOfPoints = Us.size();
+std::vector<long double> s_eff(NumberOfPoints);
+std::vector<long double> Rh_eff(NumberOfPoints);
+std::vector<long double> sxx(NumberOfPoints);
+std::vector<long double> sxy(NumberOfPoints); 
+
+const long double THEALMOSTZERO = 0.000001;
+
+// расчет эффективных параметров
+for (int i = 0; i < NumberOfPoints ; i++)
+	{
+		if(fabs(Us[i])<THEALMOSTZERO)
+			s_eff[i]=0;
+		else
+		{
+			s_eff[i]=SLength/SWidth/SThickness*I/Us[i];
+		}
+        if(B[i]==0)
+        Rh_eff[i]=0;
+        else
+		Rh_eff[i]=SThickness*Uy[i]/I;
+	}
+ // расчет компонент тензора
+for (int i = 0; i < NumberOfPoints ; i++)
+	{
+		sxx[i]=s_eff[i]/
+			(Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
+		sxy[i]=s_eff[i]*s_eff[i]*Rh_eff[i]/
+		   (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
+	}
+DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text.ToDouble(),
+ I, eSampleInventoryNumber->Text);
+
+ if(SaveDialog1->Execute())
+ {
+ TStringList * t = new TStringList;
+
+ for(int i = 0; i < NumberOfPoints ; i++)
+ {
+ t->Add(FloatToStr(sxx[i]));
+ }
+ t->SaveToFile(SaveDialog1->FileName+"sxx.txt");
+
+tenzorSaver->SaveData(CURRENT_DATA,B,
+sxx, sxy, ALL_POINTS,SaveDialog1->FileName);
+
+tenzorSaver->SaveData(CURRENT_DATA,B,
+sxx, sxy, POINTS_11,SaveDialog1->FileName);
+
+  }
+
+  delete tenzorSaver;
+}
+//---------------------------------------------------------------------------
+
+
