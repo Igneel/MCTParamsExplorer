@@ -32,6 +32,8 @@ MagneticFieldDependence *params=0;
 MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
 
+SettingsSaver * settings;
+
 MagneticFieldDependence * TForm1::InitParams()
 {
     MagneticFieldDependence ** p=ActiveParams();
@@ -99,10 +101,41 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormCreate(TObject *)
 {
+    // загрузка настроек.
+
+    // создание текущей копии настроек
+    settings= new SettingsSaver();
+    settings->Add("MeasurementFrencuency",uiFrenq->Text.c_str());
+    settings->Add("ChannelB",IntToStr(ComboBox4->ItemIndex).c_str());
+    settings->Add("ChannelResistance",IntToStr(ComboBox5->ItemIndex).c_str());
+    settings->Add("ChannelHall",IntToStr(ComboBox6->ItemIndex).c_str());
+    settings->Add("ChannelBRange",IntToStr(ComboBox1->ItemIndex).c_str());
+    settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
+    settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
+    settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
+    settings->Add("CurrentRes",CurrentRes->Text.c_str());
+    settings->Add("SampleTemperature",SampleTemperature->Text.c_str());
+    settings->Add("SampleInventoryNumber",eSampleInventoryNumber->Text.c_str());  
+    settings->Add("SampleLength",SampleLength->Text.c_str());
+    settings->Add("SampleWidth",SampleWidth->Text.c_str());
+    settings->Add("SampleThickness",SampleThickness->Text.c_str());
+    settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
+    settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
+    settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
+    settings->Add("eAttenuationFRes",eAttenuationFRes->Text.c_str());
+    settings->Add("PowPolinomRes",PowPolinomRes->Text.c_str());
+    settings->Add("eSamplingFHall",eSamplingFHall->Text.c_str());
+    settings->Add("eBandWidthFHall",eBandWidthFHall->Text.c_str());
+    settings->Add("eAttenuationFHall",eAttenuationFHall->Text.c_str());
+    settings->Add("PowPolinomHall",PowPolinomHall->Text.c_str());
+    settings->Add("ActivePageIndex",IntToStr(PC->ActivePageIndex).c_str());
+       
+    
+
     channelsInfo cI;
-    cI.push_back(std::pair<int,int> (1,ComboBox1->ItemIndex));
-    cI.push_back(std::pair<int,int> (2,ComboBox2->ItemIndex));
-    cI.push_back(std::pair<int,int> (3,ComboBox3->ItemIndex));
+    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
+    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
+    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
     Memo1->Lines->Add(cI.size());
     // загружаем драйвер
@@ -597,6 +630,10 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
+    AnsiString x= Application->ExeName;
+    AnsiString nx=x.SubString(0,x.Length()-12);
+    settings->Save(nx+"settings.txt");
+    delete settings;
     if(adc)
         delete adc;
     if(params)

@@ -25,6 +25,7 @@
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
 #include "FeatUnit.h"
+#include "SettingsSaver.h"
 
 
 //---------------------------------------------------------------------------

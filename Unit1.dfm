@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 198
-  Top = 108
+  Left = 191
+  Top = 123
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -87,7 +87,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 472
     Top = 448
-    Width = 177
+    Width = 175
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
     Font.Charset = DEFAULT_CHARSET
@@ -627,9 +627,9 @@ object Form1: TForm1
         OnClick = uiResFeatClick
       end
       object Memo2: TMemo
-        Left = 456
+        Left = 512
         Top = 320
-        Width = 185
+        Width = 129
         Height = 89
         TabOrder = 4
       end
@@ -824,8 +824,8 @@ object Form1: TForm1
         OnClick = Button3Click
       end
       object SampleLength: TLabeledEdit
-        Left = 392
-        Top = 272
+        Left = 400
+        Top = 280
         Width = 41
         Height = 21
         EditLabel.Width = 33
@@ -837,8 +837,8 @@ object Form1: TForm1
         Text = '3,25'
       end
       object SampleWidth: TLabeledEdit
-        Left = 448
-        Top = 272
+        Left = 456
+        Top = 280
         Width = 41
         Height = 21
         EditLabel.Width = 63
@@ -850,8 +850,8 @@ object Form1: TForm1
         Text = '1,4'
       end
       object SampleThickness: TLabeledEdit
-        Left = 408
-        Top = 312
+        Left = 416
+        Top = 320
         Width = 81
         Height = 21
         EditLabel.Width = 80
@@ -863,9 +863,9 @@ object Form1: TForm1
         Text = '10,03'
       end
       object CheckBox4: TCheckBox
-        Left = 392
-        Top = 360
-        Width = 97
+        Left = 416
+        Top = 352
+        Width = 81
         Height = 17
         Caption = 'CheckBox4'
         TabOrder = 26
@@ -1595,8 +1595,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 557
-    Width = 692
+    Top = 553
+    Width = 684
     Height = 19
     Panels = <
       item

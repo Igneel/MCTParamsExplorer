@@ -2,6 +2,7 @@
 #define SETTINGSSAVER_H 
 
 #include <algorithm>
+#include <vcl.h>
 
 #include "UsedTypes.h"
 #include "System.hpp"
@@ -10,13 +11,15 @@ class SettingsSaver
 {
 public:
 	SettingsSaver();
-	void AddSetting(std::string Name,std::string Value);
-	void ModifySetting(std::string Name,std::string Value);
-	void DeleteSetting(std::string Name);
-	void SaveSetting(AnsiString FileName);
+	void Add(std::string Name,std::string Value);
+	void Modify(std::string Name,std::string Value);
+	void Delete(std::string Name);
+	void Save(AnsiString FileName);
 	~SettingsSaver();
 
 private:
+
+	std::string convertToString(std::pair<std::string, std::string> * in);
 
 	optionDescription settings;
 	//---Нужна для поиска элементов.
