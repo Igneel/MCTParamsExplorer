@@ -63,7 +63,8 @@ public:
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 
-	MagneticFieldDependence(MyDataType current, MyDataType temperature, AnsiString SampleInventoryNumber);
+	MagneticFieldDependence(AnsiString current, AnsiString temperature, AnsiString SampleInventoryNumber,
+		AnsiString length, AnsiString width, AnsiString Thickness);
 
     DataTypeInContainer const & getB();
     DataTypeInContainer const & getHallEffect();
@@ -91,7 +92,7 @@ public:
 		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
 		DataTypeInContainer::iterator beginResistance);
 	// Сохранение данных.
-	void setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
+	void setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
 
 	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 

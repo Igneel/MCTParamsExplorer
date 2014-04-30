@@ -10,8 +10,6 @@ TForm1 *Form1;
 
 /*
 TODO
-ручна€ регулировка шага
-предусмотреть "единичное измерение"
 возможность записи "поверх" - т.е. удал€ть предыдущие значени€ и писать поверх новые
 фукнци€ удалени€ определенного интервала точек
 
@@ -19,11 +17,9 @@ TODO
 
 
 Ќормально назвать все кнопки и прочее.
-
-
-”меньшить размер буфера в два раза.
-ѕроверить интерактивый вывод графиков, там €вно перепутаны оси.
 ƒобавить работу с обратными измерени€ми.
+
+Ќужно добавить усреднение по току.
 
 */
 
@@ -42,7 +38,8 @@ MagneticFieldDependence * TForm1::InitParams()
 
     if (*p)
         delete *p;
-    *p=new MagneticFieldDependence(StrToFloat(CurrentRes->Text),StrToFloat(SampleTemperature->Text),eSampleInventoryNumber->Text);
+    *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
+        SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
     return *p;    
 }
 
@@ -879,7 +876,8 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 {
 if((*ActiveParams()))
 {
-(*ActiveParams())->setSampleDescription(StrToFloat(CurrentRes->Text),StrToFloat(SampleTemperature->Text),eSampleInventoryNumber->Text);
+(*ActiveParams())->setSampleDescription(CurrentRes->Text,SampleTemperature->Text,
+    eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
 
 Panel1->Color=clBtnFace;
 }
@@ -940,8 +938,8 @@ for (int i = 0; i < NumberOfPoints ; i++)
 		sxy[i]=s_eff[i]*s_eff[i]*Rh_eff[i]/
 		   (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
 	}
-DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text.ToDouble(),
- I, eSampleInventoryNumber->Text);
+DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
+ CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
 
  if(SaveDialog1->Execute())
  {

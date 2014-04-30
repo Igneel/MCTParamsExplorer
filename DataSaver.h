@@ -13,11 +13,12 @@ enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 class DataSaver
 {
 public:
-	DataSaver(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
+	DataSaver(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
 	~DataSaver();
 
-	void setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber);
+	void setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
 
+	void SaveSampleDescription(AnsiString FileName);
 
 void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
 DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,
@@ -48,10 +49,14 @@ private:
 	unsigned int NumberOfDecimalPlaces;
 	bool isRoundNeeded;
 
-	MyDataType Temperature; // температура образца во время измерений.
-	MyDataType Current; // ток на образце, в амперах.
+	AnsiString Temperature; // температура образца во время измерений.
+	AnsiString Current; // ток на образце, в амперах.
 
 	AnsiString SampleInventoryNumber; // инвентарный номер образца.
+
+	AnsiString SampleLength; // длина образца, мм
+	AnsiString SampleWidth; // ширина образца, мм
+	AnsiString SampleThickness; // толщина образца, мкм
 
 	
     template <class T>

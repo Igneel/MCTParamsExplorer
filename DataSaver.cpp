@@ -1,19 +1,41 @@
 #include "DataSaver.h"
 
 
-DataSaver::DataSaver(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
+DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
 {
-	setSampleDescription(Temperature, Current, SampleInventoryNumber);
+	setSampleDescription(Temperature, Current, SampleInventoryNumber, length, width, Thickness);
 	isRoundNeeded=true;
 	defaultExtension=".txt";
 	NumberOfDecimalPlaces=5;
 }
 
-void DataSaver::setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
+void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
 {
 	this->Current=Current;
 	this->SampleInventoryNumber=SampleInventoryNumber;
 	this->Temperature=Temperature;	
+	this->SampleLength=length;
+	this->SampleWidth=width;
+	this->SampleThickness=Thickness;
+}
+
+void DataSaver::SaveSampleDescription(AnsiString FileName)
+{
+	AnsiString NewFileName;
+	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+Temperature+"_I_"+Current+"Description";
+	TStringList * tsl=new TStringList();
+
+	tsl->Add("SampleInventoryNumber\t"+SampleInventoryNumber);
+	tsl->Add("Temperature\t"+Temperature);
+	tsl->Add("Current\t"+Current);
+	tsl->Add("SampleLength\t"+SampleLength);
+	tsl->Add("SampleWidth\t"+SampleWidth);
+	tsl->Add("SampleThickness\t"+SampleThickness);
+
+	FileName+=defaultExtension;
+	tsl->SaveToFile(FileName); 	
+
+	delete tsl;
 }
 
 DataSaver::~DataSaver()
@@ -21,13 +43,15 @@ DataSaver::~DataSaver()
 	;
 }
 
+
+
 void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
 DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,
 SaveType saveType,AnsiString FileName)
 {
 
 	AnsiString NewFileName;
-	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+FloatToStr(Temperature)+"_I_"+FloatToStr(Current);
+	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+Temperature+"_I_"+Current;
 	switch(dataKind)
 	{
 	    case CURRENT_DATA:
@@ -131,10 +155,10 @@ DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
 			tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
 		}
 	}
-    std::string text=tsl->Text.c_str();
+    //std::string text=tsl->Text.c_str();
    
     //ReplaceCommaToDots(text,text);
-    tsl->Text=text.c_str();
+    //tsl->Text=text.c_str();
 
     FileName+=defaultExtension;
 	tsl->SaveToFile(FileName); 	

@@ -13,7 +13,8 @@ ChangeChannels=true;
 
 
 
-MagneticFieldDependence::MagneticFieldDependence(MyDataType current, MyDataType temperature, AnsiString SampleInventoryNumber)
+MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString temperature, AnsiString SampleInventoryNumber,
+    AnsiString length, AnsiString width, AnsiString Thickness)
 
 {
     ChangeChannels=false;
@@ -21,8 +22,7 @@ MagneticFieldDependence::MagneticFieldDependence(MyDataType current, MyDataType 
     NumberOfPoints=10;
     filterParamsHall=new FilterParams();
     filterParamsResistance=new FilterParams();
-    saver =new DataSaver(temperature,current,SampleInventoryNumber);
-    //defaultExtension=".txt";
+    saver =new DataSaver(temperature,current,SampleInventoryNumber, length, width, Thickness);
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
@@ -100,6 +100,8 @@ void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedPar
 
     saver->SaveData(ORIGINAL_DATA,OriginalB,OriginalHallEffect,OriginalMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
     saver->SaveData(ORIGINAL_DATA,OriginalB,OriginalHallEffect,OriginalMagnetoResistance,ALL_POINTS,FileName);
+
+    saver->SaveSampleDescription(FileName);
 }
 
 //------------Подгонка данных-------------------------------------------------
@@ -619,9 +621,10 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     }
 }
 
-void MagneticFieldDependence::setSampleDescription(MyDataType Temperature, MyDataType Current, AnsiString SampleInventoryNumber)
+void MagneticFieldDependence::setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber,
+    AnsiString length, AnsiString width, AnsiString Thickness)
 {
-    saver->setSampleDescription(Temperature, Current, SampleInventoryNumber);
+    saver->setSampleDescription(Temperature, Current, SampleInventoryNumber, length, width, Thickness);
 }
 //-------------------------------------------------------------------------------
 
