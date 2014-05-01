@@ -335,54 +335,6 @@ void __fastcall TForm1::N4Click(TObject *Sender)
     }
     UpdatePlots();
 }
-//---------------------------------------------------------------------------
-
-// выбор активного графика
-TLineSeries * __fastcall TForm1::GetCurrentSeries2(int curve)
-{
-// вызывается при открытии файла.
-    TLineSeries * SaveSeries;
-    switch(Form1->PC->ActivePageIndex)
-    {           // выбираем нужный массив данных для сохранения
-        case 0:
-                // случай отладки, когда активна вкладка "FirstTab"
-                SaveSeries=Form1->Series3;
-            break;
-        case 1:
-            if(curve) // если мы открываем/сохраняем файл, то в зависимости от выборанного графика сохраняем нужный
-                SaveSeries=(ResCurveIndex->ItemIndex==0?Form1->SeriesRes1:Form1->SeriesRes2);
-            else     
-                SaveSeries=Form1->SeriesRes1;
-            break;
-        case 2:
-            if(curve)
-                SaveSeries=(HallCurveIndex->ItemIndex==0?Form1->SeriesHall1:Form1->SeriesHall2);
-                // Эффект Холла
-            else
-                SaveSeries=Form1->SeriesHall1;
-            break;
-        case 3:
-                // Фотопроводимость в геометрии Фарадея
-            if(curve)
-                SaveSeries=(FaradeyCurveIndex->ItemIndex==0?Form1->SeriesFaradey1:Form1->SeriesFaradey2);
-            else
-                SaveSeries=Form1->SeriesFaradey1;
-            break;
-                
-        case 4:
-                // Фотопроводимость в геометрии Фойгта
-            if(curve)
-                SaveSeries=(FoygtCurveIndex->ItemIndex==0?Form1->SeriesFoygt1:Form1->SeriesFoygt2);
-            else
-                SaveSeries=Form1->SeriesFoygt1;
-            break;
-            // в случае ошибки - предупреждаем пользователя
-        default:
-            ShowMessage("Неверный индекс! Возможно программа была некорректно обновлена. Обратитесь к разработчику!");
-            return NULL;
-    }
-    return SaveSeries;  // возвращаем указатель на активный график
-}
 
  // выбор активного графика
  // используется при сохранении файла в Unit2
@@ -989,10 +941,10 @@ DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
  t->SaveToFile(SaveDialog1->FileName+"sxx.txt");
 
 tenzorSaver->SaveData(CURRENT_DATA,B,
-sxx, sxy, ALL_POINTS,SaveDialog1->FileName);
+sxy, sxx, ALL_POINTS,SaveDialog1->FileName);
 
 tenzorSaver->SaveData(CURRENT_DATA,B,
-sxx, sxy, POINTS_11,SaveDialog1->FileName);
+sxy, sxx, POINTS_11,SaveDialog1->FileName);
 
   }
 

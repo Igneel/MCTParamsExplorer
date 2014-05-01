@@ -206,7 +206,6 @@ __published:	// IDE-managed Components
     void __fastcall N5Click(TObject *Sender);
         void __fastcall N4Click(TObject *Sender);
 
-    TLineSeries * __fastcall GetCurrentSeries2(int curve);
     TLineSeries * __fastcall GetSelectedSeries(int curve);
         void __fastcall bClearPlotsResClick(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);

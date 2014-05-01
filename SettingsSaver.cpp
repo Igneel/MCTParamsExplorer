@@ -7,14 +7,15 @@ SettingsSaver::SettingsSaver()
 //---------------------------------------------------------------------
 void SettingsSaver::Add(std::string Name,std::string Value)
 {
-	if(!std::binary_search(settings.begin(), settings.end(), Name,optionNamesCompare()))
+	// Поиск работает как-то очень странно, поэтому пока что отключу его.
+	//if(!std::binary_search(settings.begin(), settings.end(), Name,optionNamesCompare()))
 	{
 		settings.push_back(make_pair(Name,Value));
 		std::sort(settings.begin(), settings.end());
 	}
-	else
+	//else
 	{
-	Modify(Name,Value);	
+	//Modify(Name,Value);	
 	}
 }
 
