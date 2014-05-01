@@ -146,8 +146,7 @@ private:
 	inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out);
 
 	//---------Обработка данных----------------------------------------
-	void featData(DataKind dataKind, long index, FeatType featType);
-	void averagingData(); // усреднение зависимостей. не реализована
+	void featData(DataKind dataKind, long index, FeatType featType); // усреднение зависимостей. не реализована
 	void multiplyB(DataKind dataKind);
 	void cutData();
 

@@ -110,31 +110,36 @@ void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedPar
 void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType featType)
 {
     DataTypeInContainer tempX;
-    DataTypeInContainer tempY;
-    /*
+    DataTypeInContainer tempHall;
+    DataTypeInContainer tempResistance;
+    
     switch(dataKind)
     {
     case CURRENT_DATA:
         tempX=B;
-        tempY=Dependence;
+        tempHall=HallEffect;
+        tempResistance=MagnetoResistance;
         break;
     case FILTERED_DATA:
         tempX=FilteredB;
-        tempY=FilteredDependence;
+        tempHall=FilteredHallEffect;
+        tempResistance=FilteredMagnetoResistance;
         break;
     case EXTRAPOLATED_DATA:
         tempX=ExtrapolatedB;
-        tempY=ExtrapolatedDependence;
+        tempHall=ExtrapolatedHallEffect;
+        tempResistance=ExtrapolatedMagnetoResistance;
         break;
     case ORIGINAL_DATA:
         tempX=OriginalB;
-        tempY=OriginalDependence;
+        tempHall=OriginalHallEffect;
+        tempResistance=OriginalMagnetoResistance;
         break;
     default:
         return;
-    }  */
+    }  
     //------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    /*
     int size=tempX.size();
     if(size==0)
     {
@@ -164,7 +169,7 @@ void MagneticFieldDependence::featData(DataKind dataKind, long index, FeatType f
             break;
         }
 
-    }
+    }    */
 
 }
 
@@ -393,11 +398,6 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 	//------------------------------------------------------------------
    */
 return returnValue;   
-}
-//-------------------------------------------------------------------------------
-void MagneticFieldDependence::averagingData()
-{
-;              
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
