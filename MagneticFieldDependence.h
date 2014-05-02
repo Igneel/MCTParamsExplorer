@@ -66,20 +66,36 @@ public:
 	MagneticFieldDependence(AnsiString current, AnsiString temperature, AnsiString SampleInventoryNumber,
 		AnsiString length, AnsiString width, AnsiString Thickness);
 
+	~MagneticFieldDependence();
+
     DataTypeInContainer const & getB();
+
+	DataTypeInContainer const & getBHall();
+	DataTypeInContainer const & getBMagnetoResistance();
     DataTypeInContainer const & getHallEffect();
     DataTypeInContainer const & getMagnetoResistance();
     DataTypeInContainer const & getOriginalB();
     DataTypeInContainer const & getOriginalHallEffect();
     DataTypeInContainer const & getOriginalMagnetoResistance();
     DataTypeInContainer const & getFilteredB();
+
+	DataTypeInContainer const & getFilteredBHall();
+	DataTypeInContainer const & getFilteredBMagnetoResistance();
     DataTypeInContainer const & getFilteredHallEffect();
     DataTypeInContainer const & getFilteredMagnetoResistance();
     DataTypeInContainer const & getExtrapolatedB();
+
+	DataTypeInContainer const & getExtrapolatedBHall();
+	DataTypeInContainer const & getExtrapolatedBMagnetoResistance();
     DataTypeInContainer const & getExtrapolatedHallEffect();
-    DataTypeInContainer const & getExtrapolatedMagnetoResistance();
-    
-	~MagneticFieldDependence();
+    DataTypeInContainer const & getExtrapolatedMagnetoResistance();   
+
+    DataTypeInContainer const & getSxx();
+    DataTypeInContainer const & getSxy();
+    DataTypeInContainer const & getAveragedB();
+    DataTypeInContainer const & getRh_eff();
+    DataTypeInContainer const & getS_eff();
+	
 
 	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,
 	//    построение графиков, сохранение результатов)
@@ -100,6 +116,10 @@ public:
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
+	//-----Расчет тензора проводимости---------------------------------
+	
+	void calcutaleTenzor(DataKind dataKind);
+
 	//------Фильтрация результатов-------------------------------------
 	bool setFilterParamsHall(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
 	bool setFilterParamsHall(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
@@ -116,21 +136,20 @@ public:
 
 	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
 	
-
+	// просто трамплин на сейвер. возможно он него можно как-нибудь избавиться.
 	void setRoundNeeded(bool needRound);
 
+	// это пока просто заготовки
     void enableChangeChannels();
     void disableChangeChannels();
 
 private:
     bool ChangeChannels;
-	//-------Построение графиков-------------------------------------- 
+	//-------Построение графиков--------------------------------------- 
 	void plotData();
 
-	// Сохранение результатов и т.д.----------------------------------
-
-	DataSaver * saver;
-	
+	// Сохранение результатов------------------------------------------
+	DataSaver * saver;	
 
 	//------Фильтрация результатов-------------------------------------
 	FilterParams *filterParamsHall;
@@ -146,34 +165,58 @@ private:
 	inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out);
 
 	//---------Обработка данных----------------------------------------
-	void featData(DataKind dataKind, long index, FeatType featType); // усреднение зависимостей. не реализована
 	void multiplyB(DataKind dataKind);
-	void cutData();
+
+	void calculateEffectiveParamsFromSignals();
+	void calculateTenzorFromEffectiveParams();
+	void featData(DataKind dataKind); // усреднение зависимостей
+	void averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType);
+	
+	void cutData(DataKind dataKind); // оставляет только положительные значения магнитного поля
+
+
+
+	DataTypeInContainer * getPointerB(DataKind dataKind);
+	DataTypeInContainer * getPointerHall(DataKind dataKind);
+	DataTypeInContainer * getPointerMagnetoResistance(DataKind dataKind);
 
 	//---------------Много переменных----------------------------------
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
 	DataTypeInContainer B;
+	DataTypeInContainer BHall;
+	DataTypeInContainer BMagnetoResistance;
 	DataTypeInContainer HallEffect;
     DataTypeInContainer MagnetoResistance;
 	// Первоначальные значения, полученные от АЦП.
 	DataTypeInContainer OriginalB;
-    DataTypeInContainer OriginalHallEffect;
+	DataTypeInContainer OriginalHallEffect;
     DataTypeInContainer OriginalMagnetoResistance;
 	// Фильтрованные значения.
 	DataTypeInContainer FilteredB;
+	DataTypeInContainer FilteredBHall;
+	DataTypeInContainer FilteredBMagnetoResistance;
     DataTypeInContainer FilteredHallEffect;
     DataTypeInContainer FilteredMagnetoResistance;
 
 	// Экстраполированные значения.
 	DataTypeInContainer ExtrapolatedB;
+	DataTypeInContainer ExtrapolatedBHall;
+	DataTypeInContainer ExtrapolatedBMagnetoResistance;
     DataTypeInContainer ExtrapolatedHallEffect;
     DataTypeInContainer ExtrapolatedMagnetoResistance;
 
-	MyDataType h; // шаг по магнитному полю, если он вообще понадобится:)
+    // Усредненные значения.
+    DataTypeInContainer AveragedB;
+	DataTypeInContainer AveragedBHall;
+	DataTypeInContainer AveragedBMagnetoResistance;
+	DataTypeInContainer AveragedHallEffect;
+	DataTypeInContainer AveragedMagnetoResistance;
 
-	unsigned int NumberOfPoints;
-
+	DataTypeInContainer s_eff;
+	DataTypeInContainer Rh_eff;
+	DataTypeInContainer sxx;
+	DataTypeInContainer sxy;
     
 };
 

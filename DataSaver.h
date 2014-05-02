@@ -4,11 +4,10 @@
 #include <string>
 #include <vcl.h>
 #include <math.h>
-//#include <System.hpp>
+
 #include "UsedTypes.h"
 
 enum SaveType {ALL_POINTS,POINTS_11,POINTS_21};
-enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA};
 
 class DataSaver
 {
@@ -17,24 +16,13 @@ public:
 	~DataSaver();
 
 	void setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
+	void getSampleDescription(AnsiString &Temperature, AnsiString &Current, AnsiString &SampleInventoryNumber, AnsiString &length, AnsiString &width, AnsiString &Thickness);
 
 	void SaveSampleDescription(AnsiString FileName);
 
 void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
 DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,
 SaveType saveType,AnsiString FileName);
-
-	/*void SaveAllData(AnsiString FileName,bool isCombinedParams=false)
-{
-    SaveData(CURRENT_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(CURRENT_DATA,ALL_POINTS,FileName);
-    SaveData(FILTERED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(FILTERED_DATA,ALL_POINTS,FileName);
-    SaveData(EXTRAPOLATED_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(EXTRAPOLATED_DATA,ALL_POINTS,FileName);
-    SaveData(ORIGINAL_DATA,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    SaveData(ORIGINAL_DATA,ALL_POINTS,FileName);
-}*/
 
     void setBaseFileName(AnsiString FileName);
 	void setRoundNeeded(bool needRound);

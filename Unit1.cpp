@@ -84,11 +84,11 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -660,9 +660,6 @@ void Gist(std::vector<long double> & in)
         *pos=0;
     }
 
-
-
-
     for(pos=in.begin(); pos!=in.end();++pos)
     {
         gist[*pos]++;
@@ -847,25 +844,34 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 
 void __fastcall TForm1::Button3Click(TObject *Sender)
 {
-    long double I=CurrentRes->Text.ToDouble()/1E+6;
+   /* long double I=CurrentRes->Text.ToDouble()/1E+6;
 
     long double SLength=SampleLength->Text.ToDouble()/1E+3;
     long double SWidth = SampleWidth->Text.ToDouble()/1E+3;
     long double SThickness = SampleThickness->Text.ToDouble()/1E+6;
     bool filtered=CheckBox4->Checked;
 
-    if(params==NULL)
-    return;
+    MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");   
+        return; 
+    }
+    else
+    {
+       p=*par;
+    }
 
-    std::vector<long double> B(params->getB());
-    std::vector<long double> Us(params->getMagnetoResistance());
-    std::vector<long double> Uy(params->getHallEffect());
+    std::vector<long double> B(p->getB());
+    std::vector<long double> Us(p->getMagnetoResistance());
+    std::vector<long double> Uy(p->getHallEffect());
 
     if(filtered)
     {
-        B=params->getFilteredB();
-        Us=params->getFilteredMagnetoResistance();
-        Uy=params->getFilteredHallEffect();
+        B=p->getFilteredB();
+        Us=p->getFilteredMagnetoResistance();
+        Uy=p->getFilteredHallEffect();
     }
 
     unsigned int NumberOfPoints = Us.size();
@@ -919,7 +925,36 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 
       }
 
-      delete tenzorSaver;
+      delete tenzorSaver;*/
+
+    MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");   
+        return; 
+    }
+    else
+    {
+        p=*par;
+        p->calcutaleTenzor(CURRENT_DATA);
+
+        DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
+        CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+        if(SaveDialog1->Execute())
+        {
+        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),
+        p->getSxy(), p->getSxx(), ALL_POINTS,SaveDialog1->FileName);
+
+        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),
+        p->getSxy(), p->getSxx(), POINTS_11,SaveDialog1->FileName);
+        }
+        delete tenzorSaver;
+    }  
+
+    
+
+
 }
 //---------------------------------------------------------------------------
 

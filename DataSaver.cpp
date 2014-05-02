@@ -19,6 +19,22 @@ void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current,
 	this->SampleThickness=Thickness;
 }
 
+void DataSaver::getSampleDescription(AnsiString &Temperature, AnsiString &Current, AnsiString &SampleInventoryNumber, AnsiString &length, AnsiString &width, AnsiString &Thickness)
+{
+	if(Current!=NULL)
+	Current=this->Current;
+	if(SampleInventoryNumber!=NULL)
+	SampleInventoryNumber=this->SampleInventoryNumber;
+	if(Temperature!=NULL)
+	Temperature=this->Temperature;
+	if(length!=NULL)
+	length=this->SampleLength;
+	if(width!=NULL)
+	width=this->SampleWidth;
+	if(Thickness!=NULL)
+	Thickness=this->SampleThickness;
+}
+
 void DataSaver::SaveSampleDescription(AnsiString FileName)
 {
 	AnsiString NewFileName;
