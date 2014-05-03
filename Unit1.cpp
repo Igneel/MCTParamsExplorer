@@ -84,11 +84,11 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -294,11 +294,14 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 //----------------------------------------------------------------------------
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
+
+eAttenuationFRes->Text=FloatToStr(StrToFloat(eBandWidthFRes->Text)+5.5/ StrToFloat( eLengthFilterRes->Text)* StrToFloat( eSamplingFRes->Text)*0.5);
+
 MagneticFieldDependence ** par=ActiveParams();
 
 if (*par==NULL)
 {
-    ShowMessage("Вероятно выбран не тот график.");    
+    ShowMessage("Вероятно выбран не тот график.");
 }
 else
 {

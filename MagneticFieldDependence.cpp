@@ -157,8 +157,8 @@ void MagneticFieldDependence::featData(DataKind dataKind)
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData()
 {
-    filterDataHelper2((*filterParamsHall),HALL_EFFECT);
-    filterDataHelper2((*filterParamsResistance),MAGNETORESISTANCE);
+    filterDataHelper((*filterParamsHall),HALL_EFFECT);
+    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)

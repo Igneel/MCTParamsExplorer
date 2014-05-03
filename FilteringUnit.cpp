@@ -32,7 +32,10 @@ void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdi
             if (i==0) H_id[i] = 2.0*M_PI*Fc;
             else H_id[i] = sinl(2.0*M_PI*Fc*i )/(M_PI*i);
             // весовая функция Блекмена
+            if (N>1)
             W[i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( N-1.0)) + 0.08 * cosl((4.0*M_PI*i) /( N-1.0));
+            else
+            W[i]=1;
             H[i] = H_id[i] * W[i];
         }
         //Нормировка импульсной характеристики
@@ -55,7 +58,7 @@ double FilterLowBand::FilterData (const std::vector<long double> &in, std::vecto
     for (int i=0; i<dataSize; ++i)
     {
         out[i]=0.0;
-        for (int j=0; j<(i>N-1?N-1:i); ++j)// та самая формула фильтра
+        for (int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
             out[i]+= H[j]*in[i-j];
     }
     return (N-1.0)/2.0;
@@ -121,7 +124,7 @@ unsigned int dataSize=in.size();
 for (int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;
-for (int j=0; j<(i>N-1?N-1:i); ++j)// та самая формула фильтра
+for (int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
 out[i]+= H[j]*in[i-j];
 }
 

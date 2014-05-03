@@ -295,7 +295,7 @@ DataTypeInContainer & outData)
     DataTypeInContainer tempOutData;
     tempOutData.resize(inData.size());
     //outData.resize(inData.size());
-    Filter (inData, tempOutData, 512, 400000, 45, 55);
+    Filter (inData, tempOutData, 64, 400000, 5, 25);
     outData=tempOutData;
 
 }
