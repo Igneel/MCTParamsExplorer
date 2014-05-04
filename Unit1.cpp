@@ -295,7 +295,7 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 void __fastcall TForm1::bFilterResClick(TObject *Sender)
 {
 
-eAttenuationFRes->Text=FloatToStr(StrToFloat(eBandWidthFRes->Text)+5.5/ StrToFloat( eLengthFilterRes->Text)* StrToFloat( eSamplingFRes->Text)*0.5);
+//eAttenuationFRes->Text=FloatToStr(StrToFloat(eBandWidthFRes->Text)+5.5/ StrToFloat( eLengthFilterRes->Text)* StrToFloat( eSamplingFRes->Text)*0.5);
 
 MagneticFieldDependence ** par=ActiveParams();
 
@@ -847,89 +847,6 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 
 void __fastcall TForm1::Button3Click(TObject *Sender)
 {
-   /* long double I=CurrentRes->Text.ToDouble()/1E+6;
-
-    long double SLength=SampleLength->Text.ToDouble()/1E+3;
-    long double SWidth = SampleWidth->Text.ToDouble()/1E+3;
-    long double SThickness = SampleThickness->Text.ToDouble()/1E+6;
-    bool filtered=CheckBox4->Checked;
-
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");   
-        return; 
-    }
-    else
-    {
-       p=*par;
-    }
-
-    std::vector<long double> B(p->getB());
-    std::vector<long double> Us(p->getMagnetoResistance());
-    std::vector<long double> Uy(p->getHallEffect());
-
-    if(filtered)
-    {
-        B=p->getFilteredB();
-        Us=p->getFilteredMagnetoResistance();
-        Uy=p->getFilteredHallEffect();
-    }
-
-    unsigned int NumberOfPoints = Us.size();
-    std::vector<long double> s_eff(NumberOfPoints);
-    std::vector<long double> Rh_eff(NumberOfPoints);
-    std::vector<long double> sxx(NumberOfPoints);
-    std::vector<long double> sxy(NumberOfPoints); 
-
-    const long double THEALMOSTZERO = 0.000001;
-
-    // расчет эффективных параметров
-    for (int i = 0; i < NumberOfPoints ; i++)
-    	{
-    		if(fabs(Us[i])<THEALMOSTZERO)
-    			s_eff[i]=0;
-    		else
-    		{
-    			s_eff[i]=SLength/SWidth/SThickness*I/Us[i];
-    		}
-            if(B[i]==0)
-            Rh_eff[i]=0;
-            else
-    		Rh_eff[i]=SThickness*Uy[i]/I;
-    	}
-     // расчет компонент тензора
-    for (int i = 0; i < NumberOfPoints ; i++)
-    	{
-    		sxx[i]=s_eff[i]/
-    			(Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
-    		sxy[i]=s_eff[i]*s_eff[i]*Rh_eff[i]/
-    		   (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
-    	}
-    DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
-     CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
-
-     if(SaveDialog1->Execute())
-     {
-     TStringList * t = new TStringList;
-
-     for(int i = 0; i < NumberOfPoints ; i++)
-     {
-     t->Add(FloatToStr(sxx[i]));
-     }
-     t->SaveToFile(SaveDialog1->FileName+"sxx.txt");
-
-    tenzorSaver->SaveData(CURRENT_DATA,B,
-    sxy, sxx, ALL_POINTS,SaveDialog1->FileName);
-
-    tenzorSaver->SaveData(CURRENT_DATA,B,
-    sxy, sxx, POINTS_11,SaveDialog1->FileName);
-
-      }
-
-      delete tenzorSaver;*/
-
     MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
     if (*par==NULL)

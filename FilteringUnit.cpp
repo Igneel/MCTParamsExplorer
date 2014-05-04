@@ -29,8 +29,8 @@ void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdi
 
         for (int i=0;i<N;++i)
         {
-            if (i==0) H_id[i] = 2.0*M_PI*Fc;
-            else H_id[i] = sinl(2.0*M_PI*Fc*i )/(M_PI*i);
+            if (i==0) H_id[i] = 2.0*Fc;
+            else H_id[i] =2.0*Fc* sinl(M_PI*i )/(M_PI*i);
             // весовая функция Блекмена
             if (N>1)
             W[i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( N-1.0)) + 0.08 * cosl((4.0*M_PI*i) /( N-1.0));
@@ -73,13 +73,12 @@ void FilterLowBand::FilterDataWithAutoShift(DataTypeInContainer & inB,
     {
     return ;
     }
-    std::vector<long double> out(lengthMassive);
+    outY.resize(lengthMassive);
 
-    double k=FilterData(inY,out); // вызываем фильтр
+    double k=FilterData(inY,outY); // вызываем фильтр
     k*=(max_elem(inB)-min_elem(inB))/(double)lengthMassive;// вычисляем сдвиг фаз
     // разность максимума и минимума на длину массива
     outB.resize(lengthMassive);
-    outY=out;
     for(int i=0;i<lengthMassive;i++) // выводим
     {
         outB[i]=inB[i]-k;
@@ -103,15 +102,19 @@ std::vector<long double> H_id(N); //Идеальная импульсная характеристика
 std::vector<long double> W(N);   //Весовая функция
 
 //Расчет импульсной характеристики фильтра
-long double Fc = (Fs + Fx) / (2.0 * Fd);
+//long double Fc = (Fs + Fx) / (2.0 * Fd);
+long double Fc = 5.5*Fd/N;
 
 for (int i=0;i<N;++i)
 {
-if (i==0) H_id[i] = 2.0*M_PI*Fc;
-else H_id[i] = sinl(2.0*M_PI*Fc*i )/(M_PI*i);
-// весовая функция Блекмена
-W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( N-1)) + 0.08 * cosl((4*M_PI*i) /( N-1.0));
-H [i] = H_id[i] * W[i];
+    if (i==0) H_id[i] = 1;
+    else H_id[i] =sinl(2*M_PI*Fc*i)/(2*M_PI*Fc*i);
+    // весовая функция Блекмена
+    if(N>1)
+        W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( N-1)) + 0.08 * cosl((4*M_PI*i) /( N-1));
+    else
+        W[i]=1;
+    H [i] = H_id[i] * W[i];
 }
 
 //Нормировка импульсной характеристики
@@ -145,11 +148,9 @@ long double Fpropysk,long double Fzatyh)
     {
     return 0;
     }
-    std::vector<long double> in(inY);
-    std::vector<long double> out(lengthMassive);
-
-    double k=Filter(in,out,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
-    k*=(max_elem(inB)-min_elem(inB))/(double)lengthMassive;// вычисляем сдвиг фаз
+    outY.resize(lengthMassive);
+    double k=Filter(inY,outY,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
+    k*=(max_elem(inB)-min_elem(inB))/(long double)lengthMassive;// вычисляем сдвиг фаз
     // разность максимума и минимума на длину массива
  
 //----------------------------------------------
@@ -166,7 +167,6 @@ k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;
 
 //----------------------------------------------
     outB.resize(lengthMassive);
-    outY=out;
     for(int i=0;i<lengthMassive;i++) // выводим
     {
 	    outB[i]=inB[i]-k;

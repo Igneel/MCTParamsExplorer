@@ -180,9 +180,10 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     DataTypeInContainer tempInB(2*NumberOfPoints);
     DataTypeInContainer tempInSignal(2*NumberOfPoints);
 
-    DataTypeInContainer tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
-    DataTypeInContainer tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
-
+    //DataTypeInContainer tempOutB(2*NumberOfPoints+ceil(fP.filterLength/2.0));
+    //DataTypeInContainer tempOutSignal(2*NumberOfPoints+ceil(fP.filterLength/2.0));
+    DataTypeInContainer tempOutB(2*NumberOfPoints);
+    DataTypeInContainer tempOutSignal(2*NumberOfPoints);
 
 
     switch(dependenceType)
@@ -223,25 +224,31 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
+    unsigned int i=0;
+    NumberOfPoints=tempOutB.size();
+    while(i<NumberOfPoints && tempOutB[++i]<=0 );
+    //i-=1; // ищем где поле становится положительным.
 
     // нагло записываем положительную часть фильтрованного сигнала обратно.
-    for(unsigned int i=0;i<NumberOfPoints;i++)
+    for(;i<NumberOfPoints;i++)
     {
         
     switch(dependenceType)
     {        
     case HALL_EFFECT:
-        FilteredHallEffect.push_back(tempOutSignal[i+NumberOfPoints-1]);
+        FilteredHallEffect.push_back(tempOutSignal[i]);
         
         break;
     case MAGNETORESISTANCE:
-        FilteredMagnetoResistance.push_back(tempOutSignal[i+NumberOfPoints-1]);
-        FilteredB.push_back(tempOutB[i+NumberOfPoints-1]);
+        FilteredMagnetoResistance.push_back(tempOutSignal[i]);
+        FilteredB.push_back(tempOutB[i]);
         break;
     default:
         break;
     }
-    }
+    }    
+
+
 }
 
 //------------------------------------------------------------------------------
@@ -321,8 +328,20 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 
     DataTypeInContainer inBHall(FilteredB);
     DataTypeInContainer inBMagnetoResistance(FilteredB);
+
+
+
     DataTypeInContainer inHallEffect(FilteredHallEffect);
     DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
+
+    for (int i=0; i<B.size();++i)
+    {
+        inHallEffect.push_back(HallEffect[i]);
+        inMagnetoResistance.push_back(MagnetoResistance[i]);
+        inBHall.push_back(B[i]);
+        inBMagnetoResistance.push_back(B[i]);
+    }
+      
     unsigned int NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
@@ -331,7 +350,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     }
     MyDataType h=2.0/NumberOfPoints;
     
-    unsigned int i=0;
+
 	for(int i=0;i<500;i++)
 	{
 		inBHall.push_back(0);
@@ -358,25 +377,18 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedHallEffect=newHallEffect;
 
 	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
+    unsigned int i=0;
+	while(newB[++i]<FilteredB.back() && i<NumberOfPoints);
+	//i-=1; // ищем где поле становится положительным.
 
-	while(FilteredB[i++]<=0 && i<NumberOfPoints);
-	i-=1; // ищем где поле становится положительным.
-
-    for(unsigned int j=i;j<NumberOfPoints;j++)
-	{      // перемещаем эти значения в начало.
-		FilteredB[j-i]=FilteredB[j];
-		FilteredMagnetoResistance[j-i]=FilteredMagnetoResistance[j];
-        FilteredHallEffect[j-i]=FilteredHallEffect[j];
-		//Uy[j-i]=Uy[j];
-	}
-
-   /*	for(unsigned int j=NumberOfPoints-i;j<NumberOfPoints;j++)
+   	for(unsigned int j=i;j<NumberOfPoints;j++)
 	{     // в конце дописываем экстраполированные значения.
-		FilteredB[j]=newB[j];
-		Dependence[j]=newDependence[j];
+		FilteredB.push_back(newB[j]);
+        FilteredMagnetoResistance.push_back(newMagnetoResistance[j]);
+        FilteredHallEffect.push_back(newHallEffect[j]);
 	}
 	//------------------------------------------------------------------
-   */
+   
 return returnValue;   
 }
 //-------------------------------------------------------------------------------
@@ -431,7 +443,7 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     DataTypeInContainer::iterator posX;
     DataTypeInContainer::iterator posY;
     for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
-    	if(*posX <1000000 && *posY<1000000)
+    	if(*posX ==*posX && *posY==*posY)
         s->AddXY(*posX,*posY,"",color);
 	
 }
