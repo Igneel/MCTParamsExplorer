@@ -84,11 +84,11 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -148,7 +148,7 @@ void __fastcall TForm1::FormCreate(TObject *)
 
 void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 {
-    Form1->Close();
+    Form1->Close(); 
 }
 //----много кода, выключает/включает графические элементы, во время работы АЦП-
 //---------------------------------------
@@ -334,9 +334,10 @@ void __fastcall TForm1::N4Click(TObject *Sender)
         if (p)
         {
             p->loadData(tts);
+            UpdatePlots();
         }
     }
-    UpdatePlots();
+
 }
 
  // выбор активного графика
@@ -792,32 +793,32 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     DataTypeInContainer Hall;
     DataTypeInContainer Resistance;
 
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB().rbegin(); i != paramsReverse->getB().rend(); ++i)
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
     {
         B.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getHallEffect().rbegin(); i != paramsReverse->getHallEffect().rend(); ++i)
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getHallEffect()->rbegin(); i != paramsReverse->getHallEffect()->rend(); ++i)
     {
         Hall.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getMagnetoResistance().rbegin(); i != paramsReverse->getMagnetoResistance().rend(); ++i)
+    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getMagnetoResistance()->rbegin(); i != paramsReverse->getMagnetoResistance()->rend(); ++i)
     {
         Resistance.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getB().begin(); i != paramsDirect->getB().end(); ++i)
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
     {
         B.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect().begin(); i != paramsDirect->getHallEffect().end(); ++i)
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
     {
         Hall.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance().begin(); i != paramsDirect->getMagnetoResistance().end(); ++i)
+    for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
     {
         Resistance.push_back(*i);    
     }
@@ -857,7 +858,7 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
     else
     {
         p=*par;
-        p->calcutaleTenzor(CURRENT_DATA);
+        p->calcutaleTenzor(FILTERED_DATA);
 
         DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
         CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
@@ -878,4 +879,17 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+
+void __fastcall TForm1::eLengthFilterResChange(TObject *Sender)
+{
+eLengthFilterHall->Text=eLengthFilterRes->Text;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::eLengthFilterHallChange(TObject *Sender)
+{
+eLengthFilterRes->Text=eLengthFilterHall->Text;
+}
+//---------------------------------------------------------------------------
 

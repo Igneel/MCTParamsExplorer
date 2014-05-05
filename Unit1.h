@@ -223,6 +223,8 @@ __published:	// IDE-managed Components
     void __fastcall CurrentResChange(TObject *Sender);
     void __fastcall Button2Click(TObject *Sender);
     void __fastcall Button3Click(TObject *Sender);
+    void __fastcall eLengthFilterResChange(TObject *Sender);
+    void __fastcall eLengthFilterHallChange(TObject *Sender);
     
 
 private:	// User declarations

@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 259
-  Top = 137
+  Left = 564
+  Top = 171
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -115,9 +115,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = Resistance
+    ActivePage = HallEffect
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -611,7 +611,7 @@ object Form1: TForm1
         Width = 89
         Height = 21
         TabOrder = 2
-        Text = '251'
+        Text = '250'
         OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
@@ -660,7 +660,8 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 7
-        Text = '50'
+        Text = '20'
+        OnChange = eLengthFilterResChange
         OnKeyPress = Edit1KeyPress
       end
       object eSamplingFRes: TEdit
@@ -669,7 +670,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 8
-        Text = '100000'
+        Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
       object eBandWidthFRes: TEdit
@@ -794,7 +795,7 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 20
-        Text = '000'
+        Text = '050701'
       end
       object Panel1: TPanel
         Left = 376
@@ -833,7 +834,7 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 23
-        Text = '3,25'
+        Text = '3,8'
       end
       object SampleWidth: TLabeledEdit
         Left = 456
@@ -846,7 +847,7 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 24
-        Text = '1,4'
+        Text = '1,2'
       end
       object SampleThickness: TLabeledEdit
         Left = 416
@@ -859,7 +860,7 @@ object Form1: TForm1
         LabelPosition = lpAbove
         LabelSpacing = 3
         TabOrder = 25
-        Text = '10,03'
+        Text = '11,83'
       end
       object CheckBox4: TCheckBox
         Left = 416
@@ -1063,6 +1064,7 @@ object Form1: TForm1
         Height = 21
         TabOrder = 8
         Text = '20'
+        OnChange = eLengthFilterHallChange
         OnKeyPress = Edit1KeyPress
       end
       object eSamplingFHall: TEdit
@@ -1071,7 +1073,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 9
-        Text = '100000'
+        Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
       object eBandWidthFHall: TEdit

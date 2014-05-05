@@ -20,8 +20,8 @@ public:
 
 	void SaveSampleDescription(AnsiString FileName);
 
-void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
-DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,
+void DataSaver::SaveData(DataKind dataKind,const DataTypeInContainer *B,
+const DataTypeInContainer * HallEffect, const DataTypeInContainer * MagnetoResistance,
 SaveType saveType,AnsiString FileName);
 
     void setBaseFileName(AnsiString FileName);
@@ -51,9 +51,9 @@ private:
     void RoundM(T *pos, T* endPos);
 
     
-    void SaveDataHelper(DataTypeInContainer &saveB,
-	DataTypeInContainer & saveHall,
-	DataTypeInContainer & saveResistance,SaveType mode,
+    void SaveDataHelper(const DataTypeInContainer *saveB,
+	const DataTypeInContainer * saveHall,
+	const DataTypeInContainer * saveResistance,SaveType mode,
 	AnsiString FileName);
 	inline void ReplaceDotsToComma(std::string &in, std::string & out);
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);

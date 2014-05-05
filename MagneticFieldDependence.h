@@ -68,33 +68,31 @@ public:
 
 	~MagneticFieldDependence();
 
-    DataTypeInContainer const & getB();
+    DataTypeInContainer const * getB();
 
-	DataTypeInContainer const & getBHall();
-	DataTypeInContainer const & getBMagnetoResistance();
-    DataTypeInContainer const & getHallEffect();
-    DataTypeInContainer const & getMagnetoResistance();
-    DataTypeInContainer const & getOriginalB();
-    DataTypeInContainer const & getOriginalHallEffect();
-    DataTypeInContainer const & getOriginalMagnetoResistance();
-    DataTypeInContainer const & getFilteredB();
+	DataTypeInContainer const * getBHall();
+	DataTypeInContainer const * getBMagnetoResistance();
+    DataTypeInContainer const * getHallEffect();
+    DataTypeInContainer const * getMagnetoResistance();
+  
+    DataTypeInContainer const * getFilteredB();
 
-	DataTypeInContainer const & getFilteredBHall();
-	DataTypeInContainer const & getFilteredBMagnetoResistance();
-    DataTypeInContainer const & getFilteredHallEffect();
-    DataTypeInContainer const & getFilteredMagnetoResistance();
-    DataTypeInContainer const & getExtrapolatedB();
+	DataTypeInContainer const * getFilteredBHall();
+	DataTypeInContainer const * getFilteredBMagnetoResistance();
+    DataTypeInContainer const * getFilteredHallEffect();
+    DataTypeInContainer const * getFilteredMagnetoResistance();
+    DataTypeInContainer const * getExtrapolatedB();
 
-	DataTypeInContainer const & getExtrapolatedBHall();
-	DataTypeInContainer const & getExtrapolatedBMagnetoResistance();
-    DataTypeInContainer const & getExtrapolatedHallEffect();
-    DataTypeInContainer const & getExtrapolatedMagnetoResistance();   
+	DataTypeInContainer const * getExtrapolatedBHall();
+	DataTypeInContainer const * getExtrapolatedBMagnetoResistance();
+    DataTypeInContainer const * getExtrapolatedHallEffect();
+    DataTypeInContainer const * getExtrapolatedMagnetoResistance();   
 
-    DataTypeInContainer const & getSxx();
-    DataTypeInContainer const & getSxy();
-    DataTypeInContainer const & getAveragedB();
-    DataTypeInContainer const & getRh_eff();
-    DataTypeInContainer const & getS_eff();
+    DataTypeInContainer const * getSxx();
+    DataTypeInContainer const * getSxy();
+    DataTypeInContainer const * getAveragedB();
+    DataTypeInContainer const * getRh_eff();
+    DataTypeInContainer const * getS_eff();
 	
 
 	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,
@@ -169,7 +167,7 @@ private:
 
 	void calculateEffectiveParamsFromSignals();
 	void calculateTenzorFromEffectiveParams();
-	void featData(DataKind dataKind); // усреднение зависимостей
+	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.
 	void averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType);
 	
 	void cutData(DataKind dataKind); // оставляет только положительные значения магнитного поля
@@ -188,10 +186,7 @@ private:
 	DataTypeInContainer BMagnetoResistance;
 	DataTypeInContainer HallEffect;
     DataTypeInContainer MagnetoResistance;
-	// Первоначальные значения, полученные от АЦП.
-	DataTypeInContainer OriginalB;
-	DataTypeInContainer OriginalHallEffect;
-    DataTypeInContainer OriginalMagnetoResistance;
+	// Первоначальные значения, полученные от АЦП сохраняются в текущие.
 	// Фильтрованные значения.
 	DataTypeInContainer FilteredB;
 	DataTypeInContainer FilteredBHall;

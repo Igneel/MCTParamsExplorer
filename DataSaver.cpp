@@ -61,8 +61,8 @@ DataSaver::~DataSaver()
 
 
 
-void DataSaver::SaveData(DataKind dataKind,DataTypeInContainer &B,
-DataTypeInContainer & HallEffect, DataTypeInContainer & MagnetoResistance,
+void DataSaver::SaveData(DataKind dataKind,const DataTypeInContainer *B,
+const DataTypeInContainer * HallEffect, const DataTypeInContainer * MagnetoResistance,
 SaveType saveType,AnsiString FileName)
 {
 
@@ -89,15 +89,15 @@ SaveType saveType,AnsiString FileName)
 }
 
 
-void DataSaver::SaveDataHelper(DataTypeInContainer &saveB,
-DataTypeInContainer & saveHall,
-DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
+void DataSaver::SaveDataHelper(const DataTypeInContainer *saveB,
+const DataTypeInContainer * saveHall,
+const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
 {
     TStringList * tsl=new TStringList();
 
-    DataTypeInContainer savingXData(saveB.begin(),saveB.end());
-    DataTypeInContainer savingY1Data(saveResistance.begin(),saveResistance.end());
-    DataTypeInContainer savingY2Data(saveHall.begin(),saveHall.end());
+    DataTypeInContainer savingXData(saveB->begin(),saveB->end());
+    DataTypeInContainer savingY1Data(saveResistance->begin(),saveResistance->end());
+    DataTypeInContainer savingY2Data(saveHall->begin(),saveHall->end());
 
     DataTypeInContainer::iterator pos;
 

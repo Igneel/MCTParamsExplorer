@@ -27,7 +27,7 @@ void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdi
         //Расчет импульсной характеристики фильтра
         long double Fc = (Fs + Fx) / (2.0 * Fd);
 
-        for (int i=0;i<N;++i)
+        for (unsigned int i=0;i<N;++i)
         {
             if (i==0) H_id[i] = 2.0*Fc;
             else H_id[i] =2.0*Fc* sinl(M_PI*i )/(M_PI*i);
@@ -40,8 +40,8 @@ void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdi
         }
         //Нормировка импульсной характеристики
         long double SUM=0.0;
-        for (int i=0; i<N; ++i) SUM +=H[i];
-        for (int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
+        for (unsigned int i=0; i<N; ++i) SUM +=H[i];
+        for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
     }
 }
 
@@ -55,10 +55,10 @@ double FilterLowBand::FilterData (const std::vector<long double> &in, std::vecto
     //Фильтрация входных данных
     unsigned int dataSize=in.size();
     out.resize(dataSize);
-    for (int i=0; i<dataSize; ++i)
+    for (unsigned int i=0; i<dataSize; ++i)
     {
         out[i]=0.0;
-        for (int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
+        for (unsigned int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
             out[i]+= H[j]*in[i-j];
     }
     return (N-1.0)/2.0;
@@ -92,10 +92,10 @@ void FilterLowBand::FilterDataWithAutoShift(DataTypeInContainer & inB,
 // ВНИМАНИЕ!!! Напрямую не вызывать!!! Пользоваться трамплином!!!---------------
 double Filter (const std::vector<long double> &in, std::vector<long double> & out, int length, double Fdisk, double Fpropysk,double Fzatyh)
 {
-int N = length; //Длина фильтра
+unsigned int N = length; //Длина фильтра
 long double Fd = Fdisk; //Частота дискретизации входных данных 2000
-long double Fs = Fpropysk; //Частота конца полосы пропускания  10
-long double Fx = Fzatyh; //Частота начала полосы затухания    20
+//long double Fs = Fpropysk; //Частота конца полосы пропускания  10
+//long double Fx = Fzatyh; //Частота начала полосы затухания    20
 
 std::vector<long double> H(N);  //Импульсная характеристика фильтра
 std::vector<long double> H_id(N); //Идеальная импульсная характеристика
@@ -103,9 +103,9 @@ std::vector<long double> W(N);   //Весовая функция
 
 //Расчет импульсной характеристики фильтра
 //long double Fc = (Fs + Fx) / (2.0 * Fd);
-long double Fc = 5.5*Fd/N;
+long double Fc = 5.5*Fd/(long double)N;
 
-for (int i=0;i<N;++i)
+for (unsigned int i=0;i<N;++i)
 {
     if (i==0) H_id[i] = 1;
     else H_id[i] =sinl(2*M_PI*Fc*i)/(2*M_PI*Fc*i);
@@ -119,15 +119,15 @@ for (int i=0;i<N;++i)
 
 //Нормировка импульсной характеристики
 long double SUM=0;
-for (int i=0; i<N; ++i) SUM +=H[i];
-for (int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
+for (unsigned int i=0; i<N; ++i) SUM +=H[i];
+for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
 
 //Фильтрация входных данных
 unsigned int dataSize=in.size();
-for (int i=0; i<dataSize; ++i)
+for (unsigned int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;
-for (int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
+for (unsigned int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
 out[i]+= H[j]*in[i-j];
 }
 

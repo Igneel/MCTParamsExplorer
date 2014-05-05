@@ -109,33 +109,19 @@ int curveFittingUniversal(long double * inX, long double *inY, const int length,
 		for (int j = 0; j < a; j++) {
 		// копируем значени€ в матрицу
 		// по столбцам, шестой - столбец единиц
-		if(DEBUG)
-		{
-		temp2=inX[i];
-			temp1=((a-j-1)==0?1:pow(inX[i],a-j-1));
-		}
+
 			fullMatrix[i][j]=((a-j-1)==0?1:pow(inX[i],a-j-1));
 
 		}
 		// последний столбец формируетс€ здесь из значений игрек.
-		if(DEBUG)
-		temp2= inY[i];
+
 		fullMatrix[i][a]=inY[i];
 	}
 
 	for (int i = 0; i <= a; i++) {
 		for (int j = 0; j <= a; j++) {
 			for (int k=0; k < length; k++) {
-			if(DEBUG)
-			{
-			temp1=fullMatrix[k][i];
-			temp2=fullMatrix[k][j];
-			temp3=K[i][j];
-			}
 				K[i][j]+=fullMatrix[k][i]*fullMatrix[k][j];
-				if(DEBUG)
-			temp3=K[i][j];
-
 	}}}
 	// перемножение работает, проверено матлабом
 	// K5 - содержит a строк и a столбцов, т.е. без свободных членов.
@@ -146,10 +132,8 @@ int curveFittingUniversal(long double * inX, long double *inY, const int length,
 
 	for (int i = 0; i < a-1; i++) {
 		for (int j = 0; j < a; j++) {
-        if(DEBUG)
-			temp3=K[i][j];
+
 		K5[i][j]=K[i][j]; // копируем первые 2a-1 строк
-		//blabla=K5[i][j];
 		}
 	}
 
@@ -157,15 +141,11 @@ int curveFittingUniversal(long double * inX, long double *inY, const int length,
 	for (int i = 0; i < a; i++) {
 
 		K5[a-1][i]=(K[a-1][i]+K[a][i])/2;
-		if(DEBUG)
-			temp3=K5[a-1][i];
 	}
 
 	for (int i = 0; i < a-1; i++) {
 
 		Ks[i]=K[i][a];
-		if(DEBUG)
-			temp3=Ks[i];
 	}
 	Ks[a-1]=(K[a-1][a]+K[a][a])/2;
 
@@ -184,7 +164,6 @@ int curveFittingUniversal(long double * inX, long double *inY, const int length,
 					// столбец нужной переменной замен€етс€ свободными членами.
 					delta[i][j][k]=Ks[j];
 				}
-				//blabla=delta[i][j][k];
 	}}}
 
 	for (int i = 0; i < a; i++) {
@@ -255,6 +234,11 @@ long double determinant (std::vector<std::vector<long double> > & Arr,int size)
 int curveFittingUniversal(std::vector<long double> * inX, std::vector<long double> *inY, std::vector<long double> *outKoef,const int powPolinom)
 {
 	int lenght=(*inY).size();
+    if(lenght!=inX->size())
+    {
+    //("ƒлина массивов в экстрапол€ции не совпадает!");
+    return 0;
+    }
 	// как много кода.
 	// по сути - формируем матрицу
 	// перемножаем еЄ транпонированную на еЄ изначальную
@@ -298,32 +282,17 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 		for (int j = 0; j < a; j++) {
 		// копируем значени€ в матрицу
 		// по столбцам, шестой - столбец единиц
-		if(DEBUG)
-		{
-		temp2=(*inX)[i];
-			temp1=((a-j-1)==0?1:pow((*inX)[i],a-j-1));
-		}
+
 			fullMatrix[i].push_back(((a-j-1)==0?1:pow((*inX)[i],a-j-1)));
 		}
 		// последний столбец формируетс€ здесь из значений игрек.
-		if(DEBUG)
-		temp2= (*inY)[i];
 		fullMatrix[i].push_back((*inY)[i]);
 	}
 
 	for (int i = 0; i <= a; i++) {
 		for (int j = 0; j <= a; j++) {
 			for (int k=0; k < lenght; k++) {
-			if(DEBUG)
-			{
-			temp1=fullMatrix[k][i];
-			temp2=fullMatrix[k][j];
-			temp3=K[i][j];
-			}
 				K[i][j]+=fullMatrix[k][i]*fullMatrix[k][j];
-				if(DEBUG)
-			temp3=K[i][j];
-
 	}}}
 	// перемножение работает, проверено матлабом
 	// K5 - содержит a строк и a столбцов, т.е. без свободных членов.
@@ -334,26 +303,17 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 
 	for (int i = 0; i < a-1; i++) {
 		for (int j = 0; j < a; j++) {
-        if(DEBUG)
-			temp3=K[i][j];
 		K5[i][j]=K[i][j]; // копируем первые 2a-1 строк
-		//blabla=K5[i][j];
 		}
 	}
 
 	// а 6а€ строка - среднее арифметическое 6 и 7 строк
 	for (int i = 0; i < a; i++) {
-
 		K5[a-1][i]=(K[a-1][i]+K[a][i])/2;
-		if(DEBUG)
-			temp3=K5[a-1][i];
 	}
 
 	for (int i = 0; i < a-1; i++) {
-
 		Ks[i]=K[i][a];
-		if(DEBUG)
-			temp3=Ks[i];
 	}
 	Ks[a-1]=(K[a-1][a]+K[a][a])/2;
 
@@ -372,7 +332,6 @@ int curveFittingUniversal(std::vector<long double> * inX, std::vector<long doubl
 					// столбец нужной переменной замен€етс€ свободными членами.
 					delta[i][j][k]=Ks[j];
 				}
-				//blabla=delta[i][j][k];
 	}}}
 
 	for (int i = 0; i < a; i++) {
