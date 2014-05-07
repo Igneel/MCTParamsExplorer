@@ -295,7 +295,7 @@ DataTypeInContainer & outData)
     DataTypeInContainer tempOutData;
     tempOutData.resize(inData.size());
     //outData.resize(inData.size());
-    Filter (inData, tempOutData, 64, 400000, 5, 25);
+    Filter (inData, tempOutData, 128, 400000, 5, 25);
     outData=tempOutData;
 
 }
@@ -343,6 +343,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
                     ReadData[i].push_back(convertToVolt(splittedData[i][j],i));
+                    if(j%1000==0)
                     DisplayOnForm(i,ReadData[i].back());
                 }
             }

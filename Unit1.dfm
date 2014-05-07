@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 564
-  Top = 171
+  Left = 178
+  Top = 44
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -87,7 +87,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 472
     Top = 448
-    Width = 175
+    Width = 177
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
     Font.Charset = DEFAULT_CHARSET
@@ -115,9 +115,9 @@ object Form1: TForm1
     Top = 0
     Width = 657
     Height = 441
-    ActivePage = HallEffect
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -660,7 +660,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 7
-        Text = '20'
+        Text = '2'
         OnChange = eLengthFilterResChange
         OnKeyPress = Edit1KeyPress
       end
@@ -1063,7 +1063,7 @@ object Form1: TForm1
         Width = 73
         Height = 21
         TabOrder = 8
-        Text = '20'
+        Text = '2'
         OnChange = eLengthFilterHallChange
         OnKeyPress = Edit1KeyPress
       end
@@ -1596,8 +1596,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 553
-    Width = 684
+    Top = 557
+    Width = 692
     Height = 19
     Panels = <
       item

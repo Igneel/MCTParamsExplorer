@@ -21,6 +21,8 @@ TODO
 
 Ќужно добавить усреднение по току.
 
+
+Ќужен универсальный прореживатель, который бы возвращал нужное количество элементов из массива.
 */
 
 // ¬нимание, понадобитс€ добавить что-нибудь,
@@ -84,11 +86,11 @@ void TForm1::UpdatePlots()
     // ќбновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -236,6 +238,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         if(CheckBox2->Checked==false)
         {              
             (*ActiveParams())->getSplittedDataFromADC();
+            Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
             UpdatePlots();
 
         }
@@ -311,7 +314,7 @@ MagneticFieldDependence * p=*par;
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
     p->filterData();
-    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+   // p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
     UpdatePlots();
 }

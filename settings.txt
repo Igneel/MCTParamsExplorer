@@ -1,4 +1,4 @@
-ActivePageIndex	2
+ActivePageIndex	0
 ChannelB	0
 ChannelBRange	1
 ChannelHall	2
@@ -18,7 +18,7 @@ eAttenuationFHall	25
 eAttenuationFRes	25
 eBandWidthFHall	15
 eBandWidthFRes	15
-eLengthFilterRes	20
+eLengthFilterRes	2
 eSamplingFHall	10000
 eSamplingFRes	10000
 isMedianFilterEnabled	1

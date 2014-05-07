@@ -472,9 +472,15 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     }
     DataTypeInContainer::iterator posX;
     DataTypeInContainer::iterator posY;
-    for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
-    	if(*posX ==*posX && *posY==*posY)
-        s->AddXY(*posX,*posY,"",color);
+    unsigned int shag = pointToX->size() / 500;
+    for (int i=0;i<500 && i<pointToX->size();i+=shag)
+    {
+    s->AddXY((*pointToX)[i],(*pointToX)[i],"",color);
+    }
+
+    //for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
+    	//if(*posX ==*posX && *posY==*posY)
+      //  s->AddXY(*posX,*posY,"",color);
 	
 }
 //-------------------------------------------------------------------------------
@@ -582,7 +588,7 @@ void MagneticFieldDependence::getSplittedDataFromADC()
 
         multiplyB(CURRENT_DATA);
         filterData();
-        extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.
+        //extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.
         // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.
     }
 }
