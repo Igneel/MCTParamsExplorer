@@ -87,7 +87,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 472
     Top = 448
-    Width = 177
+    Width = 175
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
     Font.Charset = DEFAULT_CHARSET
@@ -1596,8 +1596,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 557
-    Width = 692
+    Top = 553
+    Width = 684
     Height = 19
     Panels = <
       item

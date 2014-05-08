@@ -142,13 +142,15 @@ public:
     void enableChangeChannels();
     void disableChangeChannels();
 
+    // Сохранение результатов------------------------------------------
+	DataSaver * saver;
+
 private:
     bool ChangeChannels;
 	//-------Построение графиков--------------------------------------- 
 	void plotData();
 
-	// Сохранение результатов------------------------------------------
-	DataSaver * saver;	
+		
 
 	//------Фильтрация результатов-------------------------------------
 	FilterParams *filterParamsHall;

@@ -176,21 +176,34 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         ShowMessage("Количество точек магнитного поля и эффекта Холла не совпадает! filterdataHelper");
         return;
     }
+    
+    DataTypeInContainer * inB;
+    DataTypeInContainer * inHallEffect;
+    DataTypeInContainer * inMagnetoResistance;
+    unsigned int NumberOfPoints;
+
     if ((B[0]+2.0)<0.5)
     {
         featData(CURRENT_DATA);
-        B=AveragedB;
-        HallEffect=AveragedHallEffect;
-        MagnetoResistance=AveragedMagnetoResistance;
+        inB=&AveragedB;
+        inHallEffect=&AveragedHallEffect;
+        inMagnetoResistance=&AveragedMagnetoResistance;
+        NumberOfPoints=AveragedB.size();
+    }
+    else
+    {
+        inB=&B;
+        inHallEffect=&HallEffect;
+        inMagnetoResistance=&MagnetoResistance;
+        NumberOfPoints=HallEffect.size();
     }
 
-    unsigned int NumberOfPoints=HallEffect.size();
+    
     DataTypeInContainer tempInB(2*NumberOfPoints);
     DataTypeInContainer tempInSignal(2*NumberOfPoints);
 
     DataTypeInContainer tempOutB(2*NumberOfPoints);
     DataTypeInContainer tempOutSignal(2*NumberOfPoints);
-
 
     switch(dependenceType)
     {
@@ -201,10 +214,10 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     // достраивая его в отрицательные магнитные поля.
     for (unsigned int i = 0; i < NumberOfPoints; i++)
     {
-        tempInSignal[i]=-HallEffect[NumberOfPoints-i-1]+2*HallEffect[0];
-        tempInB[i]=-B[NumberOfPoints-i-1];
-        tempInSignal[i+NumberOfPoints]=HallEffect[i];
-        tempInB[i+NumberOfPoints]=B[i];
+        tempInSignal[i]=-(*inHallEffect)[NumberOfPoints-i-1]+2*(*inHallEffect)[0];
+        tempInB[i]=-(*inB)[NumberOfPoints-i-1];
+        tempInSignal[i+NumberOfPoints]=(*inHallEffect)[i];
+        tempInB[i+NumberOfPoints]=(*inB)[i];
     }
     break;
     case MAGNETORESISTANCE:
@@ -213,11 +226,11 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
 
     for (unsigned int i = 0; i < NumberOfPoints; i++)
     {
-        tempInSignal[i]=MagnetoResistance[NumberOfPoints-i-1];   // чет
+        tempInSignal[i]=(*inMagnetoResistance)[NumberOfPoints-i-1];   // чет
         //tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет
-        tempInB[i]=-B[NumberOfPoints-i-1];
-        tempInSignal[i+NumberOfPoints]=MagnetoResistance[i];
-        tempInB[i+NumberOfPoints]=B[i];
+        tempInB[i]=-(*inB)[NumberOfPoints-i-1];
+        tempInSignal[i+NumberOfPoints]=(*inMagnetoResistance)[i];
+        tempInB[i+NumberOfPoints]=(*inB)[i];
     }
     break;
 
@@ -229,6 +242,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
+    // а разве размер поля внутри фильтрации меняется?О_о
     NumberOfPoints=tempOutB.size();
     for(unsigned int i=fP.filterLength;i<NumberOfPoints;i++)
     {

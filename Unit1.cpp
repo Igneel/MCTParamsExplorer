@@ -44,6 +44,7 @@ MagneticFieldDependence * TForm1::InitParams()
         delete *p;
     *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
         SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+        (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
     return *p;    
 }
 

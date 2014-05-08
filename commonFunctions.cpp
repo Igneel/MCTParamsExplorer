@@ -1,8 +1,8 @@
 #include "commonFunctions.h"
 
-inline dist(MyDataType x1, MyDataType x2)
+inline MyDataType dist(MyDataType x1, MyDataType x2)
 {
-    fabs(x1-x2);
+    return fabs(x1-x2);
 }
 
 bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, 
@@ -27,7 +27,7 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
         return false; // если зависимости разной длины - мы не можем им помочь.
     }
 
-    if (OldLength==inDependence.size())
+    if (OldLength==NewLength)
     {
         outDependence=inDependence;
         outB=inB;
