@@ -230,7 +230,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
     NumberOfPoints=tempOutB.size();
-    for(int i=fP.filterLength;i<NumberOfPoints;i++)
+    for(unsigned int i=fP.filterLength;i<NumberOfPoints;i++)
     {
         
     switch(dependenceType)
@@ -472,16 +472,13 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     }
     DataTypeInContainer::iterator posX;
     DataTypeInContainer::iterator posY;
-    unsigned int shag = pointToX->size() / 500;
-    for (int i=0;i<500 && i<pointToX->size();i+=shag)
+    unsigned int PointsToShow=500;
+    unsigned int shag = pointToX->size() / PointsToShow;
+    if(shag<1) shag = 1;
+    for (unsigned int i=0;i<PointsToShow && i<pointToX->size();i+=shag)
     {
-    s->AddXY((*pointToX)[i],(*pointToX)[i],"",color);
-    }
-
-    //for (posX=pointToX->begin(),posY=pointToY->begin();posX!=pointToX->end();++posX,++posY)
-    	//if(*posX ==*posX && *posY==*posY)
-      //  s->AddXY(*posX,*posY,"",color);
-	
+    s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
+    }	
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)

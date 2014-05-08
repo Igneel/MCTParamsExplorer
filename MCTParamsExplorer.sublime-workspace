@@ -427,7 +427,7 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 18156,
+				"buffer_size": 18191,
 				"line_ending": "Windows"
 			}
 		},
@@ -435,7 +435,7 @@
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 25737,
+				"buffer_size": 25914,
 				"line_ending": "Windows"
 			}
 		},
@@ -451,7 +451,7 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 25452,
+				"buffer_size": 25632,
 				"line_ending": "Windows"
 			}
 		},
@@ -543,6 +543,12 @@
 	},
 	"file_history":
 	[
+		"/K/Дела/Институт физики полупроводников/plotsInMathLab/main.m",
+		"/K/Дела/Институт физики полупроводников/Описание фильтра/Исследование длины фильтра.txt",
+		"/C/Users/Jonatan Livingston/Desktop/exp/Старый Хлам/графики/main.m",
+		"/K/Дела/Институт физики полупроводников/plotsInMathLab/README.md",
+		"/C/Users/Jonatan Livingston/Desktop/exp/Старый Хлам/графики/importfile.m",
+		"/C/Users/Jonatan Livingston/Desktop/exp/Исправленная модель/Новая папка/FScr.m",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/Reverse.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/new Reverese.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/new Direct.txt",
@@ -871,15 +877,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18156,
+						"buffer_size": 18191,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8781,
-								8781
+								0,
+								0
 							]
 						],
 						"settings":
@@ -901,15 +907,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25737,
+						"buffer_size": 25914,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10724,
-								10724
+								0,
+								0
 							]
 						],
 						"settings":
@@ -959,15 +965,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25452,
+						"buffer_size": 25632,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23364,
-								23364
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1033,7 +1039,7 @@
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},

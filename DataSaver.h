@@ -3,7 +3,8 @@
 
 #include <string>
 #include <vcl.h>
-#include <math.h>
+#include <math>
+#include "commonFunctions.h"
 
 #include "UsedTypes.h"
 
@@ -27,7 +28,13 @@ SaveType saveType,AnsiString FileName);
     void setBaseFileName(AnsiString FileName);
 	void setRoundNeeded(bool needRound);
 
+	void setParamsType(ParamsType pt);
+
 private:
+
+	ParamsType paramsType;
+	DataTypeInContainer leftBound;
+	DataTypeInContainer rightBound;
 
 	AnsiString BaseFileName;
 

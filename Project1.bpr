@@ -6,7 +6,7 @@
     <PROJECT value="Project1.exe"/>
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
-      DataSaver.obj SettingsSaver.obj"/>
+      DataSaver.obj SettingsSaver.obj commonFunctions.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -25,7 +25,7 @@
     <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
     <RELEASELIBPATH value="$(BCB)\lib\release"/>
     <LINKER value="ilink32"/>
-    <USERDEFINES value=""/>
+    <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="Project1.cpp"/>
     <INCLUDEPATH value="$(BCB)\include;$(BCB)\include\vcl"/>
@@ -36,15 +36,15 @@
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -boa"/>
-    <CFLAG1 value="-vGc -vGt -vGd -O2 -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Q -Vx 
-      -Ve -Tkh30000 -X- -a8 -5 -b- -d -k- -vi -c -tW -tWM"/>
+    <IDLCFLAGS value="-I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-vGc -vGt -vGd -Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Q -Vx 
+      -Ve -Tkh30000 -X- -r- -a8 -5 -b- -d -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
     <CFLAG3 value=""/>
-    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -M -JPHNE"/>
+    <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -M -JPHNE"/>
     <RFLAGS value=""/>
-    <AFLAGS value="/mx /w2 /zn"/>
-    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -w"/>
+    <AFLAGS value="/mx /w2 /zi"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -w -v"/>
     <IFLAGS value=""/>
     <OTHERFILES value=""/>
   </OPTIONS>
@@ -67,6 +67,7 @@
       <FILE FILENAME="FilterParams.cpp" FORMNAME="" UNITNAME="FilterParams" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="DataSaver.cpp" FORMNAME="" UNITNAME="DataSaver" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="SettingsSaver.cpp" FORMNAME="" UNITNAME="SettingsSaver" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="commonFunctions.cpp" FORMNAME="" UNITNAME="commonFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

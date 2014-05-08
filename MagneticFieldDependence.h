@@ -12,6 +12,7 @@
 #include "FilterParams.h"
 #include "UsedTypes.h"
 #include "ExtrapolateUnit.h"
+#include "commonFunctions.h"
 
 
 /*
@@ -214,5 +215,6 @@ private:
 	DataTypeInContainer sxy;
     
 };
+
 
 #endif

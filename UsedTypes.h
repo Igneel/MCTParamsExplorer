@@ -14,7 +14,11 @@ typedef std::vector< std::pair<std::string, std::string> > optionDescription;
 
 enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA, AVERAGED_DATA};
 
+enum ParamsType {DIRECT=0,REVERSE=1,COMBINE=2};
+
 const long double THEALMOSTZERO = 0.000001;
+
+
 
 
 #endif

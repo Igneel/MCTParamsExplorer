@@ -7,6 +7,16 @@ DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString Samp
 	isRoundNeeded=true;
 	defaultExtension=".txt";
 	NumberOfDecimalPlaces=5;
+	paramsType=DIRECT;
+
+	leftBound.resize(3);
+	leftBound[DIRECT]=0;
+	leftBound[REVERSE]=-2;
+	leftBound[COMBINE]=-2;
+	rightBound.resize(3);
+	rightBound[DIRECT]=2;
+	rightBound[REVERSE]=0;
+	rightBound[COMBINE]=2;
 }
 
 void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
@@ -109,59 +119,40 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
 		RoundM(savingY2Data.begin(),savingY2Data.end());
 	}
 
-	if (mode==POINTS_11) {
-
+	if (mode==POINTS_11) 
+	{
         FileName+="_11Points";
-        const int SomePointsCount=11;
-		long double points[SomePointsCount]={0};
+        DataTypeInContainer tempX;
+        DataTypeInContainer tempY;
+        thiningSignal(savingXData,savingY1Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],11);
+        savingY1Data = tempY;
 
-		long double shag=2.0/(SomePointsCount-1.0);
+        thiningSignal(savingXData,savingY2Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],11);
+        savingXData = tempX;
+        savingY2Data = tempY;
 
-		for (int i=1; i < SomePointsCount; i++) {
-			points[i]=points[i-1]+shag;
-		}
-
-		for (int i = 0; i < SomePointsCount; i++) {
-			unsigned int index=0;
-			long double r=4;
-			for(int k=0;k<length;k++)
-			{
-				if(fabs(fabs(savingXData[k])-fabs(points[i]))<=r)
-				{
-					r=fabs(fabs(savingXData[k])-fabs(points[i]));
-					index=k;
-				}
-			}
-            if(index<savingXData.size())
-			tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
-		}
+        for (unsigned int i = 0; i < savingXData.size(); ++i)
+        {
+        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
+        }
 	}
     if (mode==POINTS_21)
     {
         FileName+="_21Points";
-        const int SomePointsCount=21;
-        long double points[SomePointsCount]={-2.0};
+        
+        DataTypeInContainer tempX;
+        DataTypeInContainer tempY;
+        thiningSignal(savingXData,savingY1Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],21);
+        savingY1Data = tempY;
 
-        long double shag=4.0/(SomePointsCount-1.0);
+        thiningSignal(savingXData,savingY2Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],21);
+        savingXData = tempX;
+        savingY2Data = tempY;
 
-        for (int i=1; i < SomePointsCount; i++) {
-            points[i]=points[i-1]+shag;
-        }
-
-        for (int i = 0; i < SomePointsCount; i++) {
-            unsigned int index=0;
-            long double r=4;
-            for(int k=0;k<length;k++)
-            {
-                if(fabs(savingXData[k]-points[i])<=r)
-                {
-                    r=fabs(savingXData[k]-points[i]);
-                    index=k;
-                }
-            }
-            if(index<savingXData.size())
-            tsl->Add(FloatToStrF(savingXData[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[index],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[index],ffFixed,9,5));
-        }
+        for (unsigned int i = 0; i < savingXData.size(); ++i)
+        {
+        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
+        }        
     }
 	if(mode==ALL_POINTS)
 	{
@@ -231,4 +222,9 @@ inline void DataSaver::ReplaceCommaToDots(std::string &in, std::string & out)
         strToReplaceWhich.begin(),strToReplaceWhich.end());
     } 
     out=s;
+}
+
+void DataSaver::setParamsType(ParamsType pt)
+{
+	paramsType=pt;
 }
