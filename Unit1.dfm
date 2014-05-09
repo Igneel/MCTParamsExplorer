@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 178
-  Top = 44
+  Left = 482
+  Top = 211
   Width = 700
   Height = 630
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -783,6 +783,7 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 19
         Text = '77'
+        OnChange = CurrentResChange
       end
       object eSampleInventoryNumber: TLabeledEdit
         Left = 384
@@ -796,6 +797,7 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 20
         Text = '050701'
+        OnChange = CurrentResChange
       end
       object Panel1: TPanel
         Left = 376

@@ -45,6 +45,7 @@ MagneticFieldDependence * TForm1::InitParams()
     *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
         SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
+        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
     return *p;    
 }
 
@@ -315,7 +316,7 @@ MagneticFieldDependence * p=*par;
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
     p->filterData();
-   // p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
     UpdatePlots();
 }
@@ -827,6 +828,25 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
         Resistance.push_back(*i);    
     }
 
+    DataTypeInContainer outB;
+    DataTypeInContainer outHall;
+    DataTypeInContainer outResistance;
+
+    thiningSignal(B, Hall, outB, outHall, -2, 2,
+    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
+    2*paramsDirect->getB()->size():
+    2*paramsReverse->getB()->size()));
+    thiningSignal(B, Resistance, outB, outResistance, -2, 2,
+    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
+    2*paramsDirect->getB()->size():
+    2*paramsReverse->getB()->size()));
+    B.clear();
+    B=outB;
+    Hall.clear();
+    Hall=outHall;
+    Resistance.clear();
+    Resistance=outResistance;
+
     params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
     UpdatePlots();
 }
@@ -843,7 +863,7 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
     {
     (*ActiveParams())->setSampleDescription(CurrentRes->Text,SampleTemperature->Text,
         eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
-
+    (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
     Panel1->Color=clBtnFace;
     }
 }

@@ -138,6 +138,8 @@ public:
 	// просто трамплин на сейвер. возможно он него можно как-нибудь избавитьс€.
 	void setRoundNeeded(bool needRound);
 
+	void setParamsType(ParamsType pt);
+
 	// это пока просто заготовки
     void enableChangeChannels();
     void disableChangeChannels();
@@ -146,6 +148,11 @@ public:
 	DataSaver * saver;
 
 private:
+
+	ParamsType paramsType;
+	DataTypeInContainer leftBound;
+	DataTypeInContainer rightBound;
+	
     bool ChangeChannels;
 	//-------ѕостроение графиков--------------------------------------- 
 	void plotData();
@@ -175,7 +182,7 @@ private:
 	
 	void cutData(DataKind dataKind); // оставл€ет только положительные значени€ магнитного пол€
 
-
+	void MagneticFieldDependence::clearCurrentParams();
 
 	DataTypeInContainer * getPointerB(DataKind dataKind);
 	DataTypeInContainer * getPointerHall(DataKind dataKind);
