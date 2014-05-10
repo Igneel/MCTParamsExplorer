@@ -12,7 +12,7 @@ typedef std::vector<DataTypeInContainer> TwoDimensionalContainer;
 typedef std::vector< std::pair<int, int> > channelsInfo;
 typedef std::vector< std::pair<std::string, std::string> > optionDescription;
 
-enum DataKind {CURRENT_DATA, FILTERED_DATA, EXTRAPOLATED_DATA, ORIGINAL_DATA, AVERAGED_DATA};
+enum DataKind {CURRENT_DATA=0, FILTERED_DATA=1, EXTRAPOLATED_DATA=2, AVERAGED_DATA=3};
 
 enum ParamsType {DIRECT=0,REVERSE=1,COMBINE=2};
 

@@ -1,7 +1,8 @@
 #include "DataSaver.h"
 
-
-DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
+//-------------------------------------------------------------------------------
+DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, 
+	AnsiString length, AnsiString width, AnsiString Thickness)
 {
 	setSampleDescription(Temperature, Current, SampleInventoryNumber, length, width, Thickness);
 	isRoundNeeded=true;
@@ -18,8 +19,9 @@ DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString Samp
 	rightBound[REVERSE]=0;
 	rightBound[COMBINE]=2;
 }
-
-void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
+//-------------------------------------------------------------------------------
+void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current, 
+	AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness)
 {
 	this->Current=Current;
 	this->SampleInventoryNumber=SampleInventoryNumber;
@@ -28,8 +30,9 @@ void DataSaver::setSampleDescription(AnsiString Temperature, AnsiString Current,
 	this->SampleWidth=width;
 	this->SampleThickness=Thickness;
 }
-
-void DataSaver::getSampleDescription(AnsiString &Temperature, AnsiString &Current, AnsiString &SampleInventoryNumber, AnsiString &length, AnsiString &width, AnsiString &Thickness)
+//-------------------------------------------------------------------------------
+void DataSaver::getSampleDescription(AnsiString &Temperature, AnsiString &Current, 
+	AnsiString &SampleInventoryNumber, AnsiString &length, AnsiString &width, AnsiString &Thickness)
 {
 	if(Current!=NULL)
 	Current=this->Current;
@@ -44,11 +47,11 @@ void DataSaver::getSampleDescription(AnsiString &Temperature, AnsiString &Curren
 	if(Thickness!=NULL)
 	Thickness=this->SampleThickness;
 }
-
+//-------------------------------------------------------------------------------
 void DataSaver::SaveSampleDescription(AnsiString FileName)
 {
 	AnsiString NewFileName;
-	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+Temperature+"_I_"+Current+"Description";
+	NewFileName=FileName.SubString(0,FileName.Length()-3)+"Description"+defaultExtension;
 	TStringList * tsl=new TStringList();
 
 	tsl->Add("SampleInventoryNumber\t"+SampleInventoryNumber);
@@ -59,17 +62,17 @@ void DataSaver::SaveSampleDescription(AnsiString FileName)
 	tsl->Add("SampleThickness\t"+SampleThickness);
 
 	FileName+=defaultExtension;
-	tsl->SaveToFile(FileName); 	
+	tsl->SaveToFile(NewFileName); 	
 
 	delete tsl;
 }
-
+//-------------------------------------------------------------------------------
 DataSaver::~DataSaver()
 {
 	;
 }
 
-
+//-------------------------------------------------------------------------------
 
 void DataSaver::SaveData(DataKind dataKind,const DataTypeInContainer *B,
 const DataTypeInContainer * HallEffect, const DataTypeInContainer * MagnetoResistance,
@@ -77,27 +80,24 @@ SaveType saveType,AnsiString FileName)
 {
 
 	AnsiString NewFileName;
-	NewFileName=FileName+"_SampleN_"+SampleInventoryNumber+"_T_"+Temperature+"_I_"+Current;
+	NewFileName=FileName+"SampleN"+SampleInventoryNumber+"T"+Temperature+"I"+Current;
 	switch(dataKind)
 	{
 	    case CURRENT_DATA:
-	        NewFileName+="_current_data";
+	        NewFileName+="CurrData";
 	        break;
 	    case FILTERED_DATA:
-	        NewFileName+="_filtered_data";
+	        NewFileName+="FiltData";
 	        break;
 	    case EXTRAPOLATED_DATA:
-	        NewFileName+="_extrapolated_data";
-	        break;
-	    case ORIGINAL_DATA:
-	        NewFileName+="_original_data";
+	        NewFileName+="ExtrData";
 	        break;
 	}
 
 	SaveDataHelper(B,HallEffect,MagnetoResistance,saveType,NewFileName);
 
 }
-
+//-------------------------------------------------------------------------------
 
 void DataSaver::SaveDataHelper(const DataTypeInContainer *saveB,
 const DataTypeInContainer * saveHall,
@@ -114,14 +114,14 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
     int length=savingXData.size();
     if(isRoundNeeded==true)
 	{
-		RoundM(savingXData.begin(),savingXData.end());
-		RoundM(savingY1Data.begin(),savingY1Data.end());
-		RoundM(savingY2Data.begin(),savingY2Data.end());
+		roundM(savingXData.begin(),savingXData.end(),NumberOfDecimalPlaces);
+		roundM(savingY1Data.begin(),savingY1Data.end(),NumberOfDecimalPlaces);
+		roundM(savingY2Data.begin(),savingY2Data.end(),NumberOfDecimalPlaces);
 	}
 
 	if (mode==POINTS_11) 
 	{
-        FileName+="_11Points";
+        FileName+="11P";
         DataTypeInContainer tempX;
         DataTypeInContainer tempY;
         thiningSignal(savingXData,savingY1Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],11);
@@ -138,7 +138,7 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
 	}
     if (mode==POINTS_21)
     {
-        FileName+="_21Points";
+        FileName+="21P";
         
         DataTypeInContainer tempX;
         DataTypeInContainer tempY;
@@ -156,7 +156,7 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
     }
 	if(mode==ALL_POINTS)
 	{
-        FileName+="_AllPoints";
+        FileName+="AllP";
 		for(int i=0;i<length;i++)
 		{
 			tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
@@ -172,24 +172,7 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
 
 	delete tsl;
 }
-
-//---------------------------------------------------------------------------
-// Округление с заданной точностью.
-template <class T>
-void DataSaver::RoundM(T *pos, T* endPos)
-{
-    int S=pow(10,NumberOfDecimalPlaces);
-    for(;pos!=endPos;++pos)
-    {
-        int n=(int)(*pos*S)%10;
-        if(n<5)
-            *pos=floorl(*pos*S)/S;
-        else
-            *pos=ceill(*pos*S)/S;
-    }
-}
 //-------------------------------------------------------------------------------
-
 void DataSaver::setRoundNeeded(bool needRound)
 {
     isRoundNeeded=needRound;

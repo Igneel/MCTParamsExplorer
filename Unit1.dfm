@@ -1,12 +1,12 @@
 object Form1: TForm1
-  Left = 482
-  Top = 211
-  Width = 700
-  Height = 630
+  Left = 358
+  Top = 190
+  Width = 800
+  Height = 700
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
-  Constraints.MaxHeight = 630
-  Constraints.MaxWidth = 700
+  Constraints.MaxHeight = 700
+  Constraints.MaxWidth = 800
   Constraints.MinHeight = 630
   Constraints.MinWidth = 700
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object Form1: TForm1
   TextHeight = 13
   object LabelChan1: TLabel
     Left = 24
-    Top = 472
+    Top = 544
     Width = 203
     Height = 68
     Caption = '0.000000'
@@ -39,7 +39,7 @@ object Form1: TForm1
   end
   object LabelChan2: TLabel
     Left = 240
-    Top = 472
+    Top = 544
     Width = 203
     Height = 68
     Caption = '0.000000'
@@ -56,7 +56,7 @@ object Form1: TForm1
   end
   object LabelChan3: TLabel
     Left = 456
-    Top = 472
+    Top = 544
     Width = 203
     Height = 68
     Caption = '0.000000'
@@ -73,7 +73,7 @@ object Form1: TForm1
   end
   object Label31: TLabel
     Left = 56
-    Top = 448
+    Top = 520
     Width = 135
     Height = 22
     Caption = '1'#1081' '#1082#1072#1085#1072#1083'('#1061#1086#1083#1083'):'
@@ -86,7 +86,7 @@ object Form1: TForm1
   end
   object Label32: TLabel
     Left = 472
-    Top = 448
+    Top = 520
     Width = 175
     Height = 22
     Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
@@ -99,7 +99,7 @@ object Form1: TForm1
   end
   object Label33: TLabel
     Left = 224
-    Top = 448
+    Top = 520
     Width = 227
     Height = 22
     Caption = '2'#1081' '#1082#1072#1085#1072#1083'('#1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'):'
@@ -113,8 +113,8 @@ object Form1: TForm1
   object PC: TPageControl
     Left = 0
     Top = 0
-    Width = 657
-    Height = 441
+    Width = 777
+    Height = 521
     ActivePage = Resistance
     MultiLine = True
     TabIndex = 1
@@ -256,7 +256,7 @@ object Form1: TForm1
       end
       object Memo1: TMemo
         Left = 160
-        Top = 336
+        Top = 416
         Width = 481
         Height = 73
         ScrollBars = ssVertical
@@ -488,7 +488,7 @@ object Form1: TForm1
         Caption = #1057#1080#1083#1072' '#1090#1086#1082#1072' ('#1084#1082#1040'):'
       end
       object Label15: TLabel
-        Left = 480
+        Left = 496
         Top = 72
         Width = 82
         Height = 13
@@ -496,7 +496,7 @@ object Form1: TForm1
         Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label19: TLabel
-        Left = 472
+        Left = 488
         Top = 96
         Width = 89
         Height = 13
@@ -504,7 +504,7 @@ object Form1: TForm1
         Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090':'
       end
       object Label20: TLabel
-        Left = 472
+        Left = 488
         Top = 120
         Width = 89
         Height = 13
@@ -512,7 +512,7 @@ object Form1: TForm1
         Caption = #1063#1072#1089#1090#1086#1090#1072' '#1087#1088#1086#1087#1091#1089#1082':'
       end
       object Label21: TLabel
-        Left = 464
+        Left = 480
         Top = 144
         Width = 99
         Height = 13
@@ -597,11 +597,11 @@ object Form1: TForm1
         end
       end
       object uiResControl: TButton
-        Left = 416
+        Left = 384
         Top = 200
-        Width = 75
+        Width = 107
         Height = 25
-        Caption = 'Start'
+        Caption = #1053#1072#1095#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
         TabOrder = 1
         OnClick = uiControlClick
       end
@@ -615,25 +615,15 @@ object Form1: TForm1
         OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
-      object uiResFeat: TButton
-        Left = 416
-        Top = 232
-        Width = 75
-        Height = 25
-        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
-        Enabled = False
-        TabOrder = 3
-        OnClick = uiResFeatClick
-      end
       object Memo2: TMemo
-        Left = 512
-        Top = 320
+        Left = 632
+        Top = 400
         Width = 129
         Height = 89
-        TabOrder = 4
+        TabOrder = 3
       end
       object ResCurveIndex: TRadioGroup
-        Left = 488
+        Left = 504
         Top = 8
         Width = 153
         Height = 57
@@ -643,102 +633,103 @@ object Form1: TForm1
           #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
-        TabOrder = 5
+        TabOrder = 4
+        OnClick = ResCurveIndexClick
       end
       object bFilterRes: TButton
-        Left = 496
+        Left = 512
         Top = 232
         Width = 145
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088' '#1080' '#1069#1082#1089#1090#1088#1072#1087#1086#1083#1103#1094#1080#1103
-        TabOrder = 6
+        TabOrder = 5
         OnClick = bFilterResClick
       end
       object eLengthFilterRes: TEdit
-        Left = 568
+        Left = 584
         Top = 72
         Width = 73
         Height = 21
-        TabOrder = 7
+        TabOrder = 6
         Text = '2'
         OnChange = eLengthFilterResChange
         OnKeyPress = Edit1KeyPress
       end
       object eSamplingFRes: TEdit
-        Left = 568
+        Left = 584
         Top = 96
         Width = 73
         Height = 21
-        TabOrder = 8
+        TabOrder = 7
         Text = '10000'
         OnKeyPress = Edit1KeyPress
       end
       object eBandWidthFRes: TEdit
-        Left = 568
+        Left = 584
         Top = 120
         Width = 73
         Height = 21
-        TabOrder = 9
+        TabOrder = 8
         Text = '15'
         OnKeyPress = Edit1KeyPress
       end
       object eAttenuationFRes: TEdit
-        Left = 568
+        Left = 584
         Top = 144
         Width = 73
         Height = 21
-        TabOrder = 10
+        TabOrder = 9
         Text = '25'
         OnKeyPress = Edit1KeyPress
       end
       object bClearPlotsRes: TButton
-        Left = 296
-        Top = 328
+        Left = 384
+        Top = 232
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
-        TabOrder = 11
+        TabOrder = 10
         OnClick = bClearPlotsResClick
       end
       object Interval1: TEdit
-        Left = 176
-        Top = 336
+        Left = 8
+        Top = 432
         Width = 49
         Height = 21
-        TabOrder = 12
+        TabOrder = 11
         Text = '0,02'
         OnKeyPress = Edit1KeyPress
       end
       object Interval2: TEdit
-        Left = 232
-        Top = 336
+        Left = 64
+        Top = 432
         Width = 49
         Height = 21
-        TabOrder = 13
+        TabOrder = 12
         Text = '0,15'
         OnKeyPress = Edit1KeyPress
       end
       object ImpulsKiller: TButton
-        Left = 176
-        Top = 360
+        Left = 8
+        Top = 456
         Width = 105
         Height = 25
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
         Enabled = False
-        TabOrder = 14
+        TabOrder = 13
         OnClick = ImpulsKillerClick
       end
       object Button13: TButton
-        Left = 296
-        Top = 360
+        Left = 120
+        Top = 456
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
-        TabOrder = 15
+        TabOrder = 14
         OnClick = Button13Click
       end
       object PowPolinomRes: TLabeledEdit
-        Left = 568
+        Left = 584
         Top = 168
         Width = 73
         Height = 21
@@ -747,16 +738,17 @@ object Form1: TForm1
         EditLabel.Caption = #1057#1090#1077#1087#1077#1085#1100' '#1087#1086#1083#1080#1085#1086#1084#1072':'
         LabelPosition = lpLeft
         LabelSpacing = 3
-        TabOrder = 16
+        TabOrder = 15
         Text = '4'
+        OnKeyPress = Edit1KeyPress
       end
       object Button1: TButton
-        Left = 496
+        Left = 512
         Top = 200
         Width = 145
         Height = 25
         Caption = #1054#1073#1098#1077#1076#1080#1085#1080#1090#1100' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080
-        TabOrder = 17
+        TabOrder = 16
         OnClick = Button1Click
       end
       object Memo6: TMemo
@@ -769,7 +761,7 @@ object Form1: TForm1
           #1057#1080#1085#1080#1081' - '#1092#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081' '
           #1063#1077#1088#1085#1099#1081' - '
           #1101#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081)
-        TabOrder = 18
+        TabOrder = 17
       end
       object SampleTemperature: TLabeledEdit
         Left = 384
@@ -781,53 +773,54 @@ object Form1: TForm1
         EditLabel.Caption = #1058#1077#1084#1087#1077#1088#1072#1090#1091#1088#1072' ('#1050'):'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 19
+        TabOrder = 18
         Text = '77'
         OnChange = CurrentResChange
+        OnKeyPress = Edit1KeyPress
       end
       object eSampleInventoryNumber: TLabeledEdit
         Left = 384
         Top = 104
-        Width = 65
+        Width = 89
         Height = 21
         EditLabel.Width = 58
         EditLabel.Height = 13
         EditLabel.Caption = #8470' '#1054#1073#1088#1072#1079#1094#1072
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 20
+        TabOrder = 19
         Text = '050701'
         OnChange = CurrentResChange
       end
       object Panel1: TPanel
-        Left = 376
+        Left = 384
         Top = 128
         Width = 89
         Height = 41
         Caption = 'Panel1'
-        TabOrder = 21
+        TabOrder = 20
         object Button2: TButton
           Left = 8
           Top = 8
           Width = 75
           Height = 25
-          Caption = 'Button2'
+          Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100
           TabOrder = 0
           OnClick = Button2Click
         end
       end
       object Button3: TButton
-        Left = 544
-        Top = 264
+        Left = 664
+        Top = 88
         Width = 97
         Height = 25
         Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1086#1074
-        TabOrder = 22
+        TabOrder = 21
         OnClick = Button3Click
       end
       object SampleLength: TLabeledEdit
-        Left = 400
-        Top = 280
+        Left = 672
+        Top = 16
         Width = 41
         Height = 21
         EditLabel.Width = 33
@@ -835,42 +828,74 @@ object Form1: TForm1
         EditLabel.Caption = #1044#1083#1080#1085#1072
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 23
+        TabOrder = 22
         Text = '3,8'
+        OnKeyPress = Edit1KeyPress
       end
       object SampleWidth: TLabeledEdit
-        Left = 456
-        Top = 280
+        Left = 720
+        Top = 16
         Width = 41
         Height = 21
-        EditLabel.Width = 63
+        EditLabel.Width = 39
         EditLabel.Height = 13
-        EditLabel.Caption = 'SampleWidth'
+        EditLabel.Caption = #1064#1080#1088#1080#1085#1072
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 24
+        TabOrder = 23
         Text = '1,2'
+        OnKeyPress = Edit1KeyPress
       end
       object SampleThickness: TLabeledEdit
-        Left = 416
-        Top = 320
-        Width = 81
+        Left = 672
+        Top = 56
+        Width = 89
         Height = 21
         EditLabel.Width = 80
         EditLabel.Height = 13
         EditLabel.Caption = #1058#1086#1083#1097#1080#1085#1072' ('#1084#1082#1084'):'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 25
+        TabOrder = 24
         Text = '11,83'
+        OnKeyPress = Edit1KeyPress
       end
-      object CheckBox4: TCheckBox
-        Left = 416
-        Top = 352
-        Width = 81
-        Height = 17
-        Caption = 'CheckBox4'
+      object uiShiftValue: TLabeledEdit
+        Left = 224
+        Top = 344
+        Width = 121
+        Height = 21
+        EditLabel.Width = 86
+        EditLabel.Height = 13
+        EditLabel.Caption = #1042#1077#1083#1080#1095#1080#1085#1072' '#1089#1076#1074#1080#1075#1072
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 25
+        Text = '0,01'
+        OnKeyPress = Edit1KeyPress
+      end
+      object bResShiftCurve: TButton
+        Left = 224
+        Top = 448
+        Width = 121
+        Height = 25
+        Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
         TabOrder = 26
+        OnClick = bResShiftCurveClick
+      end
+      object uiDataKind: TRadioGroup
+        Left = 224
+        Top = 368
+        Width = 185
+        Height = 81
+        Caption = #1042#1080#1076' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080':'
+        ItemIndex = 0
+        Items.Strings = (
+          #1058#1077#1082#1091#1097#1080#1077' '#1076#1072#1085#1085#1099#1077
+          #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
+          #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
+          #1059#1089#1088#1077#1076#1077#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077)
+        TabOrder = 27
       end
     end
     object HallEffect: TTabSheet
@@ -998,13 +1023,13 @@ object Form1: TForm1
         Width = 153
         Height = 57
         Caption = #1053#1086#1084#1077#1088' '#1082#1088#1080#1074#1086#1081':'
-        Enabled = False
         ItemIndex = 0
         Items.Strings = (
           #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
         TabOrder = 1
+        OnClick = HallCurveIndexClick
       end
       object uiHallFeat: TButton
         Left = 416
@@ -1108,6 +1133,44 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 12
         Text = '4'
+        OnKeyPress = Edit1KeyPress
+      end
+      object uiHallShiftValue: TLabeledEdit
+        Left = 120
+        Top = 352
+        Width = 121
+        Height = 21
+        EditLabel.Width = 86
+        EditLabel.Height = 13
+        EditLabel.Caption = #1042#1077#1083#1080#1095#1080#1085#1072' '#1089#1076#1074#1080#1075#1072
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 13
+        Text = '0,01'
+        OnKeyPress = Edit1KeyPress
+      end
+      object uiHallDataKind: TRadioGroup
+        Left = 120
+        Top = 376
+        Width = 185
+        Height = 81
+        Caption = #1042#1080#1076' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080':'
+        ItemIndex = 0
+        Items.Strings = (
+          #1058#1077#1082#1091#1097#1080#1077' '#1076#1072#1085#1085#1099#1077
+          #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
+          #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
+          #1059#1089#1088#1077#1076#1077#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077)
+        TabOrder = 14
+      end
+      object bShiftHallCurve: TButton
+        Left = 120
+        Top = 456
+        Width = 121
+        Height = 25
+        Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
+        TabOrder = 15
+        OnClick = bShiftHallCurveClick
       end
     end
     object Faradey: TTabSheet
@@ -1598,8 +1661,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 553
-    Width = 684
+    Top = 623
+    Width = 784
     Height = 19
     Panels = <
       item

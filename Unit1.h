@@ -52,7 +52,6 @@ __published:	// IDE-managed Components
     TEdit *CurrentRes;
     TLabel *Label9;
     TLineSeries *SeriesRes1;
-    TButton *uiResFeat;
     TMemo *Memo2;
     TRadioGroup *ResCurveIndex;
         TButton *bClear;
@@ -193,7 +192,12 @@ __published:	// IDE-managed Components
     TLabeledEdit *SampleLength;
     TLabeledEdit *SampleWidth;
     TLabeledEdit *SampleThickness;
-    TCheckBox *CheckBox4;
+    TLabeledEdit *uiShiftValue;
+    TButton *bResShiftCurve;
+    TRadioGroup *uiDataKind;
+    TLabeledEdit *uiHallShiftValue;
+    TRadioGroup *uiHallDataKind;
+    TButton *bShiftHallCurve;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -225,6 +229,10 @@ __published:	// IDE-managed Components
     void __fastcall Button3Click(TObject *Sender);
     void __fastcall eLengthFilterResChange(TObject *Sender);
     void __fastcall eLengthFilterHallChange(TObject *Sender);
+    void __fastcall HallCurveIndexClick(TObject *Sender);
+    void __fastcall ResCurveIndexClick(TObject *Sender);
+    void __fastcall bResShiftCurveClick(TObject *Sender);
+    void __fastcall bShiftHallCurveClick(TObject *Sender);
     
 
 private:	// User declarations

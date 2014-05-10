@@ -182,7 +182,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         GainKoefFaradey->Enabled=0;
 
         //-- кнопки-----------------------------------------------
-        uiResFeat->Enabled=0;
+        
         bFilterRes->Enabled=0;
         uiHallFeat->Enabled=0;
         uiFFTHall->Enabled=0;
@@ -219,7 +219,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         uiBlockSize2->Enabled=true;
 
-        uiResFeat->Enabled=1;
+        
         bFilterRes->Enabled=1;
         uiHallFeat->Enabled=1;
         uiFFTHall->Enabled=1;
@@ -435,7 +435,7 @@ void __fastcall TForm1::Edit1KeyPress(TObject *Sender, char &Key)
 {
     if(Key=='.')
         Key=',';
-    if(((int)Key<48 || (int)Key>57) && Key!=8 && Key!=',')
+    if(((int)Key<48 || (int)Key>57) && Key!=8 && Key!=',' && Key!='-')
         Key=0;
 }
 //---------------------------------------------------------------------------
@@ -713,9 +713,9 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение всех данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"_Combine_",true);
-            paramsDirect->SaveAllData(SaveDialog1->FileName+"_Direct_");
-            paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
+            params->SaveAllData(SaveDialog1->FileName+"Com",true);
+            paramsDirect->SaveAllData(SaveDialog1->FileName+"Dir");
+            paramsReverse->SaveAllData(SaveDialog1->FileName+"Rev");
         }
     }
 
@@ -726,7 +726,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение объединенных данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"_Combine_",true);
+            params->SaveAllData(SaveDialog1->FileName+"Com",true);
         }
     }
 
@@ -735,7 +735,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение данных для положительного магнитного поля:";
         if(SaveDialog1->Execute())
         {
-            paramsDirect->SaveAllData(SaveDialog1->FileName+"_Direct_");
+            paramsDirect->SaveAllData(SaveDialog1->FileName+"Dir");
         }
     }
 
@@ -744,7 +744,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение данных для отрицательного магнитного поля:";
         if(SaveDialog1->Execute())
         {
-            paramsReverse->SaveAllData(SaveDialog1->FileName+"_Reverse_");
+            paramsReverse->SaveAllData(SaveDialog1->FileName+"Rev");
         }
     }
     }
@@ -914,6 +914,32 @@ eLengthFilterHall->Text=eLengthFilterRes->Text;
 void __fastcall TForm1::eLengthFilterHallChange(TObject *Sender)
 {
 eLengthFilterRes->Text=eLengthFilterHall->Text;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::HallCurveIndexClick(TObject *Sender)
+{
+ResCurveIndex->ItemIndex=HallCurveIndex->ItemIndex;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ResCurveIndexClick(TObject *Sender)
+{
+HallCurveIndex->ItemIndex=ResCurveIndex->ItemIndex;    
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::bResShiftCurveClick(TObject *Sender)
+{
+(*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,StrToFloat(uiShiftValue->Text));
+UpdatePlots();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::bShiftHallCurveClick(TObject *Sender)
+{
+(*ActiveParams())->shiftCurve(uiHallDataKind->ItemIndex,HALL_EFFECT,StrToFloat(uiHallShiftValue->Text));
+UpdatePlots();
 }
 //---------------------------------------------------------------------------
 

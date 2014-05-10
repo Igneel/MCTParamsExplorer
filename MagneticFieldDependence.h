@@ -115,6 +115,8 @@ public:
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
+	void shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue);
+
 	//-----Расчет тензора проводимости---------------------------------
 	
 	void calcutaleTenzor(DataKind dataKind);
@@ -144,6 +146,7 @@ public:
     void enableChangeChannels();
     void disableChangeChannels();
 
+
     // Сохранение результатов------------------------------------------
 	DataSaver * saver;
 
@@ -164,8 +167,6 @@ private:
 	FilterParams *filterParamsResistance;
 
     void filterDataHelper(FilterParams &fP,
-    PlotType dependenceType);
-    void filterDataHelper2(FilterParams &fP,
     PlotType dependenceType);
 
     //------Загрузка данных-------------------------------------------- 

@@ -52,11 +52,6 @@ private:
 	AnsiString SampleLength; // длина образца, мм
 	AnsiString SampleWidth; // ширина образца, мм
 	AnsiString SampleThickness; // толщина образца, мкм
-
-	
-    template <class T>
-    void RoundM(T *pos, T* endPos);
-
     
     void SaveDataHelper(const DataTypeInContainer *saveB,
 	const DataTypeInContainer * saveHall,

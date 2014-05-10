@@ -42,7 +42,7 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
     MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0); // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)
 
     idealB.push_back(left); // начинаем с наименьшей границы
-    for (int i=1; i < NewLength; ++i) 
+    for (unsigned int i=1; i < NewLength; ++i) 
     {
         idealB.push_back(idealB[i-1]+shag);
     }
@@ -65,11 +65,11 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
         }
     }*/
     // возможно стоит прикрутить более оптимальный поиск.
-    for (int i = 0; i < NewLength; ++i) 
+    for (unsigned int i = 0; i < NewLength; ++i) 
     {
         unsigned int index=0;
         long double r=4;
-        for(int k=0;k<OldLength;++k)
+        for(unsigned int k=0;k<OldLength;++k)
         {
             if(dist(inB[k],idealB[i])<=r)
             {
