@@ -102,6 +102,7 @@ public:
 	void getSplittedDataFromADC();
 
 	void loadData(TStringList * tsl);
+	void MagneticFieldDependence::loadSampleDescription(TStringList *Names,TStringList *Values,AnsiString FileName);
 
 	void setDependence(DataTypeInContainer::iterator beginB, 
 		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
@@ -173,6 +174,8 @@ private:
 	void loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter);
 	inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out);
 
+	
+
 	//---------Обработка данных----------------------------------------
 	void multiplyB(DataKind dataKind);
 
@@ -184,6 +187,7 @@ private:
 	void cutData(DataKind dataKind); // оставляет только положительные значения магнитного поля
 
 	void MagneticFieldDependence::clearCurrentParams();
+	void MagneticFieldDependence::clearFilteredParams();
 
 	DataTypeInContainer * getPointerB(DataKind dataKind);
 	DataTypeInContainer * getPointerHall(DataKind dataKind);

@@ -61,6 +61,48 @@ void MagneticFieldDependence::loadDataHelper(DataTypeInContainer &temp, String A
         } while (finish != std::string::npos);
 }
 
+void MagneticFieldDependence::loadSampleDescription(TStringList *Names,TStringList *Values,AnsiString FileName)
+{
+    std::string temp = FileName.c_str();
+
+    unsigned int rBound = temp.find_last_of("/\\");
+    unsigned int rBound2 = temp.find_first_of("DCR",rBound);
+    AnsiString NewFileName = FileName.SubString(0,rBound2)+"Description"+".txt";
+    TStringList * tts = new TStringList();
+    if(FileExists(NewFileName))
+    {
+    tts->LoadFromFile(NewFileName);
+    const std::string delimiter = "\t";
+
+    std::string s1 = tts->Text.c_str();
+    std::string s;
+    ReplaceDotsToComma(s1,s);
+    
+    tts->Text = s.c_str();
+
+    Names->Clear();
+    Values->Clear();
+
+    for (int i=0;i<tts->Count;i++)
+    {
+        s=tts->Strings[i].c_str();
+        std::string::size_type start = 0;
+        std::string::size_type finish = 0;
+
+        if(s.empty())
+            continue;
+
+        finish = s.find(delimiter, start);
+        Names->Add(s.substr(start, finish-start).c_str());
+        Values->Add(s.substr(finish-start+1, s.length()).c_str());
+    }
+
+    setSampleDescription(Values->Strings[1],Values->Strings[2],Values->Strings[0],
+    Values->Strings[3],Values->Strings[4],Values->Strings[5]);
+    }
+    delete tts;
+}
+
 void MagneticFieldDependence::loadData(TStringList * tts)
 {
     const std::string delimiterTab = "\t";
@@ -110,6 +152,16 @@ void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedPar
 }
 
 //------------Подгонка данных-------------------------------------------------
+template <class T>
+int sigh(T in)
+{
+    if (in>=0)
+    {
+        return 1;
+    }
+    else 
+        return -1;
+}
 
 void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType)
 {
@@ -120,7 +172,7 @@ void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInC
         switch(featType)
         {
         case ODD_FEAT: // нечетная подгонка
-            outY[i]=(inY[i]-inY[size-1-i])/2.0;
+            outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
             //outY[size-1-i]=-inY[i];
             break;
         case EVEN_FEAT: // четная подгонка
@@ -149,11 +201,6 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     }
     
     averageData(tempInX,AveragedB,ODD_FEAT);
-    for (DataTypeInContainer::iterator i = AveragedB.begin(); i != AveragedB.end(); ++i)
-    {
-        *i*=-1;    
-    }
-
     averageData(tempInHall,AveragedHallEffect,ODD_FEAT);
     averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);   
 }
@@ -162,12 +209,7 @@ void MagneticFieldDependence::featData(DataKind dataKind)
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData()
 {
-    FilteredB.clear();
-    FilteredBHall.clear();
-    FilteredBMagnetoResistance.clear();
-
-    FilteredHallEffect.clear();
-    FilteredMagnetoResistance.clear();
+    clearFilteredParams();
 
     filterDataHelper((*filterParamsHall),HALL_EFFECT);
     filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
@@ -193,16 +235,13 @@ void MagneticFieldDependence::filterData()
         length=FilteredBMagnetoResistance.size();
     }
     // это должно уравнивать количество точек, после фильтрации с разной длиной.
-    thiningSignal(FilteredBHall, FilteredHallEffect, tempB, tempHall, left, right, length);
-    FilteredBHall.clear();
-    FilteredHallEffect.clear();
+    thiningSignal(FilteredBHall, FilteredHallEffect, tempB, tempHall, left, right, length);    
+    thiningSignal(FilteredBMagnetoResistance, FilteredMagnetoResistance, tempB, tempResistance, left, right, length);
+    
+    clearFilteredParams();
+
     FilteredBHall=tempB;
     FilteredHallEffect=tempHall;
-    thiningSignal(FilteredBMagnetoResistance, FilteredMagnetoResistance, tempB, tempResistance, left, right, length);
-    FilteredBMagnetoResistance.clear();
-    FilteredMagnetoResistance.clear();
-    FilteredB.clear();
-
     FilteredBMagnetoResistance=tempB;
     FilteredMagnetoResistance=tempResistance;
     FilteredB=FilteredBHall;
@@ -231,15 +270,15 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     DataTypeInContainer * inMagnetoResistance;
     unsigned int NumberOfPoints;
 
-    if ((B[0]+2.0)<0.5)
+    if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.
     {
-        featData(CURRENT_DATA);
+        featData(CURRENT_DATA); // его надо усреднить
         inB=&AveragedB;
         inHallEffect=&AveragedHallEffect;
         inMagnetoResistance=&AveragedMagnetoResistance;
         NumberOfPoints=AveragedB.size();
     }
-    else
+    else // если это обычный сигнал - фильтруем как есть.
     {
         inB=&B;
         inHallEffect=&HallEffect;
@@ -304,7 +343,6 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         break;
     case MAGNETORESISTANCE:
         FilteredMagnetoResistance.push_back(tempOutSignal[i]);
-        //FilteredB.push_back(tempOutB[i]);
         FilteredBMagnetoResistance.push_back(tempOutB[i]);
         break;
     default:
@@ -353,16 +391,15 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     DataTypeInContainer newHallEffect;
     DataTypeInContainer newMagnetoResistance;
 
+    // копируем фильтрованные данные
     DataTypeInContainer inBHall(FilteredB);
     DataTypeInContainer inBMagnetoResistance(FilteredB);
-
-
 
     DataTypeInContainer inHallEffect(FilteredHallEffect);
     DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
 
     for (unsigned int i=0; i<B.size();++i)
-    {
+    { // дописываем измеренные данные
         inHallEffect.push_back(HallEffect[i]);
         inMagnetoResistance.push_back(MagnetoResistance[i]);
         inBHall.push_back(B[i]);
@@ -378,12 +415,13 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     MyDataType h=2.0/NumberOfPoints;
     
 
-	for(int i=0;i<500;i++)
+	for(int i=0;i<500;i++) // увеличиваем вес точки (0,0) для эффекта Холла.
 	{
 		inBHall.push_back(0);
 		inHallEffect.push_back(0);
 	}
 
+    // фильтруем
     if(!curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance))
     return false;
     if(!curveFittingUniversal(&inBHall,&inHallEffect, &koefHallEffect,polinomPowForHallEffect))
@@ -392,11 +430,12 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     
 
 	newB.clear();
-	newB.push_back(0);
+	newB.push_back(0); // заполняем магнитное поле.
 	for (unsigned int i = 1; i < NumberOfPoints; i++) {
 		newB.push_back(newB[i-1]+h);
 	}
 
+    // вычисляем экстраполированные зависимости.
 	calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
 	calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
 
@@ -412,7 +451,6 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     unsigned int i=0;
 	while(i<NumberOfPoints && newB[i]<FilteredB.back())
     ++i;
-    // ищем где поле становится положительным.
 
    	for(unsigned int j=i;j<NumberOfPoints;j++)
 	{     // в конце дописываем экстраполированные значения.
@@ -421,7 +459,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
         FilteredHallEffect.push_back(newHallEffect[j]);
 	}
 	//------------------------------------------------------------------
-    
+
 return returnValue;   
 }
 //-------------------------------------------------------------------------------
@@ -809,6 +847,15 @@ void MagneticFieldDependence::clearCurrentParams()
     BMagnetoResistance.clear();
     HallEffect.clear();
     MagnetoResistance.clear();    
+}
+
+void MagneticFieldDependence::clearFilteredParams()
+{
+    FilteredB.clear();
+    FilteredBHall.clear();
+    FilteredBMagnetoResistance.clear();
+    FilteredHallEffect.clear();
+    FilteredMagnetoResistance.clear();
 }
 
 void MagneticFieldDependence::setParamsType(ParamsType pt)

@@ -323,7 +323,21 @@ MagneticFieldDependence * p=*par;
 }
 //---------------------------------------------------------------------------
 
+void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
+{
+    for(int i=0;i<Values->Count;++i)
+    {
 
+    CurrentRes->Text=Values->Strings[2];
+    SampleTemperature->Text=Values->Strings[1];
+    eSampleInventoryNumber->Text=Values->Strings[0];
+    SampleLength->Text=Values->Strings[3];
+    SampleWidth->Text=Values->Strings[4];
+    SampleThickness->Text=Values->Strings[5];
+
+    
+    }
+}
 
 
 //-------------------Открытие файла------------------------------------------
@@ -335,9 +349,17 @@ void __fastcall TForm1::N4Click(TObject *Sender)
         TStringList *tts=new TStringList();  // сюда будем загружать из файла
         tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
 
+
         MagneticFieldDependence * p=InitParams();
         if (p)
         {
+            TStringList *Names=new TStringList();
+            TStringList *Values=new TStringList();
+
+            p->loadSampleDescription(Names,Values,OpenDialog1->Files->Strings[0]);
+
+            UpdateSampleDescription(Names,Values);
+            
             p->loadData(tts);
             UpdatePlots();
         }
@@ -861,7 +883,7 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 {
     if((*ActiveParams()))
     {
-    (*ActiveParams())->setSampleDescription(CurrentRes->Text,SampleTemperature->Text,
+    (*ActiveParams())->setSampleDescription(SampleTemperature->Text,CurrentRes->Text,
         eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
     (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
     Panel1->Color=clBtnFace;

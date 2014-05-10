@@ -241,6 +241,7 @@ public:		// User declarations
     void TForm1::UpdatePlots();
     MagneticFieldDependence * TForm1::InitParams();
     MagneticFieldDependence ** TForm1::ActiveParams();
+    void UpdateSampleDescription(TStringList *Names,TStringList *Values);
 
 };
 //---------------------------------------------------------------------------

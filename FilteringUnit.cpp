@@ -103,7 +103,11 @@ std::vector<long double> W(N);   //Весовая функция
 
 //Расчет импульсной характеристики фильтра
 //long double Fc = (Fs + Fx) / (2.0 * Fd);
-long double Fc = 5.5*Fd/(long double)N;
+long double Fc;
+if(N!=0)
+Fc = 5.5*Fd/(long double)N;
+else
+Fc = 1;
 
 for (unsigned int i=0;i<N;++i)
 {
