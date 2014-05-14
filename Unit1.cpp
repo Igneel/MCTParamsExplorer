@@ -206,7 +206,10 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         if(adc->StartMeasurement())
         {
-        
+
+        bClearPlotHall->Click();
+        bClearPlotsRes->Click();
+
         uiFrenq->Enabled = false;
         uiBlockSize2->Enabled=false;
         CurrentRes->Enabled=0;
@@ -462,7 +465,7 @@ void __fastcall TForm1::bClearPlotsResClick(TObject *Sender)
     out1->Clear();
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::Button6Click(TObject *Sender)
+void __fastcall TForm1::bClearPlotHallClick(TObject *Sender)
 {
     SeriesHall1->Clear();  
     SeriesHall2->Clear();
@@ -588,7 +591,7 @@ void __fastcall TForm1::N9Click(TObject *Sender)
     case 1:
     bClearPlotsResClick(Sender);
     case 2:
-    Button6Click(Sender);
+    bClearPlotHallClick(Sender);
     case 3:
     Button7Click(Sender);
     case 4:

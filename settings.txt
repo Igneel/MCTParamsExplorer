@@ -1,4 +1,4 @@
-ActivePageIndex	1
+ActivePageIndex	2
 ChannelB	0
 ChannelBRange	1
 ChannelHall	2

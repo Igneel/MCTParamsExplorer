@@ -122,7 +122,7 @@ __published:	// IDE-managed Components
         TLabel *Label20;
         TLabel *Label21;
     TButton *bClearPlotsRes;
-        TButton *Button6;
+    TButton *bClearPlotHall;
         TButton *Button7;
         TButton *Button8;
         TLabel *Label16;
@@ -212,7 +212,7 @@ __published:	// IDE-managed Components
 
     TLineSeries * __fastcall GetSelectedSeries(int curve);
         void __fastcall bClearPlotsResClick(TObject *Sender);
-        void __fastcall Button6Click(TObject *Sender);
+        void __fastcall bClearPlotHallClick(TObject *Sender);
         void __fastcall Button7Click(TObject *Sender);
         void __fastcall Button8Click(TObject *Sender);
         void __fastcall Edit1KeyPress(TObject *Sender, char &Key);

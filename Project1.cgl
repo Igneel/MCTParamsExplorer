@@ -11,11 +11,11 @@ Functions called:
  memmove (134 times)
  new (24 times)
  SysReallocMem (272 times)
- SysFreeMem (7300 times)
+ SysFreeMem (7281 times)
  lstrlenA (1 times)
  lstrcpynA (4 times)
  memset (3 times)
- SysGetMem (7301 times)
+ SysGetMem (7282 times)
  calloc (1 times)
  strlen (200 times)
  realloc (1 times)
@@ -25,8 +25,8 @@ Functions called:
 Resource types used:
  object array (1 allocs, 1 max)
  object (24 allocs, 21 max)
- memory block (7308 allocs, 2700 max)
+ memory block (7289 allocs, 2700 max)
 Modules used:
- 00400000 05/14/2014 17:51:54 K:\Дела\Институт физики
+ 00400000 05/14/2014 17:58:28 K:\Дела\Институт физики
  полупроводников\Lcard\MCTParamsExplorer\Project1.exe
 ==========================================

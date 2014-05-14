@@ -1075,14 +1075,14 @@ object Form1: TForm1
         TabOrder = 6
         OnClick = bFilterResClick
       end
-      object Button6: TButton
+      object bClearPlotHall: TButton
         Left = 296
         Top = 328
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
         TabOrder = 7
-        OnClick = Button6Click
+        OnClick = bClearPlotHallClick
       end
       object eLengthFilterHall: TEdit
         Left = 568
