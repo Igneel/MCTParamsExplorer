@@ -55,7 +55,7 @@ private:
 
 
 
-enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE};
+enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE,MAGNETIC_FIELD_F};
 
 
 class MagneticFieldDependence

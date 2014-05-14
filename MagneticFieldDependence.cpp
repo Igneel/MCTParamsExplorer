@@ -531,6 +531,9 @@ void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries
     case MAGNETIC_FIELD:
         temp=&B;
         break;
+    case MAGNETIC_FIELD_F:
+        temp=&FilteredB;
+        break;
     case HALL_EFFECT:
         temp=&HallEffect;
         break;

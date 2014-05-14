@@ -23,7 +23,7 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     needToStop=true;// флаг дл€ остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменна€ с кодом ошибки инициализации.
-    DataStep =256*4*cI.size(); // 256*8 даЄт 350 точек. достаточно быстро. ’от€ точек возможно маловато.  // кол-во отсчетов, кратное 32
+    DataStep =64*4*cI.size(); // 256*8 даЄт 350 точек. достаточно быстро. ’от€ точек возможно маловато.  // кол-во отсчетов, кратное 32
     // оно €вно должно зависеть от количества измер€емых каналов и частоты.
     
     lowBandFilter=new FilterLowBand(256,400000,20,55);
@@ -286,6 +286,7 @@ void LCardADC::InteractivePlottingData()
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)
 {
+    if(i1<ap.ChannelsQuantity)
     ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,5,5);
 }
 //------------------------------------------------------------------
@@ -295,7 +296,7 @@ DataTypeInContainer & outData)
     DataTypeInContainer tempOutData;
     tempOutData.resize(inData.size());
     //outData.resize(inData.size());
-    Filter (inData, tempOutData, 128, 400000, 5, 25);
+    Filter (inData, tempOutData, 20, 10000, 30, 35);
     outData=tempOutData;
 
 }
