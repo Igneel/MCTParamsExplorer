@@ -71,8 +71,8 @@ MagneticFieldDependence * TForm1::InitParams()
 {
     MagneticFieldDependence ** p=ActiveParams();
 
-    if (*p)
-        delete *p;
+    DeleteActiveParams();
+    
     *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
         SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
@@ -100,6 +100,16 @@ MagneticFieldDependence ** TForm1::ActiveParams()
     break;
     }
     return p;          
+}
+
+void TForm1::DeleteActiveParams()
+{
+    MagneticFieldDependence ** p=ActiveParams();
+    if (*p)
+    {
+        delete *p;
+        *p=NULL;
+    }
 }
 
 
@@ -177,7 +187,7 @@ void __fastcall TForm1::FormCreate(TObject *)
 
     Memo1->Lines->Add(cI.size());
     // загружаем драйвер
-    adc=new LCardADC(uiFrenq->Text.ToDouble(),
+    adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),
     LabelChan1,LabelChan2,LabelChan3,cI);
 
     bApplyADCSettings->Click();
@@ -192,7 +202,7 @@ void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 //---------------------------------------
 void __fastcall TForm1::uiControlClick(TObject *Sender)
 {
-    if (!adc->IsMeasurementRunning())
+    if (!adc->isWritingEnabled())
     {
         MagneticFieldDependence * p=InitParams();
 
@@ -204,44 +214,45 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
             eAttenuationFHall->Text, eLengthFilterHall->Text);
         } 
 
-        if(adc->StartMeasurement())
+        if(adc->StartWriting())
         {
 
-        bClearPlotHall->Click();
-        bClearPlotsRes->Click();
+            bClearPlotHall->Click();
+            bClearPlotsRes->Click();
 
-        uiFrenq->Enabled = false;
-        uiBlockSize2->Enabled=false;
-        CurrentRes->Enabled=0;
-        CurrentHall->Enabled=0;
-        ResCurveIndex->Enabled=0;
-        HallCurveIndex->Enabled=0;
-        GainKoefFaradey->Enabled=0;
+            uiFrenq->Enabled = false;
+            uiBlockSize->Enabled=false;
+            CurrentRes->Enabled=0;
+            CurrentHall->Enabled=0;
+            ResCurveIndex->Enabled=0;
+            HallCurveIndex->Enabled=0;
+            GainKoefFaradey->Enabled=0;
 
-        //-- кнопки-----------------------------------------------
-        
-        bFilterRes->Enabled=0;
-        uiHallFeat->Enabled=0;
-        uiFFTHall->Enabled=0;
-        uiFaradeyFeat->Enabled=0;
-        uiFFTFaradey->Enabled=0;
-        uiFoygtFeat->Enabled=0;
-        uiFFTFoygt->Enabled=0;         
+            //-- кнопки-----------------------------------------------
+            
+            bFilterRes->Enabled=0;
+            uiHallFeat->Enabled=0;
+            uiFFTHall->Enabled=0;
+            uiFaradeyFeat->Enabled=0;
+            uiFFTFaradey->Enabled=0;
+            uiFoygtFeat->Enabled=0;
+            uiFFTFoygt->Enabled=0;
+            CurrentFaradey->Enabled=0;
+            CurrentFoygt->Enabled=0;
+            FaradeyCurveIndex->Enabled=0;
+            FoygtCurveIndex->Enabled=0;
+            GainKoefFoygt->Enabled=0;
 
-        CurrentFaradey->Enabled=0;
-        CurrentFoygt->Enabled=0;
-
-        FaradeyCurveIndex->Enabled=0;
-        FoygtCurveIndex->Enabled=0;
-
-        GainKoefFoygt->Enabled=0;
-
-        uiControl->Caption = AnsiString("Stop");
-        uiResControl->Caption = AnsiString("Stop");
-        uiHallControl->Caption = AnsiString("Stop");
-        uiFaradeyControl->Caption = AnsiString("Stop");
-        uiFoygtControl->Caption = AnsiString("Stop");
-        StatusBar->Panels->Items[1]->Text="Проводится измерение";
+            uiControl->Caption = AnsiString("Остановить запись");
+            uiResControl->Caption = AnsiString("Остановить запись");
+            uiHallControl->Caption = AnsiString("Остановить запись");
+            uiFaradeyControl->Caption = AnsiString("Остановить запись");
+            uiFoygtControl->Caption = AnsiString("Остановить запись");
+            StatusBar->Panels->Items[1]->Text="Идёт запись данных";
+        }
+        else
+        {
+        DeleteActiveParams();
         }
     }
     else
@@ -254,7 +265,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         uiFrenq->Enabled =true;
 
-        uiBlockSize2->Enabled=true;
+        uiBlockSize->Enabled=true;
 
         
         bFilterRes->Enabled=1;
@@ -272,22 +283,28 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         FoygtCurveIndex->Enabled=1;
         GainKoefFoygt->Enabled=1;
 
-        adc->StopMeasurement();
+        adc->StopWriting();
 
         if(CheckBox2->Checked==false)
         {              
             (*ActiveParams())->getSplittedDataFromADC();
             Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
             UpdatePlots();
-
         }
         
-        uiControl->Caption = AnsiString("Start");
-        uiResControl->Caption = AnsiString("Start");
-        uiHallControl->Caption = AnsiString("Start");
-        uiFaradeyControl->Caption = AnsiString("Start");
-        uiFoygtControl->Caption = AnsiString("Start");
-        StatusBar->Panels->Items[1]->Text="Готова к работе.";
+        uiControl->Caption = AnsiString("Начать запись");
+        uiResControl->Caption = AnsiString("Начать запись");
+        uiHallControl->Caption = AnsiString("Начать запись");
+        uiFaradeyControl->Caption = AnsiString("Начать запись");
+        uiFoygtControl->Caption = AnsiString("Начать запись");
+
+        if (paramsDirect && paramsReverse)
+        {
+            StatusBar->Panels->Items[1]->Text="Идёт объединение данных.";
+            concatDependence();
+        }        
+
+        StatusBar->Panels->Items[1]->Text="Готова к работе.";        
       }
 }
 
@@ -347,7 +364,7 @@ if (*par==NULL)
 }
 else
 {
-MagneticFieldDependence * p=*par;
+    MagneticFieldDependence * p=*par;
     p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
@@ -364,15 +381,12 @@ void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
 {
     for(int i=0;i<Values->Count;++i)
     {
-
-    CurrentRes->Text=Values->Strings[2];
-    SampleTemperature->Text=Values->Strings[1];
-    eSampleInventoryNumber->Text=Values->Strings[0];
-    SampleLength->Text=Values->Strings[3];
-    SampleWidth->Text=Values->Strings[4];
-    SampleThickness->Text=Values->Strings[5];
-
-    
+        CurrentRes->Text=Values->Strings[2];
+        SampleTemperature->Text=Values->Strings[1];
+        eSampleInventoryNumber->Text=Values->Strings[0];
+        SampleLength->Text=Values->Strings[3];
+        SampleWidth->Text=Values->Strings[4];
+        SampleThickness->Text=Values->Strings[5];    
     }
 }
 
@@ -822,7 +836,7 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
     adc->StopMeasurement();
-    adc->SettingADCParams(uiFrenq->Text.ToDouble(), cI);
+    adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);
     if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
     if(CheckBox2->Checked) adc->EnableTestingMode();
@@ -831,10 +845,10 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     adc->setMagnetoResistanceSeries(SeriesRes1);
     adc->setHallSeries(SeriesHall1);
     adc->setBSeries(Series1);
+    adc->StartMeasurement();
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void TForm1::concatDependence()
 {
     if(!(paramsDirect && paramsReverse))
     {
@@ -907,7 +921,13 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
     Resistance=outResistance;
 
     params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
-    UpdatePlots();
+    UpdatePlots();    
+}
+
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+    concatDependence();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::CurrentResChange(TObject *Sender)
@@ -990,15 +1010,78 @@ HallCurveIndex->ItemIndex=ResCurveIndex->ItemIndex;
 
 void __fastcall TForm1::bResShiftCurveClick(TObject *Sender)
 {
-(*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,StrToFloat(uiShiftValue->Text));
+if(*ActiveParams())
+{
+(*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,
+StrToFloat(uiShiftValue->Text),StrToFloat(uiLeftBound->Text),StrToFloat(uiRightBound->Text));
 UpdatePlots();
+}
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::bShiftHallCurveClick(TObject *Sender)
 {
-(*ActiveParams())->shiftCurve(uiHallDataKind->ItemIndex,HALL_EFFECT,StrToFloat(uiHallShiftValue->Text));
+if(*ActiveParams())
+{
+(*ActiveParams())->shiftCurve(uiHallDataKind->ItemIndex,HALL_EFFECT,
+StrToFloat(uiHallShiftValue->Text),StrToFloat(uiHallLeftBound->Text),StrToFloat(uiHallRightBound->Text));
 UpdatePlots();
 }
+else
+{
+    ShowMessage("Выбранный график пуст");
+}
+}
 //---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::ComboBox5Change(TObject *Sender)
+{
+switch(ComboBox5->ItemIndex)
+{
+case 0:
+Label31->Caption="1й канал(Сопротивление):"; // 1й канал
+break;
+case 1:
+Label33->Caption="2й канал(Сопротивление):";; // 2й канал
+break;
+case 2:
+Label32->Caption="3й канал(Сопротивление):";; // 3й канал
+break;
+default:
+break;
+}
+switch(ComboBox6->ItemIndex)
+{
+case 0:
+Label31->Caption="1й канал(Поле):"; // 1й канал
+break;
+case 1:
+Label33->Caption="2й канал(Поле):";; // 2й канал
+break;
+case 2:
+Label32->Caption="3й канал(Поле):";; // 3й канал
+break;
+default:
+break;
+}
+switch(ComboBox4->ItemIndex)
+{
+case 0:
+Label31->Caption="1й канал(Холл):"; // 1й канал
+break;
+case 1:
+Label33->Caption="2й канал(Холл):";; // 2й канал
+break;
+case 2:
+Label32->Caption="3й канал(Холл):";; // 3й канал
+break;
+default:
+break;
+}
+}
+//---------------------------------------------------------------------------
+
+
 

@@ -44,7 +44,7 @@ __published:	// IDE-managed Components
     TLineSeries *Series2;
     TMemo *Memo1;
     TButton *uiControl;
-    TEdit *uiBlockSize2;
+    TEdit *uiBlockSize;
     TEdit *uiFrenq;
     TTabSheet *Resistance;
     TChart *ChartResist;
@@ -198,6 +198,12 @@ __published:	// IDE-managed Components
     TLabeledEdit *uiHallShiftValue;
     TRadioGroup *uiHallDataKind;
     TButton *bShiftHallCurve;
+    TLabel *Label7;
+    TComboBox *uiLeftBound;
+    TComboBox *uiRightBound;
+    TLabel *Label8;
+    TComboBox *uiHallLeftBound;
+    TComboBox *uiHallRightBound;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -233,6 +239,7 @@ __published:	// IDE-managed Components
     void __fastcall ResCurveIndexClick(TObject *Sender);
     void __fastcall bResShiftCurveClick(TObject *Sender);
     void __fastcall bShiftHallCurveClick(TObject *Sender);
+    void __fastcall ComboBox5Change(TObject *Sender);
     
 
 private:	// User declarations
@@ -241,7 +248,9 @@ public:		// User declarations
     void TForm1::UpdatePlots();
     MagneticFieldDependence * TForm1::InitParams();
     MagneticFieldDependence ** TForm1::ActiveParams();
+    void TForm1::DeleteActiveParams();
     void UpdateSampleDescription(TStringList *Names,TStringList *Values);
+    void concatDependence();
 
 };
 //---------------------------------------------------------------------------

@@ -2,23 +2,10 @@
 extern LCardADC *adc;
 
 
-void MagneticFieldDependence::enableChangeChannels()
-{
-ChangeChannels=true;
-}
-
-void MagneticFieldDependence::disableChangeChannels()
-{
-ChangeChannels=false;
-}
-
-
-
 MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString temperature, AnsiString SampleInventoryNumber,
     AnsiString length, AnsiString width, AnsiString Thickness)
 
 {
-    ChangeChannels=false;
     filterParamsHall=new FilterParams(); // по идее нужно бы и инциализировать их тут, дабы не было проблем в случае чего:).
     filterParamsResistance=new FilterParams();
     saver =new DataSaver(temperature,current,SampleInventoryNumber, length, width, Thickness);
@@ -612,10 +599,10 @@ void MagneticFieldDependence::getSplittedDataFromADC()
 
     TwoDimensionalContainer & tempData(*tempData1);
     clearCurrentParams();
-
-    B=tempData[2];
-    HallEffect=tempData[0]; // последовательность закреплена и не важна.
-    MagnetoResistance=tempData[1];
+             
+    B=tempData[chanInfo[2].first];
+    HallEffect=tempData[chanInfo[0].first]; // последовательность закреплена и не важна.
+    MagnetoResistance=tempData[chanInfo[1].first];
     // при смене каналов на вкладке настроек - эти настройки можно не трогать.
     // программа сама разберется, т.к. АЦП возвращает данные согласно контрольной таблице:).
     
@@ -866,16 +853,19 @@ void MagneticFieldDependence::setParamsType(ParamsType pt)
     paramsType=pt;
 }
 
-void MagneticFieldDependence::shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue)
+void MagneticFieldDependence::shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound)
 {
     DataTypeInContainer * pointToY=0;
+    DataTypeInContainer * pointToX=0;
     switch (dependenceType)
     {
         case HALL_EFFECT:
             pointToY=getPointerHall(dataKind);
+            pointToX=getPointerB(dataKind);
             break;
         case MAGNETORESISTANCE:
             pointToY=getPointerMagnetoResistance(dataKind);
+            pointToX=getPointerB(dataKind);
             break;
         default:
         break;
@@ -885,8 +875,16 @@ void MagneticFieldDependence::shiftCurve(DataKind dataKind,PlotType dependenceTy
         return;
     }
 
-    for (DataTypeInContainer::iterator i = pointToY->begin(); i != pointToY->end(); ++i)
+    for (DataTypeInContainer::iterator i = pointToY->begin(), j=pointToX->begin(); i != pointToY->end() && j!=pointToX->end(); ++i,++j)
     {
-        *i+=shiftValue;    
+        if (*j>=leftBound && *j<=rightBound)
+        {
+            *i+=shiftValue;    
+        }        
     }
+}
+
+void MagneticFieldDependence::setChannelsInfo(channelsInfo & cI)
+{
+    chanInfo=cI;    
 }

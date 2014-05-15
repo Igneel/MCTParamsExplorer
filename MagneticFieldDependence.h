@@ -116,7 +116,7 @@ public:
 	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
 
-	void shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue);
+	void shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound);
 
 	//-----Расчет тензора проводимости---------------------------------
 	
@@ -143,9 +143,7 @@ public:
 
 	void setParamsType(ParamsType pt);
 
-	// это пока просто заготовки
-    void enableChangeChannels();
-    void disableChangeChannels();
+    void setChannelsInfo(channelsInfo & cI);
 
 
     // Сохранение результатов------------------------------------------
@@ -156,8 +154,11 @@ private:
 	ParamsType paramsType;
 	DataTypeInContainer leftBound;
 	DataTypeInContainer rightBound;
+
+	channelsInfo chanInfo;
+
 	
-    bool ChangeChannels;
+    //bool ChangeChannels;
 	//-------Построение графиков--------------------------------------- 
 	void plotData();
 

@@ -34,7 +34,7 @@ class LCardADC
 {
 public:
 
-	LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
+	LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TLabel * l3,
         channelsInfo cI);
 	~LCardADC();
 
@@ -42,10 +42,13 @@ public:
 
 	unsigned long __stdcall ServiceReadThreadReal(); // эта функция работает отдельным потоком и собирает данные.
 
-	bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo);
+	bool LCardADC::SettingADCParams(double frenquency, int newBlockSize, channelsInfo & chanInfo);
 
 	bool StartMeasurement();
-	void StopMeasurement();
+	bool StopMeasurement();
+
+	bool StartWriting();
+	bool StopWriting();
 
     void EnableMedianFilter();
     void DisableMedianFilter();
@@ -62,6 +65,7 @@ public:
 	bool IsInitSuccessfull(); // возвращает True если инициализация прошла успешно
 
     bool IsMeasurementRunning();
+    bool isWritingEnabled();
 
 	void setHallSeries(TLineSeries *s);
 	void setMagnetoResistanceSeries(TLineSeries *s);
@@ -77,7 +81,9 @@ DataTypeInContainer & outData);
 
 	bool successfullInit;
     bool isMedianFilterEnabled;
+
     bool isMeasurementRunning;
+    bool isWriting;
 
     bool TestingMode;
     

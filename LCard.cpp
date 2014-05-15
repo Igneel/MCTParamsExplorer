@@ -5,7 +5,7 @@ extern LCardADC *adc;
 DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 //------------------------------------------------------------------
-LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
+LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TLabel * l3,
     channelsInfo cI)
 {
     ChannelLabels.push_back(l1);
@@ -13,7 +13,7 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     ChannelLabels.push_back(l3);
 
     chanInfo=cI;
-
+    isWriting= false;
     TestingMode=false;
     isMeasurementRunning=false;
     B=0;
@@ -23,16 +23,16 @@ LCardADC::LCardADC(double frenquency, TLabel * l1, TLabel * l2, TLabel * l3,
     needToStop=true;// флаг дл€ остановки второго потока
     successfullInit=false; // флаг успешной инициализации
     ReadThreadErrorNumber=0;// переменна€ с кодом ошибки инициализации.
-    DataStep =64*4*cI.size(); // 256*8 даЄт 350 точек. достаточно быстро. ’от€ точек возможно маловато.  // кол-во отсчетов, кратное 32
+    //DataStep =64*4*cI.size(); // 256*8 даЄт 350 точек. достаточно быстро. ’от€ точек возможно маловато.  // кол-во отсчетов, кратное 32
     // оно €вно должно зависеть от количества измер€емых каналов и частоты.
-    
+    ReadBuffer=NULL;
     lowBandFilter=new FilterLowBand(256,400000,20,55);
 
-    ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываютс€ данные.
+    //ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываютс€ данные.
 
     if(DriverInit()) // инициализиуем драйвер
     {
-        if(SettingADCParams(frenquency,cI))// устанавливаем настройки
+        if(SettingADCParams(frenquency,blockSize,cI))// устанавливаем настройки
         {
             successfullInit=true; // всЄ прошло успешно.
         }
@@ -129,19 +129,27 @@ bool LCardADC::IsInitSuccessfull()
     return successfullInit;
 }
 //------------------------------------------------------------------
-bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
+bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo & chanInfo)
 {
     // установим желаемые параметры работы ј÷ѕ
 	ap.IsCorrectionEnabled = TRUE;			// разрешим корректировку данных на уровне драйвера DSP
 	ap.InputMode = NO_SYNC_E440;			// обычный сбор данных безо вс€кой синхронизации ввода
 	ap.ChannelsQuantity = chanInfo.size();	// количество активных каналов
 	// формируем управл€ющую таблицу
+
+    this->chanInfo=chanInfo;
     channelsInfo::iterator pos;
     int i;
     for(i=0,pos=chanInfo.begin();pos!=chanInfo.end();++pos,++i)
     { 
-        ap.ControlTable[i]=(WORD)(pos->first | (pos->second << 0x6));
+        ap.ControlTable[i]=(WORD)(i | (pos->second << 0x6));
     }
+
+    DataStep=newBlockSize*chanInfo.size();
+    if(ReadBuffer)
+        delete ReadBuffer;
+
+    ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываютс€ данные.
 
         
 	ap.AdcRate = frenquency;					// частота работы ј÷ѕ в к√ц
@@ -172,11 +180,12 @@ bool LCardADC::SettingADCParams(double frenquency, channelsInfo & chanInfo)
     return true;
 }
 //------------------------------------------------------------------
-void LCardADC::StopMeasurement()
+bool LCardADC::StopMeasurement()
 {
     needToStop=true;
     WaitForSingleObject(hReadThread, INFINITE);
     isMeasurementRunning=false;
+    return true;
 }
 //------------------------------------------------------------------
 bool LCardADC::StartMeasurement()
@@ -249,25 +258,25 @@ void LCardADC::InteractivePlottingDataOne()
     if(B)
     {
         B->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[2].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[chanInfo[2].first].size(); ++i)
         {
-            B->AddY(DequeBuffer[2].back(),"",clBlue);
+            B->AddY(DequeBuffer[chanInfo[2].first].back(),"",clBlue);
         }
     }        
     if(HallSeries)
     {
         HallSeries->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[0].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[chanInfo[0].first].size(); ++i)
         {
-            HallSeries->AddY(DequeBuffer[0].back(),"",clBlue);
+            HallSeries->AddY(DequeBuffer[chanInfo[0].first].back(),"",clBlue);
         }   
     }
     if(MagnetoResistanceSeries)
     {
         MagnetoResistanceSeries->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[1].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[chanInfo[1].first].size(); ++i)
         {
-            MagnetoResistanceSeries->AddY(DequeBuffer[1].back(),"",clBlue);
+            MagnetoResistanceSeries->AddY(DequeBuffer[chanInfo[1].first].back(),"",clBlue);
         }
     }
 }
@@ -277,11 +286,11 @@ void LCardADC::InteractivePlottingData()
     long double bigNumber=1E20;
     // если определены графики - делаем вывод.
     if(HallSeries)
-        if (ReadData[0].back()<bigNumber || ReadData[2].back()<bigNumber)
-            HallSeries->AddXY(10*ReadData[2].back(),ReadData[0].back(),"",clBlue);
+        if (ReadData[chanInfo[0].first].back()<bigNumber || ReadData[chanInfo[2].first].back()<bigNumber)
+            HallSeries->AddXY(10*ReadData[chanInfo[2].first].back(),ReadData[chanInfo[0].first].back(),"",clBlue);
     if(MagnetoResistanceSeries)
-        if (ReadData[1].back()<bigNumber || ReadData[2].back()<bigNumber)
-            MagnetoResistanceSeries->AddXY(10*ReadData[2].back(),ReadData[1].back(),"",clBlue);
+        if (ReadData[chanInfo[1].first].back()<bigNumber || ReadData[chanInfo[2].first].back()<bigNumber)
+            MagnetoResistanceSeries->AddXY(10*ReadData[chanInfo[2].first].back(),ReadData[chanInfo[1].first].back(),"",clBlue);
 }
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)
@@ -314,7 +323,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 
         for(int i=0;i<ap.ChannelsQuantity;++i)
         {  // ахтунг!
-            realTimeFilter( splittedData[i], splittedData[i]);
+           // realTimeFilter( splittedData[i], splittedData[i]);
             ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
             DisplayOnForm(i,ReadData[i].back());
         }
@@ -336,7 +345,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
                 }
             }  
             InteractivePlottingDataOne();  
-        }
+        } 
         else
         {
             for(int i=0;i<ap.ChannelsQuantity;++i)
@@ -350,10 +359,14 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
             }
         }
     }
-    if(!TestingMode)
-    InteractivePlottingData();
+    if(!TestingMode && isWriting)
+        InteractivePlottingData();
     tempData.clear();
     splittedData.clear();
+    if(!isWriting)
+    {
+        ReadData.clear();
+    }
 }
 
 //------------------------------------------------------------------
@@ -617,3 +630,33 @@ void LCardADC::DisableTestingMode()
 }
 
 
+bool LCardADC::StartWriting()
+{
+    if(isMeasurementRunning)
+    {
+        isWriting=true;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool LCardADC::StopWriting()
+{
+    if(isMeasurementRunning)
+    {
+        isWriting=false;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool LCardADC::isWritingEnabled()
+{
+    return isWriting;
+}

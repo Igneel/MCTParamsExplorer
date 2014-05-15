@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 358
-  Top = 190
+  Left = 422
+  Top = 225
   Width = 800
-  Height = 700
+  Height = 750
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
-  Constraints.MaxHeight = 700
+  Constraints.MaxHeight = 750
   Constraints.MaxWidth = 800
   Constraints.MinHeight = 630
   Constraints.MinWidth = 700
@@ -21,61 +21,62 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object LabelChan1: TLabel
-    Left = 24
-    Top = 544
-    Width = 203
-    Height = 68
+    Left = 16
+    Top = 560
+    Width = 240
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
-    Constraints.MaxWidth = 203
-    Constraints.MinWidth = 203
+    Constraints.MaxWidth = 240
+    Constraints.MinWidth = 240
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clLime
-    Font.Height = -56
+    Font.Height = -67
     Font.Name = 'Digiface'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object LabelChan2: TLabel
-    Left = 240
-    Top = 544
-    Width = 203
-    Height = 68
+    Left = 272
+    Top = 560
+    Width = 240
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
-    Constraints.MaxWidth = 203
-    Constraints.MinWidth = 203
+    Constraints.MaxWidth = 240
+    Constraints.MinWidth = 240
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clLime
-    Font.Height = -56
+    Font.Height = -67
     Font.Name = 'Digiface'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object LabelChan3: TLabel
-    Left = 456
-    Top = 544
-    Width = 203
-    Height = 68
+    Left = 528
+    Top = 560
+    Width = 240
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
-    Constraints.MaxWidth = 203
-    Constraints.MinWidth = 203
+    Constraints.MaxWidth = 240
+    Constraints.MinWidth = 240
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clLime
-    Font.Height = -56
+    Font.Height = -67
     Font.Name = 'Digiface'
     Font.Style = []
     ParentColor = False
     ParentFont = False
   end
   object Label31: TLabel
-    Left = 56
-    Top = 520
-    Width = 135
+    Left = 16
+    Top = 536
+    Width = 241
     Height = 22
+    Alignment = taCenter
     Caption = '1'#1081' '#1082#1072#1085#1072#1083'('#1061#1086#1083#1083'):'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -85,11 +86,12 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label32: TLabel
-    Left = 472
-    Top = 520
-    Width = 175
+    Left = 528
+    Top = 536
+    Width = 241
     Height = 22
-    Caption = #1058#1088#1077#1090#1080#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
+    Alignment = taCenter
+    Caption = '3'#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
@@ -98,10 +100,11 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label33: TLabel
-    Left = 224
-    Top = 520
-    Width = 227
+    Left = 272
+    Top = 536
+    Width = 241
     Height = 22
+    Alignment = taCenter
     Caption = '2'#1081' '#1082#1072#1085#1072#1083'('#1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'):'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -115,9 +118,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = Resistance
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -131,9 +134,9 @@ object Form1: TForm1
       object Label4: TLabel
         Left = 488
         Top = 16
-        Width = 75
+        Width = 150
         Height = 13
-        Caption = #1056#1072#1079#1084#1077#1088' '#1073#1083#1086#1082#1072':'
+        Caption = #1056#1072#1079#1084#1077#1088' '#1073#1083#1086#1082#1072' '#1085#1072' '#1086#1076#1080#1085' '#1082#1072#1085#1072#1083':'
       end
       object Label3: TLabel
         Left = 408
@@ -271,13 +274,13 @@ object Form1: TForm1
         TabOrder = 2
         OnClick = uiControlClick
       end
-      object uiBlockSize2: TEdit
+      object uiBlockSize: TEdit
         Left = 488
         Top = 32
         Width = 65
         Height = 21
         TabOrder = 3
-        Text = '1024'
+        Text = '256'
         OnKeyPress = Edit1KeyPress
       end
       object uiFrenq: TEdit
@@ -396,6 +399,7 @@ object Form1: TForm1
         ItemIndex = 0
         TabOrder = 14
         Text = '1'
+        OnChange = ComboBox5Change
         Items.Strings = (
           '1'
           '2'
@@ -423,6 +427,7 @@ object Form1: TForm1
         ItemIndex = 1
         TabOrder = 15
         Text = '2'
+        OnChange = ComboBox5Change
         Items.Strings = (
           '1'
           '2'
@@ -450,6 +455,7 @@ object Form1: TForm1
         ItemIndex = 2
         TabOrder = 16
         Text = '3'
+        OnChange = ComboBox5Change
         Items.Strings = (
           '1'
           '2'
@@ -518,6 +524,13 @@ object Form1: TForm1
         Height = 13
         Alignment = taCenter
         Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
+      end
+      object Label7: TLabel
+        Left = 320
+        Top = 328
+        Width = 96
+        Height = 13
+        Caption = #1048#1085#1090#1077#1088#1074#1072#1083' '#1087#1086' '#1087#1086#1083#1102':'
       end
       object ChartResist: TChart
         Left = 8
@@ -830,6 +843,7 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 22
         Text = '3,8'
+        OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
       object SampleWidth: TLabeledEdit
@@ -844,6 +858,7 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 23
         Text = '1,2'
+        OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
       object SampleThickness: TLabeledEdit
@@ -858,12 +873,13 @@ object Form1: TForm1
         LabelSpacing = 3
         TabOrder = 24
         Text = '11,83'
+        OnChange = CurrentResChange
         OnKeyPress = Edit1KeyPress
       end
       object uiShiftValue: TLabeledEdit
         Left = 224
         Top = 344
-        Width = 121
+        Width = 89
         Height = 21
         EditLabel.Width = 86
         EditLabel.Height = 13
@@ -896,6 +912,38 @@ object Form1: TForm1
           #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
           #1059#1089#1088#1077#1076#1077#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077)
         TabOrder = 27
+      end
+      object uiLeftBound: TComboBox
+        Left = 320
+        Top = 344
+        Width = 49
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 0
+        TabOrder = 28
+        Text = '-2'
+        Items.Strings = (
+          '-2'
+          '-1'
+          '0'
+          '1'
+          '2')
+      end
+      object uiRightBound: TComboBox
+        Left = 368
+        Top = 344
+        Width = 49
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 2
+        TabOrder = 29
+        Text = '0'
+        Items.Strings = (
+          '-2'
+          '-1'
+          '0'
+          '1'
+          '2')
       end
     end
     object HallEffect: TTabSheet
@@ -939,6 +987,13 @@ object Form1: TForm1
         Height = 13
         Alignment = taCenter
         Caption = #1063#1072#1089#1090#1086#1090#1072' '#1079#1072#1090#1091#1093#1072#1085#1080#1103':'
+      end
+      object Label8: TLabel
+        Left = 216
+        Top = 336
+        Width = 96
+        Height = 13
+        Caption = #1048#1085#1090#1077#1088#1074#1072#1083' '#1087#1086' '#1087#1086#1083#1102':'
       end
       object ChartHall: TChart
         Left = 8
@@ -1076,7 +1131,7 @@ object Form1: TForm1
         OnClick = bFilterResClick
       end
       object bClearPlotHall: TButton
-        Left = 296
+        Left = 336
         Top = 328
         Width = 107
         Height = 25
@@ -1138,7 +1193,7 @@ object Form1: TForm1
       object uiHallShiftValue: TLabeledEdit
         Left = 120
         Top = 352
-        Width = 121
+        Width = 89
         Height = 21
         EditLabel.Width = 86
         EditLabel.Height = 13
@@ -1171,6 +1226,38 @@ object Form1: TForm1
         Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
         TabOrder = 15
         OnClick = bShiftHallCurveClick
+      end
+      object uiHallLeftBound: TComboBox
+        Left = 216
+        Top = 352
+        Width = 49
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 0
+        TabOrder = 16
+        Text = '-2'
+        Items.Strings = (
+          '-2'
+          '-1'
+          '0'
+          '1'
+          '2')
+      end
+      object uiHallRightBound: TComboBox
+        Left = 264
+        Top = 352
+        Width = 49
+        Height = 21
+        ItemHeight = 13
+        ItemIndex = 2
+        TabOrder = 17
+        Text = '0'
+        Items.Strings = (
+          '-2'
+          '-1'
+          '0'
+          '1'
+          '2')
       end
     end
     object Faradey: TTabSheet
@@ -1661,7 +1748,7 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 623
+    Top = 673
     Width = 784
     Height = 19
     Panels = <
