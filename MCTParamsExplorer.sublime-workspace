@@ -4,6 +4,54 @@
 		"selected_items":
 		[
 			[
+				"cha",
+				"chanInfo"
+			],
+			[
+				"de",
+				"delete"
+			],
+			[
+				"Is",
+				"isWriting"
+			],
+			[
+				"ri",
+				"rightBound"
+			],
+			[
+				"le",
+				"leftBound"
+			],
+			[
+				"Po",
+				"pointToX"
+			],
+			[
+				"b",
+				"begin"
+			],
+			[
+				"po",
+				"pointToX"
+			],
+			[
+				"get",
+				"getPointerB"
+			],
+			[
+				"M",
+				"MyDataType"
+			],
+			[
+				"t",
+				"true"
+			],
+			[
+				"con",
+				"concatDependence"
+			],
+			[
 				"B",
 				"BMagnetoResistance"
 			],
@@ -24,20 +72,8 @@
 				"FileName"
 			],
 			[
-				"M",
-				"MagneticFieldDependence"
-			],
-			[
 				"sh",
 				"shiftValue"
-			],
-			[
-				"de",
-				"default"
-			],
-			[
-				"get",
-				"getPointerHall"
 			],
 			[
 				"D",
@@ -74,10 +110,6 @@
 			[
 				"FilteredBr",
 				"FilteredBMagnetoResistance"
-			],
-			[
-				"le",
-				"length"
 			],
 			[
 				"r",
@@ -172,14 +204,6 @@
 				"pointToY"
 			],
 			[
-				"po",
-				"pointToX"
-			],
-			[
-				"b",
-				"break"
-			],
-			[
 				"Data",
 				"DataKind"
 			],
@@ -206,10 +230,6 @@
 			[
 				"tox",
 				"tempOutX"
-			],
-			[
-				"t",
-				"temp"
 			],
 			[
 				"se",
@@ -388,16 +408,8 @@
 				"paramsReverse"
 			],
 			[
-				"con",
-				"convertToVolt"
-			],
-			[
 				"ch",
 				"chanInfo"
-			],
-			[
-				"cha",
-				"channel"
 			],
 			[
 				"chan",
@@ -483,7 +495,7 @@
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 28479,
+				"buffer_size": 28737,
 				"line_ending": "Windows"
 			}
 		},
@@ -491,7 +503,7 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 18220,
+				"buffer_size": 19193,
 				"line_ending": "Windows"
 			}
 		},
@@ -515,7 +527,7 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 7757,
+				"buffer_size": 7777,
 				"line_ending": "Windows"
 			}
 		},
@@ -523,7 +535,7 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 29582,
+				"buffer_size": 31465,
 				"line_ending": "Windows"
 			}
 		},
@@ -563,7 +575,7 @@
 			"file": "Unit1.h",
 			"settings":
 			{
-				"buffer_size": 7628,
+				"buffer_size": 7911,
 				"line_ending": "Windows"
 			}
 		},
@@ -571,7 +583,7 @@
 			"file": "LCard.h",
 			"settings":
 			{
-				"buffer_size": 4142,
+				"buffer_size": 4268,
 				"line_ending": "Windows"
 			}
 		}
@@ -753,6 +765,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"gets",
+			"setting",
+			"settingA",
+			"}\n",
+			"shift",
+			"Stop",
+			"Start",
+			"start",
+			"Start",
 			"featD",
 			"filterD",
 			"setd",
@@ -871,16 +892,7 @@
 			"DataTypeInContainer",
 			"OddFeat",
 			"SYMBOL",
-			"extra",
-			"extr",
-			"test",
-			"filterd",
-			"filterData",
-			"extr",
-			"filterd",
-			"filter",
-			"ReplaceCommaToDots",
-			"save"
+			"extra"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -895,13 +907,13 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -931,7 +943,7 @@
 						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -961,7 +973,7 @@
 						"translation.y": 2114.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -970,15 +982,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28479,
+						"buffer_size": 28737,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								19687,
+								19687
 							]
 						],
 						"settings":
@@ -988,10 +1000,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3618.0,
+						"translation.y": 10488.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1000,15 +1012,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18220,
+						"buffer_size": 19193,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								8898,
+								8898
 							]
 						],
 						"settings":
@@ -1018,10 +1030,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4626.0,
+						"translation.y": 4782.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1051,7 +1063,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1079,7 +1091,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -1088,15 +1100,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7757,
+						"buffer_size": 7777,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4992,
+								4992
 							]
 						],
 						"settings":
@@ -1104,10 +1116,10 @@
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2748.0,
+						"translation.y": 2262.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1116,15 +1128,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29582,
+						"buffer_size": 31465,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								9160,
+								9160
 							]
 						],
 						"settings":
@@ -1134,7 +1146,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 15420.0,
+						"translation.y": 4482.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1153,8 +1165,8 @@
 						"selection":
 						[
 							[
-								564,
-								564
+								293,
+								293
 							]
 						],
 						"settings":
@@ -1165,7 +1177,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1194,7 +1206,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1222,7 +1234,7 @@
 						"translation.y": 1920.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -1251,7 +1263,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -1260,15 +1272,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7628,
+						"buffer_size": 7911,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								7306,
+								7306
 							]
 						],
 						"settings":
@@ -1278,10 +1290,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3372.0,
+						"translation.y": 3804.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1290,15 +1302,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4142,
+						"buffer_size": 4268,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								30,
-								47
+								2045,
+								2045
 							]
 						],
 						"settings":
@@ -1307,10 +1319,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1134.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

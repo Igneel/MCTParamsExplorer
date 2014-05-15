@@ -433,7 +433,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedB=newB;    
     ExtrapolatedMagnetoResistance=newMagnetoResistance;
     ExtrapolatedHallEffect=newHallEffect;
-
+    /*
 	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
     unsigned int i=0;
 	while(i<NumberOfPoints && newB[i]<FilteredB.back())
@@ -446,7 +446,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
         FilteredHallEffect.push_back(newHallEffect[j]);
 	}
 	//------------------------------------------------------------------
-
+       */
 return returnValue;   
 }
 //-------------------------------------------------------------------------------

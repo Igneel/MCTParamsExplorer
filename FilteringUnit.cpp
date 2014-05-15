@@ -102,12 +102,12 @@ std::vector<long double> H_id(N); //Идеальная импульсная характеристика
 std::vector<long double> W(N);   //Весовая функция
 
 //Расчет импульсной характеристики фильтра
-//long double Fc = (Fs + Fx) / (2.0 * Fd);
-long double Fc;
+long double Fc = (Fpropysk + Fzatyh) / (2.0 * Fd);
+/*long double Fc;
 if(N!=0)
-Fc = 5.5*Fd/(long double)N;
+Fc = 5.5/(long double)N;  //  5.5*Fd/(long double)N и нормируем это на Fd;
 else
-Fc = 1;
+Fc = 1;   */
 
 for (unsigned int i=0;i<N;++i)
 {
