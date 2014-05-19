@@ -280,7 +280,7 @@ void LCardADC::InteractivePlottingDataOne()
         }
     }
 }
-//------------------------------------------------------------------
+//-----------------------------------------------------------------
 void LCardADC::InteractivePlottingData()
 {
     long double bigNumber=1E20;
