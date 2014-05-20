@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 422
-  Top = 225
+  Left = 143
+  Top = 4
   Width = 800
-  Height = 750
+  Height = 729
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MaxHeight = 750
@@ -74,7 +74,7 @@ object Form1: TForm1
   object Label31: TLabel
     Left = 16
     Top = 536
-    Width = 241
+    Width = 135
     Height = 22
     Alignment = taCenter
     Caption = '1'#1081' '#1082#1072#1085#1072#1083'('#1061#1086#1083#1083'):'
@@ -88,7 +88,7 @@ object Form1: TForm1
   object Label32: TLabel
     Left = 528
     Top = 536
-    Width = 241
+    Width = 136
     Height = 22
     Alignment = taCenter
     Caption = '3'#1081' '#1082#1072#1085#1072#1083'('#1055#1086#1083#1077'):'
@@ -102,7 +102,7 @@ object Form1: TForm1
   object Label33: TLabel
     Left = 272
     Top = 536
-    Width = 241
+    Width = 227
     Height = 22
     Alignment = taCenter
     Caption = '2'#1081' '#1082#1072#1085#1072#1083'('#1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'):'
@@ -118,9 +118,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = 'FirstTab'
@@ -1748,8 +1748,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 673
-    Width = 784
+    Top = 656
+    Width = 792
     Height = 19
     Panels = <
       item

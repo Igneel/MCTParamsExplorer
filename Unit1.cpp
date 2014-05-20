@@ -64,6 +64,7 @@ LCardADC *adc=0;
 MagneticFieldDependence *params=0;
 MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
+channelsInfo cI;
 
 SettingsSaver * settings;
 
@@ -77,6 +78,7 @@ MagneticFieldDependence * TForm1::InitParams()
         SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
+        (*ActiveParams())->setChannelsInfo(cI);
     return *p;    
 }
 
@@ -180,7 +182,7 @@ void __fastcall TForm1::FormCreate(TObject *)
        
     
 
-    channelsInfo cI;
+    cI.clear();
     cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
@@ -284,6 +286,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         GainKoefFoygt->Enabled=1;
 
         adc->StopWriting();
+        adc->StopMeasurement();
 
         if(CheckBox2->Checked==false)
         {              
@@ -291,7 +294,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
             Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
             UpdatePlots();
         }
-        
+        adc->StartMeasurement();
         uiControl->Caption = AnsiString("Начать запись");
         uiResControl->Caption = AnsiString("Начать запись");
         uiHallControl->Caption = AnsiString("Начать запись");
@@ -664,6 +667,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
+    adc->StopMeasurement();
+
     AnsiString x= Application->ExeName;
     AnsiString nx=x.SubString(0,x.Length()-12);
     settings->Save(nx+"settings.txt");
@@ -830,7 +835,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
 // применение настроек АЦП
 void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 {
-    channelsInfo cI;
+    cI.clear();
     cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
@@ -1082,6 +1087,8 @@ break;
 }
 }
 //---------------------------------------------------------------------------
+
+
 
 
 

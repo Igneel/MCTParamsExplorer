@@ -71,7 +71,10 @@ public:
 	void setMagnetoResistanceSeries(TLineSeries *s);
 	void setBSeries (TLineSeries * s);
 
+    void dataisntNeeded();
+
 private:
+    int counter;
 
     void LCardADC::realTimeFilter(DataTypeInContainer & inData,
 DataTypeInContainer & outData);
@@ -81,6 +84,8 @@ DataTypeInContainer & outData);
 
 	bool successfullInit;
     bool isMedianFilterEnabled;
+
+    bool isDataNeeded;
 
     bool isMeasurementRunning;
     bool isWriting;

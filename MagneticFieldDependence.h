@@ -180,6 +180,10 @@ private:
 	//---------Обработка данных----------------------------------------
 	void multiplyB(DataKind dataKind);
 
+    void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
+DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
+DataTypeInContainer & Res);
+
 	void calculateEffectiveParamsFromSignals();
 	void calculateTenzorFromEffectiveParams();
 	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.

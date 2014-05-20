@@ -503,7 +503,7 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 19193,
+				"buffer_size": 19192,
 				"line_ending": "Windows"
 			}
 		},
@@ -627,6 +627,8 @@
 	},
 	"file_history":
 	[
+		"/K/Дела/Программинг/qt/MCTParamsExplorer/commonFunctions.h",
+		"/K/Дела/Программинг/JRogue/scripts/basic_forest.rb",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/T77/тензор_фильтр40SampleN031126T77I245CurrData11P.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Фотопроводимость/3swapComSampleN050701T77I250CurrDataAllP.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Ещё фотопроводимость/Корм для КРТфильтр40.mpc",
@@ -752,9 +754,7 @@
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp"
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h"
 	],
 	"find":
 	{
@@ -1020,15 +1020,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19193,
+						"buffer_size": 19192,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8186,
-								8186
+								8154,
+								8154
 							]
 						],
 						"settings":

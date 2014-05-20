@@ -11,9 +11,10 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
     ChannelLabels.push_back(l1);
     ChannelLabels.push_back(l2);
     ChannelLabels.push_back(l3);
-
+    counter=0;
     chanInfo=cI;
     isWriting= false;
+    isDataNeeded=false;
     TestingMode=false;
     isMeasurementRunning=false;
     B=0;
@@ -147,7 +148,7 @@ bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo
 
     DataStep=newBlockSize*chanInfo.size();
     if(ReadBuffer)
-        delete ReadBuffer;
+        delete[] ReadBuffer;
 
     ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
@@ -295,8 +296,12 @@ void LCardADC::InteractivePlottingData()
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int i1, MyDataType v1)
 {
-    if(i1<ap.ChannelsQuantity)
+    if(counter%5==0)
+    {
     ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,5,5);
+    counter=0;
+    }
+    ++counter;
 }
 //------------------------------------------------------------------
 void LCardADC::realTimeFilter(DataTypeInContainer & inData,
@@ -363,7 +368,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         InteractivePlottingData();
     tempData.clear();
     splittedData.clear();
-    if(!isWriting)
+    if(!isWriting && !isDataNeeded)
     {
         ReadData.clear();
     }
@@ -635,6 +640,7 @@ bool LCardADC::StartWriting()
     if(isMeasurementRunning)
     {
         isWriting=true;
+        isDataNeeded=true;
         return true;
     }
     else
@@ -648,6 +654,7 @@ bool LCardADC::StopWriting()
     if(isMeasurementRunning)
     {
         isWriting=false;
+        isDataNeeded=true;
         return true;
     }
     else
@@ -659,4 +666,9 @@ bool LCardADC::StopWriting()
 bool LCardADC::isWritingEnabled()
 {
     return isWriting;
+}
+
+void LCardADC::dataisntNeeded()
+{
+    isDataNeeded=false;
 }

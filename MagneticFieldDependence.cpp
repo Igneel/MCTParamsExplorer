@@ -192,47 +192,63 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);   
 }
 
-
-//-------------------------------------------------------------------------------
-void MagneticFieldDependence::filterData()
+void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
+DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
+DataTypeInContainer & Res)
 {
-    clearFilteredParams();
-
-    filterDataHelper((*filterParamsHall),HALL_EFFECT);
-    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
-
     MyDataType left, right;
     size_t length;
 
     DataTypeInContainer tempB;
     DataTypeInContainer tempHall;
     DataTypeInContainer tempResistance;
-
-    // ---------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (FilteredBHall.size()>FilteredBMagnetoResistance.size())
+    if(Hall.size()==0 || Res.size()==0 || B.size()==0)
     {
-        left=FilteredBMagnetoResistance[0];
-        right=FilteredBMagnetoResistance.back();
-        length=FilteredBMagnetoResistance.size();
+    return;
+    }
+    // ---------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (Hall.size()>Res.size())
+    {
+        left=Res[0];
+        right=Res.back();
+        length=Res.size();
     }
     else
     {
-        left=FilteredBHall[0];
-        right=FilteredBHall.back();
-        length=FilteredBMagnetoResistance.size();
+        left=Hall[0];
+        right=Hall.back();
+        length=Hall.size();
     }
     // это должно уравнивать количество точек, после фильтрации с разной длиной.
-    thiningSignal(FilteredBHall, FilteredHallEffect, tempB, tempHall, left, right, length);    
-    thiningSignal(FilteredBMagnetoResistance, FilteredMagnetoResistance, tempB, tempResistance, left, right, length);
+    thiningSignal(BHall, Hall, tempB, tempHall, left, right, length);
+    thiningSignal(BRes, Res, tempB, tempResistance, left, right, length);
     
+    BHall.clear();
+    Hall.clear();
+    BRes.clear();
+    Res.clear();
+    B.clear();
+    
+    BHall=tempB;
+    Hall=tempHall;
+    BRes=tempB;
+    Res=tempResistance;
+    B=BHall;
+}
+
+//-------------------------------------------------------------------------------
+void MagneticFieldDependence::filterData()
+{
     clearFilteredParams();
 
-    FilteredBHall=tempB;
-    FilteredHallEffect=tempHall;
-    FilteredBMagnetoResistance=tempB;
-    FilteredMagnetoResistance=tempResistance;
-    FilteredB=FilteredBHall;
+    GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,
+    HallEffect,MagnetoResistance);
 
+    filterDataHelper((*filterParamsHall),HALL_EFFECT);
+    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
+    FilteredB=FilteredBHall;
+    GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,
+    FilteredHallEffect,FilteredMagnetoResistance);
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)
@@ -603,6 +619,8 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     B=tempData[chanInfo[2].first];
     HallEffect=tempData[chanInfo[0].first]; // последовательность закреплена и не важна.
     MagnetoResistance=tempData[chanInfo[1].first];
+
+    adc->dataisntNeeded();
     // при смене каналов на вкладке настроек - эти настройки можно не трогать.
     // программа сама разберетс€, т.к. ј÷ѕ возвращает данные согласно контрольной таблице:).
     
