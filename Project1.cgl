@@ -1,13 +1,13 @@
-Error 00036. 0x300010 (Thread 0x03DC):
-Resource leak: The object (0x12F9338) was never deleted
+Error 00139. 0x300010 (Thread 0x0158):
+Resource leak: The object (0x1633004) was never deleted
 
-The object (0x012F9338) [size: 2560 bytes] was created with new
+The object (0x01633004) [size: 20480 bytes] was created with new
 Call Tree:
-   0x0040FBBC(=Project1.exe:0x01:00EBBC) d:\program files\borland\cbuilder6\include\stlport\new#116
-   0x0040F576(=Project1.exe:0x01:00E576) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
-   0x0040E3A7(=Project1.exe:0x01:00D3A7) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
-   0x0040E0DA(=Project1.exe:0x01:00D0DA) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
-   0x00409ABB(=Project1.exe:0x01:008ABB) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
-   0x0042374C(=Project1.exe:0x01:02274C) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#332
+   0x0040FAB4(=Project1.exe:0x01:00EAB4) d:\program files\borland\cbuilder6\include\stlport\new#116
+   0x0040F46E(=Project1.exe:0x01:00E46E) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
+   0x0040E29F(=Project1.exe:0x01:00D29F) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
+   0x0040DFD2(=Project1.exe:0x01:00CFD2) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
+   0x004099E3(=Project1.exe:0x01:0089E3) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
+   0x004231F0(=Project1.exe:0x01:0221F0) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#345
 
 ------------------------------------------

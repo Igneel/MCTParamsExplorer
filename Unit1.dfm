@@ -328,21 +328,13 @@ object Form1: TForm1
         State = cbChecked
         TabOrder = 8
       end
-      object CheckBox2: TCheckBox
-        Left = 16
-        Top = 360
-        Width = 121
-        Height = 17
-        Caption = #1053#1077#1087#1088#1077#1088#1099#1074#1085#1099#1081' '#1089#1073#1086#1088
-        TabOrder = 9
-      end
       object bApplyADCSettings: TButton
         Left = 408
         Top = 160
         Width = 163
         Height = 25
         Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1080' '#1040#1062#1055
-        TabOrder = 10
+        TabOrder = 9
         OnClick = bApplyADCSettingsClick
       end
       object ComboBox1: TComboBox
@@ -352,7 +344,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 11
+        TabOrder = 10
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -367,7 +359,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 12
+        TabOrder = 11
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -382,7 +374,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 13
+        TabOrder = 12
         Text = '0,625'#1042
         Items.Strings = (
           '10'#1042
@@ -397,7 +389,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 14
+        TabOrder = 13
         Text = '1'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -425,7 +417,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 15
+        TabOrder = 14
         Text = '2'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -453,7 +445,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 16
+        TabOrder = 15
         Text = '3'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -473,14 +465,6 @@ object Form1: TForm1
           '14'
           '15'
           '16')
-      end
-      object CheckBox3: TCheckBox
-        Left = 400
-        Top = 264
-        Width = 249
-        Height = 17
-        Caption = #1055#1086#1084#1077#1085#1103#1090#1100' '#1089#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077' '#1080' '#1101#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072
-        TabOrder = 17
       end
     end
     object Resistance: TTabSheet

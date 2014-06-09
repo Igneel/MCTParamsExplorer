@@ -15,7 +15,6 @@ TODO
 
 Предусмотреть возможность медленных измерений.
 
-Веселый глюк с выводом значений на форму.
 Надо бы предусмотреть отдельный поток для вывода.
 И вызывать его по таймеру.
 Выпилить ненужные параметры фильтрации. По сути мне достаточно иметь
@@ -30,30 +29,14 @@ TODO
 Ещё момент - прога изредка вылетает с ексепшенами, неплохо было бы реализовать
 автоматическое сохранение измеряемого сигнала (скажем каждые Т точек).
 
-Возможно стоит автоматически объединять зависимости.
-Либо оставить возможность ручной работы, однако нужно сделать её интуитивно понятной.
-
 Пора внедрять фильтр как класс. и фильтровать магнитное поле.
 
 Есть предложение фильтровать автоматически только уже объединенные зависимости.
 Надо сделать автоматическое приненение настроек АЦП и данных об описании образца.
 Думаю после вызова события change надо пытаться применить изменения.
 
-Сделать так, чтобы АЦП работал и измерял всегда, а вот записывать данные только
-когда надо.
-
-Задать наконец размер блока через форму.
-И порядок каналов тоже.
-Согласовать вывод на надписи, вывод на графики с порядком каналов.
-
-
 Нормально назвать все кнопки и прочее.
-Добавить работу с обратными измерениями.
-
 Нужно добавить усреднение по току.
-
-
-Нужен универсальный прореживатель, который бы возвращал нужное количество элементов из массива.
 */
 
 // Внимание, понадобится добавить что-нибудь,
@@ -288,25 +271,23 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         adc->StopWriting();
         adc->StopMeasurement();
 
-        if(CheckBox2->Checked==false)
-        {              
-            (*ActiveParams())->getSplittedDataFromADC();
-            Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
-            UpdatePlots();
-        }
+        (*ActiveParams())->getSplittedDataFromADC();
+        Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
+        UpdatePlots();
+
         adc->StartMeasurement();
         uiControl->Caption = AnsiString("Начать запись");
         uiResControl->Caption = AnsiString("Начать запись");
         uiHallControl->Caption = AnsiString("Начать запись");
         uiFaradeyControl->Caption = AnsiString("Начать запись");
         uiFoygtControl->Caption = AnsiString("Начать запись");
-
+        /*
         if (paramsDirect && paramsReverse)
         {
             StatusBar->Panels->Items[1]->Text="Идёт объединение данных.";
             concatDependence();
         }        
-
+           */
         StatusBar->Panels->Items[1]->Text="Готова к работе.";        
       }
 }
@@ -844,8 +825,7 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);
     if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
-    if(CheckBox2->Checked) adc->EnableTestingMode();
-    else adc->DisableTestingMode();
+    adc->DisableTestingMode();
 
     adc->setMagnetoResistanceSeries(SeriesRes1);
     adc->setHallSeries(SeriesHall1);

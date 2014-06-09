@@ -162,7 +162,6 @@ __published:	// IDE-managed Components
     TLabeledEdit *PowPolinomRes;
     TLabeledEdit *PowPolinomHall;
     TCheckBox *CheckBox1;
-    TCheckBox *CheckBox2;
     TButton *bApplyADCSettings;
     TBarSeries *Series5;
     TLabel *LabelChan1;
@@ -183,7 +182,6 @@ __published:	// IDE-managed Components
     TLabel *Label6;
     TButton *Button1;
     TMemo *Memo6;
-    TCheckBox *CheckBox3;
     TLabeledEdit *SampleTemperature;
     TLabeledEdit *eSampleInventoryNumber;
     TPanel *Panel1;
