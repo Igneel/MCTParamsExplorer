@@ -1,13 +1,11 @@
-Error 00139. 0x300010 (Thread 0x0158):
-Resource leak: The object (0x1633004) was never deleted
-
-The object (0x01633004) [size: 20480 bytes] was created with new
+Error 00048. 0x100C00 (Thread 0x1438):
+Method called on invalid object: Attempt to access 24 byte(s) at 0x00000000.
 Call Tree:
-   0x0040FAB4(=Project1.exe:0x01:00EAB4) d:\program files\borland\cbuilder6\include\stlport\new#116
-   0x0040F46E(=Project1.exe:0x01:00E46E) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
-   0x0040E29F(=Project1.exe:0x01:00D29F) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
-   0x0040DFD2(=Project1.exe:0x01:00CFD2) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
-   0x004099E3(=Project1.exe:0x01:0089E3) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
-   0x004231F0(=Project1.exe:0x01:0221F0) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#345
+   0x0040B426(=Project1.exe:0x01:00A426) j:\program files (x86)\borland\cbuilder6\include\stl/_vector.h#484
+   0x00422763(=Project1.exe:0x01:021763) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\LCard.cpp#231
+   0x0040875D(=Project1.exe:0x01:00775D) K:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\Unit1.cpp#660
+   0x004A6E73(=Project1.exe:0x01:0A5E73)
+   0x004A6CD9(=Project1.exe:0x01:0A5CD9)
+   0x004691A1(=Project1.exe:0x01:0681A1)
 
 ------------------------------------------

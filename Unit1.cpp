@@ -21,8 +21,10 @@ TODO
 частоту среза и длину фильтра с частотой дискретизации.
 Впрочем частота среза определяется из длины фильтра (по идее).
 
-Сделать работу с прогой более комфортной. Автоматическое переключение
+Сделать работу с прогой более комфортной.
+Автоматическое переключение
 записываемого графика (положительное поле, отрицательное поле).
+
 Возможно их стоит просто объединить. Но это очень спорный вопрос.
 Ибо как тогда определять надо ли перезаписывать данные или дописывать их.
 
@@ -57,8 +59,8 @@ MagneticFieldDependence * TForm1::InitParams()
 
     DeleteActiveParams();
     
-    *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
-        SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+    *p=new MagneticFieldDependence(uiCurrent->Text,uiTemperature->Text,uiInventoryNumber->Text,
+        uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
         (*ActiveParams())->setChannelsInfo(cI);
@@ -146,12 +148,12 @@ void __fastcall TForm1::FormCreate(TObject *)
     settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
     settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
     settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
-    settings->Add("CurrentRes",CurrentRes->Text.c_str());
-    settings->Add("SampleTemperature",SampleTemperature->Text.c_str());
-    settings->Add("SampleInventoryNumber",eSampleInventoryNumber->Text.c_str());  
-    settings->Add("SampleLength",SampleLength->Text.c_str());
-    settings->Add("SampleWidth",SampleWidth->Text.c_str());
-    settings->Add("SampleThickness",SampleThickness->Text.c_str());
+    settings->Add("uiCurrent",uiCurrent->Text.c_str());
+    settings->Add("SampleTemperature",uiTemperature->Text.c_str());
+    settings->Add("SampleInventoryNumber",uiInventoryNumber->Text.c_str());
+    settings->Add("SampleLength",uiSampleLength->Text.c_str());
+    settings->Add("SampleWidth",uiSampleWidth->Text.c_str());
+    settings->Add("SampleThickness",uiSampleThickness->Text.c_str());
     settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
     settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
     settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
@@ -207,8 +209,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
             uiFrenq->Enabled = false;
             uiBlockSize->Enabled=false;
-            CurrentRes->Enabled=0;
-            CurrentHall->Enabled=0;
+            uiCurrent->Enabled=0;
+            
             ResCurveIndex->Enabled=0;
             HallCurveIndex->Enabled=0;
             GainKoefFaradey->Enabled=0;
@@ -243,8 +245,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
     else
     {
         GainKoefFaradey->Enabled=1;
-        CurrentRes->Enabled=1;
-        CurrentHall->Enabled=1;
+        uiCurrent->Enabled=1;
+        //CurrentHall->Enabled=1;
         ResCurveIndex->Enabled=1;
         HallCurveIndex->Enabled=1;
 
@@ -365,12 +367,12 @@ void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
 {
     for(int i=0;i<Values->Count;++i)
     {
-        CurrentRes->Text=Values->Strings[2];
-        SampleTemperature->Text=Values->Strings[1];
-        eSampleInventoryNumber->Text=Values->Strings[0];
-        SampleLength->Text=Values->Strings[3];
-        SampleWidth->Text=Values->Strings[4];
-        SampleThickness->Text=Values->Strings[5];    
+        uiCurrent->Text=Values->Strings[2];
+        uiTemperature->Text=Values->Strings[1];
+        uiInventoryNumber->Text=Values->Strings[0];
+        uiSampleLength->Text=Values->Strings[3];
+        uiSampleWidth->Text=Values->Strings[4];
+        uiSampleThickness->Text=Values->Strings[5];    
     }
 }
 
@@ -917,21 +919,15 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::CurrentResChange(TObject *Sender)
 {
-    Panel1->Color=clRed;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button2Click(TObject *Sender)
-{
     if((*ActiveParams()))
     {
-    (*ActiveParams())->setSampleDescription(SampleTemperature->Text,CurrentRes->Text,
-        eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+    (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,
+        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
     (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
-    Panel1->Color=clBtnFace;
     }
 }
 //---------------------------------------------------------------------------
+
 
 
 void __fastcall TForm1::Button3Click(TObject *Sender)
@@ -948,8 +944,8 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
         p=*par;
         p->calcutaleTenzor(FILTERED_DATA);
 
-        DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
-        CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+        DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
+        uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         if(SaveDialog1->Execute())
         {
         tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),

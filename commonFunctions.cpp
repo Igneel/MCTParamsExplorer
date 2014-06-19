@@ -73,7 +73,7 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
         {
             if(dist(inB[k],idealB[i])<=r)
             {
-                r=fabs(inB[k]-idealB[i]);
+                r=dist(inB[k],idealB[i]);
                 index=k;
             }
         }
