@@ -103,6 +103,8 @@ void TForm1::DeleteActiveParams()
 
 void TForm1::UpdatePlots()
 {
+    StatusBar->Panels->Items[1]->Text="Обновление графиков.";
+    Form1->Update();
     MagneticFieldDependence ** par=ActiveParams();
 
     if(*par)
@@ -119,11 +121,11 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -350,15 +352,20 @@ if (*par==NULL)
 }
 else
 {
+
     MagneticFieldDependence * p=*par;
     p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
+    StatusBar->Panels->Items[1]->Text="Фильтрация данных.";
+    Form1->Update();
     p->filterData();
+    StatusBar->Panels->Items[1]->Text="Экстраполяция данных.";
+    Form1->Update();
     p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
-
     UpdatePlots();
+    StatusBar->Panels->Items[1]->Text="Готова к работе.";
 }
 }
 //---------------------------------------------------------------------------
@@ -854,10 +861,17 @@ void TForm1::concatDependence()
          eAttenuationFHall->Text, eLengthFilterHall->Text);
     }
 
-    DataTypeInContainer B;
+    DataTypeInContainer B; // создаем буфер для новых зависимостей.
     DataTypeInContainer Hall;
     DataTypeInContainer Resistance;
 
+    DataTypeInContainer B2; // создаем буфер для новых зависимостей.
+    DataTypeInContainer Hall2;
+    DataTypeInContainer Resistance2;
+
+    StatusBar->Panels->Items[1]->Text="Объединение зависимостей.";
+    Form1->Update();
+    // вбрасываем в обратном порядке зависимости для отрицательного магнитного поля.
     for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
     {
         B.push_back(*i);    
@@ -872,43 +886,51 @@ void TForm1::concatDependence()
     {
         Resistance.push_back(*i);    
     }
-
+    // вбрасываем в прямом порядке зависимости для положительного поля.
     for (DataTypeInContainer::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
     {
-        B.push_back(*i);    
+        B.push_back(*i);   
+        B2.push_back(*i);  
     }
 
     for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
     {
-        Hall.push_back(*i);    
+        Hall.push_back(*i);  
+        Hall2.push_back(*i);   
     }
 
     for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
     {
-        Resistance.push_back(*i);    
+        Resistance.push_back(*i);  
+        Resistance2.push_back(*i);   
     }
 
     DataTypeInContainer outB;
     DataTypeInContainer outHall;
     DataTypeInContainer outResistance;
 
-    thiningSignal(B, Hall, outB, outHall, -2, 2,
-    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
-    2*paramsDirect->getB()->size():
-    2*paramsReverse->getB()->size()));
-    thiningSignal(B, Resistance, outB, outResistance, -2, 2,
-    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
-    2*paramsDirect->getB()->size():
-    2*paramsReverse->getB()->size()));
-    B.clear();
-    B=outB;
-    Hall.clear();
-    Hall=outHall;
-    Resistance.clear();
-    Resistance=outResistance;
+    size_t minimalLength=paramsReverse->getB()->size()>paramsDirect->getB()->size()?
+    paramsDirect->getB()->size() : paramsReverse->getB()->size();
 
-    params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
-    UpdatePlots();    
+    StatusBar->Panels->Items[1]->Text="Прореживание зависимостей.";
+    Form1->Update();
+    // что-то похоже что эта функция работает немного не так как надо...
+    //thiningSignal(B, Hall, outB, outHall, -2, 0, 2*minimalLength);
+    //thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
+    // и у меня есть некоторое подозрение почему оно так.
+    // возможно более правильным будет сначала определить сигнал с наименьшим количество точек (прямой или обратный)
+    // потом проредить оба сигнала отдельно и после этого объединить их.
+    thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);
+    thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
+
+    Form1->Memo2->Lines->Add(FloatToStr( B.size()));
+    
+    StatusBar->Panels->Items[1]->Text="Установка новых параметров.";
+    Form1->Update();
+    params->setDependence(outB.begin(),outB.end(),outHall.begin(),outResistance.begin());
+
+    UpdatePlots();
+    StatusBar->Panels->Items[1]->Text="Готова к работе.";
 }
 
 
@@ -1067,4 +1089,27 @@ break;
 
 
 
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+MagneticFieldDependence ** par=ActiveParams();
+
+if (*par==NULL)
+{
+    ShowMessage("Вероятно выбран не тот график.");
+}
+else
+{
+    MagneticFieldDependence * p=*par;
+    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
+    p->blockfilterData();
+    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+
+    UpdatePlots();
+}
+}
+//---------------------------------------------------------------------------
 

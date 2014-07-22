@@ -201,6 +201,7 @@ __published:	// IDE-managed Components
     TLabel *Label22;
     TLabel *Label23;
     TLabel *Label24;
+        TButton *Button2;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -236,6 +237,7 @@ __published:	// IDE-managed Components
     void __fastcall bResShiftCurveClick(TObject *Sender);
     void __fastcall bShiftHallCurveClick(TObject *Sender);
     void __fastcall ComboBox5Change(TObject *Sender);
+        void __fastcall Button2Click(TObject *Sender);
     
 
 private:	// User declarations

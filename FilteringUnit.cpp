@@ -156,7 +156,7 @@ long double Fpropysk,long double Fzatyh)
     double k=Filter(inY,outY,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
     k*=(max_elem(inB)-min_elem(inB))/(long double)lengthMassive;// вычисляем сдвиг фаз
     // разность максимума и минимума на длину массива
- 
+
 //----------------------------------------------
 //---------добавление для фильтрации магнитного поля
 // ахтунг
@@ -181,3 +181,48 @@ k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;
 }
 
 
+MyDataType BlockLowBandFilter(DataTypeInContainer & inB,
+DataTypeInContainer & inY,DataTypeInContainer & outB,
+DataTypeInContainer & outY,
+size_t lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh,
+size_t blockSize)
+{
+if(blockSize<lengthFilter)
+        lengthFilter=blockSize-1;
+
+        DataTypeInContainer tempInB;
+        DataTypeInContainer tempInS;
+        DataTypeInContainer tempOutB;
+        DataTypeInContainer tempOutS;
+        size_t timesToRepeat=inB.size()/blockSize;
+        for( int i=0; i <timesToRepeat;i++)
+        {
+                if(!outB.empty())
+                {
+                for(int j=0;j<lengthFilter;j++)
+                {
+                tempInB.push_back(outB.back());
+                tempInS.push_back(outY.back());
+                }
+                }  
+
+                for(int j=0+blockSize*i;j<(i+1)*blockSize;j++)
+                {
+                tempInB.push_back(inB[j]);
+                tempInS.push_back(inY[j]);
+                }
+                tempOutB.resize(tempInB.size());
+                tempOutS.resize(tempInB.size());
+                TrForMassiveFilter(tempInB,tempInS,tempOutB,tempOutS,lengthFilter,
+                Fdisk, Fpropysk, Fzatyh);
+                for(int j=0;j<tempOutB.size();j++)
+                {
+                outB.push_back(tempOutB[j]);
+                outY.push_back(tempOutS[j]);
+                }
+                tempOutB.clear();
+                tempOutS.clear();
+                tempInB.clear();
+                tempInS.clear();
+        }
+}

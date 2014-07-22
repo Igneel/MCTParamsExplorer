@@ -230,6 +230,7 @@ LCardADC::~LCardADC()
     {
         splittedData[i].clear();
         ReadData[i].clear();
+    
     }
 
     ReadData.clear();
