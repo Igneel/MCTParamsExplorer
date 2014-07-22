@@ -420,12 +420,27 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     DataTypeInContainer newMagnetoResistance;
 
     // копируем фильтрованные данные
-    DataTypeInContainer inBHall(FilteredB);
+    /*DataTypeInContainer inBHall(FilteredB);
     DataTypeInContainer inBMagnetoResistance(FilteredB);
 
     DataTypeInContainer inHallEffect(FilteredHallEffect);
     DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
+*/
+    DataTypeInContainer inBHall;
+    DataTypeInContainer inBMagnetoResistance;
 
+    DataTypeInContainer inHallEffect;
+    DataTypeInContainer inMagnetoResistance;
+
+
+    for (size_t i = 3*FilteredB.size()/4; i < FilteredB.size(); ++i)
+    {
+        inBHall.push_back( FilteredB[i]);
+        inBMagnetoResistance.push_back( FilteredB[i]);
+        inHallEffect.push_back( FilteredHallEffect[i]);
+        inMagnetoResistance.push_back( FilteredMagnetoResistance[i]);
+    }
+/*
     for (unsigned int i=B.size()-filterParamsHall->filterLength; i<B.size();++i)
     { // дописываем измеренные данные
         inHallEffect.push_back(HallEffect[i]);
@@ -433,7 +448,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
         inBHall.push_back(B[i]);
         inBMagnetoResistance.push_back(B[i]);
     }
-      
+*/   
     unsigned int NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
@@ -474,7 +489,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedB=newB;    
     ExtrapolatedMagnetoResistance=newMagnetoResistance;
     ExtrapolatedHallEffect=newHallEffect;
-    /*
+    
 	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
     unsigned int i=0;
 	while(i<NumberOfPoints && newB[i]<FilteredB.back())
@@ -487,7 +502,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
         FilteredHallEffect.push_back(newHallEffect[j]);
 	}
 	//------------------------------------------------------------------
-       */
+       
 return returnValue;   
 }
 //-------------------------------------------------------------------------------

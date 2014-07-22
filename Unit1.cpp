@@ -964,7 +964,7 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
     else
     {
         p=*par;
-        p->calcutaleTenzor(FILTERED_DATA);
+        p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
