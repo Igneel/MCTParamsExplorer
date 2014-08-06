@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"siz",
+				"size_t"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"be",
+				"beginB"
+			],
+			[
+				"m",
+				"multiplyB"
+			],
+			[
+				"Me",
+				"Memo2"
+			],
+			[
+				"за",
+				"зависимостей"
+			],
+			[
+				"R",
+				"Resistance2"
+			],
+			[
+				"H",
+				"Hall2"
+			],
+			[
 				"cha",
 				"chanInfo"
 			],
@@ -18,10 +50,6 @@
 			[
 				"ri",
 				"rightBound"
-			],
-			[
-				"le",
-				"leftBound"
 			],
 			[
 				"Po",
@@ -328,10 +356,6 @@
 				"Thickness"
 			],
 			[
-				"H",
-				"HallEffect"
-			],
-			[
 				"pa",
 				"paramsReverse"
 			],
@@ -382,10 +406,6 @@
 			[
 				"op",
 				"openFileHelper"
-			],
-			[
-				"be",
-				"begin"
 			],
 			[
 				"g",
@@ -456,10 +476,6 @@
 				"coins"
 			],
 			[
-				"m",
-				"money"
-			],
-			[
 				"Filte",
 				"FilterParams"
 			],
@@ -476,10 +492,13 @@
 	"buffers":
 	[
 		{
+			"contents": "#include \"MagneticFieldDependence.h\"\nextern LCardADC *adc;\n\n\nMagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString temperature, AnsiString SampleInventoryNumber,\n    AnsiString length, AnsiString width, AnsiString Thickness)\n\n{\n    filterParamsHall=new FilterParams(); // по идее нужно бы и инциализировать их тут, дабы не было проблем в случае чего:).\n    filterParamsResistance=new FilterParams();\n    saver =new DataSaver(temperature,current,SampleInventoryNumber, length, width, Thickness);\n    paramsType=DIRECT;\n    leftBound.resize(3);\n    leftBound[DIRECT]=0;\n    leftBound[REVERSE]=-2;\n    leftBound[COMBINE]=-2;\n    rightBound.resize(3);\n    rightBound[DIRECT]=2;\n    rightBound[REVERSE]=0;\n    rightBound[COMBINE]=2;\n}\n\nMagneticFieldDependence::~MagneticFieldDependence()\n{\n    delete saver;\n    saver=0;\n    delete filterParamsHall;\n    filterParamsHall=0;\n    delete filterParamsResistance;\n    filterParamsResistance=0;\n}\n\n\nvoid MagneticFieldDependence::loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter)\n{\n    temp.clear();\n    std::string s1 = AnsiS.c_str();\n    std::string s; \n    std::string::size_type start = 0;\n    std::string::size_type finish = 0;\n    ReplaceDotsToComma(s1,s);\n    do \n        {\n            finish = s.find(delimiter, start);\n            std::string word = s.substr(start, finish-start);\n            temp.push_back(StrToFloat(word.c_str()));\n            start=finish+1;\n        } while (finish != std::string::npos);\n}\n\nvoid MagneticFieldDependence::loadSampleDescription(TStringList *Names,TStringList *Values,AnsiString FileName)\n{\n    std::string temp = FileName.c_str();\n\n    unsigned int rBound = temp.find_last_of(\"/\\\\\");\n    unsigned int rBound2 = temp.find_first_of(\"DCR\",rBound);\n    AnsiString NewFileName = FileName.SubString(0,rBound2)+\"Description\"+\".txt\";\n    TStringList * tts = new TStringList();\n    if(FileExists(NewFileName))\n    {\n    tts->LoadFromFile(NewFileName);\n    const std::string delimiter = \"\\t\";\n\n    std::string s1 = tts->Text.c_str();\n    std::string s;\n    ReplaceDotsToComma(s1,s);\n    \n    tts->Text = s.c_str();\n\n    Names->Clear();\n    Values->Clear();\n\n    for (int i=0;i<tts->Count;i++)\n    {\n        s=tts->Strings[i].c_str();\n        std::string::size_type start = 0;\n        std::string::size_type finish = 0;\n\n        if(s.empty())\n            continue;\n\n        finish = s.find(delimiter, start);\n        Names->Add(s.substr(start, finish-start).c_str());\n        Values->Add(s.substr(finish-start+1, s.length()).c_str());\n    }\n\n    setSampleDescription(Values->Strings[1],Values->Strings[2],Values->Strings[0],\n    Values->Strings[3],Values->Strings[4],Values->Strings[5]);\n    }\n    delete tts;\n}\n\nvoid MagneticFieldDependence::loadData(TStringList * tts)\n{\n    const std::string delimiterTab = \"\\t\";\n    const std::string delimiterSpace = \" \";\n    const int numberOfColls=3;\n\n    DataTypeInContainer B;\n    DataTypeInContainer Hall;\n    DataTypeInContainer Resistance;\n    DataTypeInContainer temp;\n\n    for(int i=0;i<tts->Count;i++) // по количеству строк\n    {\n        if(tts->Strings[i].IsEmpty()) // пустые строки пропускаем\n            continue;\n            \n        loadDataHelper(temp,tts->Strings[i],delimiterTab);\n\n        if(temp.size()!=numberOfColls)\n        {          \n        loadDataHelper(temp,tts->Strings[i],delimiterSpace);\n        if(temp.size()!=numberOfColls)\n            return;\n        }\n\n        B.push_back(temp[0]);\n        Resistance.push_back(temp[1]);\n        Hall.push_back(temp[2]);\n    }\n\n    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    \n\n}\n\nvoid MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams)\n{\n    saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);\n    saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,ALL_POINTS,FileName);\n\n    saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);\n    saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,ALL_POINTS,FileName);\n\n    saver->SaveData(EXTRAPOLATED_DATA,&ExtrapolatedB,&ExtrapolatedHallEffect,&ExtrapolatedMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);\n    saver->SaveData(EXTRAPOLATED_DATA,&ExtrapolatedB,&ExtrapolatedHallEffect,&ExtrapolatedMagnetoResistance,ALL_POINTS,FileName);\n\n    saver->SaveSampleDescription(FileName);\n}\n\n//------------Подгонка данных-------------------------------------------------\ntemplate <class T>\nint sigh(T in)\n{\n    if (in>=0)\n    {\n        return 1;\n    }\n    else \n        return -1;\n}\n\nvoid MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType)\n{\n    int size=inY.size();\n    outY.resize(size/2);\n    for(int i=0;i<size/2;i++)\n    {\n        switch(featType)\n        {\n        case ODD_FEAT: // нечетная подгонка\n            outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;\n            //outY[size-1-i]=-inY[i];\n            break;\n        case EVEN_FEAT: // четная подгонка\n            outY[i]=(inY[i]+inY[size-1-i])/2.0;\n            //tempY[size-1-i]=tempY[i];\n            break;\n        }\n    }\n    std::reverse(outY.begin(),outY.end());\n}\n\nvoid MagneticFieldDependence::featData(DataKind dataKind)\n{\n    DataTypeInContainer tempInX;\n    DataTypeInContainer tempInHall;\n    DataTypeInContainer tempInResistance;\n    \n    tempInX=(*getPointerB(dataKind));\n    tempInHall=(*getPointerHall(dataKind));\n    tempInResistance=(*getPointerMagnetoResistance(dataKind));\n    \n    if(tempInX.size()==0)\n    {\n        //\"Получен пустой массив данных!!!\");\n        return;\n    }\n    \n    averageData(tempInX,AveragedB,ODD_FEAT);\n    averageData(tempInHall,AveragedHallEffect,ODD_FEAT);\n    averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);   \n}\n\nvoid MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,\nDataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,\nDataTypeInContainer & Res)\n{\n    MyDataType left, right;\n    size_t length;\n\n    DataTypeInContainer tempB;\n    DataTypeInContainer tempHall;\n    DataTypeInContainer tempResistance;\n    if(Hall.size()==0 || Res.size()==0 || B.size()==0)\n    {\n    return;\n    }\n    // ---------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n    if (Hall.size()>Res.size())\n    {\n        left=Res[0];\n        right=Res.back();\n        length=Res.size();\n    }\n    else\n    {\n        left=Hall[0];\n        right=Hall.back();\n        length=Hall.size();\n    }\n    // это должно уравнивать количество точек, после фильтрации с разной длиной.\n    thiningSignal(BHall, Hall, tempB, tempHall, left, right, length);\n    thiningSignal(BRes, Res, tempB, tempResistance, left, right, length);\n    \n    BHall.clear();\n    Hall.clear();\n    BRes.clear();\n    Res.clear();\n    B.clear();\n    \n    BHall=tempB;\n    Hall=tempHall;\n    BRes=tempB;\n    Res=tempResistance;\n    B=BHall;\n}\n//-------------------------------------------------------------------------\nvoid MagneticFieldDependence::blockfilterData()\n{\nclearFilteredParams();\n\n    GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,\n    HallEffect,MagnetoResistance);\n\n    BlockLowBandFilter(BHall,HallEffect,FilteredBHall,FilteredHallEffect,\n        (*filterParamsHall).filterLength,\n        (*filterParamsHall).SamplingFrequecy,\n        (*filterParamsHall).BandwidthFrequency,\n        (*filterParamsHall).AttenuationFrequency,\n        200);\n    BlockLowBandFilter(BMagnetoResistance,MagnetoResistance,\n         FilteredBMagnetoResistance,FilteredMagnetoResistance,\n        (*filterParamsResistance).filterLength,\n        (*filterParamsResistance).SamplingFrequecy,\n        (*filterParamsResistance).BandwidthFrequency,\n        (*filterParamsResistance).AttenuationFrequency,\n        200);\n\n    FilteredB=FilteredBHall;\n    GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,\n    FilteredHallEffect,FilteredMagnetoResistance);\n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::filterData()\n{\n    clearFilteredParams();\n\n    GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,\n    HallEffect,MagnetoResistance);\n\n    filterDataHelper((*filterParamsHall),HALL_EFFECT);\n    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);\n    FilteredB=FilteredBHall;\n    GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,\n    FilteredHallEffect,FilteredMagnetoResistance);\n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)\n{\n    setFilterParamsHall(fPHall.SamplingFrequecy, fPHall.BandwidthFrequency, fPHall.AttenuationFrequency, fPHall.filterLength);\n    setFilterParamsResistance(fPResistance.SamplingFrequecy, fPResistance.BandwidthFrequency, fPResistance.AttenuationFrequency, fPResistance.filterLength);\n    filterData();\n\n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::filterDataHelper(FilterParams &fP,\n    PlotType dependenceType)\n{\n    if(HallEffect.size()!=B.size())\n    {\n        ShowMessage(\"Количество точек магнитного поля и эффекта Холла не совпадает! filterdataHelper\");\n        return;\n    }\n\n    DataTypeInContainer * inB;\n    DataTypeInContainer * inHallEffect;\n    DataTypeInContainer * inMagnetoResistance;\n    unsigned int NumberOfPoints;\n\n    if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.\n    {\n        featData(CURRENT_DATA); // его надо усреднить\n        inB=&AveragedB;\n        inHallEffect=&AveragedHallEffect;\n        inMagnetoResistance=&AveragedMagnetoResistance;\n        NumberOfPoints=AveragedB.size();\n    }\n    else // если это обычный сигнал - фильтруем как есть.\n    {\n        inB=&B;\n        inHallEffect=&HallEffect;\n        inMagnetoResistance=&MagnetoResistance;\n        NumberOfPoints=HallEffect.size();\n    }\n\n    \n    DataTypeInContainer tempInB(2*NumberOfPoints);\n    DataTypeInContainer tempInSignal(2*NumberOfPoints);\n\n    DataTypeInContainer tempOutB(2*NumberOfPoints);\n    DataTypeInContainer tempOutSignal(2*NumberOfPoints);\n\n    switch(dependenceType)\n    {\n    case HALL_EFFECT:\n\n\n    // формируем сигнал для фильтра.\n    // достраивая его в отрицательные магнитные поля.\n    for (unsigned int i = 0; i < NumberOfPoints; i++)\n    {\n        tempInSignal[i]=-(*inHallEffect)[NumberOfPoints-i-1]+2*(*inHallEffect)[0];\n        tempInB[i]=-(*inB)[NumberOfPoints-i-1];\n        tempInSignal[i+NumberOfPoints]=(*inHallEffect)[i];\n        tempInB[i+NumberOfPoints]=(*inB)[i];\n    }\n    break;\n    case MAGNETORESISTANCE:\n\n    \n\n    for (unsigned int i = 0; i < NumberOfPoints; i++)\n    {\n        tempInSignal[i]=(*inMagnetoResistance)[NumberOfPoints-i-1];   // чет\n        //tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет\n        tempInB[i]=-(*inB)[NumberOfPoints-i-1];\n        tempInSignal[i+NumberOfPoints]=(*inMagnetoResistance)[i];\n        tempInB[i+NumberOfPoints]=(*inB)[i];\n    }\n    break;\n\n    default:\n        break;\n    }\n\n    // фильтруем \n    TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,\n                fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);\n\n    // а разве размер поля внутри фильтрации меняется?О_о\n    NumberOfPoints=tempOutB.size();\n    for(unsigned int i=fP.filterLength;i<NumberOfPoints;i++)\n    {\n        \n    switch(dependenceType)\n    {\n    case HALL_EFFECT:\n        FilteredHallEffect.push_back(tempOutSignal[i]);\n        FilteredBHall.push_back(tempOutB[i]);\n        break;\n    case MAGNETORESISTANCE:\n        FilteredMagnetoResistance.push_back(tempOutSignal[i]);\n        FilteredBMagnetoResistance.push_back(tempOutB[i]);\n        break;\n    default:\n        break;\n    }\n    }\n\n    \n/*\n    unsigned int i=0;\n\n    while(i<NumberOfPoints && tempOutB[i]<=0 ) ++i; // ищем где поле становится положительным.\n\n    // нагло записываем положительную часть фильтрованного сигнала обратно.\n    for(;i<NumberOfPoints;i++)\n    {\n\n    switch(dependenceType)\n    {\n    case HALL_EFFECT:\n        FilteredHallEffect.push_back(tempOutSignal[i]);\n\n        break;\n    case MAGNETORESISTANCE:\n        FilteredMagnetoResistance.push_back(tempOutSignal[i]);\n        FilteredB.push_back(tempOutB[i]);\n        break;\n    default:\n        break;\n    }\n    } */\n\n\n}\n\n//-------------------------------------------------------------------------------\n\nbool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResistance=4, const int polinomPowForHallEffect=4)\n{\n    bool returnValue=true;\n\n    DataTypeInContainer koefMagnetoResistance(polinomPowForMagnetoResistance+1);\n    DataTypeInContainer koefHallEffect(polinomPowForHallEffect+1);\n\n    DataTypeInContainer newB;\n    DataTypeInContainer newHallEffect;\n    DataTypeInContainer newMagnetoResistance;\n\n    // копируем фильтрованные данные\n    /*DataTypeInContainer inBHall(FilteredB);\n    DataTypeInContainer inBMagnetoResistance(FilteredB);\n\n    DataTypeInContainer inHallEffect(FilteredHallEffect);\n    DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);\n*/\n    DataTypeInContainer inBHall;\n    DataTypeInContainer inBMagnetoResistance;\n\n    DataTypeInContainer inHallEffect;\n    DataTypeInContainer inMagnetoResistance;\n\n\n    for (size_t i = 3*FilteredB.size()/4; i < FilteredB.size(); ++i)\n    {\n        inBHall.push_back( FilteredB[i]);\n        inBMagnetoResistance.push_back( FilteredB[i]);\n        inHallEffect.push_back( FilteredHallEffect[i]);\n        inMagnetoResistance.push_back( FilteredMagnetoResistance[i]);\n    }\n/*\n    for (unsigned int i=B.size()-filterParamsHall->filterLength; i<B.size();++i)\n    { // дописываем измеренные данные\n        inHallEffect.push_back(HallEffect[i]);\n        inMagnetoResistance.push_back(MagnetoResistance[i]);\n        inBHall.push_back(B[i]);\n        inBMagnetoResistance.push_back(B[i]);\n    }\n*/   \n    unsigned int NumberOfPoints=inBHall.size();\n    if(NumberOfPoints==0)\n    {\n    ShowMessage(\"Количество точек равно нулю! Я не хочу делить на ноль:)\");\n    return false;\n    }\n    MyDataType h=2.2/NumberOfPoints;\n    \n\n	for(int i=0;i<500;i++) // увеличиваем вес точки (0,0) для эффекта Холла.\n	{\n		inBHall.push_back(0);\n		inHallEffect.push_back(0);\n	}\n\n    \n    if(!curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance))\n    return false;\n    if(!curveFittingUniversal(&inBHall,&inHallEffect, &koefHallEffect,polinomPowForHallEffect))\n    return false;\n\n    \n\n	newB.clear();\n	newB.push_back(0); // заполняем магнитное поле.\n	for (unsigned int i = 1; i < NumberOfPoints; i++) {\n		newB.push_back(newB[i-1]+h);\n	}\n\n    // вычисляем экстраполированные зависимости.\n	calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);\n	calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);\n\n    ExtrapolatedB.clear();\n    ExtrapolatedMagnetoResistance.clear();\n    ExtrapolatedHallEffect.clear();\n\n    ExtrapolatedB=newB;    \n    ExtrapolatedMagnetoResistance=newMagnetoResistance;\n    ExtrapolatedHallEffect=newHallEffect;\n    \n	//----------А вот тут прикручиваем недостающий кусочек в сигналы----\n    unsigned int i=0;\n	while(i<NumberOfPoints && newB[i]<FilteredB.back())\n    ++i;\n\n   	for(unsigned int j=i;j<NumberOfPoints;j++)\n	{     // в конце дописываем экстраполированные значения.\n		FilteredB.push_back(newB[j]);\n        FilteredMagnetoResistance.push_back(newMagnetoResistance[j]);\n        FilteredHallEffect.push_back(newHallEffect[j]);\n	}\n	//------------------------------------------------------------------\n       \nreturn returnValue;   \n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::multiplyB(DataKind dataKind)\n{\n    DataTypeInContainer * temp;\n    temp=getPointerB(dataKind);\n\n    DataTypeInContainer::iterator pos;\n    for(pos=temp->begin();pos!=temp->end();++pos)\n    *pos*=10;\n}  \n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::multiplyB(DataTypeInContainer::iterator beginB, DataTypeInContainer::iterator endB)\n{    \n    for(;beginB!=endB;++beginB)\n    *beginB*=10;\n} \n//-------------------------------------------------------------------------------\ninline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out)\n{\n    unsigned int findIndex=0;\n	std::string s=in;\n	std::string strToReplaceWhich=\",\"; // на что меняем\n	std::string strToSearch=\".\";   // что ищем\n	while ((findIndex=s.find(strToSearch,findIndex))!=std::string::npos)\n    {\n        s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),\n        strToReplaceWhich.begin(),strToReplaceWhich.end());\n    } \n    out=s;\n}\n//-------------------------------------------------------------------------------*/\nvoid MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color)\n{\n    DataTypeInContainer * pointToX=0; // указатели на выводимые данные\n    DataTypeInContainer * pointToY=0;\n	s->Clear(); // чистим график.\n    switch(pt) // определяем что выводить.\n    {\n    case HALL_EFFECT:\n        pointToX=getPointerB(dk);\n        pointToY=getPointerHall(dk);\n        break;\n    case MAGNETORESISTANCE:\n        pointToX=getPointerB(dk);\n        pointToY=getPointerMagnetoResistance(dk);\n        break;\n    default:\n        break;\n    }\n    unsigned int NumberOfPoints=pointToX->size();\n    if(NumberOfPoints==0)\n    {\n        ShowMessage(\"График пуст, строить нечего.\");\n        return;\n    }\n    DataTypeInContainer::iterator posX;\n    DataTypeInContainer::iterator posY;\n    long double PointsToShow=500;\n    unsigned int shag = roundM(static_cast<long double> (pointToX->size()) / PointsToShow,0);\n    if(shag<1) shag = 1;\n    for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size();j++,i+=shag)\n    {\n        s->AddXY((*pointToX)[i],(*pointToY)[i],\"\",color);\n    }	\n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)\n{\n    DataTypeInContainer * temp;\n	s->Clear();\n    switch(p)\n    {\n    case MAGNETIC_FIELD:\n        temp=&B;\n        break;\n    case MAGNETIC_FIELD_F:\n        temp=&FilteredB;\n        break;\n    case HALL_EFFECT:\n        temp=&HallEffect;\n        break;\n    case MAGNETORESISTANCE:\n        temp=&MagnetoResistance;\n        break;\n    default:\n        break;\n    }\n    unsigned int NumberOfPoints=temp->size();\n	for (unsigned int i = 0; i < NumberOfPoints; i++)\n	{\n		s->AddY((*temp)[i],\"\",color);\n	} \n}\n\n//-------------------------------------------------------------------------------\nbool MagneticFieldDependence::setFilterParamsHall(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)\n{\n    filterParamsHall->setFilterParams(StrToFloat(samplingFrequecy), StrToFloat(bandwidthFrequency), StrToFloat(attenuationFrequency), StrToInt(length));\n    return true;\n}\n//-------------------------------------------------------------------------------\nbool MagneticFieldDependence::setFilterParamsHall(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)\n{\n    filterParamsHall->setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);\n    return true;\n}\n//-------------------------------------------------------------------------------\nbool MagneticFieldDependence::setFilterParamsResistance(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length)\n{\n    filterParamsResistance->setFilterParams(StrToFloat(samplingFrequecy), StrToFloat(bandwidthFrequency), StrToFloat(attenuationFrequency), StrToInt(length));\n    return true;\n}\n//-------------------------------------------------------------------------------\nbool MagneticFieldDependence::setFilterParamsResistance(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length)\n{\n    filterParamsResistance->setFilterParams(samplingFrequecy, bandwidthFrequency, attenuationFrequency, length);\n    return true;\n}\n//-------------------------------------------------------------------------------\nvoid MagneticFieldDependence::setRoundNeeded(bool needRound)\n{\n    saver->setRoundNeeded(needRound);\n}\n\n//-------------------------------------------------------------------------------\n\n\nvoid MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB, \n        DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, \n        DataTypeInContainer::iterator beginResistance)\n{\n    clearCurrentParams();\n\n    for ( ; beginB != endB; ++beginB, ++beginResistance, ++beginHall)\n    {\n        B.push_back(*beginB);\n        MagnetoResistance.push_back(*beginResistance);\n        HallEffect.push_back(*beginHall); \n    }\n    if(max_elem(B)<0.5)\n    {\n        multiplyB(CURRENT_DATA);\n    }\n    BHall=B;\n    BMagnetoResistance=B;\n\n\n    filterData();\n    extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.\n    // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.      \n}\n\n//---------------------------------------------------------------------------------\n\nvoid MagneticFieldDependence::getSplittedDataFromADC()\n{\n    TwoDimensionalContainer * tempData1=adc->getSplittedData(1);\n\n    TwoDimensionalContainer & tempData(*tempData1);\n    clearCurrentParams();\n             \n    B=tempData[chanInfo[2].first];\n    HallEffect=tempData[chanInfo[0].first]; // последовательность закреплена и не важна.\n    MagnetoResistance=tempData[chanInfo[1].first];\n\n    adc->dataisntNeeded();\n    // при смене каналов на вкладке настроек - эти настройки можно не трогать.\n    // программа сама разберется, т.к. АЦП возвращает данные согласно контрольной таблице:).\n    \n    BHall=B;\n    BMagnetoResistance=B;\n\n    multiplyB(CURRENT_DATA);\n    filterData();\n    //extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.\n    // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.\n}\n\nvoid MagneticFieldDependence::setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber,\n    AnsiString length, AnsiString width, AnsiString Thickness)\n{\n    saver->setSampleDescription(Temperature, Current, SampleInventoryNumber, length, width, Thickness);\n}\n//-------------------------------------------------------------------------------\n\nFilterParams const * MagneticFieldDependence::getFilterParamsHall()\n{\n    return filterParamsHall;\n}\n//------------------------------------------------------------------------------\nFilterParams const * MagneticFieldDependence::getFilterParamsResistance()\n{\n    return filterParamsResistance;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getB()\n{\n    return &B;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getFilteredB()\n{\n    return &FilteredB;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getExtrapolatedB()\n{\n    return &ExtrapolatedB;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getHallEffect()\n{\n    return &HallEffect;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getMagnetoResistance()\n{\n    return &MagnetoResistance;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getFilteredHallEffect()\n{\n    return &FilteredHallEffect;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getFilteredMagnetoResistance()\n{\n    return &FilteredMagnetoResistance;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getExtrapolatedHallEffect()\n{\n    return &ExtrapolatedHallEffect;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getExtrapolatedMagnetoResistance()\n{\n    return &ExtrapolatedMagnetoResistance;\n}\n//-------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getSxx()\n{\n    return &sxx;\n}\n//----------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getSxy()\n{\n    return &sxy;\n}\n//----------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getAveragedB()\n{\n    return &AveragedB;\n}\n//----------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getRh_eff()\n{\n    return &Rh_eff;\n}\n//----------------------------------------------------------------------------------\nDataTypeInContainer const * MagneticFieldDependence::getS_eff()\n{\n    return &s_eff;\n}\n//----------------------------------------------------------------------------------\n\n\nvoid MagneticFieldDependence::calculateEffectiveParamsFromSignals()\n{\n    if (AveragedB.size() != 0)\n    {\n        AnsiString Current;\n        AnsiString SampleLength;\n        AnsiString SampleWidth;\n        AnsiString SampleThickness;\n\n        saver->getSampleDescription(NULL, Current, NULL, SampleLength, SampleWidth, SampleThickness);\n\n        MyDataType I=StrToFloat(Current)*1E-6;\n        MyDataType SLength=StrToFloat(SampleLength)*1E-3;\n        MyDataType SWidth=StrToFloat(SampleWidth)*1E-3;\n        MyDataType SThickness=StrToFloat(SampleThickness)*1E-6;\n\n        unsigned int NumberOfPoints = AveragedB.size();\n        s_eff.resize(NumberOfPoints);\n        Rh_eff.resize(NumberOfPoints);\n\n        for (unsigned int i = 0; i < NumberOfPoints ; i++)\n        {\n            if(fabs(AveragedMagnetoResistance[i])<THEALMOSTZERO)\n                s_eff[i]=0;\n            else\n            {\n                s_eff[i]=SLength/SWidth/SThickness*I/AveragedMagnetoResistance[i];\n            }\n            if(B[i]==0)\n                Rh_eff[i]=0;\n            else\n                Rh_eff[i]=SThickness*AveragedHallEffect[i]/I;\n        }\n    }\n}\n\n//--------------------------------------------------------------------------------\n\nvoid MagneticFieldDependence::calculateTenzorFromEffectiveParams()\n{\n    if (s_eff.size() != 0)\n    {\n        unsigned int NumberOfPoints = s_eff.size();\n        sxx.resize(NumberOfPoints);\n        sxy.resize(NumberOfPoints);\n\n        for (unsigned int i = 0; i < NumberOfPoints ; i++)\n        {\n            sxx[i]=s_eff[i]/\n                (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);\n            sxy[i]=s_eff[i]*s_eff[i]*Rh_eff[i]/\n               (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);\n        }\n        \n    }\n}\n//-------------------------------------------------------------------------\nDataTypeInContainer * MagneticFieldDependence::getPointerB(DataKind dataKind)\n{\n    switch(dataKind)\n    {\n    case CURRENT_DATA:\n        return &B;\n    case FILTERED_DATA:\n        return &FilteredB;\n    case EXTRAPOLATED_DATA:\n        return &ExtrapolatedB;\n    case AVERAGED_DATA:\n        return &AveragedB;\n    default:\n        break;\n    }\n    return NULL;\n}\n//-------------------------------------------------------------------------\nDataTypeInContainer * MagneticFieldDependence::getPointerHall(DataKind dataKind)\n{\n    switch(dataKind)\n    {\n    case CURRENT_DATA:\n        return &HallEffect;\n    case FILTERED_DATA:\n        return &FilteredHallEffect;\n    case EXTRAPOLATED_DATA:\n        return &ExtrapolatedHallEffect;\n    case AVERAGED_DATA:\n        return &AveragedHallEffect;\n    default:\n        break;\n    }\n    return NULL;\n}\n//-------------------------------------------------------------------------\nDataTypeInContainer * MagneticFieldDependence::getPointerMagnetoResistance(DataKind dataKind)\n{\n    switch(dataKind)\n    {\n    case CURRENT_DATA:\n        return &MagnetoResistance;\n    case FILTERED_DATA:\n        return &FilteredMagnetoResistance;\n    case EXTRAPOLATED_DATA:\n        return &ExtrapolatedMagnetoResistance;\n    case AVERAGED_DATA:\n        return &AveragedMagnetoResistance;\n    default:\n        break;\n    }\n    return NULL;\n}\n//-------------------------------------------------------------------------\n\nvoid MagneticFieldDependence::calcutaleTenzor(DataKind dataKind)\n{\n    featData(dataKind);\n    cutData(AVERAGED_DATA);\n    calculateEffectiveParamsFromSignals();\n    calculateTenzorFromEffectiveParams();\n}\n\n//-------------------------------------------------------------------------\nvoid  MagneticFieldDependence::cutData(DataKind dataKind)\n{\n   ;\n}\n\nvoid MagneticFieldDependence::clearCurrentParams()\n{\n    B.clear();\n    BHall.clear();\n    BMagnetoResistance.clear();\n    HallEffect.clear();\n    MagnetoResistance.clear();    \n}\n\nvoid MagneticFieldDependence::clearFilteredParams()\n{\n    FilteredB.clear();\n    FilteredBHall.clear();\n    FilteredBMagnetoResistance.clear();\n    FilteredHallEffect.clear();\n    FilteredMagnetoResistance.clear();\n}\n\nvoid MagneticFieldDependence::setParamsType(ParamsType pt)\n{\n    paramsType=pt;\n}\n\nvoid MagneticFieldDependence::shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound)\n{\n    DataTypeInContainer * pointToY=0;\n    DataTypeInContainer * pointToX=0;\n    switch (dependenceType)\n    {\n        case HALL_EFFECT:\n            pointToY=getPointerHall(dataKind);\n            pointToX=getPointerB(dataKind);\n            break;\n        case MAGNETORESISTANCE:\n            pointToY=getPointerMagnetoResistance(dataKind);\n            pointToX=getPointerB(dataKind);\n            break;\n        default:\n        break;\n    }\n    if (pointToY==0)\n    {\n        return;\n    }\n\n    for (DataTypeInContainer::iterator i = pointToY->begin(), j=pointToX->begin(); i != pointToY->end() && j!=pointToX->end(); ++i,++j)\n    {\n        if (*j>=leftBound && *j<=rightBound)\n        {\n            *i+=shiftValue;    \n        }        \n    }\n}\n\nvoid MagneticFieldDependence::setChannelsInfo(channelsInfo & cI)\n{\n    chanInfo=cI;    \n}",
 			"file": "MagneticFieldDependence.cpp",
+			"file_size": 31828,
+			"file_write_time": 130505192462539062,
 			"settings":
 			{
-				"buffer_size": 29070,
+				"buffer_size": 30871,
 				"line_ending": "Windows"
 			}
 		},
@@ -495,15 +514,18 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 19390,
+				"buffer_size": 19109,
 				"line_ending": "Windows"
 			}
 		},
 		{
+			"contents": "#include \"commonFunctions.h\"\n\ninline MyDataType dist(MyDataType x1, MyDataType x2)\n{\n    return fabs(x1-x2);\n}\n\n/*\nФункция должна прореживать сигнал до определенного количества точек.\nСуть в чем. Если у нас есть две части зависимости (для положительного и отрицательного магнитного поля, или для прямого и обратного тока например)\nтогда перед тем как их объединить и усреднить необходимо иметь одинаковое количество точек в обоих случаях.\n*/\nbool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, \n    MyDataType left, MyDataType right, size_t NewLength)\n{\n    if (right<left) // если при вызове перепутали границы.\n    {\n        MyDataType temp=right;\n        right = left;\n        left = temp;\n    }\n\n    size_t OldLength = inB.size();\n\n    if (NewLength>OldLength) // если просят увеличить количество точек.\n    {\n        return false;\n    }\n\n    if (OldLength != inDependence.size())\n    {\n        return false; // если зависимости разной длины - мы не можем им помочь.\n    }\n\n    if (OldLength==NewLength)\n    {\n        outDependence=inDependence;\n        outB=inB;\n        return true;\n    }\n\n    outB.clear(); // чистим выходные зависимости, на случай если это не сделали за нас.\n    outDependence.clear();\n\n    DataTypeInContainer idealB; // тут будем хранить опорные точки.\n\n    MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0); // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)\n\n    idealB.push_back(left); // начинаем с наименьшей границы\n    for (unsigned int i=1; i < NewLength; ++i) \n    {\n        idealB.push_back(idealB[i-1]+shag);\n    }\n    // тут начинается поиск.\n    /*\n    DataTypeInContainer indexes(NewLength);\n    DataTypeInContainer distance(NewLength);\n    for (int i = 0; i < NewLength; ++i)\n    {\n        indexes[i]=0;\n        distance[i]=dist(inB[i],idealB[i]);\n    }\n\n    for (int i = 1; i < NewLength; ++i)\n    {\n        if (dist(inB[i],idealB[i])<distance[i])\n        {\n            distance[i]=dist(inB[i],idealB[i]);\n            indexes[i]=i;\n        }\n    }*/\n    // возможно стоит прикрутить более оптимальный поиск.\n    for (unsigned int i = 0; i < NewLength; ++i) \n    {\n        unsigned int index=0;\n        long double r=4;\n        for(unsigned int k=0;k<OldLength;++k)\n        {\n            if(dist(inB[k],idealB[i])<=r)\n            {\n                r=dist(inB[k],idealB[i]);\n                index=k;\n            }\n        }\n        if(index<OldLength)\n        {\n            outB.push_back(inB[index]);\n            outDependence.push_back(inDependence[index]);\n        }\n    }\n\n    return true;\n}",
 			"file": "commonFunctions.cpp",
+			"file_size": 2450,
+			"file_write_time": 130467827740000000,
 			"settings":
 			{
-				"buffer_size": 2363,
+				"buffer_size": 2693,
 				"line_ending": "Windows"
 			}
 		},
@@ -511,7 +533,15 @@
 			"file": "commonFunctions.h",
 			"settings":
 			{
-				"buffer_size": 1205,
+				"buffer_size": 2095,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "FilteringUnit.h",
+			"settings":
+			{
+				"buffer_size": 2599,
 				"line_ending": "Windows"
 			}
 		},
@@ -519,7 +549,7 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 7972,
+				"buffer_size": 8121,
 				"line_ending": "Windows"
 			}
 		},
@@ -527,7 +557,7 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 31607,
+				"buffer_size": 32812,
 				"line_ending": "Windows"
 			}
 		},
@@ -544,6 +574,14 @@
 			"settings":
 			{
 				"buffer_size": 576,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "FilterParams.h",
+			"settings":
+			{
+				"buffer_size": 640,
 				"line_ending": "Windows"
 			}
 		},
@@ -575,7 +613,7 @@
 			"file": "Unit1.h",
 			"settings":
 			{
-				"buffer_size": 7911,
+				"buffer_size": 7859,
 				"line_ending": "Windows"
 			}
 		},
@@ -619,6 +657,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonatan Livingston/Desktop/Контакты с Нокиа/1test.CSV",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/77К/1Description.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
 		"/K/Дела/Программинг/qt/MCTParamsExplorer/commonFunctions.h",
@@ -744,13 +784,11 @@
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.h",
 		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp"
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -765,6 +803,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"extrapolateDa",
+			"loadData",
+			"filterData",
+			"filter",
+			"Average",
+			"setDepen",
+			"thini",
 			"apply",
 			"loadData",
 			"filter",
@@ -885,14 +930,7 @@
 			"in",
 			"roundM",
 			"round",
-			"тестовая верс",
-			"ReadData",
-			"series",
-			"clearB",
-			"extr",
-			"long double",
-			"std::vector<long double>",
-			"std::vector<MyDataType>"
+			"тестовая верс"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -913,7 +951,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -922,15 +960,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29070,
+						"buffer_size": 30871,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16165,
-								16165
+								15117,
+								15117
 							]
 						],
 						"settings":
@@ -940,10 +978,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9525.0,
+						"translation.y": 8972.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -959,8 +997,8 @@
 						"selection":
 						[
 							[
-								9401,
-								9401
+								8361,
+								8361
 							]
 						],
 						"settings":
@@ -968,11 +1006,11 @@
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 5940.0,
+						"translation.x": 0.0,
+						"translation.y": 5366.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -981,15 +1019,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19390,
+						"buffer_size": 19109,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16386,
-								16386
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1002,7 +1040,7 @@
 						"translation.y": 8859.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1011,15 +1049,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2363,
+						"buffer_size": 2693,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2034,
-								2034
+								1306,
+								1306
 							]
 						],
 						"settings":
@@ -1028,11 +1066,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 918.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1041,15 +1079,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1205,
+						"buffer_size": 2095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								683,
-								683
+								632,
+								632
 							]
 						],
 						"settings":
@@ -1067,77 +1105,19 @@
 				},
 				{
 					"buffer": 5,
-					"file": "MagneticFieldDependence.h",
+					"file": "FilteringUnit.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7972,
+						"buffer_size": 2599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2262.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "Unit1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 31607,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								24160,
-								24160
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 14781.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Project1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 638,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								422,
-								440
+								319,
+								319
 							]
 						],
 						"settings":
@@ -1150,11 +1130,99 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "MagneticFieldDependence.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8121,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5055,
+								5055
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2832.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Unit1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 32812,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27110,
+								27110
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 16352.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
 					"buffer": 8,
+					"file": "Project1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								447,
+								447
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "UsedTypes.h",
 					"semi_transient": false,
 					"settings":
@@ -1178,11 +1246,39 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
+					"file": "FilterParams.h",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
 					"file": "DataSaver.h",
 					"semi_transient": false,
 					"settings":
@@ -1207,11 +1303,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "DataSaver.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1235,11 +1331,11 @@
 						"translation.y": 1920.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "SettingsSaver.h",
 					"semi_transient": false,
 					"settings":
@@ -1264,24 +1360,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "Unit1.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7911,
+						"buffer_size": 7859,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7306,
-								7306
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1294,11 +1390,11 @@
 						"translation.y": 3804.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "LCard.h",
 					"semi_transient": false,
 					"settings":
@@ -1323,7 +1419,7 @@
 						"translation.y": 1134.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				}
 			]

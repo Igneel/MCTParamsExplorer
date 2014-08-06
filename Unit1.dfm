@@ -637,14 +637,14 @@ object Form1: TForm1
         TabOrder = 9
         OnClick = Button13Click
       end
-      object Button1: TButton
+      object bUniteDependence: TButton
         Left = 512
         Top = 200
         Width = 145
         Height = 25
         Caption = #1054#1073#1098#1077#1076#1080#1085#1080#1090#1100' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080
         TabOrder = 10
-        OnClick = Button1Click
+        OnClick = bUniteDependenceClick
       end
       object Memo6: TMemo
         Left = 8

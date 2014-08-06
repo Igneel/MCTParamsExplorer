@@ -158,7 +158,7 @@ __published:	// IDE-managed Components
     TLabel *Label1;
     TLabel *Label5;
     TLabel *Label6;
-    TButton *Button1;
+    TButton *bUniteDependence;
     TMemo *Memo6;
     TLabeledEdit *uiShiftValue;
     TButton *bResShiftCurve;
@@ -227,7 +227,7 @@ __published:	// IDE-managed Components
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall N11Click(TObject *Sender);
     void __fastcall bApplyADCSettingsClick(TObject *Sender);
-    void __fastcall Button1Click(TObject *Sender);
+    void __fastcall bUniteDependenceClick(TObject *Sender);
     void __fastcall CurrentResChange(TObject *Sender);
     void __fastcall Button3Click(TObject *Sender);
     void __fastcall eLengthFilterResChange(TObject *Sender);

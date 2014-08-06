@@ -13,10 +13,9 @@ TODO
 возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
 фукнция удаления определенного интервала точек
 
-Предусмотреть возможность медленных измерений.
-
 Надо бы предусмотреть отдельный поток для вывода.
 И вызывать его по таймеру.
+
 Выпилить ненужные параметры фильтрации. По сути мне достаточно иметь
 частоту среза и длину фильтра с частотой дискретизации.
 Впрочем частота среза определяется из длины фильтра (по идее).
@@ -31,13 +30,12 @@ TODO
 Ещё момент - прога изредка вылетает с ексепшенами, неплохо было бы реализовать
 автоматическое сохранение измеряемого сигнала (скажем каждые Т точек).
 
-Пора внедрять фильтр как класс. и фильтровать магнитное поле.
+Пора внедрять фильтр как класс.
+Магнитное поле на данный момент уже фильтруется. Результаты неплохие.
 
 Есть предложение фильтровать автоматически только уже объединенные зависимости.
-Надо сделать автоматическое приненение настроек АЦП и данных об описании образца.
-Думаю после вызова события change надо пытаться применить изменения.
 
-Нормально назвать все кнопки и прочее.
+
 Нужно добавить усреднение по току.
 */
 
@@ -61,6 +59,10 @@ MagneticFieldDependence * TForm1::InitParams()
     
     *p=new MagneticFieldDependence(uiCurrent->Text,uiTemperature->Text,uiInventoryNumber->Text,
         uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
+        /*
+        Предупреждение Initializing Params Type with const int - не актуально,
+        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
+        */
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
         (*ActiveParams())->setChannelsInfo(cI);
@@ -934,7 +936,7 @@ void TForm1::concatDependence()
 }
 
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void __fastcall TForm1::bUniteDependenceClick(TObject *Sender)
 {
     concatDependence();
 }
@@ -1015,6 +1017,10 @@ void __fastcall TForm1::bResShiftCurveClick(TObject *Sender)
 {
 if(*ActiveParams())
 {
+/*
+        Предупреждение Initializing Params Type with const int - не актуально,
+        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
+        */
 (*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,
 StrToFloat(uiShiftValue->Text),StrToFloat(uiLeftBound->Text),StrToFloat(uiRightBound->Text));
 UpdatePlots();
