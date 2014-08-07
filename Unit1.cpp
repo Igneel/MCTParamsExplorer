@@ -1119,3 +1119,35 @@ else
 }
 //---------------------------------------------------------------------------
 
+typedef int (*pointerToFunc)(long double *, long double *,long double *,unsigned int);
+
+typedef void (*resPointFunc) (long double *,long double *,long double *,long double *);
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+
+long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
+long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
+long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
+
+HANDLE hLibHandle;
+hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+
+      pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
+
+      resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+
+      int size=(*pFunc)(B,sxx,sxy,11);
+
+      long double * ex=new long double [size];
+      long double * eY=new long double [size];
+      long double * hx=new long double [size];
+      long double * hY=new long double [size];
+
+      (*getResult)(ex,eY,hx,hY);
+
+      if ( hLibHandle )
+      FreeLibrary( hLibHandle );
+}
+//---------------------------------------------------------------------------
+

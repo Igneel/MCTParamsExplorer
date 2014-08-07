@@ -1746,6 +1746,15 @@ object Form1: TForm1
       OnKeyPress = Edit1KeyPress
     end
   end
+  object Button1: TButton
+    Left = 800
+    Top = 232
+    Width = 225
+    Height = 25
+    Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1079#1072#1087#1091#1089#1082' '#1089#1087#1077#1082#1090#1088#1072' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
+    TabOrder = 4
+    OnClick = Button1Click
+  end
   object MainMenu1: TMainMenu
     Top = 440
     object N1: TMenuItem
