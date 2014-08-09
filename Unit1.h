@@ -203,6 +203,7 @@ __published:	// IDE-managed Components
     TLabel *Label24;
         TButton *Button2;
     TButton *Button1;
+    TButton *bMobilitySpectrum;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -240,6 +241,7 @@ __published:	// IDE-managed Components
     void __fastcall ComboBox5Change(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
     void __fastcall Button1Click(TObject *Sender);
+    void __fastcall bMobilitySpectrumClick(TObject *Sender);
     
 
 private:	// User declarations

@@ -66,6 +66,10 @@ MagneticFieldDependence * TForm1::InitParams()
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
         (*ActiveParams())->setChannelsInfo(cI);
+        (*p)->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
     return *p;    
 }
 
@@ -397,6 +401,7 @@ void __fastcall TForm1::N4Click(TObject *Sender)
 
 
         MagneticFieldDependence * p=InitParams();
+
         if (p)
         {
             TStringList *Names=new TStringList();
@@ -1118,10 +1123,57 @@ else
 }
 }
 //---------------------------------------------------------------------------
+    typedef int __stdcall (*pointerToFunc)(long double &, long double &,long double &, DWORD);
 
-typedef int (*pointerToFunc)(long double *, long double *,long double *,unsigned int);
+    typedef long double * __stdcall (*resPointFunc) (long double *,long double *,long double *,long double *);
 
-typedef void (*resPointFunc) (long double *,long double *,long double *,long double *);
+    typedef long double  __stdcall (*resFunc) (int);
+
+
+
+void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,int length)
+{
+
+    HANDLE hLibHandle;
+    hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+
+    pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
+
+    resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+
+      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
+      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
+      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
+      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
+
+      int size=(*pFunc)(*B,*sxx,*sxy, length);
+
+      long double * ex=new long double [size];
+      long double * eY=new long double [size];
+      long double * hx=new long double [size];
+      long double * hY=new long double [size];
+
+      Form1->Series1->Clear();
+      Form1->Series2->Clear();
+
+      Form1->Chart1->LeftAxis->Logarithmic=true;
+      Form1->Chart1->BottomAxis->Logarithmic=true;
+
+      for(int i =0;i<size;i++)
+      {
+      ex[i]=getEX(i);
+      eY[i]=getEY(i);
+      hx[i]=getHX(i);
+      hY[i]=getHY(i);
+
+      Form1->Series1->AddXY(getEX(i),getEY(i),"",clBlue);
+      Form1->Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      }
+
+      if ( hLibHandle )
+      FreeLibrary( hLibHandle );
+
+}
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
@@ -1137,17 +1189,69 @@ hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
 
       resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
 
-      int size=(*pFunc)(B,sxx,sxy,11);
+      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
+      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
+      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
+      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
+
+      int size=(*pFunc)(*B,*sxx,*sxy, 11);
 
       long double * ex=new long double [size];
       long double * eY=new long double [size];
       long double * hx=new long double [size];
       long double * hY=new long double [size];
+      Series1->Clear();
+      Series2->Clear();
+      Chart1->LeftAxis->Logarithmic=true;
+      Chart1->BottomAxis->Logarithmic=true;
+      //long double * m=(*getResult)(ex,eY,hx,hY);
 
-      (*getResult)(ex,eY,hx,hY);
+      /*for(int i =0;i<size;i++)
+      {
+      Memo2->Lines->Add(FloatToStr( m[0]));
+      }*/
+      for(int i =0;i<size;i++)
+      {
+      ex[i]=getEX(i);
+      eY[i]=getEY(i);
+      hx[i]=getHX(i);
+      hY[i]=getHY(i);
+
+      Series1->AddXY(getEX(i),getEY(i),"",clBlue);
+      Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      }
 
       if ( hLibHandle )
       FreeLibrary( hLibHandle );
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
+{
+MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");   
+        return; 
+    }
+    else
+    {
+        p=*par;
+
+        long double * B=new long double [(p->getAveragedB())->size()];
+        long double * sxx=new long double [(p->getAveragedB())->size()];
+        long double * sxy=new long double [(p->getAveragedB())->size()];
+
+        for(int i=0;i<(p->getAveragedB())->size();i++)
+        {
+        B[i]=(*p->getAveragedB())[i];
+        sxx[i]=(*p->getSxx())[i];
+        sxy[i]=(*p->getSxy())[i];
+        }
+
+        calculateMobilitySpectrum(B,sxx,sxy,(p->getAveragedB())->size());
+    }
 }
 //---------------------------------------------------------------------------
 
