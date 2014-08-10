@@ -13,47 +13,30 @@ TODO
 возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
 фукнция удаления определенного интервала точек
 
-Предусмотреть возможность медленных измерений.
-
-Веселый глюк с выводом значений на форму.
 Надо бы предусмотреть отдельный поток для вывода.
 И вызывать его по таймеру.
+
 Выпилить ненужные параметры фильтрации. По сути мне достаточно иметь
 частоту среза и длину фильтра с частотой дискретизации.
 Впрочем частота среза определяется из длины фильтра (по идее).
 
-Сделать работу с прогой более комфортной. Автоматическое переключение
+Сделать работу с прогой более комфортной.
+Автоматическое переключение
 записываемого графика (положительное поле, отрицательное поле).
+
 Возможно их стоит просто объединить. Но это очень спорный вопрос.
 Ибо как тогда определять надо ли перезаписывать данные или дописывать их.
 
 Ещё момент - прога изредка вылетает с ексепшенами, неплохо было бы реализовать
 автоматическое сохранение измеряемого сигнала (скажем каждые Т точек).
 
-Возможно стоит автоматически объединять зависимости.
-Либо оставить возможность ручной работы, однако нужно сделать её интуитивно понятной.
-
-Пора внедрять фильтр как класс. и фильтровать магнитное поле.
+Пора внедрять фильтр как класс.
+Магнитное поле на данный момент уже фильтруется. Результаты неплохие.
 
 Есть предложение фильтровать автоматически только уже объединенные зависимости.
-Надо сделать автоматическое приненение настроек АЦП и данных об описании образца.
-Думаю после вызова события change надо пытаться применить изменения.
 
-Сделать так, чтобы АЦП работал и измерял всегда, а вот записывать данные только
-когда надо.
-
-Задать наконец размер блока через форму.
-И порядок каналов тоже.
-Согласовать вывод на надписи, вывод на графики с порядком каналов.
-
-
-Нормально назвать все кнопки и прочее.
-Добавить работу с обратными измерениями.
 
 Нужно добавить усреднение по току.
-
-
-Нужен универсальный прореживатель, который бы возвращал нужное количество элементов из массива.
 */
 
 // Внимание, понадобится добавить что-нибудь,
@@ -64,6 +47,7 @@ LCardADC *adc=0;
 MagneticFieldDependence *params=0;
 MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
+channelsInfo cI;
 
 SettingsSaver * settings;
 
@@ -73,10 +57,19 @@ MagneticFieldDependence * TForm1::InitParams()
 
     DeleteActiveParams();
     
-    *p=new MagneticFieldDependence(CurrentRes->Text,SampleTemperature->Text,eSampleInventoryNumber->Text,
-        SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+    *p=new MagneticFieldDependence(uiCurrent->Text,uiTemperature->Text,uiInventoryNumber->Text,
+        uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
+        /*
+        Предупреждение Initializing Params Type with const int - не актуально,
+        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
+        */
         (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
+        (*ActiveParams())->setChannelsInfo(cI);
+        (*p)->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
     return *p;    
 }
 
@@ -116,6 +109,8 @@ void TForm1::DeleteActiveParams()
 
 void TForm1::UpdatePlots()
 {
+    StatusBar->Panels->Items[1]->Text="Обновление графиков.";
+    Form1->Update();
     MagneticFieldDependence ** par=ActiveParams();
 
     if(*par)
@@ -132,11 +127,11 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
     p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    //p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
 
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
     p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    //p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
     }
 }
 
@@ -161,12 +156,12 @@ void __fastcall TForm1::FormCreate(TObject *)
     settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
     settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
     settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
-    settings->Add("CurrentRes",CurrentRes->Text.c_str());
-    settings->Add("SampleTemperature",SampleTemperature->Text.c_str());
-    settings->Add("SampleInventoryNumber",eSampleInventoryNumber->Text.c_str());  
-    settings->Add("SampleLength",SampleLength->Text.c_str());
-    settings->Add("SampleWidth",SampleWidth->Text.c_str());
-    settings->Add("SampleThickness",SampleThickness->Text.c_str());
+    settings->Add("uiCurrent",uiCurrent->Text.c_str());
+    settings->Add("SampleTemperature",uiTemperature->Text.c_str());
+    settings->Add("SampleInventoryNumber",uiInventoryNumber->Text.c_str());
+    settings->Add("SampleLength",uiSampleLength->Text.c_str());
+    settings->Add("SampleWidth",uiSampleWidth->Text.c_str());
+    settings->Add("SampleThickness",uiSampleThickness->Text.c_str());
     settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
     settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
     settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
@@ -180,7 +175,7 @@ void __fastcall TForm1::FormCreate(TObject *)
        
     
 
-    channelsInfo cI;
+    cI.clear();
     cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
@@ -222,8 +217,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
             uiFrenq->Enabled = false;
             uiBlockSize->Enabled=false;
-            CurrentRes->Enabled=0;
-            CurrentHall->Enabled=0;
+            uiCurrent->Enabled=0;
+            
             ResCurveIndex->Enabled=0;
             HallCurveIndex->Enabled=0;
             GainKoefFaradey->Enabled=0;
@@ -258,8 +253,8 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
     else
     {
         GainKoefFaradey->Enabled=1;
-        CurrentRes->Enabled=1;
-        CurrentHall->Enabled=1;
+        uiCurrent->Enabled=1;
+        //CurrentHall->Enabled=1;
         ResCurveIndex->Enabled=1;
         HallCurveIndex->Enabled=1;
 
@@ -284,26 +279,25 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         GainKoefFoygt->Enabled=1;
 
         adc->StopWriting();
+        adc->StopMeasurement();
 
-        if(CheckBox2->Checked==false)
-        {              
-            (*ActiveParams())->getSplittedDataFromADC();
-            Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
-            UpdatePlots();
-        }
-        
+        (*ActiveParams())->getSplittedDataFromADC();
+        Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
+        UpdatePlots();
+
+        adc->StartMeasurement();
         uiControl->Caption = AnsiString("Начать запись");
         uiResControl->Caption = AnsiString("Начать запись");
         uiHallControl->Caption = AnsiString("Начать запись");
         uiFaradeyControl->Caption = AnsiString("Начать запись");
         uiFoygtControl->Caption = AnsiString("Начать запись");
-
+        /*
         if (paramsDirect && paramsReverse)
         {
             StatusBar->Panels->Items[1]->Text="Идёт объединение данных.";
             concatDependence();
         }        
-
+           */
         StatusBar->Panels->Items[1]->Text="Готова к работе.";        
       }
 }
@@ -364,15 +358,20 @@ if (*par==NULL)
 }
 else
 {
+
     MagneticFieldDependence * p=*par;
     p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
      eAttenuationFRes->Text, eLengthFilterRes->Text);
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
+    StatusBar->Panels->Items[1]->Text="Фильтрация данных.";
+    Form1->Update();
     p->filterData();
+    StatusBar->Panels->Items[1]->Text="Экстраполяция данных.";
+    Form1->Update();
     p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
-
     UpdatePlots();
+    StatusBar->Panels->Items[1]->Text="Готова к работе.";
 }
 }
 //---------------------------------------------------------------------------
@@ -381,12 +380,12 @@ void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
 {
     for(int i=0;i<Values->Count;++i)
     {
-        CurrentRes->Text=Values->Strings[2];
-        SampleTemperature->Text=Values->Strings[1];
-        eSampleInventoryNumber->Text=Values->Strings[0];
-        SampleLength->Text=Values->Strings[3];
-        SampleWidth->Text=Values->Strings[4];
-        SampleThickness->Text=Values->Strings[5];    
+        uiCurrent->Text=Values->Strings[2];
+        uiTemperature->Text=Values->Strings[1];
+        uiInventoryNumber->Text=Values->Strings[0];
+        uiSampleLength->Text=Values->Strings[3];
+        uiSampleWidth->Text=Values->Strings[4];
+        uiSampleThickness->Text=Values->Strings[5];    
     }
 }
 
@@ -402,6 +401,7 @@ void __fastcall TForm1::N4Click(TObject *Sender)
 
 
         MagneticFieldDependence * p=InitParams();
+
         if (p)
         {
             TStringList *Names=new TStringList();
@@ -664,6 +664,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
+    adc->StopMeasurement();
+
     AnsiString x= Application->ExeName;
     AnsiString nx=x.SubString(0,x.Length()-12);
     settings->Save(nx+"settings.txt");
@@ -830,7 +832,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
 // применение настроек АЦП
 void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 {
-    channelsInfo cI;
+    cI.clear();
     cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
@@ -839,8 +841,7 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);
     if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
-    if(CheckBox2->Checked) adc->EnableTestingMode();
-    else adc->DisableTestingMode();
+    adc->DisableTestingMode();
 
     adc->setMagnetoResistanceSeries(SeriesRes1);
     adc->setHallSeries(SeriesHall1);
@@ -867,10 +868,17 @@ void TForm1::concatDependence()
          eAttenuationFHall->Text, eLengthFilterHall->Text);
     }
 
-    DataTypeInContainer B;
+    DataTypeInContainer B; // создаем буфер для новых зависимостей.
     DataTypeInContainer Hall;
     DataTypeInContainer Resistance;
 
+    DataTypeInContainer B2; // создаем буфер для новых зависимостей.
+    DataTypeInContainer Hall2;
+    DataTypeInContainer Resistance2;
+
+    StatusBar->Panels->Items[1]->Text="Объединение зависимостей.";
+    Form1->Update();
+    // вбрасываем в обратном порядке зависимости для отрицательного магнитного поля.
     for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
     {
         B.push_back(*i);    
@@ -885,68 +893,70 @@ void TForm1::concatDependence()
     {
         Resistance.push_back(*i);    
     }
-
+    // вбрасываем в прямом порядке зависимости для положительного поля.
     for (DataTypeInContainer::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
     {
-        B.push_back(*i);    
+        B.push_back(*i);   
+        B2.push_back(*i);  
     }
 
     for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
     {
-        Hall.push_back(*i);    
+        Hall.push_back(*i);  
+        Hall2.push_back(*i);   
     }
 
     for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
     {
-        Resistance.push_back(*i);    
+        Resistance.push_back(*i);  
+        Resistance2.push_back(*i);   
     }
 
     DataTypeInContainer outB;
     DataTypeInContainer outHall;
     DataTypeInContainer outResistance;
 
-    thiningSignal(B, Hall, outB, outHall, -2, 2,
-    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
-    2*paramsDirect->getB()->size():
-    2*paramsReverse->getB()->size()));
-    thiningSignal(B, Resistance, outB, outResistance, -2, 2,
-    (paramsReverse->getB()->size()>paramsDirect->getB()->size()?
-    2*paramsDirect->getB()->size():
-    2*paramsReverse->getB()->size()));
-    B.clear();
-    B=outB;
-    Hall.clear();
-    Hall=outHall;
-    Resistance.clear();
-    Resistance=outResistance;
+    size_t minimalLength=paramsReverse->getB()->size()>paramsDirect->getB()->size()?
+    paramsDirect->getB()->size() : paramsReverse->getB()->size();
 
-    params->setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
-    UpdatePlots();    
+    StatusBar->Panels->Items[1]->Text="Прореживание зависимостей.";
+    Form1->Update();
+    // что-то похоже что эта функция работает немного не так как надо...
+    //thiningSignal(B, Hall, outB, outHall, -2, 0, 2*minimalLength);
+    //thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
+    // и у меня есть некоторое подозрение почему оно так.
+    // возможно более правильным будет сначала определить сигнал с наименьшим количество точек (прямой или обратный)
+    // потом проредить оба сигнала отдельно и после этого объединить их.
+    thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);
+    thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
+
+    Form1->Memo2->Lines->Add(FloatToStr( B.size()));
+    
+    StatusBar->Panels->Items[1]->Text="Установка новых параметров.";
+    Form1->Update();
+    params->setDependence(outB.begin(),outB.end(),outHall.begin(),outResistance.begin());
+
+    UpdatePlots();
+    StatusBar->Panels->Items[1]->Text="Готова к работе.";
 }
 
 
-void __fastcall TForm1::Button1Click(TObject *Sender)
+void __fastcall TForm1::bUniteDependenceClick(TObject *Sender)
 {
     concatDependence();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::CurrentResChange(TObject *Sender)
 {
-    Panel1->Color=clRed;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button2Click(TObject *Sender)
-{
     if((*ActiveParams()))
     {
-    (*ActiveParams())->setSampleDescription(SampleTemperature->Text,CurrentRes->Text,
-        eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+    (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,
+        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
     (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
-    Panel1->Color=clBtnFace;
     }
 }
 //---------------------------------------------------------------------------
+
 
 
 void __fastcall TForm1::Button3Click(TObject *Sender)
@@ -961,10 +971,10 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
     else
     {
         p=*par;
-        p->calcutaleTenzor(FILTERED_DATA);
+        p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
-        DataSaver * tenzorSaver=new DataSaver(SampleTemperature->Text,
-        CurrentRes->Text, eSampleInventoryNumber->Text,SampleLength->Text,SampleWidth->Text,SampleThickness->Text);
+        DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
+        uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         if(SaveDialog1->Execute())
         {
         tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),
@@ -1012,6 +1022,10 @@ void __fastcall TForm1::bResShiftCurveClick(TObject *Sender)
 {
 if(*ActiveParams())
 {
+/*
+        Предупреждение Initializing Params Type with const int - не актуально,
+        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
+        */
 (*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,
 StrToFloat(uiShiftValue->Text),StrToFloat(uiLeftBound->Text),StrToFloat(uiRightBound->Text));
 UpdatePlots();
@@ -1084,4 +1098,160 @@ break;
 //---------------------------------------------------------------------------
 
 
+
+
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+MagneticFieldDependence ** par=ActiveParams();
+
+if (*par==NULL)
+{
+    ShowMessage("Вероятно выбран не тот график.");
+}
+else
+{
+    MagneticFieldDependence * p=*par;
+    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
+     eAttenuationFRes->Text, eLengthFilterRes->Text);
+    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
+     eAttenuationFHall->Text, eLengthFilterHall->Text);
+    p->blockfilterData();
+    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+
+    UpdatePlots();
+}
+}
+//---------------------------------------------------------------------------
+    typedef int __stdcall (*pointerToFunc)(long double &, long double &,long double &, DWORD);
+
+    typedef long double * __stdcall (*resPointFunc) (long double *,long double *,long double *,long double *);
+
+    typedef long double  __stdcall (*resFunc) (int);
+
+
+
+void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,int length)
+{
+
+    HANDLE hLibHandle;
+    hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+
+    pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
+
+    resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+
+      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
+      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
+      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
+      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
+
+      int size=(*pFunc)(*B,*sxx,*sxy, length);
+
+      long double * ex=new long double [size];
+      long double * eY=new long double [size];
+      long double * hx=new long double [size];
+      long double * hY=new long double [size];
+
+      Form1->Series1->Clear();
+      Form1->Series2->Clear();
+
+      Form1->Chart1->LeftAxis->Logarithmic=true;
+      Form1->Chart1->BottomAxis->Logarithmic=true;
+
+      for(int i =0;i<size;i++)
+      {
+      ex[i]=getEX(i);
+      eY[i]=getEY(i);
+      hx[i]=getHX(i);
+      hY[i]=getHY(i);
+
+      Form1->Series1->AddXY(getEX(i),getEY(i),"",clBlue);
+      Form1->Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      }
+
+      if ( hLibHandle )
+      FreeLibrary( hLibHandle );
+
+}
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+
+long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
+long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
+long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
+
+HANDLE hLibHandle;
+hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+
+      pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
+
+      resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+
+      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
+      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
+      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
+      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
+
+      int size=(*pFunc)(*B,*sxx,*sxy, 11);
+
+      long double * ex=new long double [size];
+      long double * eY=new long double [size];
+      long double * hx=new long double [size];
+      long double * hY=new long double [size];
+      Series1->Clear();
+      Series2->Clear();
+      Chart1->LeftAxis->Logarithmic=true;
+      Chart1->BottomAxis->Logarithmic=true;
+      //long double * m=(*getResult)(ex,eY,hx,hY);
+
+      /*for(int i =0;i<size;i++)
+      {
+      Memo2->Lines->Add(FloatToStr( m[0]));
+      }*/
+      for(int i =0;i<size;i++)
+      {
+      ex[i]=getEX(i);
+      eY[i]=getEY(i);
+      hx[i]=getHX(i);
+      hY[i]=getHY(i);
+
+      Series1->AddXY(getEX(i),getEY(i),"",clBlue);
+      Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      }
+
+      if ( hLibHandle )
+      FreeLibrary( hLibHandle );
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
+{
+MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");   
+        return; 
+    }
+    else
+    {
+        p=*par;
+
+        long double * B=new long double [(p->getAveragedB())->size()];
+        long double * sxx=new long double [(p->getAveragedB())->size()];
+        long double * sxy=new long double [(p->getAveragedB())->size()];
+
+        for(int i=0;i<(p->getAveragedB())->size();i++)
+        {
+        B[i]=(*p->getAveragedB())[i];
+        sxx[i]=(*p->getSxx())[i];
+        sxy[i]=(*p->getSxy())[i];
+        }
+
+        calculateMobilitySpectrum(B,sxx,sxy,(p->getAveragedB())->size());
+    }
+}
+//---------------------------------------------------------------------------
 

@@ -11,9 +11,10 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
     ChannelLabels.push_back(l1);
     ChannelLabels.push_back(l2);
     ChannelLabels.push_back(l3);
-
+    counter=0;
     chanInfo=cI;
     isWriting= false;
+    isDataNeeded=false;
     TestingMode=false;
     isMeasurementRunning=false;
     B=0;
@@ -147,7 +148,7 @@ bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo
 
     DataStep=newBlockSize*chanInfo.size();
     if(ReadBuffer)
-        delete ReadBuffer;
+        delete[] ReadBuffer;
 
     ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
@@ -157,7 +158,7 @@ bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo
 	ap.AdcFifoBaseAddress = 0x0;			  	// базовый адрес FIFO буфера АЦП в DSP модуля
 	ap.AdcFifoLength = MAX_ADC_FIFO_SIZE_E440;	// длина FIFO буфера АЦП в DSP модуля
 	// будем использовать фирменные калибровочные коэффициенты, которые храняться в ППЗУ модуля
-	for(int i = 0x0; i < ADC_CALIBR_COEFS_QUANTITY_E440; i++)
+	for(int i = 0x0; i < ADC_CALIBR_COEFS_QUANTITY_E440; ++i)
 	{
 		ap.AdcOffsetCoefs[i] =  ModuleDescription.Adc.OffsetCalibration[i];
             //double temp=ap.AdcOffsetCoefs[i];
@@ -222,6 +223,19 @@ LCardADC::~LCardADC()
     delete[] ReadBuffer;
     if(lowBandFilter)
     delete lowBandFilter;
+
+    
+
+    for(int i=0;i<ap.ChannelsQuantity;++i)
+    {
+        splittedData[i].clear();
+        ReadData[i].clear();
+    
+    }
+
+    ReadData.clear();
+    splittedData.clear();
+
     // завершение работы.
     // подчищаем интерфейс модуля
 	if(pModule)
@@ -280,7 +294,7 @@ void LCardADC::InteractivePlottingDataOne()
         }
     }
 }
-//------------------------------------------------------------------
+//-----------------------------------------------------------------
 void LCardADC::InteractivePlottingData()
 {
     long double bigNumber=1E20;
@@ -293,10 +307,14 @@ void LCardADC::InteractivePlottingData()
             MagnetoResistanceSeries->AddXY(10*ReadData[chanInfo[2].first].back(),ReadData[chanInfo[1].first].back(),"",clBlue);
 }
 //------------------------------------------------------------------
-void LCardADC::DisplayOnForm(int i1, MyDataType v1)
+void LCardADC::DisplayOnForm(int channelN, MyDataType value)
 {
-    if(i1<ap.ChannelsQuantity)
-    ChannelLabels[i1]->Caption=FloatToStrF(v1,ffFixed,5,5);
+    if(counter%5==0)
+    {
+    ChannelLabels[channelN]->Caption=FloatToStrF(value,ffFixed,5,5);
+    counter=0;
+    }
+    ++counter;
 }
 //------------------------------------------------------------------
 void LCardADC::realTimeFilter(DataTypeInContainer & inData,
@@ -305,7 +323,7 @@ DataTypeInContainer & outData)
     DataTypeInContainer tempOutData;
     tempOutData.resize(inData.size());
     //outData.resize(inData.size());
-    Filter (inData, tempOutData, 20, 10000, 30, 35);
+    Filter (inData, tempOutData, 20, 1000, 30, 35);
     outData=tempOutData;
 
 }
@@ -324,31 +342,13 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
         for(int i=0;i<ap.ChannelsQuantity;++i)
         {  // ахтунг!
            // realTimeFilter( splittedData[i], splittedData[i]);
-            ReadData[i].push_back(convertToVolt(medianFilter(splittedData[i]),i));
+           long double t =convertToVolt(medianFilter(splittedData[i]),i);
+            ReadData[i].push_back(t);
             DisplayOnForm(i,ReadData[i].back());
         }
     }
     else
-    {
-        if(TestingMode)
-        {
-        unsigned int TestBufferSize = 500;
-        DequeBuffer.resize(ap.ChannelsQuantity);
-
-            for( int i=0;i<ap.ChannelsQuantity;++i)
-            {
-                for(unsigned int j=0;j<splittedData[i].size();++j)
-                {
-                    if(DequeBuffer[i].size()>TestBufferSize && !DequeBuffer[i].empty())
-                        DequeBuffer[i].pop_front();
-                    DequeBuffer[i].push_back(convertToVolt(splittedData[i][j],i));
-                }
-            }  
-            InteractivePlottingDataOne();  
-        } 
-        else
-        {
-            for(int i=0;i<ap.ChannelsQuantity;++i)
+    {   for(int i=0;i<ap.ChannelsQuantity;++i)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
@@ -357,15 +357,23 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
                     DisplayOnForm(i,ReadData[i].back());
                 }
             }
-        }
+        
     }
-    if(!TestingMode && isWriting)
+    
+    if(isWriting)
         InteractivePlottingData();
     tempData.clear();
-    splittedData.clear();
-    if(!isWriting)
+    for(int i=0;i<ap.ChannelsQuantity;++i)
     {
-        ReadData.clear();
+        splittedData[i].clear();
+    }
+
+    if(!isWriting && !isDataNeeded)
+    {
+    for(int i=0;i<ap.ChannelsQuantity;++i)
+                {
+        ReadData[i].clear();
+                  }
     }
 }
 
@@ -376,7 +384,6 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 
 	WORD i;
 	WORD RequestNumber;
-	DWORD FileBytesWritten;
 	// массив OVERLAPPED структур из двух элементов
 	OVERLAPPED ReadOv[2];
 	// массив структур с параметрами запроса на ввод/вывод данных
@@ -635,6 +642,7 @@ bool LCardADC::StartWriting()
     if(isMeasurementRunning)
     {
         isWriting=true;
+        isDataNeeded=true;
         return true;
     }
     else
@@ -648,6 +656,7 @@ bool LCardADC::StopWriting()
     if(isMeasurementRunning)
     {
         isWriting=false;
+        isDataNeeded=true;
         return true;
     }
     else
@@ -659,4 +668,9 @@ bool LCardADC::StopWriting()
 bool LCardADC::isWritingEnabled()
 {
     return isWriting;
+}
+
+void LCardADC::dataisntNeeded()
+{
+    isDataNeeded=false;
 }

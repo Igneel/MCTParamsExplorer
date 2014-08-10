@@ -133,6 +133,7 @@ public:
 	// дискретизации, пропускани€, затухани€
 	void filterData(FilterParams &fPHall, FilterParams &fPResistance);
 	void filterData();
+        void blockfilterData();
 
 	// Ёкстрапол€ци€ результатов
 
@@ -179,6 +180,12 @@ private:
 
 	//---------ќбработка данных----------------------------------------
 	void multiplyB(DataKind dataKind);
+	void MagneticFieldDependence::multiplyB(DataTypeInContainer::iterator beginB, DataTypeInContainer::iterator endB);
+
+
+    void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
+DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
+DataTypeInContainer & Res);
 
 	void calculateEffectiveParamsFromSignals();
 	void calculateTenzorFromEffectiveParams();

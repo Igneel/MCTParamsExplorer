@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"siz",
+				"size_t"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"be",
+				"beginB"
+			],
+			[
+				"m",
+				"multiplyB"
+			],
+			[
+				"Me",
+				"Memo2"
+			],
+			[
+				"за",
+				"зависимостей"
+			],
+			[
+				"R",
+				"Resistance2"
+			],
+			[
+				"H",
+				"Hall2"
+			],
+			[
 				"cha",
 				"chanInfo"
 			],
@@ -18,10 +50,6 @@
 			[
 				"ri",
 				"rightBound"
-			],
-			[
-				"le",
-				"leftBound"
 			],
 			[
 				"Po",
@@ -328,10 +356,6 @@
 				"Thickness"
 			],
 			[
-				"H",
-				"HallEffect"
-			],
-			[
 				"pa",
 				"paramsReverse"
 			],
@@ -382,10 +406,6 @@
 			[
 				"op",
 				"openFileHelper"
-			],
-			[
-				"be",
-				"begin"
 			],
 			[
 				"g",
@@ -456,10 +476,6 @@
 				"coins"
 			],
 			[
-				"m",
-				"money"
-			],
-			[
 				"Filte",
 				"FilterParams"
 			],
@@ -476,26 +492,18 @@
 	"buffers":
 	[
 		{
-			"file": "FilteringUnit.h",
-			"settings":
-			{
-				"buffer_size": 3060,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "FilteringUnit.cpp",
-			"settings":
-			{
-				"buffer_size": 5958,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 28752,
+				"buffer_size": 31542,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ExtrapolateUnit.cpp",
+			"settings":
+			{
+				"buffer_size": 9408,
 				"line_ending": "Windows"
 			}
 		},
@@ -503,23 +511,18 @@
 			"file": "LCard.cpp",
 			"settings":
 			{
-				"buffer_size": 19193,
+				"buffer_size": 19109,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "HallEffect.cpp",
-			"settings":
-			{
-				"buffer_size": 12745,
-				"line_ending": "Windows"
-			}
-		},
-		{
+			"contents": "#include \"commonFunctions.h\"\n\ninline MyDataType dist(MyDataType x1, MyDataType x2)\n{\n    return fabs(x1-x2);\n}\n\n/*\nФункция должна прореживать сигнал до определенного количества точек.\nСуть в чем. Если у нас есть две части зависимости (для положительного и отрицательного магнитного поля, или для прямого и обратного тока например)\nтогда перед тем как их объединить и усреднить необходимо иметь одинаковое количество точек в обоих случаях.\n*/\nbool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, \n    MyDataType left, MyDataType right, size_t NewLength)\n{\n    if (right<left) // если при вызове перепутали границы.\n    {\n        MyDataType temp=right;\n        right = left;\n        left = temp;\n    }\n\n    size_t OldLength = inB.size();\n\n    if (NewLength>OldLength) // если просят увеличить количество точек.\n    {\n        return false;\n    }\n\n    if (OldLength != inDependence.size())\n    {\n        return false; // если зависимости разной длины - мы не можем им помочь.\n    }\n\n    if (OldLength==NewLength)\n    {\n        outDependence=inDependence;\n        outB=inB;\n        return true;\n    }\n\n    outB.clear(); // чистим выходные зависимости, на случай если это не сделали за нас.\n    outDependence.clear();\n\n    DataTypeInContainer idealB; // тут будем хранить опорные точки.\n\n    MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0); // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)\n\n    idealB.push_back(left); // начинаем с наименьшей границы\n    for (unsigned int i=1; i < NewLength; ++i) \n    {\n        idealB.push_back(idealB[i-1]+shag);\n    }\n    // тут начинается поиск.\n    /*\n    DataTypeInContainer indexes(NewLength);\n    DataTypeInContainer distance(NewLength);\n    for (int i = 0; i < NewLength; ++i)\n    {\n        indexes[i]=0;\n        distance[i]=dist(inB[i],idealB[i]);\n    }\n\n    for (int i = 1; i < NewLength; ++i)\n    {\n        if (dist(inB[i],idealB[i])<distance[i])\n        {\n            distance[i]=dist(inB[i],idealB[i]);\n            indexes[i]=i;\n        }\n    }*/\n    // возможно стоит прикрутить более оптимальный поиск.\n    for (unsigned int i = 0; i < NewLength; ++i) \n    {\n        unsigned int index=0;\n        long double r=4;\n        for(unsigned int k=0;k<OldLength;++k)\n        {\n            if(dist(inB[k],idealB[i])<=r)\n            {\n                r=dist(inB[k],idealB[i]);\n                index=k;\n            }\n        }\n        if(index<OldLength)\n        {\n            outB.push_back(inB[index]);\n            outDependence.push_back(inDependence[index]);\n        }\n    }\n\n    return true;\n}",
 			"file": "commonFunctions.cpp",
+			"file_size": 2450,
+			"file_write_time": 130467827740000000,
 			"settings":
 			{
-				"buffer_size": 2363,
+				"buffer_size": 2693,
 				"line_ending": "Windows"
 			}
 		},
@@ -527,7 +530,23 @@
 			"file": "commonFunctions.h",
 			"settings":
 			{
-				"buffer_size": 1205,
+				"buffer_size": 2095,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "FilteringUnit.h",
+			"settings":
+			{
+				"buffer_size": 2599,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "FilteringUnit.cpp",
+			"settings":
+			{
+				"buffer_size": 7493,
 				"line_ending": "Windows"
 			}
 		},
@@ -535,7 +554,7 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 7777,
+				"buffer_size": 8121,
 				"line_ending": "Windows"
 			}
 		},
@@ -543,7 +562,26 @@
 			"file": "Unit1.cpp",
 			"settings":
 			{
-				"buffer_size": 31465,
+				"buffer_size": 34150,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\nhttp://www.aspirantura.spb.ru/\n\nhttp://habrahabr.ru/post/213367/\n\nhttp://www.yaaspirant.ru/\n\nhttps://github.com/AndreyAkinshin/Russian-Phd-LaTeX-Dissertation-Template\n\n140-180 листов.\n\nВ соответствии с «Положением о порядке присуждения ученых степеней» ученая степень кандидата наук присуждается диссертационным советом по результатам публичной защиты диссертации соискателем. \nДиссертация должна быть подготовлена лично соискателем степени, при использовании в тексте диссертации каких-либо литературных источников должны быть указаны ссылки на эти источники. В диссертации должен быть четко прописан личный вклад автора в науку. \nПредложенные автором новые решения должны быть аргументированы и критически оценены по сравнению с другими известными решениями. \nВ диссертации, имеющей прикладное значение, должны приводиться сведения о практическом использовании полученных автором научных результатов, а в диссертации, имеющей теоретическое значение, - рекомендации по использованию научных выводов. \nОформление диссертации должно соответствовать требованиям, устанавливаемым Министерством образования и науки Российской Федерации. \nДиссертация это в первую очередь научная работа. Научная работа предусматривает выполнение исследований в следующем порядке: выбор темы исследований, анализ литературных источников по теме исследований, определение круга нерешенных задач и выбор задач, подлежащих исследованию, выбор методов исследований, разработка гипотезы (предполагаемых результатов), решение поставленных задач, выводы по проделанной работе. Опыт выполнения научной работы у аспирантов есть, так как они в упрощенном виде решали научную задачу при подготовке дипломной работы. \nСущественным отличием диссертации от диплома является то, что решаемая научная задача должна иметь существенное значение для соответствующей отрасли науки или для экономики или обеспечения обороноспособности страны. \nРекомендации по выбору темы исследований и других параметрах диссертации приведены в соответствующих разделах сайта. \nОбычно кандидатская диссертация представляется в виде рукописи объемом 140-180 листов. Диссертация, как правило, пишется на русском языке. \nОсновные научные результаты диссертации должны быть опубликованы в научных изданиях. Список изданий, рекомендуемых ВАК представлен на сайте. \nТиповая структура кандидатской диссертации состоит из введения, основной части и заключения. Также в диссертацию включают библиографический список (библиография, список использованной литературы) - тут возможно применение любого из указанных наименований и выбор зачастую зависит от требований кафедры (учебного заведения). Иногда диссертация имеет приложения, если ряд материалов, имеющих справочный характер или результаты экспериментов в связи с их значительным объемом нецелесообразно включать в основной текст диссертации. \nВо введении в диссертацию (5-10 листов) должны обязательно отражены: \n  актуальность темы диссертации; \n  цели и задачи диссертации; \n  объект и предмет исследования; \n  теоретическая и методическая основа исследования; \n  степень разработанности проблемы; \n  информационная база исследования; \n  научная новизна диссертации; \n  достоверность научных положений; \n  научные положения, выносимые на защиту; \n  практическая значимость работы; \n  апробация и внедрение результатов; \n  публикации по теме диссертации; \n  структура и объем диссертации. \nПодробно по каждому разделу рекомендации приведены на сайте. \n\nОсновная часть диссертации обычно состоит из трех глав. \nТиповое содержание глав диссертации: первая глава посвящается критическому анализу положения дел по исследуемому вопросу и литературных источников. \nВо второй главе на базе выполненного анализа приводятся новые решения автора исследования, \nв третьей главе описываются результаты реализации новых решений автора с их критической оценкой. \n\nВсе главы заканчиваются выводами по главе. \n\nВ заключении по диссертации приводятся основные выводы и результаты работы. \n\nНиже приведены примеры структуры кандидатской диссертации (примеры оглавлений защищенных диссертаций по экономике, праву, психологии - более 20 примеров оглавлений диссертации). \n\n\nИтак вот о чем речь.\n\nВообще мы конечно будем уменьшать погрешность определения параметров носителей заряда (концентраций и подвижностей).\n\nОднако, во-первых нам нужна какая-то новизна.\n\nКак вариант - это усовершенствование алгоритма определения параметров\n\nПотому что: \nцифровые фильтры уже придумали задолго до нас. Расчет параметров оных конкретно в терминах магнитного поля и прочего - в принципе есть что-то новое, но по мне - мало этого.\n\n\nЕсли говорить о решении самой задачи:\n\n1. Методика измерений напряжения.\nНужно поработать над ней, возможно стоит проверить соответствует ли она международным стандартам.\n\n2. Аналогично с методикой оцифровки результатов.\n\nДальнейшая обработка уже само-собой.\n\nНужно метрологически оценить эффективность алгоритмов, которые мы используем.\nПотому что сейчас все эти подобранные значения - экспериментальные/итеративно подбирались.\n\n\n\n\nПоскольку у нас там есть постоянная погрешность по напряжению (ноль не на месте) - оба сигнала надо сдвигать в нужном направлении.\nПричем это можно бы и автоматизировать.\n\n\nПо поводу улучшения алгоритма:\n\n1. Регуляризация.\n2. Теорема Пикара (ну вдруг подойдет)\n3. \n\nНадо подтягивать математику и программирование.\n\nВыделить спектр подвижности в отдельную dll библиотеку, так, чтобы его можно было использовать из сей.\n\nАвтоматизированная фильтрация:\n\nметодика измерений:\nпогрешность измерения - цифровая обработка\n\nметодка обработки результатов измерений:\nпогрешность расчета - методы расчета.\n\nкритерии оценки\nправильность определения параметров.\n\nВозможно стоит анализировать получаемые спектры и подбирать параметры фильтрации так, чтобы они были наиболее выражены (пики на спектре).\n\n\n\n\nСама структура работы:\n\n1. Обзорная часть.\n\nПричем пора за неё серьезно браться. Я конечно уже смотрел статьи по поводу алгоритма спектра подвижности - и кстати, у меня же есть вопросы.\n\nКакая именно версия используется у нас. Уже улучшенная или ещё нет?\n\nПо каким критериям идет минимизация отклонения? \nУчитывается ли отклонение производных? Есть ли интерполяция данных? И т.п.\n\n1а. Как проводятся измерения (метод ван дер Пау).\n\n2. Моя фильтрация (Снижение погрешности измерений)\n\n3. Алгоритмы определения (Снижение погрешности определения)\n\n4. Соответствие стандартам российским и международным.\n\n\n\nЧто ж.\n\nДень можно сказать первый.\n\n06 августа 2014 года.\n\nПриступаем к выработке плана \"А что ж мы будем делать, исследовать и вообще в чем новизна нашей работы будет заключаться?\"\n\nПомним об оформительской части - скачан шаблон латеха, будем пытаться писать в нем, в конце-концов если что гугл мне в помощь.\n\nНадо попытаться сделать dll для спектра подвижности. Уж очень сильно оно мне надо:).\n\n\n\nПо поводу определения частоты в герцах для определенной подвижности - можно построить графики тензоров проводимости (ну и соответственно сигналов)\nс использованием модели, ну и дальше уже теоретически рассчитать формулу зависимости.\n",
+			"file": "/K/Дела/Институт СГГА/Аспирантура/Кандидатская диссертация/Планирование и общее обсуждение.txt",
+			"file_size": 12429,
+			"file_write_time": 130517787546968124,
+			"settings":
+			{
+				"buffer_size": 7048,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Project1.cpp",
+			"settings":
+			{
+				"buffer_size": 638,
 				"line_ending": "Windows"
 			}
 		},
@@ -583,7 +621,7 @@
 			"file": "Unit1.h",
 			"settings":
 			{
-				"buffer_size": 7911,
+				"buffer_size": 7950,
 				"line_ending": "Windows"
 			}
 		},
@@ -591,7 +629,7 @@
 			"file": "LCard.h",
 			"settings":
 			{
-				"buffer_size": 4268,
+				"buffer_size": 4337,
 				"line_ending": "Windows"
 			}
 		}
@@ -627,6 +665,17 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jonatan Livingston/Desktop/exp/Исправленная модель/Расчеты_10_07_2013_2/1T_80_tenzor_ideal_11Znacheniy_.txt",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Отчет/T77/Из спектра подвижности.hs",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/ФП/77К/1DirSampleN050701T77I250CurrDataAllP.txt",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/90К/1DirSampleN050701T90I501CurrDataAllP.txt",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/90К/1RevSampleN050701T90I501CurrDataAllP.txt",
+		"/C/Users/Jonatan Livingston/Desktop/Контакты с Нокиа/1test.CSV",
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/77К/1Description.txt",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
+		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
+		"/K/Дела/Программинг/qt/MCTParamsExplorer/commonFunctions.h",
+		"/K/Дела/Программинг/JRogue/scripts/basic_forest.rb",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/T77/тензор_фильтр40SampleN031126T77I245CurrData11P.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Фотопроводимость/3swapComSampleN050701T77I250CurrDataAllP.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Ещё фотопроводимость/Корм для КРТфильтр40.mpc",
@@ -711,7 +760,6 @@
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Обработанные данные/1_Direct__SampleN_000_T_77_I_251_filtered_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Обработанные данные/1_Direct__SampleN_000_T_77_I_251_current_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/I250_T77_Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/3_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/5_SampleN_000_T_77_I_251_current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/4_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
@@ -744,21 +792,11 @@
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__filtered_data_21Points.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (2)/U2_1_Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка (2)/I-250_T77__Direct__original_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp"
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка (2)/I-250_T77__Direct__original_data_AllPoints.txt"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -773,6 +811,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"feat",
+			"Filter",
+			"extrapolateDa",
+			"loadData",
+			"filterData",
+			"filter",
+			"Average",
+			"setDepen",
+			"thini",
+			"apply",
+			"loadData",
+			"filter",
+			"write",
+			"FileBytesWritten",
+			"v1",
+			"i1",
 			"gets",
 			"setting",
 			"settingA",
@@ -884,23 +938,7 @@
 			"SYMBOL",
 			"sko",
 			"in",
-			"roundM",
-			"round",
-			"тестовая верс",
-			"ReadData",
-			"series",
-			"clearB",
-			"extr",
-			"long double",
-			"std::vector<long double>",
-			"std::vector<MyDataType>",
-			"{\n",
-			"std::vector<MyDataType>",
-			"vector",
-			"DataTypeInContainer",
-			"OddFeat",
-			"SYMBOL",
-			"extra"
+			"roundM"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -921,144 +959,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "FilteringUnit.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3060,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1397,
-								1397
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 324.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "FilteringUnit.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5958,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2114.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "MagneticFieldDependence.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28752,
+						"buffer_size": 31542,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19687,
-								19687
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 10488.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "LCard.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8186,
-								8186
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4782.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "HallEffect.cpp",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 12745,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								7731,
+								7731
 							]
 						],
 						"settings":
@@ -1071,24 +989,83 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "commonFunctions.cpp",
+					"buffer": 1,
+					"file": "ExtrapolateUnit.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2363,
+						"buffer_size": 9408,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								412,
-								412
+								8096,
+								8096
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4226.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "LCard.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8859.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "commonFunctions.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2693,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1306,
+								1306
 							]
 						],
 						"settings":
@@ -1105,76 +1082,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 4,
 					"file": "commonFunctions.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1205,
+						"buffer_size": 2095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								718,
-								718
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "MagneticFieldDependence.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7777,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4992,
-								4992
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2262.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Unit1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 31465,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9160,
-								9160
+								632,
+								632
 							]
 						],
 						"settings":
@@ -1184,14 +1105,190 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4482.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "FilteringUnit.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2599,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								341,
+								341
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "FilteringUnit.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5554,
+								5554
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2565.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "MagneticFieldDependence.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8121,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3510,
+								3510
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1482.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
+					"buffer": 8,
+					"file": "Unit1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1281,
+								1281
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
 					"buffer": 9,
+					"file": "/K/Дела/Институт СГГА/Аспирантура/Кандидатская диссертация/Планирование и общее обсуждение.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7048,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7047,
+								7047
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 570.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Project1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								447,
+								447
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
 					"file": "UsedTypes.h",
 					"semi_transient": false,
 					"settings":
@@ -1215,11 +1312,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "DataSaver.h",
 					"semi_transient": false,
 					"settings":
@@ -1244,11 +1341,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "DataSaver.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1272,11 +1369,11 @@
 						"translation.y": 1920.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "SettingsSaver.h",
 					"semi_transient": false,
 					"settings":
@@ -1301,24 +1398,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "Unit1.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7911,
+						"buffer_size": 7950,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7306,
-								7306
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1331,24 +1428,24 @@
 						"translation.y": 3804.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 16,
 					"file": "LCard.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4268,
+						"buffer_size": 4337,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2045,
-								2045
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1360,7 +1457,7 @@
 						"translation.y": 1134.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]

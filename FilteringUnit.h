@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <iterator>
 #include "UsedTypes.h"
+#include "commonFunctions.h"
 #pragma hdrstop
 #pragma package(smart_init)
 
@@ -41,6 +42,12 @@ private:
     std::vector<long double> W;   //Весовая функция
 };
 
+MyDataType BlockLowBandFilter(DataTypeInContainer & inB,
+DataTypeInContainer & inY,DataTypeInContainer & outB,
+DataTypeInContainer & outY,
+size_t lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh,
+size_t blockSize);
+
 MyDataType TrForMassiveFilter(DataTypeInContainer & inB,
 DataTypeInContainer & inY,DataTypeInContainer & outB,
 DataTypeInContainer & outY,
@@ -63,41 +70,6 @@ T medianFilter(std::vector <T> & in)
     return in[in.size()/2];
 }
 
-template <class T>
-inline T max_elem(const std::vector<T> & in)
-{
-    if(in.size()==0)
-    {
-        //"Сложно найти максимальный элемент, когда нет ни одного");
-        return 0;
-    }
-    std::vector<T>::const_iterator pos;
-    T max=*in.begin();
-    for(pos=in.begin();pos!=in.end();++pos)
-    {
-        if(*pos>max)
-        max=*pos;
-    }
-    return max;
-}
-
-template <class T>
-inline T min_elem(const std::vector<T> & in)
-{
-    if(in.size()==0)
-    {
-        //"Сложно найти максимальный элемент, когда нет ни одного");
-        return 0;
-    }
-    std::vector<T>::const_iterator pos;
-    T min=*in.begin();
-    for(pos=in.begin();pos!=in.end();++pos)
-    {
-        if(*pos<min)
-        min=*pos;
-    }
-    return min;
-}
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

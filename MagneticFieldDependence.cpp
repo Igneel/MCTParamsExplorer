@@ -120,7 +120,7 @@ void MagneticFieldDependence::loadData(TStringList * tts)
         Hall.push_back(temp[2]);
     }
 
-    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
+    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
 
 }
 
@@ -152,6 +152,9 @@ int sigh(T in)
 
 void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType)
 {
+    /*
+    усредненный сигнал на данный момент существует лишь для положительного магнитного поля.
+    */
     int size=inY.size();
     outY.resize(size/2);
     for(int i=0;i<size/2;i++)
@@ -192,55 +195,106 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);   
 }
 
-
-//-------------------------------------------------------------------------------
-void MagneticFieldDependence::filterData()
+void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
+DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
+DataTypeInContainer & Res)
 {
-    clearFilteredParams();
-
-    filterDataHelper((*filterParamsHall),HALL_EFFECT);
-    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
-
     MyDataType left, right;
     size_t length;
 
     DataTypeInContainer tempB;
     DataTypeInContainer tempHall;
     DataTypeInContainer tempResistance;
-
-    // ---------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (FilteredBHall.size()>FilteredBMagnetoResistance.size())
+    if(Hall.size()==0 || Res.size()==0 || B.size()==0)
     {
-        left=FilteredBMagnetoResistance[0];
-        right=FilteredBMagnetoResistance.back();
-        length=FilteredBMagnetoResistance.size();
+    return;
+    }
+    // ---------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (Hall.size()>Res.size())
+    {
+        left=Res[0];
+        right=Res.back();
+        length=Res.size();
     }
     else
     {
-        left=FilteredBHall[0];
-        right=FilteredBHall.back();
-        length=FilteredBMagnetoResistance.size();
+        left=Hall[0];
+        right=Hall.back();
+        length=Hall.size();
     }
     // это должно уравнивать количество точек, после фильтрации с разной длиной.
-    thiningSignal(FilteredBHall, FilteredHallEffect, tempB, tempHall, left, right, length);    
-    thiningSignal(FilteredBMagnetoResistance, FilteredMagnetoResistance, tempB, tempResistance, left, right, length);
+    thiningSignal(BHall, Hall, tempB, tempHall, left, right, length);
+    thiningSignal(BRes, Res, tempB, tempResistance, left, right, length);
     
-    clearFilteredParams();
+    BHall.clear();
+    Hall.clear();
+    BRes.clear();
+    Res.clear();
+    B.clear();
+    
+    BHall=tempB;
+    Hall=tempHall;
+    BRes=tempB;
+    Res=tempResistance;
+    B=BHall;
+}
+//-------------------------------------------------------------------------
+void MagneticFieldDependence::blockfilterData()
+{
+    /*
+    Блочный фильтр.
+    Весь сигнал разбивается на блоки и фильтруется отдельно.
+    После чего объединяется.
+    На данный момент работает не очень хорошо.
+    */
+clearFilteredParams();
 
-    FilteredBHall=tempB;
-    FilteredHallEffect=tempHall;
-    FilteredBMagnetoResistance=tempB;
-    FilteredMagnetoResistance=tempResistance;
+    GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,
+    HallEffect,MagnetoResistance);
+
+    BlockLowBandFilter(BHall,HallEffect,FilteredBHall,FilteredHallEffect,
+        (*filterParamsHall).filterLength,
+        (*filterParamsHall).SamplingFrequecy,
+        (*filterParamsHall).BandwidthFrequency,
+        (*filterParamsHall).AttenuationFrequency,
+        200);
+    BlockLowBandFilter(BMagnetoResistance,MagnetoResistance,
+         FilteredBMagnetoResistance,FilteredMagnetoResistance,
+        (*filterParamsResistance).filterLength,
+        (*filterParamsResistance).SamplingFrequecy,
+        (*filterParamsResistance).BandwidthFrequency,
+        (*filterParamsResistance).AttenuationFrequency,
+        200);
+
     FilteredB=FilteredBHall;
+    GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,
+    FilteredHallEffect,FilteredMagnetoResistance);
+}
+//-------------------------------------------------------------------------------
+void MagneticFieldDependence::filterData()
+{
+    // очищаем результаты предыдущей фильтрации
+    clearFilteredParams();
+    // уравниваем количество точек
+    GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,
+    HallEffect,MagnetoResistance);
 
+    filterDataHelper((*filterParamsHall),HALL_EFFECT);
+    filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
+    FilteredB=FilteredBHall;
+    GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,
+    FilteredHallEffect,FilteredMagnetoResistance);
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)
 {
+    /*
+    Вызывает предыдущую, после установки новых параметров фильтрации.
+    */
     setFilterParamsHall(fPHall.SamplingFrequecy, fPHall.BandwidthFrequency, fPHall.AttenuationFrequency, fPHall.filterLength);
     setFilterParamsResistance(fPResistance.SamplingFrequecy, fPResistance.BandwidthFrequency, fPResistance.AttenuationFrequency, fPResistance.filterLength);
     filterData();
-    
+
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
@@ -251,7 +305,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         ShowMessage("Количество точек магнитного поля и эффекта Холла не совпадает! filterdataHelper");
         return;
     }
-    
+
     DataTypeInContainer * inB;
     DataTypeInContainer * inHallEffect;
     DataTypeInContainer * inMagnetoResistance;
@@ -260,7 +314,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.
     {
         featData(CURRENT_DATA); // его надо усреднить
-        inB=&AveragedB;
+        inB=&AveragedB; // фильтровать будем усредненный сигнал
         inHallEffect=&AveragedHallEffect;
         inMagnetoResistance=&AveragedMagnetoResistance;
         NumberOfPoints=AveragedB.size();
@@ -273,7 +327,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         NumberOfPoints=HallEffect.size();
     }
 
-    
+    // В эти массивы будут достраиваться данные для отрицательных магнитных полей.
     DataTypeInContainer tempInB(2*NumberOfPoints);
     DataTypeInContainer tempInSignal(2*NumberOfPoints);
 
@@ -284,7 +338,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     {
     case HALL_EFFECT:
 
-    
+
     // формируем сигнал для фильтра.
     // достраивая его в отрицательные магнитные поля.
     for (unsigned int i = 0; i < NumberOfPoints; i++)
@@ -317,13 +371,14 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
-    // а разве размер поля внутри фильтрации меняется?О_о
+    
+    // Размер внутри фильтра меняется, в зависимости от длины фильтра.
     NumberOfPoints=tempOutB.size();
     for(unsigned int i=fP.filterLength;i<NumberOfPoints;i++)
     {
         
     switch(dependenceType)
-    {        
+    {
     case HALL_EFFECT:
         FilteredHallEffect.push_back(tempOutSignal[i]);
         FilteredBHall.push_back(tempOutB[i]);
@@ -346,12 +401,12 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     // нагло записываем положительную часть фильтрованного сигнала обратно.
     for(;i<NumberOfPoints;i++)
     {
-        
+
     switch(dependenceType)
-    {        
+    {
     case HALL_EFFECT:
         FilteredHallEffect.push_back(tempOutSignal[i]);
-        
+
         break;
     case MAGNETORESISTANCE:
         FilteredMagnetoResistance.push_back(tempOutSignal[i]);
@@ -360,7 +415,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     default:
         break;
     }
-    } */   
+    } */
 
 
 }
@@ -379,27 +434,44 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     DataTypeInContainer newMagnetoResistance;
 
     // копируем фильтрованные данные
-    DataTypeInContainer inBHall(FilteredB);
+    /*DataTypeInContainer inBHall(FilteredB);
     DataTypeInContainer inBMagnetoResistance(FilteredB);
 
     DataTypeInContainer inHallEffect(FilteredHallEffect);
     DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
+*/
+    DataTypeInContainer inBHall;
+    DataTypeInContainer inBMagnetoResistance;
 
-    for (unsigned int i=0; i<B.size();++i)
+    DataTypeInContainer inHallEffect;
+    DataTypeInContainer inMagnetoResistance;
+
+    /*
+    Экстраполяция данных ведется по последней четверти фильтрованных значений.
+    */
+    for (size_t i = 3*FilteredB.size()/4; i < FilteredB.size(); ++i)
+    {
+        inBHall.push_back( FilteredB[i]);
+        inBMagnetoResistance.push_back( FilteredB[i]);
+        inHallEffect.push_back( FilteredHallEffect[i]);
+        inMagnetoResistance.push_back( FilteredMagnetoResistance[i]);
+    }
+/*
+    for (unsigned int i=B.size()-filterParamsHall->filterLength; i<B.size();++i)
     { // дописываем измеренные данные
         inHallEffect.push_back(HallEffect[i]);
         inMagnetoResistance.push_back(MagnetoResistance[i]);
         inBHall.push_back(B[i]);
         inBMagnetoResistance.push_back(B[i]);
     }
-      
+*/   
     unsigned int NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
     ShowMessage("Количество точек равно нулю! Я не хочу делить на ноль:)");
     return false;
     }
-    MyDataType h=2.0/NumberOfPoints;
+    MyDataType h=2.2/NumberOfPoints;
     
 
 	for(int i=0;i<500;i++) // увеличиваем вес точки (0,0) для эффекта Холла.
@@ -408,7 +480,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 		inHallEffect.push_back(0);
 	}
 
-    // фильтруем
+    
     if(!curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance))
     return false;
     if(!curveFittingUniversal(&inBHall,&inHallEffect, &koefHallEffect,polinomPowForHallEffect))
@@ -433,7 +505,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedB=newB;    
     ExtrapolatedMagnetoResistance=newMagnetoResistance;
     ExtrapolatedHallEffect=newHallEffect;
-    /*
+    
 	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
     unsigned int i=0;
 	while(i<NumberOfPoints && newB[i]<FilteredB.back())
@@ -446,7 +518,7 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
         FilteredHallEffect.push_back(newHallEffect[j]);
 	}
 	//------------------------------------------------------------------
-       */
+       
 return returnValue;   
 }
 //-------------------------------------------------------------------------------
@@ -459,6 +531,12 @@ void MagneticFieldDependence::multiplyB(DataKind dataKind)
     for(pos=temp->begin();pos!=temp->end();++pos)
     *pos*=10;
 }  
+//-------------------------------------------------------------------------------
+void MagneticFieldDependence::multiplyB(DataTypeInContainer::iterator beginB, DataTypeInContainer::iterator endB)
+{    
+    for(;beginB!=endB;++beginB)
+    *beginB*=10;
+} 
 //-------------------------------------------------------------------------------
 inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out)
 {
@@ -582,9 +660,13 @@ void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB
         MagnetoResistance.push_back(*beginResistance);
         HallEffect.push_back(*beginHall); 
     }
-
+    if(max_elem(B)<0.5)
+    {
+        multiplyB(CURRENT_DATA);
+    }
     BHall=B;
     BMagnetoResistance=B;
+
 
     filterData();
     extrapolateData(4,4); // магические числа, степени полиномов для экстраполяции по умолчанию.
@@ -603,6 +685,8 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     B=tempData[chanInfo[2].first];
     HallEffect=tempData[chanInfo[0].first]; // последовательность закреплена и не важна.
     MagnetoResistance=tempData[chanInfo[1].first];
+
+    adc->dataisntNeeded();
     // при смене каналов на вкладке настроек - эти настройки можно не трогать.
     // программа сама разберется, т.к. АЦП возвращает данные согласно контрольной таблице:).
     
