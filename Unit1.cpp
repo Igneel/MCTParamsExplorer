@@ -1139,7 +1139,7 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
 
     pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
 
-    resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+    //resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
 
       resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
       resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
@@ -1166,8 +1166,8 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
       hx[i]=getHX(i);
       hY[i]=getHY(i);
 
-      Form1->Series1->AddXY(getEX(i),getEY(i),"",clBlue);
-      Form1->Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      Form1->Series1->AddXY(ex[i],eY[i],"",clBlue);
+      Form1->Series2->AddXY(hx[i],hY[i],"",clRed);
       }
 
       if ( hLibHandle )
@@ -1177,6 +1177,22 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
+/*
+Это потом нужно будет перенести в создание формы.
+
+*/
+
+StringGrid1->Cells[0][1]="Тяжелые дырки";
+StringGrid1->Cells[0][2]="Легкие дырки";
+StringGrid1->Cells[0][3]="Электроны";
+
+StringGrid1->Cells[1][0]="Концентрация";
+StringGrid1->Cells[2][0]="Подвижность";
+
+
+
+//-------------------------------------------------------------
+
 
 long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
 long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
@@ -1204,12 +1220,7 @@ hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
       Series2->Clear();
       Chart1->LeftAxis->Logarithmic=true;
       Chart1->BottomAxis->Logarithmic=true;
-      //long double * m=(*getResult)(ex,eY,hx,hY);
 
-      /*for(int i =0;i<size;i++)
-      {
-      Memo2->Lines->Add(FloatToStr( m[0]));
-      }*/
       for(int i =0;i<size;i++)
       {
       ex[i]=getEX(i);
@@ -1243,7 +1254,7 @@ MagneticFieldDependence ** par=ActiveParams();
         long double * sxx=new long double [(p->getAveragedB())->size()];
         long double * sxy=new long double [(p->getAveragedB())->size()];
 
-        for(int i=0;i<(p->getAveragedB())->size();i++)
+        for(unsigned int i=0;i<(p->getAveragedB())->size();i++)
         {
         B[i]=(*p->getAveragedB())[i];
         sxx[i]=(*p->getSxx())[i];
@@ -1254,4 +1265,32 @@ MagneticFieldDependence ** par=ActiveParams();
     }
 }
 //---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
+      TMouseButton Button, TShiftState Shift, int X, int Y)
+{   
+    long double electronCharge=1.602e-19;
+    long double G_p=Sender->YValues->Value[ValueIndex];
+    long double Mu= Sender->XValues->Value[ValueIndex];
+    long double Concentration=G_p/(Mu*electronCharge);
+
+    StringGrid1->Cells[2][StringGrid1->Selection.Top]= FloatToStr( Mu);
+    StringGrid1->Cells[1][StringGrid1->Selection.Top]= FloatToStr(Concentration);
+
+    TGridRect tgr=StringGrid1->Selection;
+    tgr.Top++;
+    tgr.Bottom++;
+    if(tgr.Top>3)
+    {
+        tgr.Top=1;
+        tgr.Bottom=1;
+    }
+    StringGrid1->Selection =tgr;
+}
+//---------------------------------------------------------------------------
+
+
+
+
 

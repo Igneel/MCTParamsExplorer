@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 270
-  Top = 130
+  Left = 185
+  Top = 23
   Width = 1186
   Height = 725
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -22,7 +22,7 @@ object Form1: TForm1
     Left = 16
     Top = 560
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -39,7 +39,7 @@ object Form1: TForm1
     Left = 272
     Top = 560
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -56,7 +56,7 @@ object Form1: TForm1
     Left = 528
     Top = 560
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -116,9 +116,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = Resistance
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -181,6 +181,7 @@ object Form1: TForm1
           Marks.ArrowLength = 8
           Marks.Visible = False
           SeriesColor = clRed
+          OnClick = Series1Click
           Pointer.InflateMargins = True
           Pointer.Style = psRectangle
           Pointer.Visible = False
@@ -197,6 +198,7 @@ object Form1: TForm1
           Marks.ArrowLength = 8
           Marks.Visible = False
           SeriesColor = clGreen
+          OnClick = Series1Click
           Pointer.InflateMargins = True
           Pointer.Style = psRectangle
           Pointer.Visible = False
@@ -463,6 +465,20 @@ object Form1: TForm1
           '14'
           '15'
           '16')
+      end
+      object StringGrid1: TStringGrid
+        Left = 392
+        Top = 280
+        Width = 377
+        Height = 120
+        ColCount = 3
+        RowCount = 4
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
+        TabOrder = 16
+        ColWidths = (
+          110
+          123
+          121)
       end
     end
     object Resistance: TTabSheet

@@ -17,6 +17,7 @@
 #include <StdCtrls.hpp>
 #include <math.h>
 #include <TeEngine.hpp>
+#include <Grids.hpp>
 #pragma hdrstop
 
 #include "Unit2.h"
@@ -204,6 +205,7 @@ __published:	// IDE-managed Components
         TButton *Button2;
     TButton *Button1;
     TButton *bMobilitySpectrum;
+        TStringGrid *StringGrid1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -242,6 +244,8 @@ __published:	// IDE-managed Components
         void __fastcall Button2Click(TObject *Sender);
     void __fastcall Button1Click(TObject *Sender);
     void __fastcall bMobilitySpectrumClick(TObject *Sender);
+        void __fastcall Series1Click(TChartSeries *Sender, int ValueIndex,
+          TMouseButton Button, TShiftState Shift, int X, int Y);
     
 
 private:	// User declarations

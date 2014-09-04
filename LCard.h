@@ -9,6 +9,7 @@
 
 #include "UsedTypes.h"
 #include "FilteringUnit.h"
+#include "commonFunctions.h"
 
 
 
