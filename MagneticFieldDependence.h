@@ -55,7 +55,7 @@ private:
 
 
 
-enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE,MAGNETIC_FIELD_F, SXX,SXY};
+
 
 
 class MagneticFieldDependence
@@ -117,10 +117,10 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 
 	//-------Построение графиков-------------------------------------- 
-	void constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color);
-	void constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color);
+	void constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color);
+	void constructPlotFromOneMassive(SignalType p,TLineSeries* s,TColor color);
 
-	void shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound);
+	void shiftCurve(DataKind dataKind,SignalType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound);
 
 	//-----Расчет тензора проводимости---------------------------------
 	
@@ -150,6 +150,9 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
     void setChannelsInfo(channelsInfo & cI);
 
+    void multiplySignal(SignalType s, MyDataType x);
+
+
 
     // Сохранение результатов------------------------------------------
 	DataSaver * saver;
@@ -174,7 +177,7 @@ private:
 	FilterParams *filterParamsResistance;
 
     void filterDataHelper(FilterParams &fP,
-    PlotType dependenceType);
+    SignalType dependenceType);
 
     //------Загрузка данных-------------------------------------------- 
 	void loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter);
@@ -184,10 +187,8 @@ private:
 
 	//---------Обработка данных----------------------------------------
 	void multiplyB(DataKind dataKind);
-	void MagneticFieldDependence::multiplyB(DataTypeInContainer::iterator beginB, DataTypeInContainer::iterator endB);
 
-
-    void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
+    void GetEqualNumberOfPoints(DataTypeInContainer & B,
 DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
 DataTypeInContainer & Res);
 

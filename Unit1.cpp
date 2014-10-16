@@ -1160,6 +1160,11 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
       resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
       resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
 
+      if(length==0)
+      {
+      Form1->Memo1->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
+        return;
+      }
       int size=(*pFunc)(*B,*sxx,*sxy, length);
 
       long double * ex=new long double [size];
@@ -1276,6 +1281,10 @@ MagneticFieldDependence ** par=ActiveParams();
         }
 
         calculateMobilitySpectrum(B,sxx,sxy,(p->getAveragedB())->size());
+
+        delete [] B;
+        delete [] sxx;
+        delete [] sxy;
     }
 }
 //---------------------------------------------------------------------------
@@ -1321,6 +1330,67 @@ void __fastcall TForm1::N12Click(TObject *Sender)
     {
         p=*par;
     }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N13Click(TObject *Sender)
+{
+MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        //ShowMessage("Вероятно выбран не тот график.");
+        return;
+    }
+    else
+    {
+        p=*par;
+    }
+    
+if(PC->ActivePageIndex==1) // Сопротивление
+{
+    p->multiplySignal(MAGNETORESISTANCE,-1);
+}
+
+if(PC->ActivePageIndex==1) // Холл
+{
+    p->multiplySignal(HALL_EFFECT,-1);
+}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N17Click(TObject *Sender)
+{
+
+if(out1->XValues->Count()!=0)
+{ out1->Clear();
+  out2->Clear();
+}
+else
+UpdatePlots();
+
+
+     /*
+p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
+    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
+    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+          */
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::N16Click(TObject *Sender)
+{
+if(SeriesHall2->XValues->Count()!=0)
+{ SeriesHall2->Clear();
+  SeriesRes2->Clear();
+}
+else
+UpdatePlots();
 }
 //---------------------------------------------------------------------------
 

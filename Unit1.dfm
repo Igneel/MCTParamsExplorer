@@ -116,9 +116,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -502,6 +502,7 @@ object Form1: TForm1
           #1043#1088#1072#1092#1080#1082' '#1084#1072#1075#1085#1080#1090#1086#1089#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1103)
         Legend.Visible = False
         View3D = False
+        PopupMenu = PopupMenu1
         TabOrder = 0
         object SeriesRes1: TLineSeries
           Marks.ArrowLength = 8
@@ -1866,6 +1867,10 @@ object Form1: TForm1
         Caption = #1059#1084#1085#1086#1078#1080#1090#1100' '#1090#1077#1082#1091#1097#1080#1081' '#1075#1088#1072#1092#1080#1082' '#1085#1072' 10'
         Enabled = False
       end
+      object N13: TMenuItem
+        Caption = #1059#1084#1085#1086#1078#1080#1090#1100' '#1089#1080#1075#1085#1072#1083' '#1085#1072' -1'
+        OnClick = N13Click
+      end
       object N12: TMenuItem
         Caption = #1055#1086#1084#1077#1085#1103#1090#1100' '#1061#1086#1083#1083' '#1080' '#1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077
         OnClick = N12Click
@@ -1900,5 +1905,23 @@ object Form1: TForm1
   object OpenDialog1: TOpenDialog
     Left = 48
     Top = 440
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 608
+    Top = 352
+    object N14: TMenuItem
+      Caption = #1043#1088#1072#1092#1080#1082#1080
+      object N15: TMenuItem
+        Caption = #1048#1079#1084#1077#1088#1077#1085#1085#1099#1081
+      end
+      object N16: TMenuItem
+        Caption = #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081
+        OnClick = N16Click
+      end
+      object N17: TMenuItem
+        Caption = #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081
+        OnClick = N17Click
+      end
+    end
   end
 end

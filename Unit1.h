@@ -211,6 +211,12 @@ __published:	// IDE-managed Components
         TLineSeries *Series6;
         TChart *Chart3;
         TLineSeries *LineSeries1;
+    TMenuItem *N13;
+    TPopupMenu *PopupMenu1;
+    TMenuItem *N14;
+    TMenuItem *N15;
+    TMenuItem *N16;
+    TMenuItem *N17;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -252,6 +258,9 @@ __published:	// IDE-managed Components
         void __fastcall Series1Click(TChartSeries *Sender, int ValueIndex,
           TMouseButton Button, TShiftState Shift, int X, int Y);
         void __fastcall N12Click(TObject *Sender);
+    void __fastcall N13Click(TObject *Sender);
+    void __fastcall N17Click(TObject *Sender);
+    void __fastcall N16Click(TObject *Sender);
     
 
 private:	// User declarations

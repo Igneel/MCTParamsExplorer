@@ -132,9 +132,9 @@ void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedPar
 // по ним я и определяю тип сигнала.!!!!
 ParamsType pt;
 
-if(FileName[FileName.Length()-1]=='m')  pt=COMBINE;
-if(FileName[FileName.Length()-1]=='v')  pt=REVERSE;
-if(FileName[FileName.Length()-1]=='r')  pt=DIRECT;
+if(FileName[FileName.Length()]=='m')  pt=COMBINE;
+if(FileName[FileName.Length()]=='v')  pt=REVERSE;
+if(FileName[FileName.Length()]=='r')  pt=DIRECT;
 
 saver->setParamsType(pt);
     saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
@@ -309,7 +309,7 @@ void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPR
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
-    PlotType dependenceType)
+    SignalType dependenceType)
 {
     if(HallEffect.size()!=B.size())
     {
@@ -543,11 +543,17 @@ void MagneticFieldDependence::multiplyB(DataKind dataKind)
     *pos*=10;
 }  
 //-------------------------------------------------------------------------------
-void MagneticFieldDependence::multiplyB(DataTypeInContainer::iterator beginB, DataTypeInContainer::iterator endB)
-{    
-    for(;beginB!=endB;++beginB)
-    *beginB*=10;
-} 
+void MagneticFieldDependence::multiplySignal(SignalType s, MyDataType x)
+{
+DataTypeInContainer * p;
+if(s==HALL_EFFECT) p=&HallEffect;
+DataTypeInContainer::iterator begin=p->begin();
+DataTypeInContainer::iterator end=p->end();
+
+for(;begin!=end;++begin)
+    *begin*=x;
+}
+
 //-------------------------------------------------------------------------------
 inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out)
 {
@@ -563,7 +569,7 @@ inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::st
     out=s;
 }
 //-------------------------------------------------------------------------------*/
-void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind dk,TLineSeries* s,TColor color)
+void MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color)
 {
     DataTypeInContainer * pointToX=0; // указатели на выводимые данные
     DataTypeInContainer * pointToY=0;
@@ -607,7 +613,7 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     }	
 }
 //-------------------------------------------------------------------------------
-void MagneticFieldDependence::constructPlotFromOneMassive(PlotType p,TLineSeries* s,TColor color)
+void MagneticFieldDependence::constructPlotFromOneMassive(SignalType p,TLineSeries* s,TColor color)
 {
     DataTypeInContainer * temp;
 	s->Clear();
@@ -967,7 +973,7 @@ void MagneticFieldDependence::setParamsType(ParamsType pt)
     paramsType=pt;
 }
 
-void MagneticFieldDependence::shiftCurve(DataKind dataKind,PlotType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound)
+void MagneticFieldDependence::shiftCurve(DataKind dataKind,SignalType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound)
 {
     DataTypeInContainer * pointToY=0;
     DataTypeInContainer * pointToX=0;
@@ -1002,3 +1008,4 @@ void MagneticFieldDependence::setChannelsInfo(channelsInfo & cI)
 {
     chanInfo=cI;    
 }
+
