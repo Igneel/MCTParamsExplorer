@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 185
-  Top = 23
+  Left = 206
+  Top = 138
   Width = 1186
   Height = 725
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -116,9 +116,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -1780,6 +1780,62 @@ object Form1: TForm1
     TabOrder = 5
     OnClick = bMobilitySpectrumClick
   end
+  object Chart2: TChart
+    Left = 800
+    Top = 272
+    Width = 176
+    Height = 178
+    BackWall.Brush.Color = clWhite
+    BackWall.Brush.Style = bsClear
+    Title.Text.Strings = (
+      'TChart')
+    View3D = False
+    TabOrder = 6
+    object Series6: TLineSeries
+      Marks.ArrowLength = 8
+      Marks.Visible = False
+      SeriesColor = clRed
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      Pointer.Visible = False
+      XValues.DateTime = False
+      XValues.Name = 'X'
+      XValues.Multiplier = 1
+      XValues.Order = loAscending
+      YValues.DateTime = False
+      YValues.Name = 'Y'
+      YValues.Multiplier = 1
+      YValues.Order = loNone
+    end
+  end
+  object Chart3: TChart
+    Left = 800
+    Top = 456
+    Width = 176
+    Height = 178
+    BackWall.Brush.Color = clWhite
+    BackWall.Brush.Style = bsClear
+    Title.Text.Strings = (
+      'TChart')
+    View3D = False
+    TabOrder = 7
+    object LineSeries1: TLineSeries
+      Marks.ArrowLength = 8
+      Marks.Visible = False
+      SeriesColor = clRed
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      Pointer.Visible = False
+      XValues.DateTime = False
+      XValues.Name = 'X'
+      XValues.Multiplier = 1
+      XValues.Order = loAscending
+      YValues.DateTime = False
+      YValues.Name = 'Y'
+      YValues.Multiplier = 1
+      YValues.Order = loNone
+    end
+  end
   object MainMenu1: TMainMenu
     Top = 440
     object N1: TMenuItem
@@ -1809,6 +1865,10 @@ object Form1: TForm1
       object N101: TMenuItem
         Caption = #1059#1084#1085#1086#1078#1080#1090#1100' '#1090#1077#1082#1091#1097#1080#1081' '#1075#1088#1072#1092#1080#1082' '#1085#1072' 10'
         Enabled = False
+      end
+      object N12: TMenuItem
+        Caption = #1055#1086#1084#1077#1085#1103#1090#1100' '#1061#1086#1083#1083' '#1080' '#1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077
+        OnClick = N12Click
       end
       object N9: TMenuItem
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080

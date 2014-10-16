@@ -973,6 +973,12 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
         p=*par;
         p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
+        p->constructPlotFromTwoMassive(SXX,CURRENT_DATA,Series6,clRed);
+        p->constructPlotFromTwoMassive(SXY,CURRENT_DATA,LineSeries1,clRed);
+
+        Memo2->Lines->Add(p->getSxx()->size());
+        Memo2->Lines->Add(p->getSxy()->size());
+
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         if(SaveDialog1->Execute())
@@ -1243,8 +1249,8 @@ MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
     if (*par==NULL)
     {
-        ShowMessage("Вероятно выбран не тот график.");   
-        return; 
+        ShowMessage("Вероятно выбран не тот график.");
+        return;
     }
     else
     {
@@ -1293,4 +1299,20 @@ void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
 
 
 
+
+void __fastcall TForm1::N12Click(TObject *Sender)
+{
+ MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");
+        return;
+    }
+    else
+    {
+        p=*par;
+    }
+}
+//---------------------------------------------------------------------------
 

@@ -55,12 +55,16 @@ private:
 
 
 
-enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE,MAGNETIC_FIELD_F};
+enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE,MAGNETIC_FIELD_F, SXX,SXY};
 
 
 class MagneticFieldDependence
 {
 public:
+
+DataTypeInContainer * MagneticFieldDependence::getPointerSxx(DataKind dataKind);
+//-------------------------------------------------------------------------
+DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 

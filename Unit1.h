@@ -206,6 +206,11 @@ __published:	// IDE-managed Components
     TButton *Button1;
     TButton *bMobilitySpectrum;
         TStringGrid *StringGrid1;
+        TMenuItem *N12;
+        TChart *Chart2;
+        TLineSeries *Series6;
+        TChart *Chart3;
+        TLineSeries *LineSeries1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -246,6 +251,7 @@ __published:	// IDE-managed Components
     void __fastcall bMobilitySpectrumClick(TObject *Sender);
         void __fastcall Series1Click(TChartSeries *Sender, int ValueIndex,
           TMouseButton Button, TShiftState Shift, int X, int Y);
+        void __fastcall N12Click(TObject *Sender);
     
 
 private:	// User declarations

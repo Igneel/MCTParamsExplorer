@@ -126,6 +126,17 @@ void MagneticFieldDependence::loadData(TStringList * tts)
 
 void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams)
 {
+// ахтунг, это страшный костыль -
+// там где эта функци€ вызываетс€ задаютс€ имена файлов
+// Com Dir и Rev
+// по ним € и определ€ю тип сигнала.!!!!
+ParamsType pt;
+
+if(FileName[FileName.Length()-1]=='m')  pt=COMBINE;
+if(FileName[FileName.Length()-1]=='v')  pt=REVERSE;
+if(FileName[FileName.Length()-1]=='r')  pt=DIRECT;
+
+saver->setParamsType(pt);
     saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
     saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,ALL_POINTS,FileName);
 
@@ -192,7 +203,7 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     
     averageData(tempInX,AveragedB,ODD_FEAT);
     averageData(tempInHall,AveragedHallEffect,ODD_FEAT);
-    averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);   
+    averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);
 }
 
 void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
@@ -567,6 +578,15 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
         pointToX=getPointerB(dk);
         pointToY=getPointerMagnetoResistance(dk);
         break;
+    case SXX:
+        pointToX=getPointerB(dk);
+        pointToY=getPointerSxx(dk);
+        break;
+
+    case SXY:
+        pointToX=getPointerB(dk);
+        pointToY=getPointerSxy(dk);
+        break;
     default:
         break;
     }
@@ -581,7 +601,7 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(PlotType pt, DataKind 
     long double PointsToShow=500;
     unsigned int shag = roundM(static_cast<long double> (pointToX->size()) / PointsToShow,0);
     if(shag<1) shag = 1;
-    for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size();j++,i+=shag)
+    for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size() && i<pointToY->size();j++,i+=shag)
     {
         s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
     }	
@@ -897,6 +917,16 @@ DataTypeInContainer * MagneticFieldDependence::getPointerMagnetoResistance(DataK
         break;
     }
     return NULL;
+}
+//-------------------------------------------------------------------------
+DataTypeInContainer * MagneticFieldDependence::getPointerSxx(DataKind dataKind)
+{
+    return &sxx;
+}
+//-------------------------------------------------------------------------
+DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind)
+{
+    return &sxy;
 }
 //-------------------------------------------------------------------------
 
