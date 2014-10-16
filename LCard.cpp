@@ -38,7 +38,6 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
             successfullInit=true; // всё прошло успешно.
         }
     }
-
 }
 //------------------------------------------------------------------
 bool LCardADC::DriverInit()
@@ -225,7 +224,8 @@ LCardADC::~LCardADC()
     delete lowBandFilter;
 
     
-
+    if(!(splittedData.empty() && ReadData.empty()))
+    {
     for(int i=0;i<ap.ChannelsQuantity;++i)
     {
         splittedData[i].clear();
@@ -235,6 +235,8 @@ LCardADC::~LCardADC()
 
     ReadData.clear();
     splittedData.clear();
+
+    }
 
     // завершение работы.
     // подчищаем интерфейс модуля

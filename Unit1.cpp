@@ -184,7 +184,11 @@ void __fastcall TForm1::FormCreate(TObject *)
     // загружаем драйвер
     adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),
     LabelChan1,LabelChan2,LabelChan3,cI);
-
+    if(!adc->IsInitSuccessfull())
+    {
+    delete adc;
+    adc=NULL;
+    }
     bApplyADCSettings->Click();
 }
 //---------------------------------------------------------------------------
@@ -664,6 +668,7 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
+if(adc)
     adc->StopMeasurement();
 
     AnsiString x= Application->ExeName;
@@ -832,6 +837,8 @@ void __fastcall TForm1::N11Click(TObject *Sender)
 // применение настроек АЦП
 void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
 {
+if(adc)
+{
     cI.clear();
     cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
@@ -847,6 +854,7 @@ void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
     adc->setHallSeries(SeriesHall1);
     adc->setBSeries(Series1);
     adc->StartMeasurement();
+}
 }
 //---------------------------------------------------------------------------
 void TForm1::concatDependence()

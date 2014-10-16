@@ -1,11 +1,29 @@
-Error 00047. 0x100C00 (Thread 0x1774):
-Method called on invalid object: Attempt to access 24 byte(s) at 0x00000000.
-Call Tree:
-   0x0041D9E6(=Project1.exe:0x01:01C9E6) c:\program files (x86)\borland\cbuilder6\include\stl/_vector.h#484
-   0x00424E8B(=Project1.exe:0x01:023E8B) E:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\LCard.cpp#231
-   0x00408CF5(=Project1.exe:0x01:007CF5) E:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\Unit1.cpp#674
-   0x004B5B2F(=Project1.exe:0x01:0B4B2F)
-   0x004B5995(=Project1.exe:0x01:0B4995)
-   0x0046C8A1(=Project1.exe:0x01:06B8A1)
-
-------------------------------------------
+Functions called:
+ fflush (4 times)
+ free (7 times)
+ sinl (255 times)
+ cosl (512 times)
+ vsnprintf (2 times)
+ delete (21 times)
+ memcmp (1580 times)
+ memmove (155 times)
+ new (24 times)
+ SysReallocMem (303 times)
+ SysFreeMem (8125 times)
+ lstrlenA (1 times)
+ lstrcpynA (4 times)
+ memset (3 times)
+ SysGetMem (8126 times)
+ calloc (1 times)
+ strlen (167 times)
+ realloc (1 times)
+ strdup (1 times)
+ malloc (4 times)
+ memcpy (3 times)
+Resource types used:
+ object (24 allocs, 21 max)
+ memory block (8133 allocs, 3049 max)
+Modules used:
+ 00400000 10/16/2014 19:00:32 E:\Дела\Институт физики
+ полупроводников\Lcard\MCTParamsExplorer\Project1.exe
+==========================================
