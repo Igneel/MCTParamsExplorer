@@ -702,9 +702,9 @@ void MagneticFieldDependence::getSplittedDataFromADC()
     TwoDimensionalContainer & tempData(*tempData1);
     clearCurrentParams();
              
-    B=tempData[chanInfo[2].first];
-    HallEffect=tempData[chanInfo[0].first]; // последовательность закреплена и не важна.
-    MagnetoResistance=tempData[chanInfo[1].first];
+    B=tempData[2];
+    HallEffect=tempData[0]; // последовательность закреплена и не важна.
+    MagnetoResistance=tempData[1];
 
     adc->dataisntNeeded();
     // при смене каналов на вкладке настроек - эти настройки можно не трогать.

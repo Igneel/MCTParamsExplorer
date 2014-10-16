@@ -1,11 +1,11 @@
-Error 00184. 0x100C00 (Thread 0x1584):
+Error 00047. 0x100C00 (Thread 0x1774):
 Method called on invalid object: Attempt to access 24 byte(s) at 0x00000000.
 Call Tree:
    0x0041D9E6(=Project1.exe:0x01:01C9E6) c:\program files (x86)\borland\cbuilder6\include\stl/_vector.h#484
-   0x00424E7B(=Project1.exe:0x01:023E7B) E:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\LCard.cpp#231
+   0x00424E8B(=Project1.exe:0x01:023E8B) E:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\LCard.cpp#231
    0x00408CF5(=Project1.exe:0x01:007CF5) E:\-ела\Lнститут физики полупроводников\Lcard\MCTParamsExplorer\Unit1.cpp#674
-   0x004B5CAB(=Project1.exe:0x01:0B4CAB)
-   0x004B5B11(=Project1.exe:0x01:0B4B11)
-   0x0046CA1D(=Project1.exe:0x01:06BA1D)
+   0x004B5B2F(=Project1.exe:0x01:0B4B2F)
+   0x004B5995(=Project1.exe:0x01:0B4995)
+   0x0046C8A1(=Project1.exe:0x01:06B8A1)
 
 ------------------------------------------

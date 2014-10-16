@@ -116,9 +116,9 @@ object Form1: TForm1
     Top = 0
     Width = 777
     Height = 521
-    ActivePage = Resistance
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -416,9 +416,9 @@ object Form1: TForm1
         Width = 41
         Height = 21
         ItemHeight = 13
-        ItemIndex = 1
+        ItemIndex = 3
         TabOrder = 14
-        Text = '2'
+        Text = '4'
         OnChange = ComboBox5Change
         Items.Strings = (
           '1'
@@ -444,9 +444,9 @@ object Form1: TForm1
         Width = 41
         Height = 21
         ItemHeight = 13
-        ItemIndex = 2
+        ItemIndex = 6
         TabOrder = 15
-        Text = '3'
+        Text = '7'
         OnChange = ComboBox5Change
         Items.Strings = (
           '1'

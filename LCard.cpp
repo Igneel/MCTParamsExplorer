@@ -143,7 +143,7 @@ bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo
     int i;
     for(i=0,pos=chanInfo.begin();pos!=chanInfo.end();++pos,++i)
     { 
-        ap.ControlTable[i]=(WORD)(i | (pos->second << 0x6));
+        ap.ControlTable[i]=(WORD)(pos->first | (pos->second << 0x6));
     }
 
     DataStep=newBlockSize*chanInfo.size();
@@ -272,25 +272,25 @@ void LCardADC::InteractivePlottingDataOne()
     if(B)
     {
         B->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[chanInfo[2].first].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[2].size(); ++i)
         {
-            B->AddY(DequeBuffer[chanInfo[2].first].back(),"",clBlue);
+            B->AddY(DequeBuffer[2].back(),"",clBlue);
         }
     }        
     if(HallSeries)
     {
         HallSeries->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[chanInfo[0].first].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[0].size(); ++i)
         {
-            HallSeries->AddY(DequeBuffer[chanInfo[0].first].back(),"",clBlue);
+            HallSeries->AddY(DequeBuffer[0].back(),"",clBlue);
         }   
     }
     if(MagnetoResistanceSeries)
     {
         MagnetoResistanceSeries->Clear();
-        for (unsigned int i = 0; i < DequeBuffer[chanInfo[1].first].size(); ++i)
+        for (unsigned int i = 0; i < DequeBuffer[1].size(); ++i)
         {
-            MagnetoResistanceSeries->AddY(DequeBuffer[chanInfo[1].first].back(),"",clBlue);
+            MagnetoResistanceSeries->AddY(DequeBuffer[1].back(),"",clBlue);
         }
     }
 }
@@ -300,11 +300,11 @@ void LCardADC::InteractivePlottingData()
     long double bigNumber=1E20;
     // если определены графики - делаем вывод.
     if(HallSeries)
-        if (ReadData[chanInfo[0].first].back()<bigNumber || ReadData[chanInfo[2].first].back()<bigNumber)
-            HallSeries->AddXY(10*ReadData[chanInfo[2].first].back(),ReadData[chanInfo[0].first].back(),"",clBlue);
+        if (ReadData[0].back()<bigNumber || ReadData[2].back()<bigNumber)
+            HallSeries->AddXY(10*ReadData[2].back(),ReadData[0].back(),"",clBlue);
     if(MagnetoResistanceSeries)
-        if (ReadData[chanInfo[1].first].back()<bigNumber || ReadData[chanInfo[2].first].back()<bigNumber)
-            MagnetoResistanceSeries->AddXY(10*ReadData[chanInfo[2].first].back(),ReadData[chanInfo[1].first].back(),"",clBlue);
+        if (ReadData[1].back()<bigNumber || ReadData[2].back()<bigNumber)
+            MagnetoResistanceSeries->AddXY(10*ReadData[2].back(),ReadData[1].back(),"",clBlue);
 }
 //------------------------------------------------------------------
 void LCardADC::DisplayOnForm(int channelN, MyDataType value)

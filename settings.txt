@@ -1,9 +1,9 @@
-ActivePageIndex	1
+ActivePageIndex	0
 ChannelB	0
 ChannelBRange	1
-ChannelHall	2
+ChannelHall	6
 ChannelHallRange	2
-ChannelResistance	1
+ChannelResistance	3
 ChannelResistanceRange	1
 MeasurementFrencuency	400
 PowPolinomHall	4
