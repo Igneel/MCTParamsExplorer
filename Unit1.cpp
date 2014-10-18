@@ -1192,6 +1192,11 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
       if ( hLibHandle )
       FreeLibrary( hLibHandle );
 
+    delete [] ex;
+    delete [] eY;
+    delete [] hx;
+    delete [] hY;
+
 }
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
@@ -1319,7 +1324,7 @@ void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
 
 void __fastcall TForm1::N12Click(TObject *Sender)
 {
- MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
     if (*par==NULL)
     {
@@ -1329,7 +1334,11 @@ void __fastcall TForm1::N12Click(TObject *Sender)
     else
     {
         p=*par;
+        p->rearrangeSignal();
+        UpdatePlots();
     }
+
+
 }
 //---------------------------------------------------------------------------
 
@@ -1352,10 +1361,11 @@ if(PC->ActivePageIndex==1) // Сопротивление
     p->multiplySignal(MAGNETORESISTANCE,-1);
 }
 
-if(PC->ActivePageIndex==1) // Холл
+if(PC->ActivePageIndex==2) // Холл
 {
     p->multiplySignal(HALL_EFFECT,-1);
 }
+    UpdatePlots();
 }
 //---------------------------------------------------------------------------
 

@@ -547,11 +547,15 @@ void MagneticFieldDependence::multiplySignal(SignalType s, MyDataType x)
 {
 DataTypeInContainer * p;
 if(s==HALL_EFFECT) p=&HallEffect;
-DataTypeInContainer::iterator begin=p->begin();
-DataTypeInContainer::iterator end=p->end();
+if(s==MAGNETORESISTANCE) p=&MagnetoResistance;
+if(p!=INVALID_HANDLE_VALUE)
+{
+    DataTypeInContainer::iterator begin=p->begin();
+    DataTypeInContainer::iterator end=p->end();
 
-for(;begin!=end;++begin)
-    *begin*=x;
+    for(;begin!=end;++begin)
+        *begin*=x;
+}
 }
 
 //-------------------------------------------------------------------------------
@@ -1009,3 +1013,7 @@ void MagneticFieldDependence::setChannelsInfo(channelsInfo & cI)
     chanInfo=cI;    
 }
 
+void MagneticFieldDependence::rearrangeSignal()
+{
+    HallEffect.swap(MagnetoResistance);
+}

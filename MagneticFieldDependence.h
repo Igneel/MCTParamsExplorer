@@ -151,6 +151,7 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
     void setChannelsInfo(channelsInfo & cI);
 
     void multiplySignal(SignalType s, MyDataType x);
+    void rearrangeSignal();
 
 
 
