@@ -1,8 +1,15 @@
 object Form1: TForm1
+<<<<<<< Updated upstream
   Left = 246
   Top = 181
   Width = 1028
   Height = 725
+=======
+  Left = 196
+  Top = 71
+  Width = 995
+  Height = 707
+>>>>>>> Stashed changes
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MinHeight = 630
@@ -21,9 +28,9 @@ object Form1: TForm1
   TextHeight = 13
   object LabelChan1: TLabel
     Left = 16
-    Top = 560
+    Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -38,9 +45,9 @@ object Form1: TForm1
   end
   object LabelChan2: TLabel
     Left = 272
-    Top = 560
+    Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -55,9 +62,9 @@ object Form1: TForm1
   end
   object LabelChan3: TLabel
     Left = 528
-    Top = 560
+    Top = 544
     Width = 240
-    Height = 75
+    Height = 82
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -72,7 +79,7 @@ object Form1: TForm1
   end
   object Label31: TLabel
     Left = 16
-    Top = 536
+    Top = 520
     Width = 135
     Height = 22
     Alignment = taCenter
@@ -86,7 +93,7 @@ object Form1: TForm1
   end
   object Label32: TLabel
     Left = 528
-    Top = 536
+    Top = 520
     Width = 136
     Height = 22
     Alignment = taCenter
@@ -100,7 +107,7 @@ object Form1: TForm1
   end
   object Label33: TLabel
     Left = 272
-    Top = 536
+    Top = 520
     Width = 227
     Height = 22
     Alignment = taCenter
@@ -115,7 +122,11 @@ object Form1: TForm1
   object PC: TPageControl
     Left = 0
     Top = 0
+<<<<<<< Updated upstream
     Width = 745
+=======
+    Width = 657
+>>>>>>> Stashed changes
     Height = 513
     ActivePage = FirstTab
     MultiLine = True
@@ -281,7 +292,7 @@ object Form1: TForm1
         Width = 65
         Height = 21
         TabOrder = 3
-        Text = '256'
+        Text = '4196'
         OnKeyPress = Edit1KeyPress
       end
       object uiFrenq: TEdit
@@ -573,19 +584,12 @@ object Form1: TForm1
       end
       object uiResControl: TButton
         Left = 384
-        Top = 200
+        Top = 224
         Width = 107
         Height = 25
         Caption = #1053#1072#1095#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
         TabOrder = 1
         OnClick = uiControlClick
-      end
-      object Memo2: TMemo
-        Left = 440
-        Top = 328
-        Width = 129
-        Height = 89
-        TabOrder = 2
       end
       object ResCurveIndex: TRadioGroup
         Left = 384
@@ -598,25 +602,25 @@ object Form1: TForm1
           #1055#1086#1083#1086#1078#1080#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1054#1090#1088#1080#1094#1072#1090#1077#1083#1100#1085#1086#1077' '#1042
           #1057#1086#1074#1084#1077#1097#1077#1085#1085#1086#1077' '#1042)
-        TabOrder = 3
+        TabOrder = 2
         OnClick = ResCurveIndexClick
       end
       object bFilterRes: TButton
-        Left = 512
-        Top = 232
+        Left = 496
+        Top = 224
         Width = 145
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088' '#1080' '#1069#1082#1089#1090#1088#1072#1087#1086#1083#1103#1094#1080#1103
-        TabOrder = 4
+        TabOrder = 3
         OnClick = bFilterResClick
       end
       object bClearPlotsRes: TButton
         Left = 384
-        Top = 232
+        Top = 256
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
-        TabOrder = 5
+        TabOrder = 4
         OnClick = bClearPlotsResClick
       end
       object Interval1: TEdit
@@ -624,7 +628,7 @@ object Form1: TForm1
         Top = 432
         Width = 49
         Height = 21
-        TabOrder = 6
+        TabOrder = 5
         Text = '0,02'
         OnKeyPress = Edit1KeyPress
       end
@@ -633,7 +637,7 @@ object Form1: TForm1
         Top = 432
         Width = 49
         Height = 21
-        TabOrder = 7
+        TabOrder = 6
         Text = '0,15'
         OnKeyPress = Edit1KeyPress
       end
@@ -644,7 +648,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
         Enabled = False
-        TabOrder = 8
+        TabOrder = 7
         OnClick = ImpulsKillerClick
       end
       object Button13: TButton
@@ -653,16 +657,16 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
-        TabOrder = 9
+        TabOrder = 8
         OnClick = Button13Click
       end
       object bUniteDependence: TButton
-        Left = 512
-        Top = 200
+        Left = 384
+        Top = 288
         Width = 145
         Height = 25
         Caption = #1054#1073#1098#1077#1076#1080#1085#1080#1090#1100' '#1079#1072#1074#1080#1089#1080#1084#1086#1089#1090#1080
-        TabOrder = 10
+        TabOrder = 9
         OnClick = bUniteDependenceClick
       end
       object Memo6: TMemo
@@ -675,7 +679,7 @@ object Form1: TForm1
           #1057#1080#1085#1080#1081' - '#1092#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081' '
           #1063#1077#1088#1085#1099#1081' - '
           #1101#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081)
-        TabOrder = 11
+        TabOrder = 10
       end
       object uiShiftValue: TLabeledEdit
         Left = 224
@@ -687,7 +691,7 @@ object Form1: TForm1
         EditLabel.Caption = #1042#1077#1083#1080#1095#1080#1085#1072' '#1089#1076#1074#1080#1075#1072
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 12
+        TabOrder = 11
         Text = '0,01'
         OnKeyPress = Edit1KeyPress
       end
@@ -697,7 +701,7 @@ object Form1: TForm1
         Width = 121
         Height = 25
         Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
-        TabOrder = 13
+        TabOrder = 12
         OnClick = bResShiftCurveClick
       end
       object uiDataKind: TRadioGroup
@@ -712,7 +716,7 @@ object Form1: TForm1
           #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
           #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
           #1059#1089#1088#1077#1076#1077#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077)
-        TabOrder = 14
+        TabOrder = 13
       end
       object uiLeftBound: TComboBox
         Left = 320
@@ -721,7 +725,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 15
+        TabOrder = 14
         Text = '-2'
         Items.Strings = (
           '-2'
@@ -737,7 +741,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 16
+        TabOrder = 15
         Text = '0'
         Items.Strings = (
           '-2'
@@ -747,12 +751,17 @@ object Form1: TForm1
           '2')
       end
       object GroupBox2: TGroupBox
+<<<<<<< Updated upstream
         Left = 544
         Top = 8
+=======
+        Left = 384
+        Top = 72
+>>>>>>> Stashed changes
         Width = 193
         Height = 145
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1080
-        TabOrder = 17
+        TabOrder = 16
         object Label21: TLabel
           Left = 6
           Top = 100
@@ -838,12 +847,12 @@ object Form1: TForm1
         end
       end
       object Button2: TButton
-        Left = 512
-        Top = 272
+        Left = 496
+        Top = 256
         Width = 145
         Height = 25
         Caption = #1041#1083#1086#1095#1085#1072#1103' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1103
-        TabOrder = 18
+        TabOrder = 17
         OnClick = Button2Click
       end
     end
@@ -949,8 +958,8 @@ object Form1: TForm1
         OnClick = HallCurveIndexClick
       end
       object uiHallFeat: TButton
-        Left = 416
-        Top = 232
+        Left = 384
+        Top = 288
         Width = 75
         Height = 25
         Caption = #1055#1086#1076#1075#1086#1085#1082#1072
@@ -958,8 +967,8 @@ object Form1: TForm1
         OnClick = uiHallFeatClick
       end
       object uiHallControl: TButton
-        Left = 416
-        Top = 200
+        Left = 384
+        Top = 256
         Width = 75
         Height = 25
         Caption = 'Start'
@@ -974,8 +983,8 @@ object Form1: TForm1
         TabOrder = 4
       end
       object uiFFTHall: TButton
-        Left = 496
-        Top = 232
+        Left = 464
+        Top = 288
         Width = 75
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
@@ -1061,8 +1070,13 @@ object Form1: TForm1
           '2')
       end
       object GroupBox3: TGroupBox
+<<<<<<< Updated upstream
         Left = 544
         Top = 16
+=======
+        Left = 384
+        Top = 72
+>>>>>>> Stashed changes
         Width = 201
         Height = 145
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1080
@@ -1640,8 +1654,13 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
+<<<<<<< Updated upstream
     Top = 648
     Width = 1012
+=======
+    Top = 634
+    Width = 987
+>>>>>>> Stashed changes
     Height = 19
     Panels = <
       item
@@ -1658,8 +1677,13 @@ object Form1: TForm1
     SimplePanel = False
   end
   object uiCalculateTenzor: TButton
+<<<<<<< Updated upstream
     Left = 776
     Top = 192
+=======
+    Left = 664
+    Top = 176
+>>>>>>> Stashed changes
     Width = 97
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1072
@@ -1667,8 +1691,13 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object GroupBox1: TGroupBox
+<<<<<<< Updated upstream
     Left = 776
     Top = 24
+=======
+    Left = 664
+    Top = 8
+>>>>>>> Stashed changes
     Width = 225
     Height = 153
     Caption = #1054#1087#1080#1089#1072#1085#1080#1077' '#1086#1073#1088#1072#1079#1094#1072
@@ -1766,8 +1795,13 @@ object Form1: TForm1
     end
   end
   object Button1: TButton
+<<<<<<< Updated upstream
     Left = 776
     Top = 232
+=======
+    Left = 664
+    Top = 216
+>>>>>>> Stashed changes
     Width = 225
     Height = 25
     Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1079#1072#1087#1091#1089#1082' '#1089#1087#1077#1082#1090#1088#1072' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
@@ -1775,8 +1809,13 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object bMobilitySpectrum: TButton
+<<<<<<< Updated upstream
     Left = 904
     Top = 192
+=======
+    Left = 792
+    Top = 176
+>>>>>>> Stashed changes
     Width = 97
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1089#1087#1077#1082#1090#1088#1072
@@ -1784,14 +1823,22 @@ object Form1: TForm1
     OnClick = bMobilitySpectrumClick
   end
   object Chart2: TChart
+<<<<<<< Updated upstream
     Left = 776
     Top = 272
     Width = 176
     Height = 178
+=======
+    Left = 664
+    Top = 248
+    Width = 137
+    Height = 137
+>>>>>>> Stashed changes
     BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
       'TChart')
+    Legend.Visible = False
     View3D = False
     TabOrder = 6
     object Series6: TLineSeries
@@ -1812,14 +1859,22 @@ object Form1: TForm1
     end
   end
   object Chart3: TChart
+<<<<<<< Updated upstream
     Left = 776
     Top = 456
     Width = 176
     Height = 178
+=======
+    Left = 808
+    Top = 248
+    Width = 144
+    Height = 137
+>>>>>>> Stashed changes
     BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
       'TChart')
+    Legend.Visible = False
     View3D = False
     TabOrder = 7
     object LineSeries1: TLineSeries
@@ -1838,6 +1893,15 @@ object Form1: TForm1
       YValues.Multiplier = 1
       YValues.Order = loNone
     end
+  end
+  object ErrorLog: TMemo
+    Left = 672
+    Top = 400
+    Width = 273
+    Height = 113
+    Lines.Strings = (
+      'ErrorLog')
+    TabOrder = 8
   end
   object MainMenu1: TMainMenu
     Top = 440
@@ -1909,8 +1973,8 @@ object Form1: TForm1
     Top = 440
   end
   object PopupMenu1: TPopupMenu
-    Left = 608
-    Top = 352
+    Left = 128
+    Top = 432
     object N14: TMenuItem
       Caption = #1043#1088#1072#1092#1080#1082#1080
       object N15: TMenuItem

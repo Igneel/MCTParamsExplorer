@@ -458,7 +458,7 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
             writeDataToVector(tempData);
             // надо выяснить в каком виде этот буфер хранит данные.
             // данные идут вот так: значение 1 канала, значение 2 канала, значение 3 канала, значение 1 канала...
-            Sleep(20);
+            Sleep(1);
            
 
 

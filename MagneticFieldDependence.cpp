@@ -573,7 +573,7 @@ inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::st
     out=s;
 }
 //-------------------------------------------------------------------------------*/
-void MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color)
+bool MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color)
 {
     DataTypeInContainer * pointToX=0; // указатели на выводимые данные
     DataTypeInContainer * pointToY=0;
@@ -603,8 +603,8 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKin
     unsigned int NumberOfPoints=pointToX->size();
     if(NumberOfPoints==0)
     {
-        ShowMessage("График пуст, строить нечего.");
-        return;
+        //ShowMessage("График пуст, строить нечего.");
+        return false;
     }
     DataTypeInContainer::iterator posX;
     DataTypeInContainer::iterator posY;
@@ -614,7 +614,8 @@ void MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKin
     for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size() && i<pointToY->size();j++,i+=shag)
     {
         s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
-    }	
+    }
+    return true;	
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::constructPlotFromOneMassive(SignalType p,TLineSeries* s,TColor color)

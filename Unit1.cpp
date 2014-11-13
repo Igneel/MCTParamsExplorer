@@ -125,13 +125,19 @@ void TForm1::UpdatePlots()
 
 
     // Обновление всех используемых графиков.
-    p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
+    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))
+        ErrorLog->Lines->Add("Холл. Текущие данные. Не удалось построить график.");
+    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue));
+        ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
+    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
+        ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
 
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
+    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed))
+        ErrorLog->Lines->Add("Сопротивление. Текущие данные. Не удалось построить график.");
+    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
+        ErrorLog->Lines->Add("Сопротивление. Фильтрованные данные. Не удалось построить график.");
+    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
+        ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
     }
 }
 
@@ -286,7 +292,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         adc->StopMeasurement();
 
         (*ActiveParams())->getSplittedDataFromADC();
-        Memo2->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
+        Memo1->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
         UpdatePlots();
 
         adc->StartMeasurement();
@@ -655,8 +661,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
     sko/=len;
     sko=sqrt(sko);
 
-    Memo2->Lines->Add("M=" + FloatToStr(M) + "\n");
-    Memo2->Lines->Add("sko=" + FloatToStr(sko) + "\n");
+    Memo1->Lines->Add("M=" + FloatToStr(M) + "\n");
+    Memo1->Lines->Add("sko=" + FloatToStr(sko) + "\n");
 
     delete[] x;
     delete[] y;
@@ -938,7 +944,7 @@ void TForm1::concatDependence()
     thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);
     thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
 
-    Form1->Memo2->Lines->Add(FloatToStr( B.size()));
+    Form1->Memo1->Lines->Add(FloatToStr( B.size()));
     
     StatusBar->Panels->Items[1]->Text="Установка новых параметров.";
     Form1->Update();
@@ -984,8 +990,8 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
         p->constructPlotFromTwoMassive(SXX,CURRENT_DATA,Series6,clRed);
         p->constructPlotFromTwoMassive(SXY,CURRENT_DATA,LineSeries1,clRed);
 
-        Memo2->Lines->Add(p->getSxx()->size());
-        Memo2->Lines->Add(p->getSxy()->size());
+        Memo1->Lines->Add(p->getSxx()->size());
+        Memo1->Lines->Add(p->getSxy()->size());
 
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);

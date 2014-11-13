@@ -117,7 +117,7 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 
 	//-------Построение графиков-------------------------------------- 
-	void constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color);
+	bool constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color);
 	void constructPlotFromOneMassive(SignalType p,TLineSeries* s,TColor color);
 
 	void shiftCurve(DataKind dataKind,SignalType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound);

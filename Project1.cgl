@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 Functions called:
  fflush (4 times)
  free (7 times)
@@ -27,3 +28,18 @@ Modules used:
  00400000 11/05/2014 13:50:28 E:\Дела\Институт физики
  полупроводников\Lcard\MCTParamsExplorer\Project1.exe
 ==========================================
+=======
+Error 00153. 0x300010 (Thread 0x02D8):
+Resource leak: The object (0x1585008) was never deleted
+
+The object (0x01585008) [size: 20480 bytes] was created with new
+Call Tree:
+   0x00413100(=Project1.exe:0x01:012100) d:\program files\borland\cbuilder6\include\stlport\new#116
+   0x00412CD2(=Project1.exe:0x01:011CD2) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
+   0x004124A3(=Project1.exe:0x01:0114A3) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
+   0x004114D6(=Project1.exe:0x01:0104D6) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
+   0x0040A337(=Project1.exe:0x01:009337) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
+   0x00427A50(=Project1.exe:0x01:026A50) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#348
+
+------------------------------------------
+>>>>>>> Stashed changes

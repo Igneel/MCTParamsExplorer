@@ -51,7 +51,6 @@ __published:	// IDE-managed Components
     TChart *ChartResist;
     TButton *uiResControl;
     TLineSeries *SeriesRes1;
-    TMemo *Memo2;
     TRadioGroup *ResCurveIndex;
         TButton *bClear;
     TTabSheet *HallEffect;
@@ -217,6 +216,7 @@ __published:	// IDE-managed Components
     TMenuItem *N15;
     TMenuItem *N16;
     TMenuItem *N17;
+    TMemo *ErrorLog;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
