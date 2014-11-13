@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 206
-  Top = 138
-  Width = 1186
+  Left = 246
+  Top = 181
+  Width = 1028
   Height = 725
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
@@ -14,6 +14,7 @@ object Form1: TForm1
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
@@ -114,11 +115,11 @@ object Form1: TForm1
   object PC: TPageControl
     Left = 0
     Top = 0
-    Width = 777
-    Height = 521
-    ActivePage = Resistance
+    Width = 745
+    Height = 513
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -308,6 +309,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
         TabOrder = 6
+        OnClick = bTestClick
       end
       object Button10: TButton
         Left = 496
@@ -745,7 +747,7 @@ object Form1: TForm1
           '2')
       end
       object GroupBox2: TGroupBox
-        Left = 552
+        Left = 544
         Top = 8
         Width = 193
         Height = 145
@@ -1059,7 +1061,7 @@ object Form1: TForm1
           '2')
       end
       object GroupBox3: TGroupBox
-        Left = 552
+        Left = 544
         Top = 16
         Width = 201
         Height = 145
@@ -1639,7 +1641,7 @@ object Form1: TForm1
   object StatusBar: TStatusBar
     Left = 0
     Top = 648
-    Width = 1170
+    Width = 1012
     Height = 19
     Panels = <
       item
@@ -1656,7 +1658,7 @@ object Form1: TForm1
     SimplePanel = False
   end
   object uiCalculateTenzor: TButton
-    Left = 800
+    Left = 776
     Top = 192
     Width = 97
     Height = 25
@@ -1665,7 +1667,7 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object GroupBox1: TGroupBox
-    Left = 800
+    Left = 776
     Top = 24
     Width = 225
     Height = 153
@@ -1764,7 +1766,7 @@ object Form1: TForm1
     end
   end
   object Button1: TButton
-    Left = 800
+    Left = 776
     Top = 232
     Width = 225
     Height = 25
@@ -1773,7 +1775,7 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object bMobilitySpectrum: TButton
-    Left = 928
+    Left = 904
     Top = 192
     Width = 97
     Height = 25
@@ -1782,7 +1784,7 @@ object Form1: TForm1
     OnClick = bMobilitySpectrumClick
   end
   object Chart2: TChart
-    Left = 800
+    Left = 776
     Top = 272
     Width = 176
     Height = 178
@@ -1810,7 +1812,7 @@ object Form1: TForm1
     end
   end
   object Chart3: TChart
-    Left = 800
+    Left = 776
     Top = 456
     Width = 176
     Height = 178

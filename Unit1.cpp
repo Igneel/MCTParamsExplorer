@@ -1404,3 +1404,26 @@ UpdatePlots();
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TForm1::bTestClick(TObject *Sender)
+{
+size_t size=24000;
+std::vector<long double> in;
+std::vector<long double> out;
+for(int i=0;i<size;++i)
+{
+in.push_back(rand());
+}
+medianFilter(in,out,11);
+Memo1->Lines->Add("Number for in"+IntToStr(in.size()));
+Memo1->Lines->Add("Number for out"+IntToStr(out.size()));
+for(int i=0;i<in.size();++i)
+{
+Series1->AddY(in[i]);
+}
+for(int i=0;i<out.size();++i)
+{
+Series2->AddY(out[i]);
+}
+}
+//---------------------------------------------------------------------------
+

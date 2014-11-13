@@ -195,18 +195,18 @@ if(blockSize<lengthFilter)
         DataTypeInContainer tempOutB;
         DataTypeInContainer tempOutS;
         size_t timesToRepeat=inB.size()/blockSize;
-        for( int i=0; i <timesToRepeat;i++)
+        for(unsigned int i=0; i <timesToRepeat;i++)
         {
                 if(!outB.empty())
                 {
-                for(int j=0;j<lengthFilter;j++)
+                for(unsigned int j=0;j<lengthFilter;j++)
                 {
                 tempInB.push_back(outB.back());
                 tempInS.push_back(outY.back());
                 }
                 }  
 
-                for(int j=0+blockSize*i;j<(i+1)*blockSize;j++)
+                for(unsigned int j=0+blockSize*i;j<(i+1)*blockSize;j++)
                 {
                 tempInB.push_back(inB[j]);
                 tempInS.push_back(inY[j]);
@@ -215,7 +215,7 @@ if(blockSize<lengthFilter)
                 tempOutS.resize(tempInB.size());
                 TrForMassiveFilter(tempInB,tempInS,tempOutB,tempOutS,lengthFilter,
                 Fdisk, Fpropysk, Fzatyh);
-                for(int j=0;j<tempOutB.size();j++)
+                for(unsigned int j=0;j<tempOutB.size();j++)
                 {
                 outB.push_back(tempOutB[j]);
                 outY.push_back(tempOutS[j]);
@@ -225,4 +225,5 @@ if(blockSize<lengthFilter)
                 tempInB.clear();
                 tempInS.clear();
         }
+        return 0;
 }

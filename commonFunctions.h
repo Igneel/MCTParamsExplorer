@@ -87,6 +87,23 @@ T medianFilter(std::vector <T> & in)
     return in[in.size()/2];
 }
 
+template <class T>
+T medianFilter(std::vector <T>::iterator &beg, std::vector <T>::iterator &end)
+{
+    std::sort(beg,end);
+    return *(beg+std::distance(beg,end)/2);
+}
+
+template <class T>
+void medianFilter(std::vector <T> & in,std::vector <T> & out,size_t size)
+{
+    for(std::vector <T>::iterator i=in.begin();i<in.end() && i!=in.end() ;i+=size)
+    {
+        std::sort(i,i+size);                    
+        out.push_back(*(i+size/2));
+    }
+}
+
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

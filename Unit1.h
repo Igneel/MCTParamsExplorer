@@ -261,6 +261,7 @@ __published:	// IDE-managed Components
     void __fastcall N13Click(TObject *Sender);
     void __fastcall N17Click(TObject *Sender);
     void __fastcall N16Click(TObject *Sender);
+    void __fastcall bTestClick(TObject *Sender);
     
 
 private:	// User declarations
