@@ -217,6 +217,12 @@ __published:	// IDE-managed Components
     TMenuItem *N16;
     TMenuItem *N17;
     TMemo *ErrorLog;
+    TComboBox *ComboBox7;
+    TComboBox *ComboBox8;
+    TLabel *Label9;
+    TLabel *Label11;
+    TLabeledEdit *eMedianFilterSize;
+    TLabeledEdit *uiSamplingFreq;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -262,6 +268,7 @@ __published:	// IDE-managed Components
     void __fastcall N17Click(TObject *Sender);
     void __fastcall N16Click(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
+    void __fastcall uiFrenqChange(TObject *Sender);
     
 
 private:	// User declarations

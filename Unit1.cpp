@@ -195,6 +195,7 @@ void __fastcall TForm1::FormCreate(TObject *)
     delete adc;
     adc=NULL;
     }
+    uiFrenq->OnChange(NULL);
     bApplyADCSettings->Click();
 }
 //---------------------------------------------------------------------------
@@ -1430,6 +1431,13 @@ for(int i=0;i<out.size();++i)
 {
 Series2->AddY(out[i]);
 }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::uiFrenqChange(TObject *Sender)
+{
+uiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFilterSize->Text)); 
 }
 //---------------------------------------------------------------------------
 

@@ -1,20 +1,19 @@
-<<<<<<< Updated upstream
 Functions called:
  fflush (4 times)
  free (7 times)
  sinl (255 times)
  cosl (512 times)
  vsnprintf (2 times)
- delete (43 times)
+ delete (21 times)
  memcmp (1580 times)
- memmove (183 times)
- new (47 times)
- SysReallocMem (544 times)
- SysFreeMem (136045 times)
+ memmove (155 times)
+ new (24 times)
+ SysReallocMem (324 times)
+ SysFreeMem (8464 times)
  lstrlenA (1 times)
  lstrcpynA (4 times)
  memset (3 times)
- SysGetMem (136046 times)
+ SysGetMem (8465 times)
  calloc (1 times)
  strlen (167 times)
  realloc (1 times)
@@ -22,24 +21,9 @@ Functions called:
  malloc (4 times)
  memcpy (3 times)
 Resource types used:
- object (47 allocs, 21 max)
- memory block (136053 allocs, 67084 max)
+ object (24 allocs, 21 max)
+ memory block (8472 allocs, 3163 max)
 Modules used:
- 00400000 11/05/2014 13:50:28 E:\Дела\Институт физики
+ 00400000 11/13/2014 16:17:36 E:\Дела\Институт физики
  полупроводников\Lcard\MCTParamsExplorer\Project1.exe
 ==========================================
-=======
-Error 00153. 0x300010 (Thread 0x02D8):
-Resource leak: The object (0x1585008) was never deleted
-
-The object (0x01585008) [size: 20480 bytes] was created with new
-Call Tree:
-   0x00413100(=Project1.exe:0x01:012100) d:\program files\borland\cbuilder6\include\stlport\new#116
-   0x00412CD2(=Project1.exe:0x01:011CD2) d:\program files\borland\cbuilder6\include\stl/_alloc.h#251
-   0x004124A3(=Project1.exe:0x01:0114A3) d:\program files\borland\cbuilder6\include\stl/_alloc.h#355
-   0x004114D6(=Project1.exe:0x01:0104D6) d:\program files\borland\cbuilder6\include\stl/_vector.h#152
-   0x0040A337(=Project1.exe:0x01:009337) d:\program files\borland\cbuilder6\include\stl/_vector.h#334
-   0x00427A50(=Project1.exe:0x01:026A50) C:\Documents and Settings\Serjo\іабочий стол\MCTParamsExplorer\LCard.cpp#348
-
-------------------------------------------
->>>>>>> Stashed changes

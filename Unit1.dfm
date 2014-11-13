@@ -1,15 +1,8 @@
 object Form1: TForm1
-<<<<<<< Updated upstream
-  Left = 246
-  Top = 181
-  Width = 1028
-  Height = 725
-=======
-  Left = 196
-  Top = 71
+  Left = 216
+  Top = 139
   Width = 995
   Height = 707
->>>>>>> Stashed changes
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MinHeight = 630
@@ -30,7 +23,7 @@ object Form1: TForm1
     Left = 16
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -47,7 +40,7 @@ object Form1: TForm1
     Left = 272
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -64,7 +57,7 @@ object Form1: TForm1
     Left = 528
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -119,14 +112,17 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
+  object Label9: TLabel
+    Left = 540
+    Top = 176
+    Width = 85
+    Height = 13
+    Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
+  end
   object PC: TPageControl
     Left = 0
     Top = 0
-<<<<<<< Updated upstream
-    Width = 745
-=======
     Width = 657
->>>>>>> Stashed changes
     Height = 513
     ActivePage = FirstTab
     MultiLine = True
@@ -175,6 +171,13 @@ object Form1: TForm1
         Width = 77
         Height = 13
         Caption = #1069#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072'.'
+      end
+      object Label11: TLabel
+        Left = 536
+        Top = 160
+        Width = 104
+        Height = 13
+        Caption = #1060#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100'.'
       end
       object Chart1: TChart
         Left = 0
@@ -279,7 +282,7 @@ object Form1: TForm1
       end
       object uiControl: TButton
         Left = 408
-        Top = 192
+        Top = 216
         Width = 75
         Height = 25
         Caption = 'Start'
@@ -302,11 +305,12 @@ object Form1: TForm1
         Height = 21
         TabOrder = 4
         Text = '400'
+        OnChange = uiFrenqChange
         OnKeyPress = Edit1KeyPress
       end
       object bClear: TButton
         Left = 408
-        Top = 224
+        Top = 248
         Width = 75
         Height = 25
         Caption = 'Clear'
@@ -315,7 +319,7 @@ object Form1: TForm1
       end
       object bTest: TButton
         Left = 496
-        Top = 192
+        Top = 216
         Width = 75
         Height = 25
         Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
@@ -324,7 +328,7 @@ object Form1: TForm1
       end
       object Button10: TButton
         Left = 496
-        Top = 224
+        Top = 248
         Width = 75
         Height = 25
         Caption = 'Button10'
@@ -343,7 +347,7 @@ object Form1: TForm1
       end
       object bApplyADCSettings: TButton
         Left = 408
-        Top = 160
+        Top = 184
         Width = 163
         Height = 25
         Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1080' '#1040#1062#1055
@@ -492,6 +496,32 @@ object Form1: TForm1
           110
           123
           121)
+      end
+      object eMedianFilterSize: TLabeledEdit
+        Left = 160
+        Top = 352
+        Width = 121
+        Height = 21
+        EditLabel.Width = 146
+        EditLabel.Height = 13
+        EditLabel.Caption = #1044#1083#1080#1085#1072' '#1084#1077#1076#1080#1072#1085#1085#1086#1075#1086' '#1092#1080#1083#1100#1090#1088#1072':'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 17
+        Text = '32'
+        OnChange = uiFrenqChange
+      end
+      object uiSamplingFreq: TLabeledEdit
+        Left = 160
+        Top = 392
+        Width = 121
+        Height = 21
+        EditLabel.Width = 149
+        EditLabel.Height = 13
+        EditLabel.Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090#1080#1079#1072#1094#1080#1080'('#1082#1043#1094'):'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 18
       end
     end
     object Resistance: TTabSheet
@@ -751,13 +781,8 @@ object Form1: TForm1
           '2')
       end
       object GroupBox2: TGroupBox
-<<<<<<< Updated upstream
-        Left = 544
-        Top = 8
-=======
         Left = 384
         Top = 72
->>>>>>> Stashed changes
         Width = 193
         Height = 145
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1080
@@ -1070,13 +1095,8 @@ object Form1: TForm1
           '2')
       end
       object GroupBox3: TGroupBox
-<<<<<<< Updated upstream
-        Left = 544
-        Top = 16
-=======
         Left = 384
         Top = 72
->>>>>>> Stashed changes
         Width = 201
         Height = 145
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1080
@@ -1654,13 +1674,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-<<<<<<< Updated upstream
-    Top = 648
-    Width = 1012
-=======
-    Top = 634
-    Width = 987
->>>>>>> Stashed changes
+    Top = 630
+    Width = 979
     Height = 19
     Panels = <
       item
@@ -1677,13 +1692,8 @@ object Form1: TForm1
     SimplePanel = False
   end
   object uiCalculateTenzor: TButton
-<<<<<<< Updated upstream
-    Left = 776
-    Top = 192
-=======
     Left = 664
     Top = 176
->>>>>>> Stashed changes
     Width = 97
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1072
@@ -1691,13 +1701,8 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object GroupBox1: TGroupBox
-<<<<<<< Updated upstream
-    Left = 776
-    Top = 24
-=======
     Left = 664
     Top = 8
->>>>>>> Stashed changes
     Width = 225
     Height = 153
     Caption = #1054#1087#1080#1089#1072#1085#1080#1077' '#1086#1073#1088#1072#1079#1094#1072
@@ -1795,13 +1800,8 @@ object Form1: TForm1
     end
   end
   object Button1: TButton
-<<<<<<< Updated upstream
-    Left = 776
-    Top = 232
-=======
     Left = 664
     Top = 216
->>>>>>> Stashed changes
     Width = 225
     Height = 25
     Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1079#1072#1087#1091#1089#1082' '#1089#1087#1077#1082#1090#1088#1072' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
@@ -1809,13 +1809,8 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object bMobilitySpectrum: TButton
-<<<<<<< Updated upstream
-    Left = 904
-    Top = 192
-=======
     Left = 792
     Top = 176
->>>>>>> Stashed changes
     Width = 97
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1089#1087#1077#1082#1090#1088#1072
@@ -1823,17 +1818,10 @@ object Form1: TForm1
     OnClick = bMobilitySpectrumClick
   end
   object Chart2: TChart
-<<<<<<< Updated upstream
-    Left = 776
-    Top = 272
-    Width = 176
-    Height = 178
-=======
     Left = 664
     Top = 248
     Width = 137
     Height = 137
->>>>>>> Stashed changes
     BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
@@ -1859,17 +1847,10 @@ object Form1: TForm1
     end
   end
   object Chart3: TChart
-<<<<<<< Updated upstream
-    Left = 776
-    Top = 456
-    Width = 176
-    Height = 178
-=======
     Left = 808
     Top = 248
     Width = 144
     Height = 137
->>>>>>> Stashed changes
     BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
@@ -1902,6 +1883,49 @@ object Form1: TForm1
     Lines.Strings = (
       'ErrorLog')
     TabOrder = 8
+  end
+  object ComboBox7: TComboBox
+    Left = 412
+    Top = 176
+    Width = 41
+    Height = 21
+    ItemHeight = 13
+    ItemIndex = 9
+    TabOrder = 9
+    Text = '10'
+    OnChange = ComboBox5Change
+    Items.Strings = (
+      '1'
+      '2'
+      '3'
+      '4'
+      '5'
+      '6'
+      '7'
+      '8'
+      '9'
+      '10'
+      '11'
+      '12'
+      '13'
+      '14'
+      '15'
+      '16')
+  end
+  object ComboBox8: TComboBox
+    Left = 460
+    Top = 176
+    Width = 73
+    Height = 21
+    ItemHeight = 13
+    ItemIndex = 1
+    TabOrder = 10
+    Text = '2,5'#1042
+    Items.Strings = (
+      '10'#1042
+      '2,5'#1042
+      '0,625'#1042
+      '0,156'#1042)
   end
   object MainMenu1: TMainMenu
     Top = 440
