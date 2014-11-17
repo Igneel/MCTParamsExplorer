@@ -43,7 +43,6 @@ __published:	// IDE-managed Components
     TLabel *Label4;
     TChart *Chart1;
     TLineSeries *Series2;
-    TMemo *Memo1;
     TButton *uiControl;
     TEdit *uiBlockSize;
     TEdit *uiFrenq;

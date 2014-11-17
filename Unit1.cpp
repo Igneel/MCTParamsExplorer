@@ -37,6 +37,8 @@ TODO
 
 
 Нужно добавить усреднение по току.
+
+
 */
 
 // Внимание, понадобится добавить что-нибудь,
@@ -132,6 +134,12 @@ void TForm1::UpdatePlots()
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
         ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
 
+    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))
+        ErrorLog->Lines->Add("Холл. Усреднённые данные. Не удалось построить график.");
+
+    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,AVERAGED_DATA,SeriesFFTRes,clGreen))
+        ErrorLog->Lines->Add("Сопротивление. Усреднённые данные. Не удалось построить график.");
+
     if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed))
         ErrorLog->Lines->Add("Сопротивление. Текущие данные. Не удалось построить график.");
     if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
@@ -186,7 +194,7 @@ void __fastcall TForm1::FormCreate(TObject *)
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
-    Memo1->Lines->Add(cI.size());
+    ErrorLog->Lines->Add(cI.size());
     // загружаем драйвер
     adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),
     LabelChan1,LabelChan2,LabelChan3,cI);
@@ -293,7 +301,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         adc->StopMeasurement();
 
         (*ActiveParams())->getSplittedDataFromADC();
-        Memo1->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
+        ErrorLog->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
         UpdatePlots();
 
         adc->StartMeasurement();
@@ -352,7 +360,7 @@ void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
     Series2->Clear();
     Series3->Clear();
     SeriesRes1->Clear();
-    Memo1->Clear();
+    ErrorLog->Clear();
 }
 //---------------------------------------------------------------------------
 //----------------------------------------------------------------------------
@@ -662,8 +670,8 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
     sko/=len;
     sko=sqrt(sko);
 
-    Memo1->Lines->Add("M=" + FloatToStr(M) + "\n");
-    Memo1->Lines->Add("sko=" + FloatToStr(sko) + "\n");
+    ErrorLog->Lines->Add("M=" + FloatToStr(M) + "\n");
+    ErrorLog->Lines->Add("sko=" + FloatToStr(sko) + "\n");
 
     delete[] x;
     delete[] y;
@@ -775,8 +783,8 @@ void Gist(std::vector<long double> & in)
     }
     long double sko=Sko(zeros,in);
 
-    Form1->Memo1->Lines->Add("Мат ожидание: "+FloatToStr(m));
-    Form1->Memo1->Lines->Add("СКО: "+FloatToStr(sko));
+    Form1->ErrorLog->Lines->Add("Мат ожидание: "+FloatToStr(m));
+    Form1->ErrorLog->Lines->Add("СКО: "+FloatToStr(sko));
 
 }
 //------------------------------------------------------------------------------
@@ -795,6 +803,7 @@ Gist(y);
 // Сохранить всё.
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
+    CurrentResChange(NULL);
     if(params && paramsDirect && paramsReverse)
     {
         SaveDialog1->Title="Сохранение всех данных:";
@@ -947,7 +956,7 @@ void TForm1::concatDependence()
     thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);
     thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
 
-    Form1->Memo1->Lines->Add(FloatToStr( B.size()));
+    Form1->ErrorLog->Lines->Add(FloatToStr( B.size()));
     
     StatusBar->Panels->Items[1]->Text="Установка новых параметров.";
     Form1->Update();
@@ -987,14 +996,17 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
     }
     else
     {
+        (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,
+        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
+        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
         p=*par;
         p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
         p->constructPlotFromTwoMassive(SXX,CURRENT_DATA,Series6,clRed);
         p->constructPlotFromTwoMassive(SXY,CURRENT_DATA,LineSeries1,clRed);
 
-        Memo1->Lines->Add(p->getSxx()->size());
-        Memo1->Lines->Add(p->getSxy()->size());
+        ErrorLog->Lines->Add(p->getSxx()->size());
+        ErrorLog->Lines->Add(p->getSxy()->size());
 
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
@@ -1171,7 +1183,7 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
 
       if(length==0)
       {
-      Form1->Memo1->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
+      Form1->ErrorLog->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
         return;
       }
       int size=(*pFunc)(*B,*sxx,*sxy, length);
@@ -1428,8 +1440,8 @@ for(int i=0;i<size;++i)
 in.push_back(rand());
 }
 medianFilter(in,out,11);
-Memo1->Lines->Add("Number for in"+IntToStr(in.size()));
-Memo1->Lines->Add("Number for out"+IntToStr(out.size()));
+ErrorLog->Lines->Add("Number for in"+IntToStr(in.size()));
+ErrorLog->Lines->Add("Number for out"+IntToStr(out.size()));
 for(int i=0;i<in.size();++i)
 {
 Series1->AddY(in[i]);

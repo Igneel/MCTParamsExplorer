@@ -6,12 +6,12 @@
     <PROJECT value="Project1.exe"/>
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
-      DataSaver.obj SettingsSaver.obj commonFunctions.obj"/>
+      DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm"/>
+    <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm Unit3.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="tee.lib rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib tee.lib"/>
@@ -69,6 +69,7 @@
       <FILE FILENAME="SettingsSaver.cpp" FORMNAME="" UNITNAME="SettingsSaver" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="commonFunctions.cpp" FORMNAME="" UNITNAME="commonFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="UsedTypes.h" FORMNAME="" UNITNAME="UsedTypes.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit3.cpp" FORMNAME="Form3" UNITNAME="Unit3" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

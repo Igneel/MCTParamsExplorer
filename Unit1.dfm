@@ -23,7 +23,7 @@ object Form1: TForm1
     Left = 16
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -40,7 +40,7 @@ object Form1: TForm1
     Left = 272
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -57,7 +57,7 @@ object Form1: TForm1
     Left = 528
     Top = 544
     Width = 240
-    Height = 82
+    Height = 75
     Caption = '0.000000'
     Color = clBackground
     Constraints.MaxWidth = 240
@@ -122,11 +122,11 @@ object Form1: TForm1
   object PC: TPageControl
     Left = 0
     Top = 0
-    Width = 657
+    Width = 649
     Height = 513
-    ActivePage = FirstTab
+    ActivePage = HallEffect
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -153,14 +153,14 @@ object Form1: TForm1
       end
       object Label1: TLabel
         Left = 536
-        Top = 128
+        Top = 131
         Width = 85
         Height = 13
         Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
       end
       object Label5: TLabel
         Left = 536
-        Top = 104
+        Top = 107
         Width = 81
         Height = 13
         Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'.'
@@ -173,8 +173,8 @@ object Form1: TForm1
         Caption = #1069#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072'.'
       end
       object Label11: TLabel
-        Left = 536
-        Top = 160
+        Left = 535
+        Top = 156
         Width = 104
         Height = 13
         Caption = #1060#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100'.'
@@ -272,21 +272,13 @@ object Form1: TForm1
           YValues.Order = loNone
         end
       end
-      object Memo1: TMemo
-        Left = 160
-        Top = 416
-        Width = 481
-        Height = 73
-        ScrollBars = ssVertical
-        TabOrder = 1
-      end
       object uiControl: TButton
         Left = 408
         Top = 216
         Width = 75
         Height = 25
         Caption = 'Start'
-        TabOrder = 2
+        TabOrder = 1
         OnClick = uiControlClick
       end
       object uiBlockSize: TEdit
@@ -294,7 +286,7 @@ object Form1: TForm1
         Top = 32
         Width = 65
         Height = 21
-        TabOrder = 3
+        TabOrder = 2
         Text = '4196'
         OnKeyPress = Edit1KeyPress
       end
@@ -303,7 +295,7 @@ object Form1: TForm1
         Top = 32
         Width = 65
         Height = 21
-        TabOrder = 4
+        TabOrder = 3
         Text = '400'
         OnChange = uiFrenqChange
         OnKeyPress = Edit1KeyPress
@@ -314,7 +306,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Clear'
-        TabOrder = 5
+        TabOrder = 4
         OnClick = bClearClick
       end
       object bTest: TButton
@@ -323,7 +315,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
-        TabOrder = 6
+        TabOrder = 5
         OnClick = bTestClick
       end
       object Button10: TButton
@@ -332,18 +324,18 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Button10'
-        TabOrder = 7
+        TabOrder = 6
         OnClick = Button10Click
       end
       object CheckBox1: TCheckBox
-        Left = 16
+        Left = 272
         Top = 336
         Width = 121
         Height = 17
         Caption = #1052#1077#1076#1080#1072#1085#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
         Checked = True
         State = cbChecked
-        TabOrder = 8
+        TabOrder = 7
       end
       object bApplyADCSettings: TButton
         Left = 408
@@ -351,7 +343,7 @@ object Form1: TForm1
         Width = 163
         Height = 25
         Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1080' '#1040#1062#1055
-        TabOrder = 9
+        TabOrder = 8
         OnClick = bApplyADCSettingsClick
       end
       object ComboBox1: TComboBox
@@ -361,7 +353,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 10
+        TabOrder = 9
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -376,7 +368,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 11
+        TabOrder = 10
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -391,7 +383,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 12
+        TabOrder = 11
         Text = '0,625'#1042
         Items.Strings = (
           '10'#1042
@@ -406,7 +398,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 13
+        TabOrder = 12
         Text = '1'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -434,7 +426,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 3
-        TabOrder = 14
+        TabOrder = 13
         Text = '4'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -462,7 +454,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 6
-        TabOrder = 15
+        TabOrder = 14
         Text = '7'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -484,22 +476,22 @@ object Form1: TForm1
           '16')
       end
       object StringGrid1: TStringGrid
-        Left = 392
-        Top = 280
+        Left = 256
+        Top = 360
         Width = 377
         Height = 120
         ColCount = 3
         RowCount = 4
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
-        TabOrder = 16
+        TabOrder = 15
         ColWidths = (
           110
           123
           121)
       end
       object eMedianFilterSize: TLabeledEdit
-        Left = 160
-        Top = 352
+        Left = 408
+        Top = 293
         Width = 121
         Height = 21
         EditLabel.Width = 146
@@ -507,13 +499,13 @@ object Form1: TForm1
         EditLabel.Caption = #1044#1083#1080#1085#1072' '#1084#1077#1076#1080#1072#1085#1085#1086#1075#1086' '#1092#1080#1083#1100#1090#1088#1072':'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 17
+        TabOrder = 16
         Text = '32'
         OnChange = uiFrenqChange
       end
       object uiSamplingFreq: TLabeledEdit
-        Left = 160
-        Top = 392
+        Left = 408
+        Top = 333
         Width = 121
         Height = 21
         EditLabel.Width = 149
@@ -521,7 +513,7 @@ object Form1: TForm1
         EditLabel.Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090#1080#1079#1072#1094#1080#1080'('#1082#1043#1094'):'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 18
+        TabOrder = 17
       end
       object ComboBox7: TComboBox
         Left = 408
@@ -530,7 +522,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 9
-        TabOrder = 19
+        TabOrder = 18
         Text = '10'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -558,7 +550,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 20
+        TabOrder = 19
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -1717,8 +1709,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 634
-    Width = 987
+    Top = 630
+    Width = 979
     Height = 19
     Panels = <
       item
@@ -1925,6 +1917,7 @@ object Form1: TForm1
     Height = 113
     Lines.Strings = (
       'ErrorLog')
+    ScrollBars = ssVertical
     TabOrder = 8
   end
   object MainMenu1: TMainMenu

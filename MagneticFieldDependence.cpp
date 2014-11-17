@@ -164,16 +164,42 @@ int sigh(T in)
 void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType)
 {
     /*
-    усредненный сигнал на данный момент существует лишь для положительного магнитного поля.
+    Усредненный сигнал на данный момент существует лишь для положительного магнитного поля.
+    
     */
     int size=inY.size();
-    outY.resize(size/2);
+    outY.resize(size/2); // Размер уменьшится вдвое.
     for(int i=0;i<size/2;i++)
     {
         switch(featType)
         {
         case ODD_FEAT: // нечетная подгонка
-            outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+        /*
+        Нечетное усреднение
+        имеем
+        f(-x)=-f(x)
+        Тогда среднее есть сумма двух одинаковых значений поделенная пополам.
+        В итоге получаем:
+
+        (f(-x)+(-f(x)))/2.0
+        Т.е.
+        (f(-x)-f(x))/2.0
+
+        Но возникает вопрос со знаком.
+        По идее сигнал сюда приходит комбинированный, а значит
+        нулевой элемент соответствует индукции -2 Тл.
+        Получается нам надо взять знак этого элемента и изменить на противоположный -
+        это и будет тот знак, который нам так нужен.
+
+        Если пытаться использовать элементы из середины - велика вероятность ошибки,
+        т.к. из-за неоднородностей образца для нулевого магнитного поля идеально
+        нулевых значений напряжения Холла получить не удаётся.
+        Оно будет близким к нулю, при этом справа или слева - предсказать не получится.
+        
+
+        */
+            //outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+            outY[i]=-sigh(inY[0])*fabs((inY[i]-inY[size-1-i]))/2.0;
             //outY[size-1-i]=-inY[i];
             break;
         case EVEN_FEAT: // четная подгонка
@@ -322,8 +348,12 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     DataTypeInContainer * inMagnetoResistance;
     unsigned int NumberOfPoints;
 
-    if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.
+    //if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.
+    if( B[0]<-1.0 && B.back() >1.0)
     {
+    // И как спрашивается это отличить от отрицательного сигнала?
+    // Плохой критерий.
+    // Хороший критерий - B[0]<-1.0 && B.back() >1.0
         featData(CURRENT_DATA); // его надо усреднить
         inB=&AveragedB; // фильтровать будем усредненный сигнал
         inHallEffect=&AveragedHallEffect;
@@ -339,6 +369,9 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     }
 
     // В эти массивы будут достраиваться данные для отрицательных магнитных полей.
+    // Это очень мило, а если это сигнал для отрицательного магнитного поля?
+    // То теоретически достраивается положительная часть.
+    // Надо пофиксить тут комменты на адекватные действительности.
     DataTypeInContainer tempInB(2*NumberOfPoints);
     DataTypeInContainer tempInSignal(2*NumberOfPoints);
 
@@ -354,6 +387,21 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     // достраивая его в отрицательные магнитные поля.
     for (unsigned int i = 0; i < NumberOfPoints; i++)
     {
+    /*
+    Давайте внимательно сюда посмотрим.
+    У эффекта Холла отрицательная симметрия, относительно точки
+    B==0;
+    С чего вообще я взял, что это нулевой элемент? /(О_о)\
+
+    Получается для сигнала с положительным магнитным полем - это выполняется.
+    Для сигнала комбинированного, т.е. уже объединенного - это выполняется,
+    потому что фильтруется усредненный сигнал (по сути имеющий только значения
+    положительного магнитного поля.
+
+    Для отрицательного магнитного поля сие равенство, насколько мне ясно - не выполняется.
+    
+
+    */
         tempInSignal[i]=-(*inHallEffect)[NumberOfPoints-i-1]+2*(*inHallEffect)[0];
         tempInB[i]=-(*inB)[NumberOfPoints-i-1];
         tempInSignal[i+NumberOfPoints]=(*inHallEffect)[i];
@@ -518,9 +566,13 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedHallEffect=newHallEffect;
     
 	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
+
+    // Упс, а мы точки-то лишние из фильтрованного удаляем?
+    // Где-то явно не удаляем, но возможно и не здесь.
+    
     unsigned int i=0;
 	while(i<NumberOfPoints && newB[i]<FilteredB.back())
-    ++i;
+    ++i; // находим элемент на котором заканчивается фильтрованное магнитное поле.
 
    	for(unsigned int j=i;j<NumberOfPoints;j++)
 	{     // в конце дописываем экстраполированные значения.
