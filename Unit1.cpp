@@ -129,7 +129,7 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))
         ErrorLog->Lines->Add("Холл. Текущие данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue));
+    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))
         ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
         ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
@@ -1289,7 +1289,7 @@ hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
 
 void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
 {
-MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
     if (*par==NULL)
     {

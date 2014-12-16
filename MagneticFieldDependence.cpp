@@ -658,12 +658,24 @@ bool MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKin
         //ShowMessage("√рафик пуст, строить нечего.");
         return false;
     }
+    /*
+    »з-за определенных тормозов с отображением мириадов точек было прин€то
+    решение отображать только фиксированное количество.
+    */
     DataTypeInContainer::iterator posX;
     DataTypeInContainer::iterator posY;
-    long double PointsToShow=500;
+    // если точек в массиве меньше чем мы обчно выводим - выводим сколько есть.
+    long double PointsToShow=(500>pointToX->size()?pointToX->size():500);
+
+    if (pointToX->size() != pointToY->size())
+    {
+    // ShowMessage("–азное количество точек в массивах! √де-то до этого есть кос€к");
+    return false;
+    }
+
     unsigned int shag = roundM(static_cast<long double> (pointToX->size()) / PointsToShow,0);
     if(shag<1) shag = 1;
-    for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size() && i<pointToY->size();j++,i+=shag)
+    for (unsigned int i=0, j=0;j<PointsToShow && i<pointToX->size() && i<pointToY->size()  ;j++,i+=shag)
     {
         s->AddXY((*pointToX)[i],(*pointToY)[i],"",color);
     }

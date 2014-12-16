@@ -5,7 +5,23 @@ inline MyDataType dist(MyDataType x1, MyDataType x2)
     return fabs(x1-x2);
 }
 //------------------------------------------------------------------------------
-bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, 
+/*
+Прореживание зависимостей - по идее функция универсальная.
+Способная из массива одной длины получить массив меньшей длины.
+При этом рассчитывается новый равномерный шаг по сетке.
+
+Используется для:
+1. Согласования измеренных данных после получения их с АЦП.
+2. Согласования данных после фильтрации.
+3. Согласования данных после экстраполяции.
+4. Сохранении данных с заданным шагом и количеством точек.
+
+
+Есть такая проблема - сигнал для отрицательного магнитного поля поступает сюда
+в порядке от 0 до -2
+т.е. вообще говоря в обратном, поэтому это не пашет.
+*/
+bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence,
     MyDataType left, MyDataType right, size_t NewLength)
 {
     if (right<left) // если при вызове перепутали границы.
@@ -29,6 +45,7 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
 
     if (OldLength==NewLength)
     {
+    // при совпадении размеров - нам делать совсем нечего.
         outDependence=inDependence;
         outB=inB;
         return true;
@@ -39,11 +56,13 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
 
     DataTypeInContainer idealB; // тут будем хранить опорные точки.
 
-    MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0); // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)
+    // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)
+    MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0);
 
     idealB.push_back(left); // начинаем с наименьшей границы
     for (unsigned int i=1; i < NewLength; ++i) 
     {
+    // создаем сетку для магнитного поля.
         idealB.push_back(idealB[i-1]+shag);
     }
     // тут начинается поиск.
@@ -65,8 +84,13 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
         }
     }*/
     // возможно стоит прикрутить более оптимальный поиск.
-    for (unsigned int i = 0; i < NewLength; ++i) 
+    /*
+    for (unsigned int i = 0; i < NewLength; ++i)
     {
+    // одно из самых тупых мест в этой программе.
+    // может прикрутить сюда бинарный поиск?
+    // данные-то по идее отсортированы
+    // не считая точек возле нулевого значения магнитной индукции.
         unsigned int index=0;
         long double r=4;
         for(unsigned int k=0;k<OldLength;++k)
@@ -82,6 +106,22 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
             outB.push_back(inB[index]);
             outDependence.push_back(inDependence[index]);
         }
+    }
+       */
+    for (unsigned int i = 0; i < NewLength; ++i)
+    {
+    std::vector<MyDataType>::iterator b=std::lower_bound(inB.begin(),inB.end(),idealB[i]);
+    if(b==inB.end())
+        --b;
+    if(b!=inB.begin())
+    {
+        if (fabs(fabs(*b)-fabs(idealB[i]))>fabs (fabs(*(b-1))-fabs(idealB[i])))
+            --b;
+    }
+    outB.push_back(*b);
+    int d=std::distance(inB.begin(),b);
+    outDependence.push_back(inDependence[d]);
+
     }
 
     return true;

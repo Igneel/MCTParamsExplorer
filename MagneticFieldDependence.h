@@ -237,6 +237,13 @@ DataTypeInContainer & Res);
 	DataTypeInContainer AveragedHallEffect;
 	DataTypeInContainer AveragedMagnetoResistance;
 
+    // » ещЄ мы кушаем пам€ть дл€ усредненных значений, которые будем
+    // кормить спектру подвижности.
+    /*
+    DataTypeInContainer AveragedB;
+    DataTypeInContainer sxx;
+	DataTypeInContainer sxy; */
+
 	DataTypeInContainer s_eff;
 	DataTypeInContainer Rh_eff;
 	DataTypeInContainer sxx;

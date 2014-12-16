@@ -3,6 +3,7 @@
 
 #include "UsedTypes.h"
 #include <math>
+#include <algorithm>
 inline MyDataType dist(MyDataType x1, MyDataType x2);
 
 bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, 
