@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = Resistance
+    ActivePage = HallEffect
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -893,7 +893,7 @@ object Form1: TForm1
           LabelPosition = lpLeft
           LabelSpacing = 3
           TabOrder = 3
-          Text = '4'
+          Text = '2'
           OnKeyPress = Edit1KeyPress
         end
         object eSamplingFRes: TEdit

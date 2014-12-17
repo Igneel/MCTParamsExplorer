@@ -18,6 +18,9 @@ MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString 
     rightBound[DIRECT]=2;
     rightBound[REVERSE]=0;
     rightBound[COMBINE]=2;
+
+    PowPolinomRes=2;
+    PowPolinomHall=4;
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
@@ -196,10 +199,28 @@ void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInC
         нулевых значений напр€жени€ ’олла получить не удаЄтс€.
         ќно будет близким к нулю, при этом справа или слева - предсказать не получитс€.
         
+        — магнитным полем это действует достаточно хорошо, но вот если речь идет
+        о сигнале - возникают некоторые проблемы.
+        ѕоэтому лучше брать знак той точки, которую усредн€ем. ¬ыгл€дит логично.
+
+
+        » вот € нашел ещЄ один кос€т - а что если функци€ не мен€ет знака?
+        Ќа всей прот€женности знак одинаковый и тут понеслась....
+
+        “ак, мы симметричны относительно точки B=0 и некоторого значени€ сигнала,
+        которое соответствует полю равному 0.
+        ¬опрос - как нам узнать это значение?
+        ¬ общем случае один из краев или центр входного сигнала должен быть
+        близким к нулю, но он может быть близким к нему, но так его и не пересечь.
 
         */
+        if( sigh(inY[0]*sigh(inY.back()))<0) // тогда если по кра€м знаки разные
+            outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+        else
+            outY[i]=sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+
             //outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
-            outY[i]=-sigh(inY[0])*fabs((inY[i]-inY[size-1-i]))/2.0;
+            //outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
             //outY[size-1-i]=-inY[i];
             break;
         case EVEN_FEAT: // четна€ подгонка
@@ -426,6 +447,15 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         break;
     }
 
+    /*
+    ¬ случае отрицательного магнитного пол€ надо инвертировать пор€док элементов
+    ѕотому что впереди выстраиваютс€ значени€ дл€ положительного магнитного пол€.
+    */
+    if(tempInB[0]>1.0)
+    {
+        std::reverse(tempInB.begin(),tempInB.end());
+        std::reverse(tempInSignal.begin(),tempInSignal.end());
+    }
     // фильтруем 
     TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
@@ -764,7 +794,7 @@ void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB
 
 
     filterData();
-    extrapolateData(4,4); // магические числа, степени полиномов дл€ экстрапол€ции по умолчанию.
+    extrapolateData(PowPolinomRes,PowPolinomHall);
     // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещЄ.      
 }
 
@@ -1081,4 +1111,10 @@ void MagneticFieldDependence::setChannelsInfo(channelsInfo & cI)
 void MagneticFieldDependence::rearrangeSignal()
 {
     HallEffect.swap(MagnetoResistance);
+}
+
+void MagneticFieldDependence::setExtrapolateParams(int powPolinowHall,int powPolinomRes)
+{
+    PowPolinomRes=powPolinowHall;
+    PowPolinomHall=powPolinomRes;
 }

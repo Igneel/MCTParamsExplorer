@@ -273,12 +273,15 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
-    void TForm1::UpdatePlots();
-    MagneticFieldDependence * TForm1::InitParams();
-    MagneticFieldDependence ** TForm1::ActiveParams();
-    void TForm1::DeleteActiveParams();
+    void UpdatePlots();
+    MagneticFieldDependence * InitParams();
+    MagneticFieldDependence ** ActiveParams();
+    void DeleteActiveParams();
     void UpdateSampleDescription(TStringList *Names,TStringList *Values);
     void concatDependence();
+
+    void saveSettings();
+    void loadSettings();
 
 };
 //---------------------------------------------------------------------------

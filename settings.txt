@@ -1,4 +1,4 @@
-ActivePageIndex	1
+ActivePageIndex	2
 ChannelB	0
 ChannelBRange	1
 ChannelHall	6
@@ -7,7 +7,7 @@ ChannelResistance	3
 ChannelResistanceRange	1
 MeasurementFrencuency	400
 PowPolinomHall	4
-PowPolinomRes	4
+PowPolinomRes	2
 SampleInventoryNumber	123456
 SampleLength	1,24
 SampleTemperature	77

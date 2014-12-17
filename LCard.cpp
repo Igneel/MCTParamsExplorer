@@ -8,6 +8,8 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TLabel * l3,
     channelsInfo cI)
 {
+    ADCMaxValue=8000.0;
+    
     ChannelLabels.push_back(l1);
     ChannelLabels.push_back(l2);
     ChannelLabels.push_back(l3);
@@ -41,6 +43,9 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
     }
 }
 //------------------------------------------------------------------
+/*
+--------------------------Работа с драйвером-------------------------
+*/
 bool LCardADC::DriverInit()
 {
     if((DllVersion = GetDllVersion()) != CURRENT_VERSION_LUSBAPI)
@@ -266,6 +271,34 @@ unsigned long __stdcall ServiceReadThread(PVOID /*Context*/)
     adc->ServiceReadThreadReal();
     return 0;
 }
+/*
+
+Не обошлось без костылей.
+Вот например здесь несколько функций в режиме реального времени строят графики на форме.
+С прямым доступом к самим графикам.
+
+По хорошему надо будет:
+
+Запрашивать данные по таймеру с формы.
+Тут функции получения текущих значений встроить.
+А это суровое нагромождение убрать.
+
+*/
+//------------------------------------------------------------------
+void LCardADC::setBSeries(TLineSeries *s)
+{
+    B=s;
+}
+//------------------------------------------------------------------
+void LCardADC::setHallSeries(TLineSeries *s)
+{
+    HallSeries=s;    
+}
+//------------------------------------------------------------------
+void LCardADC::setMagnetoResistanceSeries(TLineSeries *s)
+{
+    MagnetoResistanceSeries=s;
+}
 //------------------------------------------------------------------
 void LCardADC::InteractivePlottingDataOne()
 {
@@ -320,6 +353,12 @@ void LCardADC::DisplayOnForm(int channelN, MyDataType value)
     ++counter;
 }
 //------------------------------------------------------------------
+
+/*
+Вывод заканчивается. Начинается обработка полученных данных.
+Ну и само получение данных.
+*/
+
 void LCardADC::realTimeFilter(DataTypeInContainer & inData,
 DataTypeInContainer & outData)
 {
@@ -365,27 +404,43 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
             DisplayOnForm(i,ReadData[i].back());
         }   */
     }
+    /*
+    режим без медианной фильтрации.
+    Ест много-много памяти.
+    Для использования в реальности надо организовать запись данных в файл,
+    а потом постепенно всё это обрабатывать, т.к. хранить несколько миллионов значений
+    400 000 * 120 =  48 000 000 для каждого канала, т.е. всего 144 000 000
+    на нашем не очень современном компе - затратно.
+    Ибо памяти надо будет 1 440 000 000 байт = 1.5 Гбайта.
+    А потом всякие фильтрации, экстраполяции и т.д. и понадобится уже ~8Гб
+    */
     else
     {   for(int i=0;i<ap.ChannelsQuantity;++i)
             {
                 for(unsigned int j=0;j<splittedData[i].size();++j)
                 {
                     ReadData[i].push_back(convertToVolt(splittedData[i][j],i));
+                    // снова грешим, отображая каждое тысячное значение.
                     if(j%1000==0)
                     DisplayOnForm(i,ReadData[i].back());
                 }
             }
         
     }
-    
+
+    /*
+    Теперь важный момент. Если у нас включена запись данных (и вывод на графики,
+    соответственно.
+    */
     if(isWriting)
         InteractivePlottingData();
+    // чистим лишнее
     tempData.clear();
     for(int i=0;i<ap.ChannelsQuantity;++i)
     {
         splittedData[i].clear();
     }
-
+    // если запись выключена и данные не нужны - удаляем и их.
     if(!isWriting && !isDataNeeded)
     {
     for(int i=0;i<ap.ChannelsQuantity;++i)
@@ -524,20 +579,58 @@ std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
 //------------------------------------------------------------------
 MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
 {
+/*
+Появился некоторый вопрос. Минимальный значащий разряд, а как его считать?
+
+Вариант 1. Есть маскимальное число отсчетов 8000, есть максимальное значение напряжения
+для какого-либо режима (пусть будет 10)
+тогда МЗР = 8000 / 10 = 800
+
+Вариант 2. Число разных значений отсчетов у нас 16001.
+тогда диапазон в вольтах (20) раскладывается на 16001 значение и одно равно 800,05
+
+Разница не велика, но думаю принципиально посчитать всё правильно:).
+
+Судя по гуглению вернее будет именно второй вариант. Но это надо обсудить.
+
+*/
+
+/*
     MyDataType koef=1;
     switch(chanInfo[channel].second)
     {
         case 0: // +- 10V
-            koef=8000.0/10.0;
+            koef=(2*ADCMaxValue+1)/2/10.0;
             break;
         case 1: // +- 2.5V
-            koef=8000.0/2.5;
+            koef=(2*ADCMaxValue+1)/2/2.5;
             break;
         case 2: // 0.625V
-            koef=8000.0/0.625;
+            koef=(2*ADCMaxValue+1)/2/0.625;
             break;
         case 3: // 0.156V
-            koef=8000.0/0.156;
+            koef=(2*ADCMaxValue+1)/2/0.156;
+            break;
+        default:
+            break;
+    }
+    return in/koef;
+*/
+
+    MyDataType koef=1;
+    switch(chanInfo[channel].second)
+    {
+        case 0: // +- 10V
+            koef=ADCMaxValue/10.0;
+            break;
+        case 1: // +- 2.5V
+            koef=ADCMaxValue/2.5;
+            break;
+        case 2: // 0.625V
+            koef=ADCMaxValue/0.625;
+            break;
+        case 3: // 0.156V
+            koef=ADCMaxValue/0.156;
             break;
         default:
             break;
@@ -563,28 +656,17 @@ void LCardADC::clearBuffer()
     DequeBuffer.clear();
     splittedData.clear();
 }
-//------------------------------------------------------------------
-void LCardADC::setBSeries(TLineSeries *s)
-{
-    B=s;
-}
-//------------------------------------------------------------------
-void LCardADC::setHallSeries(TLineSeries *s)
-{
-    HallSeries=s;    
-}
-//------------------------------------------------------------------
-void LCardADC::setMagnetoResistanceSeries(TLineSeries *s)
-{
-    MagnetoResistanceSeries=s;
-}
+
 
 //------------------------------------------------------------------
 
 void LCardADC::splitToChannels(DataTypeInContainer &tempData,
 std::vector<DataTypeInContainer > &splittedData)
 {
+    // Выделяем места сколько надо.
     splittedData.resize(ap.ChannelsQuantity);
+    // Количество точек может не поделиться на количетсво каналов нацело
+    // Так как мы могли прервать сбор данных в самый неожиданный момент.
     unsigned int bound=(tempData.size()/(unsigned int)ap.ChannelsQuantity)*ap.ChannelsQuantity;
     for(unsigned int i=0;i<bound;)
     {
@@ -593,6 +675,9 @@ std::vector<DataTypeInContainer > &splittedData)
     }
 }
 
+// ----------------------------------------------------------------------------
+// Что-то тестовое, уже не помню даже зачем.
+// Если в ближайшее время не пригодится - выпилить.
 void LCardADC::testSetReadBuffer()
 {
     int mk=300;
@@ -630,12 +715,12 @@ void LCardADC::testSetReadBuffer()
     delete[] tempBuffer;
     delete[] B;
 }
-
+//-----------------------------------------------------------------------------
 bool LCardADC::IsMeasurementRunning()
 {
     return isMeasurementRunning;    
 }
-
+//-----------------------------------------------------------------------------
 void LCardADC::EnableMedianFilter()
 {
     isMedianFilterEnabled=true;
@@ -644,7 +729,7 @@ void LCardADC::DisableMedianFilter()
 {
     isMedianFilterEnabled=false;
 }
-
+//-----------------------------------------------------------------------------
 void LCardADC::EnableTestingMode()
 {
     TestingMode=true;
@@ -653,7 +738,7 @@ void LCardADC::DisableTestingMode()
 {
     TestingMode=false;
 }
-
+//-----------------------------------------------------------------------------
 
 bool LCardADC::StartWriting()
 {
@@ -668,7 +753,7 @@ bool LCardADC::StartWriting()
         return false;
     }
 }
-
+//-----------------------------------------------------------------------------
 bool LCardADC::StopWriting()
 {
     if(isMeasurementRunning)
@@ -682,19 +767,19 @@ bool LCardADC::StopWriting()
         return false;
     }
 }
-
+//-----------------------------------------------------------------------------
 bool LCardADC::isWritingEnabled()
 {
     return isWriting;
 }
-
+//-----------------------------------------------------------------------------
 void LCardADC::dataisntNeeded()
 {
     isDataNeeded=false;
 }
-
+//-----------------------------------------------------------------------------
 void LCardADC::setMedianFilterLength(size_t s)
 {
     medianFilterLength=s;
 }
-
+//-----------------------------------------------------------------------------

@@ -72,6 +72,7 @@ MagneticFieldDependence * TForm1::InitParams()
      eAttenuationFRes->Text, eLengthFilterRes->Text);
     (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
+    (*p)->setExtrapolateParams(PowPolinomHall->Text.ToInt(),PowPolinomRes->Text.ToInt());
     return *p;    
 }
 
@@ -156,6 +157,41 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
+void TForm1::saveSettings()
+{
+    // создание текущей копии настроек
+    settings= new SettingsSaver();
+    settings->Add("MeasurementFrencuency",uiFrenq->Text.c_str());
+    settings->Add("ChannelB",IntToStr(ComboBox4->ItemIndex).c_str());
+    settings->Add("ChannelResistance",IntToStr(ComboBox5->ItemIndex).c_str());
+    settings->Add("ChannelHall",IntToStr(ComboBox6->ItemIndex).c_str());
+    settings->Add("ChannelBRange",IntToStr(ComboBox1->ItemIndex).c_str());
+    settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
+    settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
+    settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
+    settings->Add("uiCurrent",uiCurrent->Text.c_str());
+    settings->Add("SampleTemperature",uiTemperature->Text.c_str());
+    settings->Add("SampleInventoryNumber",uiInventoryNumber->Text.c_str());
+    settings->Add("SampleLength",uiSampleLength->Text.c_str());
+    settings->Add("SampleWidth",uiSampleWidth->Text.c_str());
+    settings->Add("SampleThickness",uiSampleThickness->Text.c_str());
+    settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
+    settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
+    settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
+    settings->Add("eAttenuationFRes",eAttenuationFRes->Text.c_str());
+    settings->Add("PowPolinomRes",PowPolinomRes->Text.c_str());
+    settings->Add("eSamplingFHall",eSamplingFHall->Text.c_str());
+    settings->Add("eBandWidthFHall",eBandWidthFHall->Text.c_str());
+    settings->Add("eAttenuationFHall",eAttenuationFHall->Text.c_str());
+    settings->Add("PowPolinomHall",PowPolinomHall->Text.c_str());
+    settings->Add("ActivePageIndex",IntToStr(PC->ActivePageIndex).c_str());
+}
+
+void TForm1::loadSettings()
+{
+
+}
+
 void __fastcall TForm1::FormCreate(TObject *)
 {
     // загрузка настроек.

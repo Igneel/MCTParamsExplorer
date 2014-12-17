@@ -141,6 +141,8 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
 	// Ёкстрапол€ци€ результатов
 
+    void setExtrapolateParams(int powPolinowHall,int powPolinomRes);
+
 	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
 	
 	// просто трамплин на сейвер. возможно он него можно как-нибудь избавитьс€.
@@ -176,6 +178,9 @@ private:
 	//------‘ильтраци€ результатов-------------------------------------
 	FilterParams *filterParamsHall;
 	FilterParams *filterParamsResistance;
+
+    int PowPolinomRes;
+    int PowPolinomHall;
 
     void filterDataHelper(FilterParams &fP,
     SignalType dependenceType);
