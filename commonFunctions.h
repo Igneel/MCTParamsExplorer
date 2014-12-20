@@ -55,6 +55,24 @@ inline T max_elem(const std::vector<T> & in)
     return max;
 }
 //-------------------------------------------------------------------------------
+template <class T>
+inline T max_abs_elem(const std::vector<T> & in)
+{
+    if(in.size()==0)
+    {
+        //"Сложно найти максимальный элемент, когда нет ни одного");
+        return 0;
+    }
+    std::vector<T>::const_iterator pos;
+    T max=fabs(*in.begin());
+    for(pos=in.begin();pos!=in.end();++pos)
+    {
+        if(fabs(*pos)>max)
+        max=fabs(*pos);
+    }
+    return max;
+}
+//-------------------------------------------------------------------------------
 
 template <class T>
 inline T min_elem(const std::vector<T> & in)

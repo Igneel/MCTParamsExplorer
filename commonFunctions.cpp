@@ -110,6 +110,13 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
        */
     for (unsigned int i = 0; i < NewLength; ++i)
     {
+
+    if(inB[0]>inB[inB.size()/2]) // попробуем отделить отрицательный сигнал.
+    {    // нас волнует именно порядок элементов
+    // т.е. в начале у нас в районе нуля
+    // в конце в районе -2
+    std::reverse(inB.begin(),inB.end());
+    }
     std::vector<MyDataType>::iterator b=std::lower_bound(inB.begin(),inB.end(),idealB[i]);
     if(b==inB.end())
         --b;

@@ -785,7 +785,7 @@ void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB
         MagnetoResistance.push_back(*beginResistance);
         HallEffect.push_back(*beginHall); 
     }
-    if(max_elem(B)<0.5)
+    if(fabs(max_abs_elem(B))<0.5)
     {
         multiplyB(CURRENT_DATA);
     }
