@@ -1336,22 +1336,22 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
     {
         p=*par;
 
-        long double * B=new long double [(p->getAveragedB())->size()];
-        long double * sxx=new long double [(p->getAveragedB())->size()];
-        long double * sxy=new long double [(p->getAveragedB())->size()];
+        DataTypeInContainer B(p->getAveragedB()->begin(),p->getAveragedB()->end());
+        DataTypeInContainer sxx(p->getSxx()->begin(),p->getSxx()->end());
+        DataTypeInContainer sxy(p->getSxy()->begin(),p->getSxy()->end());
 
-        for(unsigned int i=0;i<(p->getAveragedB())->size();i++)
-        {
-        B[i]=(*p->getAveragedB())[i];
-        sxx[i]=(*p->getSxx())[i];
-        sxy[i]=(*p->getSxy())[i];
-        }
+        
 
-        calculateMobilitySpectrum(B,sxx,sxy,(p->getAveragedB())->size());
+        DataTypeInContainer nB;
+        DataTypeInContainer nSxx;
+        DataTypeInContainer nSxy;
 
-        delete [] B;
-        delete [] sxx;
-        delete [] sxy;
+        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
+        thiningSignal(B, sxx, nB, nSxy,0, 2, 11);
+
+        calculateMobilitySpectrum(nB.begin(),nSxx.begin(),nSxy.begin(),11);
+
+        
     }
 }
 //---------------------------------------------------------------------------
@@ -1471,18 +1471,18 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
 size_t size=24000;
 std::vector<long double> in;
 std::vector<long double> out;
-for(int i=0;i<size;++i)
+for(unsigned int i=0;i<size;++i)
 {
 in.push_back(rand());
 }
 medianFilter(in,out,11);
 ErrorLog->Lines->Add("Number for in"+IntToStr(in.size()));
 ErrorLog->Lines->Add("Number for out"+IntToStr(out.size()));
-for(int i=0;i<in.size();++i)
+for(unsigned int i=0;i<in.size();++i)
 {
 Series1->AddY(in[i]);
 }
-for(int i=0;i<out.size();++i)
+for(unsigned int i=0;i<out.size();++i)
 {
 Series2->AddY(out[i]);
 }

@@ -6,6 +6,8 @@ MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString 
     AnsiString length, AnsiString width, AnsiString Thickness)
 
 {
+    
+
     filterParamsHall=new FilterParams(); // по идее нужно бы и инциализировать их тут, дабы не было проблем в случае чего:).
     filterParamsResistance=new FilterParams();
     saver =new DataSaver(temperature,current,SampleInventoryNumber, length, width, Thickness);

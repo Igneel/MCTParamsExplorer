@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = HallEffect
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080

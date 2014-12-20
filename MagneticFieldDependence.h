@@ -215,6 +215,9 @@ DataTypeInContainer & Res);
 	//---------------Много переменных----------------------------------
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
+
+    DataSet currentData;
+
 	DataTypeInContainer B;
 	DataTypeInContainer BHall;
 	DataTypeInContainer BMagnetoResistance;

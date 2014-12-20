@@ -168,7 +168,8 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
     //tsl->Text=text.c_str();
 
     FileName+=defaultExtension;
-	tsl->SaveToFile(FileName); 	
+    if(tsl->Text!="")
+	    tsl->SaveToFile(FileName); 	
 
 	delete tsl;
 }
