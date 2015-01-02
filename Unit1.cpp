@@ -1038,8 +1038,8 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
         p=*par;
         p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
-        p->constructPlotFromTwoMassive(SXX,CURRENT_DATA,Series6,clRed);
-        p->constructPlotFromTwoMassive(SXY,CURRENT_DATA,LineSeries1,clRed);
+        p->constructPlotFromTwoMassive(SXX,AVERAGED_DATA,Series6,clRed);
+        p->constructPlotFromTwoMassive(SXY,AVERAGED_DATA,LineSeries1,clRed);
 
         ErrorLog->Lines->Add(p->getSxx()->size());
         ErrorLog->Lines->Add(p->getSxy()->size());
