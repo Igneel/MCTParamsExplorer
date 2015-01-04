@@ -222,6 +222,7 @@ __published:	// IDE-managed Components
     TLabeledEdit *uiSamplingFreq;
     TComboBox *ComboBox7;
     TComboBox *ComboBox8;
+    TButton *Button3;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -249,7 +250,7 @@ __published:	// IDE-managed Components
     void __fastcall bApplyADCSettingsClick(TObject *Sender);
     void __fastcall bUniteDependenceClick(TObject *Sender);
     void __fastcall CurrentResChange(TObject *Sender);
-    void __fastcall Button3Click(TObject *Sender);
+    void __fastcall uiCalculateTenzorClick(TObject *Sender);
     void __fastcall eLengthFilterResChange(TObject *Sender);
     void __fastcall eLengthFilterHallChange(TObject *Sender);
     void __fastcall HallCurveIndexClick(TObject *Sender);
@@ -268,6 +269,7 @@ __published:	// IDE-managed Components
     void __fastcall N16Click(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall uiFrenqChange(TObject *Sender);
+    void __fastcall Button3Click(TObject *Sender);
     
 
 private:	// User declarations

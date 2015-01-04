@@ -1733,7 +1733,7 @@ object Form1: TForm1
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1072
     TabOrder = 2
-    OnClick = Button3Click
+    OnClick = uiCalculateTenzorClick
   end
   object GroupBox1: TGroupBox
     Left = 664
@@ -1919,6 +1919,15 @@ object Form1: TForm1
       'ErrorLog')
     ScrollBars = ssVertical
     TabOrder = 8
+  end
+  object Button3: TButton
+    Left = 792
+    Top = 528
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 9
+    OnClick = Button3Click
   end
   object MainMenu1: TMainMenu
     Top = 440

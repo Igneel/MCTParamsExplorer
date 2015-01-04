@@ -1021,7 +1021,7 @@ void __fastcall TForm1::CurrentResChange(TObject *Sender)
 
 
 
-void __fastcall TForm1::Button3Click(TObject *Sender)
+void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
 {
     MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
@@ -1200,6 +1200,8 @@ else
 
     typedef long double  __stdcall (*resFunc) (int);
 
+    
+
 
 
 void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,int length)
@@ -1279,8 +1281,8 @@ long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
 long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
 long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
 
-HANDLE hLibHandle;
-hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+    HANDLE hLibHandle;
+    hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
 
       pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
 
@@ -1493,6 +1495,61 @@ Series2->AddY(out[i]);
 void __fastcall TForm1::uiFrenqChange(TObject *Sender)
 {
 uiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFilterSize->Text)); 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button3Click(TObject *Sender)
+{
+    typedef int __stdcall (*pointerToRunMultizoneFeat)
+    (long double VesGxx,
+    long double VesGxy,
+    long double & LowBound,
+    long double & UpBound,
+    long double & MagSpectr,
+    long double & GxxIn,
+    long double & GxyIn,
+    long double & outResultsForStatistic,
+    int *outSizeStatistic,
+    long double &outGxx,
+    long double &outGxy,
+    int *outSizeDataSpectr,
+    long double & outMinValue,
+    long double & outMiddleValue,
+    long double & outSKOValue,
+    long double & outSKOinPercentValue);
+
+    HANDLE hLibHandle;
+    hLibHandle = LoadLibrary("lib\\MultizoneFeat.dll");
+
+long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
+long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
+long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
+
+long double lowBound[6]={-7.179, 0.239315, 0.011994, -3.4E16, 2.2539E19, 4.938E21};
+long double upBound[6]={-2.39315, 0.718, 0.036, -1.14E16, 6.7617E19, 1.481E22};
+
+int sizeBuf=1000;
+long double * outResultsForStatistic= new long double [sizeBuf];
+long double * outGxx= new long double [sizeBuf];
+long double * outGxy= new long double [sizeBuf];
+long double * outMinValue= new long double [sizeBuf];
+long double * outMiddleValue= new long double [sizeBuf];
+long double * outSKOValue= new long double [sizeBuf];
+long double * outSKOinPercentValue= new long double [sizeBuf];
+
+int *outSizeDataSpectr;
+int *outSizeStatistic;
+
+      pointerToRunMultizoneFeat RunMultizoneFeat = (pointerToRunMultizoneFeat)GetProcAddress(hLibHandle,"RunMultizoneFeat");
+
+      (*RunMultizoneFeat)(1,1,*lowBound,*upBound,*B,*sxx,*sxy,*outResultsForStatistic,
+      outSizeStatistic,*outGxx,*outGxy,outSizeDataSpectr,*outMinValue,
+      *outMiddleValue,*outSKOValue,*outSKOinPercentValue);
+
+      //resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
+
+      if ( hLibHandle )
+      FreeLibrary( hLibHandle );
 }
 //---------------------------------------------------------------------------
 
