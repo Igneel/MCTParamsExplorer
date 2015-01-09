@@ -36,9 +36,9 @@
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I$(BCB)\include -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
-    <CFLAG1 value="-vGc -vGt -vGd -Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Q -Vx 
-      -Ve -Tkh30000 -X- -r- -a8 -5 -b- -d -k -y -v -vi- -c -tW -tWM"/>
+    <IDLCFLAGS value="-src_suffix cpp -D_DEBUG -I$(BCB)\include -I$(BCB)\include\vcl -boa"/>
+    <CFLAG1 value="-Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Q -Vx -Ve -Tkh30000 -X- 
+      -r- -a8 -5 -b- -d -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
     <CFLAG3 value=""/>
     <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -M -JPHNE"/>
@@ -51,7 +51,7 @@
   <LINKER>
     <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
     <ALLRES value="$(RESFILES)"/>
-    <ALLLIB value="cg32.lib $(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
     <OTHERFILES value=""/>
   </LINKER>
   <FILELIST>
@@ -81,7 +81,7 @@ AutoIncBuild=1
 MajorVer=0
 MinorVer=8
 Release=35
-Build=1267
+Build=1268
 Debug=0
 PreRelease=0
 Special=0
@@ -93,7 +93,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.8.35.1267
+FileVersion=0.8.35.1268
 InternalName=
 LegalCopyright=
 LegalTrademarks=
@@ -101,6 +101,9 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+
+[Excluded Packages]
+c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
 
 [HistoryLists\hlIncludePath]
 Count=10
@@ -137,7 +140,7 @@ Item0=_DEBUG
 Item1=_RTLDLL;USEPACKAGES
 
 [Debugging]
-DebugSourceDirs=\Include\
+DebugSourceDirs=\Include\;E:\Дела\Институт физики полупроводников\КРТ_программа Дениса\MultizoneFeat\
 
 [Parameters]
 RunParams=
@@ -154,16 +157,11 @@ RemoteDebug=0
 [Compiler]
 ShowInfoMsgs=1
 LinkDebugVcl=0
-LinkCGLIB=1
+LinkCGLIB=0
 
 [CORBA]
 AddServerUnit=1
 AddClientUnit=1
 PrecompiledHeaders=1
-
-[Language]
-ActiveLang=
-ProjectLang=
-RootDir=
   </IDEOPTIONS>
 </PROJECT>

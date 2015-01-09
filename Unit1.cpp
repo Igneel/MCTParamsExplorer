@@ -1546,6 +1546,31 @@ int *outSizeStatistic;
       outSizeStatistic,*outGxx,*outGxy,outSizeDataSpectr,*outMinValue,
       *outMiddleValue,*outSKOValue,*outSKOinPercentValue);
 
+      for(int i=0;i<sizeBuf;++i)
+      {
+           Series6->AddXY(B[i],outGxx[i],"",clRed);
+           LineSeries1->AddXY(B[i],outGxy[i],"",clRed);
+      }
+
+      for(int i=0;i<sizeBuf;++i)
+      {
+           ErrorLog->Lines->Add(FloatToStr(outMinValue[i]));
+      }
+      for(int i=0;i<sizeBuf;++i)
+      {
+           ErrorLog->Lines->Add(FloatToStr(outMiddleValue[i]));
+      }
+      for(int i=0;i<sizeBuf;++i)
+      {
+           ErrorLog->Lines->Add(FloatToStr(outSKOValue[i]));
+      }
+      for(int i=0;i<sizeBuf;++i)
+      {
+           ErrorLog->Lines->Add(FloatToStr(outSKOinPercentValue[i]));
+      }  
+
+      
+
       //resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
 
       if ( hLibHandle )
