@@ -6,7 +6,7 @@
 #include <algorithm>
 inline MyDataType dist(MyDataType x1, MyDataType x2);
 
-bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence, 
+bool thiningSignal(TSignal & inB, TSignal & inDependence, TSignal & outB, TSignal & outDependence, 
     MyDataType left, MyDataType right, size_t NewLength);
 
 //---------------------------------------------------------------------------
@@ -36,6 +36,23 @@ T roundM(T x, unsigned int NumberOfDecimalPlaces )
             x=ceill(x*S)/S;
     return x;
 }
+//-------------------------------------------------------------------------------
+template <class T>
+size_t indexOfElemClosestToValue(const std::vector<T> & in,MyDataType value)
+{
+    MyDataType dist=fabs(in[0]-value);
+    size_t index=0;
+    for (int i = 1; i < in.size(); ++i)
+    {
+        if (dist>fabs(in[i]-value))
+        {
+            dist=fabs(in[i]-value);
+            index=i;
+        }
+    }
+    return index;
+}
+
 //-------------------------------------------------------------------------------
 template <class T>
 inline T max_elem(const std::vector<T> & in)
@@ -92,7 +109,16 @@ inline T min_elem(const std::vector<T> & in)
     return min;
 }
 //-------------------------------------------------------------------------------
-
+template <class T>
+int sign(T in)
+{
+    if (in>=0)
+    {
+        return 1;
+    }
+    else 
+        return -1;
+}
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 /*

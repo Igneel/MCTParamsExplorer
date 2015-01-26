@@ -58,8 +58,8 @@ public:
     void EnableTestingMode();
     void DisableTestingMode();
 
-	std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData();
-    std::vector<DataTypeInContainer >  *  LCardADC::getSplittedData(int a);
+	std::vector<TSignal > const &  LCardADC::getSplittedData();
+    std::vector<TSignal >  *  LCardADC::getSplittedData(int a);
 
     void testSetReadBuffer(); // для отладки.
 
@@ -78,8 +78,8 @@ public:
 private:
     int counter;
 
-    void LCardADC::realTimeFilter(DataTypeInContainer & inData,
-DataTypeInContainer & outData);
+    void LCardADC::realTimeFilter(TSignal & inData,
+TSignal & outData);
     std::deque<TLabel *> ChannelLabels;
 
     channelsInfo chanInfo;
@@ -102,13 +102,13 @@ DataTypeInContainer & outData);
 	TLineSeries *MagnetoResistanceSeries;
 
 
-	void LCardADC::splitToChannels(DataTypeInContainer &tempData,
-	std::vector<DataTypeInContainer > &splittedData); // делим по каналам, прописанным в контрольной таблице.
+	void LCardADC::splitToChannels(TSignal &tempData,
+	std::vector<TSignal > &splittedData); // делим по каналам, прописанным в контрольной таблице.
 
 	void convertToVolt(); // преобразование в вольты.
 	MyDataType LCardADC::convertToVolt(MyDataType in,int channel);
 
-	void LCardADC::writeDataToVector(DataTypeInContainer & tempData); // сохраняет полученные данные.
+	void LCardADC::writeDataToVector(TSignal & tempData); // сохраняет полученные данные.
 
 	void LCardADC::DisplayOnForm(int i1, MyDataType v1);
 	void InteractivePlottingData();
@@ -151,9 +151,9 @@ DataTypeInContainer & outData);
 
 	// буфер данных
 	short *ReadBuffer;
-	//DataTypeInContainer ReadData;
-	std::vector<DataTypeInContainer > ReadData;
-	std::vector<DataTypeInContainer > splittedData;
+	//TSignal ReadData;
+	std::vector<TSignal > ReadData;
+	std::vector<TSignal > splittedData;
 	//------------------------------------------------------------------------------
 	std::deque<std::deque<MyDataType> > DequeBuffer;
 

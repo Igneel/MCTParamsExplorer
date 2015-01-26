@@ -7,10 +7,28 @@
 #include <set>
 
 typedef long double MyDataType;
-typedef std::vector<MyDataType> DataTypeInContainer;
-typedef std::vector<DataTypeInContainer> TwoDimensionalContainer;
+typedef std::vector<MyDataType> TSignal;
+typedef TSignal::iterator TSignalIt;
+typedef TSignal::const_iterator TSignalconstIt;
+typedef std::vector<TSignal> TwoDimensionalContainer;
 
-typedef std::set<std::pair<std::string, DataTypeInContainer> >DataSet;
+/*
+Давайте поиграем в продумывание архитектуры
+Вот есть у нас завивимости:
+Поле
+и Какие-то сигналы
+Поле в общем-то тоже сигнал
+
+Как результат наш набор данных должен быть массивом сигналов?
+С явными обозначениями, так что видимо это действительно будет
+либо ассоциативный массив map либо набор пар
+
+Получается мне нужно реализовать отдельно класс сигнала в принципе
+а потом наследовать его и переопределять некоторые функции согласно тому, как должен обрабатываться конкретный сигнал...
+я в шоке... профессиональная деформация началась.
+
+*/
+typedef std::set<std::pair<std::string, TSignal> >DataSet;
 
 typedef std::vector< std::pair<int, int> > channelsInfo;
 typedef std::vector< std::pair<std::string, std::string> > optionDescription;

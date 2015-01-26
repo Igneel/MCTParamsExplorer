@@ -23,6 +23,8 @@ MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString 
 
     PowPolinomRes=2;
     PowPolinomHall=4;
+
+
 }
 
 MagneticFieldDependence::~MagneticFieldDependence()
@@ -36,7 +38,7 @@ MagneticFieldDependence::~MagneticFieldDependence()
 }
 
 
-void MagneticFieldDependence::loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter)
+void MagneticFieldDependence::loadDataHelper(TSignal &temp, String AnsiS,const std::string delimiter)
 {
     temp.clear();
     std::string s1 = AnsiS.c_str();
@@ -101,10 +103,10 @@ void MagneticFieldDependence::loadData(TStringList * tts)
     const std::string delimiterSpace = " ";
     const int numberOfColls=3;
 
-    DataTypeInContainer B;
-    DataTypeInContainer Hall;
-    DataTypeInContainer Resistance;
-    DataTypeInContainer temp;
+    TSignal B;
+    TSignal Hall;
+    TSignal Resistance;
+    TSignal temp;
 
     for(int i=0;i<tts->Count;i++) // по количеству строк
     {
@@ -125,8 +127,9 @@ void MagneticFieldDependence::loadData(TStringList * tts)
         Hall.push_back(temp[2]);
     }
 
-    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());    
-
+    setDependence(B.begin(),B.end(),Hall.begin(),Resistance.begin());
+    //testB= new MagneticField(B.begin(),B.end());
+    //testHall= new THallEffect(Hall.begin(),Hall.end());
 }
 
 void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams)
@@ -166,16 +169,17 @@ int sigh(T in)
         return -1;
 }
 
-void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType)
+void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry)
 {
     /*
     Усредненный сигнал на данный момент существует лишь для положительного магнитного поля.
+
+
     
     */
     int size=inY.size();
     outY.resize(size/2); // Размер уменьшится вдвое.
-    for(int i=0;i<size/2;i++)
-    {
+    
         switch(featType)
         {
         case ODD_FEAT: // нечетная подгонка
@@ -215,30 +219,110 @@ void MagneticFieldDependence::averageData(DataTypeInContainer & inY, DataTypeInC
         В общем случае один из краев или центр входного сигнала должен быть
         близким к нулю, но он может быть близким к нему, но так его и не пересечь.
 
-        */
-        if( sigh(inY[0]*sigh(inY.back()))<0) // тогда если по краям знаки разные
-            outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
-        else
-            outY[i]=sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+        Возникли проблемы с усреднением фильтрованного графика холловского напряжения.
 
-            //outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
-            //outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
-            //outY[size-1-i]=-inY[i];
+
+        */
+        for(int i=0;i<size/2;i++)
+            {
+
+                if (centerOfSimmetry+i<size && centerOfSimmetry-i>=0) // дабы не вывалиться за границы
+                {
+                    outY[i]=(inY[centerOfSimmetry+i]-inY[centerOfSimmetry-i])/2.0;                    
+                }
+                else
+                {                
+                    if (centerOfSimmetry-i<0 && centerOfSimmetry+i<size)
+                    {
+                        outY[i]=inY[centerOfSimmetry+i];
+                    }
+                    else
+                    {
+                        if (centerOfSimmetry-i>=0)
+                        {
+                            outY[i]=-inY[centerOfSimmetry-i];
+                        }                   
+                    }
+                }
+/*
+
+            if( sigh(inY[0]*sigh(inY.back()))<0) // тогда если по краям знаки разные
+                outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+            else
+                outY[i]=sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+*/
+                //outY[i]=sigh(inY[size-1-i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+                //outY[i]=-sigh(inY[i])*fabs((inY[i]-inY[size-1-i]))/2.0;
+                //outY[size-1-i]=-inY[i];
+            }
+            // Поскольку начинали с дальнего края - реверсим вектор.
+      //  std::reverse(outY.begin(),outY.end());
             break;
         case EVEN_FEAT: // четная подгонка
-            outY[i]=(inY[i]+inY[size-1-i])/2.0;
+        /*
+        Так, теперь выясняется что и тут не всё так просто.
+        Есть у нас четная симметрия.
+        Относительно оси Y
+        Сие означает, что для противоположных значений индукции магнитного поля значения данной функции равны
+        f(-B)=f(B)
+        Для обычных входных данных нет никаких проблем и эта простая формула работает.
+        Но для фильтрованных сигналов, с увеличением длины фильтра возрастает погрешность - мы усредняем не те точки.
+        Нужно усреднять относительно точки В=0
+        Т.е. надо:
+        1. найти точку В=0
+        2. получить её индекс
+        3. усреднить относительно её те точки что получится
+        4. недостающие (для высоких значений магнитных полей, при длинном фильтре они экстраполируются) взять из исходного сигнала, без усреднения
+        P.S. Не уверен насчет поведения недостающих точек, но попробовать стоит.
+        5. Поскольку мы живем в мире реальных сигналов, то минимум сигнала (сопротивления) для четной подгонки запросто не совпадает 
+        с нулевым значением магнитного поля.
+        Для этого вводим новый параметр - индекс элемента, относительно которого строим симметрию.
+    
+
+        */
+
+        // С точкой B=0 всё более-менее просто - 
+        // Найдем минимум нашего сигнала, он и будет центральной точкой
+        // А вот и не угадал - не обязательно, для некоторых данных уезжает и далеко
+        // 
+        
+        //ShowMessage(FloatToStr(inY[min])+" "+IntToStr((int)min));
+            
+        for(int i=0;i<size/2;i++) // Элементов станет в два раза меньше.
+        {
+            if (centerOfSimmetry+i<size && centerOfSimmetry-i>=0) // дабы не вывалиться за границы
+            {
+                outY[i]=(inY[centerOfSimmetry-i]+inY[centerOfSimmetry+i])/2.0;
+            }
+            else
+            {                
+                if (centerOfSimmetry-i<0 && centerOfSimmetry+i<size)
+                {
+                    outY[i]=inY[centerOfSimmetry+i];
+                }
+                else
+                {
+                    if (centerOfSimmetry-i>=0)
+                    {
+                        outY[i]=inY[centerOfSimmetry-i];
+                    }                   
+                }
+            }
+            //outY[i]=(inY[i]+inY[size-1-i])/2.0;
             //tempY[size-1-i]=tempY[i];
-            break;
+
         }
+        break;
     }
-    std::reverse(outY.begin(),outY.end());
+    // А зачем он этот реверс-то?О_о
+    //std::reverse(outY.begin(),outY.end());
 }
 
 void MagneticFieldDependence::featData(DataKind dataKind)
 {
-    DataTypeInContainer tempInX;
-    DataTypeInContainer tempInHall;
-    DataTypeInContainer tempInResistance;
+    TSignal tempInX;
+    TSignal tempInHall;
+    TSignal tempInResistance;
     
     tempInX=(*getPointerB(dataKind));
     tempInHall=(*getPointerHall(dataKind));
@@ -250,21 +334,21 @@ void MagneticFieldDependence::featData(DataKind dataKind)
         return;
     }
     
-    averageData(tempInX,AveragedB,ODD_FEAT);
-    averageData(tempInHall,AveragedHallEffect,ODD_FEAT);
-    averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT);
+    averageData(tempInX,AveragedB,ODD_FEAT,indexOfElemClosestToValue(tempInX,0));
+    averageData(tempInHall,AveragedHallEffect,ODD_FEAT,indexOfElemClosestToValue(tempInX,0));
+    averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT,indexOfElemClosestToValue(tempInX,0));
 }
 
-void MagneticFieldDependence::GetEqualNumberOfPoints(DataTypeInContainer & B,
-DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
-DataTypeInContainer & Res)
+void MagneticFieldDependence::GetEqualNumberOfPoints(TSignal & B,
+TSignal & BHall,TSignal & BRes, TSignal & Hall,
+TSignal & Res)
 {
     MyDataType left, right;
     size_t length;
 
-    DataTypeInContainer tempB;
-    DataTypeInContainer tempHall;
-    DataTypeInContainer tempResistance;
+    TSignal tempB;
+    TSignal tempHall;
+    TSignal tempResistance;
     if(Hall.size()==0 || Res.size()==0 || B.size()==0)
     {
     return;
@@ -366,17 +450,13 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
         return;
     }
 
-    DataTypeInContainer * inB;
-    DataTypeInContainer * inHallEffect;
-    DataTypeInContainer * inMagnetoResistance;
+    TSignal * inB;
+    TSignal * inHallEffect;
+    TSignal * inMagnetoResistance;
     unsigned int NumberOfPoints;
 
-    //if ((B[0]+2.0)<0.5) // если это комбинированный сигнал.
-    if( B[0]<-1.0 && B.back() >1.0)
+    if( B[0]<-1.0 && B.back() >1.0) // Если это комбинированный сигнал
     {
-    // И как спрашивается это отличить от отрицательного сигнала?
-    // Плохой критерий.
-    // Хороший критерий - B[0]<-1.0 && B.back() >1.0
         featData(CURRENT_DATA); // его надо усреднить
         inB=&AveragedB; // фильтровать будем усредненный сигнал
         inHallEffect=&AveragedHallEffect;
@@ -395,11 +475,11 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     // Это очень мило, а если это сигнал для отрицательного магнитного поля?
     // То теоретически достраивается положительная часть.
     // Надо пофиксить тут комменты на адекватные действительности.
-    DataTypeInContainer tempInB(2*NumberOfPoints);
-    DataTypeInContainer tempInSignal(2*NumberOfPoints);
+    TSignal tempInB(2*NumberOfPoints);
+    TSignal tempInSignal(2*NumberOfPoints);
 
-    DataTypeInContainer tempOutB(2*NumberOfPoints);
-    DataTypeInContainer tempOutSignal(2*NumberOfPoints);
+    TSignal tempOutB(2*NumberOfPoints);
+    TSignal tempOutSignal(2*NumberOfPoints);
 
     switch(dependenceType)
     {
@@ -517,25 +597,25 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 {
     bool returnValue=true;
 
-    DataTypeInContainer koefMagnetoResistance(polinomPowForMagnetoResistance+1);
-    DataTypeInContainer koefHallEffect(polinomPowForHallEffect+1);
+    TSignal koefMagnetoResistance(polinomPowForMagnetoResistance+1);
+    TSignal koefHallEffect(polinomPowForHallEffect+1);
 
-    DataTypeInContainer newB;
-    DataTypeInContainer newHallEffect;
-    DataTypeInContainer newMagnetoResistance;
+    TSignal newB;
+    TSignal newHallEffect;
+    TSignal newMagnetoResistance;
 
     // копируем фильтрованные данные
-    /*DataTypeInContainer inBHall(FilteredB);
-    DataTypeInContainer inBMagnetoResistance(FilteredB);
+    /*TSignal inBHall(FilteredB);
+    TSignal inBMagnetoResistance(FilteredB);
 
-    DataTypeInContainer inHallEffect(FilteredHallEffect);
-    DataTypeInContainer inMagnetoResistance(FilteredMagnetoResistance);
+    TSignal inHallEffect(FilteredHallEffect);
+    TSignal inMagnetoResistance(FilteredMagnetoResistance);
 */
-    DataTypeInContainer inBHall;
-    DataTypeInContainer inBMagnetoResistance;
+    TSignal inBHall;
+    TSignal inBMagnetoResistance;
 
-    DataTypeInContainer inHallEffect;
-    DataTypeInContainer inMagnetoResistance;
+    TSignal inHallEffect;
+    TSignal inMagnetoResistance;
 
     /*
     Экстраполяция данных ведется по последней четверти фильтрованных значений.
@@ -564,8 +644,8 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     }
     MyDataType h=2.2/NumberOfPoints;
     
-
-	for(int i=0;i<500;i++) // увеличиваем вес точки (0,0) для эффекта Холла.
+    int ves = inBHall.size()/10;
+	for(int i=0;i<ves;++i) // увеличиваем вес точки (0,0) для эффекта Холла.
 	{
 		inBHall.push_back(0);
 		inHallEffect.push_back(0);
@@ -580,8 +660,8 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     
 
 	newB.clear();
-	newB.push_back(0); // заполняем магнитное поле.
-	for (unsigned int i = 1; i < NumberOfPoints; i++) {
+	newB.push_back(1.0); // заполняем магнитное поле.
+	for (unsigned int i = 1; i<NumberOfPoints; i++) {
 		newB.push_back(newB[i-1]+h);
 	}
 
@@ -619,23 +699,23 @@ return returnValue;
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
 {
-    DataTypeInContainer * temp;
+    TSignal * temp;
     temp=getPointerB(dataKind);
 
-    DataTypeInContainer::iterator pos;
+    TSignal::iterator pos;
     for(pos=temp->begin();pos!=temp->end();++pos)
     *pos*=10;
 }  
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplySignal(SignalType s, MyDataType x)
 {
-DataTypeInContainer * p;
+TSignal * p;
 if(s==HALL_EFFECT) p=&HallEffect;
 if(s==MAGNETORESISTANCE) p=&MagnetoResistance;
 if(p!=INVALID_HANDLE_VALUE)
 {
-    DataTypeInContainer::iterator begin=p->begin();
-    DataTypeInContainer::iterator end=p->end();
+    TSignal::iterator begin=p->begin();
+    TSignal::iterator end=p->end();
 
     for(;begin!=end;++begin)
         *begin*=x;
@@ -659,8 +739,8 @@ inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::st
 //-------------------------------------------------------------------------------*/
 bool MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color)
 {
-    DataTypeInContainer * pointToX=0; // указатели на выводимые данные
-    DataTypeInContainer * pointToY=0;
+    TSignal * pointToX=0; // указатели на выводимые данные
+    TSignal * pointToY=0;
 	s->Clear(); // чистим график.
     switch(pt) // определяем что выводить.
     {
@@ -694,8 +774,8 @@ bool MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKin
     Из-за определенных тормозов с отображением мириадов точек было принято
     решение отображать только фиксированное количество.
     */
-    DataTypeInContainer::iterator posX;
-    DataTypeInContainer::iterator posY;
+    TSignal::iterator posX;
+    TSignal::iterator posY;
     // если точек в массиве меньше чем мы обчно выводим - выводим сколько есть.
     long double PointsToShow=(500>pointToX->size()?pointToX->size():500);
 
@@ -716,7 +796,7 @@ bool MagneticFieldDependence::constructPlotFromTwoMassive(SignalType pt, DataKin
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::constructPlotFromOneMassive(SignalType p,TLineSeries* s,TColor color)
 {
-    DataTypeInContainer * temp;
+    TSignal * temp;
 	s->Clear();
     switch(p)
     {
@@ -775,9 +855,9 @@ void MagneticFieldDependence::setRoundNeeded(bool needRound)
 //-------------------------------------------------------------------------------
 
 
-void MagneticFieldDependence::setDependence(DataTypeInContainer::iterator beginB, 
-        DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
-        DataTypeInContainer::iterator beginResistance)
+void MagneticFieldDependence::setDependence(TSignal::iterator beginB, 
+        TSignal::iterator endB, TSignal::iterator beginHall, 
+        TSignal::iterator beginResistance)
 {
     clearCurrentParams();
 
@@ -843,72 +923,72 @@ FilterParams const * MagneticFieldDependence::getFilterParamsResistance()
     return filterParamsResistance;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getB()
+TSignal const * MagneticFieldDependence::getB()
 {
     return &B;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getFilteredB()
+TSignal const * MagneticFieldDependence::getFilteredB()
 {
     return &FilteredB;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getExtrapolatedB()
+TSignal const * MagneticFieldDependence::getExtrapolatedB()
 {
     return &ExtrapolatedB;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getHallEffect()
+TSignal const * MagneticFieldDependence::getHallEffect()
 {
     return &HallEffect;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getMagnetoResistance()
+TSignal const * MagneticFieldDependence::getMagnetoResistance()
 {
     return &MagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getFilteredHallEffect()
+TSignal const * MagneticFieldDependence::getFilteredHallEffect()
 {
     return &FilteredHallEffect;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getFilteredMagnetoResistance()
+TSignal const * MagneticFieldDependence::getFilteredMagnetoResistance()
 {
     return &FilteredMagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getExtrapolatedHallEffect()
+TSignal const * MagneticFieldDependence::getExtrapolatedHallEffect()
 {
     return &ExtrapolatedHallEffect;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getExtrapolatedMagnetoResistance()
+TSignal const * MagneticFieldDependence::getExtrapolatedMagnetoResistance()
 {
     return &ExtrapolatedMagnetoResistance;
 }
 //-------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getSxx()
+TSignal const * MagneticFieldDependence::getSxx()
 {
     return &sxx;
 }
 //----------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getSxy()
+TSignal const * MagneticFieldDependence::getSxy()
 {
     return &sxy;
 }
 //----------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getAveragedB()
+TSignal const * MagneticFieldDependence::getAveragedB()
 {
     return &AveragedB;
 }
 //----------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getRh_eff()
+TSignal const * MagneticFieldDependence::getRh_eff()
 {
     return &Rh_eff;
 }
 //----------------------------------------------------------------------------------
-DataTypeInContainer const * MagneticFieldDependence::getS_eff()
+TSignal const * MagneticFieldDependence::getS_eff()
 {
     return &s_eff;
 }
@@ -972,7 +1052,7 @@ void MagneticFieldDependence::calculateTenzorFromEffectiveParams()
     }
 }
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerB(DataKind dataKind)
+TSignal * MagneticFieldDependence::getPointerB(DataKind dataKind)
 {
     switch(dataKind)
     {
@@ -990,7 +1070,7 @@ DataTypeInContainer * MagneticFieldDependence::getPointerB(DataKind dataKind)
     return NULL;
 }
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerHall(DataKind dataKind)
+TSignal * MagneticFieldDependence::getPointerHall(DataKind dataKind)
 {
     switch(dataKind)
     {
@@ -1008,7 +1088,7 @@ DataTypeInContainer * MagneticFieldDependence::getPointerHall(DataKind dataKind)
     return NULL;
 }
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerMagnetoResistance(DataKind dataKind)
+TSignal * MagneticFieldDependence::getPointerMagnetoResistance(DataKind dataKind)
 {
     switch(dataKind)
     {
@@ -1026,18 +1106,18 @@ DataTypeInContainer * MagneticFieldDependence::getPointerMagnetoResistance(DataK
     return NULL;
 }
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerSxx(DataKind dataKind)
+TSignal * MagneticFieldDependence::getPointerSxx(DataKind dataKind)
 {
     return &sxx;
 }
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind)
+TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind)
 {
     return &sxy;
 }
 //-------------------------------------------------------------------------
 
-void MagneticFieldDependence::calcutaleTenzor(DataKind dataKind)
+void MagneticFieldDependence::calculateTenzor(DataKind dataKind)
 {
     featData(dataKind);
     cutData(AVERAGED_DATA);
@@ -1048,6 +1128,7 @@ void MagneticFieldDependence::calcutaleTenzor(DataKind dataKind)
 //-------------------------------------------------------------------------
 void  MagneticFieldDependence::cutData(DataKind dataKind)
 {
+    // А если тут ничего не происходит... зачем я её делал?))))
    ;
 }
 
@@ -1076,8 +1157,8 @@ void MagneticFieldDependence::setParamsType(ParamsType pt)
 
 void MagneticFieldDependence::shiftCurve(DataKind dataKind,SignalType dependenceType,MyDataType shiftValue,MyDataType leftBound, MyDataType rightBound)
 {
-    DataTypeInContainer * pointToY=0;
-    DataTypeInContainer * pointToX=0;
+    TSignal * pointToY=0;
+    TSignal * pointToX=0;
     switch (dependenceType)
     {
         case HALL_EFFECT:
@@ -1096,7 +1177,7 @@ void MagneticFieldDependence::shiftCurve(DataKind dataKind,SignalType dependence
         return;
     }
 
-    for (DataTypeInContainer::iterator i = pointToY->begin(), j=pointToX->begin(); i != pointToY->end() && j!=pointToX->end(); ++i,++j)
+    for (TSignal::iterator i = pointToY->begin(), j=pointToX->begin(); i != pointToY->end() && j!=pointToX->end(); ++i,++j)
     {
         if (*j>=leftBound && *j<=rightBound)
         {

@@ -13,6 +13,9 @@
 #include "UsedTypes.h"
 #include "ExtrapolateUnit.h"
 #include "commonFunctions.h"
+//#include "Signal.h"
+//#include "MagneticField.h"
+//#include "hallEffect.h"
 
 
 /*
@@ -43,7 +46,7 @@ public:
 	Loader(AnsiString FileName);
 	~Loader();
 
-	DataTypeInContainer getLoadedData();
+	TSignal getLoadedData();
 
 private:
 	void loadData(TStringList * tsl);	
@@ -62,9 +65,9 @@ class MagneticFieldDependence
 {
 public:
 
-DataTypeInContainer * MagneticFieldDependence::getPointerSxx(DataKind dataKind);
+TSignal * MagneticFieldDependence::getPointerSxx(DataKind dataKind);
 //-------------------------------------------------------------------------
-DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
+TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
 	enum FeatType {ODD_FEAT, EVEN_FEAT};
 
@@ -73,31 +76,31 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
 	~MagneticFieldDependence();
 
-    DataTypeInContainer const * getB();
+    TSignal const * getB();
 
-	DataTypeInContainer const * getBHall();
-	DataTypeInContainer const * getBMagnetoResistance();
-    DataTypeInContainer const * getHallEffect();
-    DataTypeInContainer const * getMagnetoResistance();
+	TSignal const * getBHall();
+	TSignal const * getBMagnetoResistance();
+    TSignal const * getHallEffect();
+    TSignal const * getMagnetoResistance();
   
-    DataTypeInContainer const * getFilteredB();
+    TSignal const * getFilteredB();
 
-	DataTypeInContainer const * getFilteredBHall();
-	DataTypeInContainer const * getFilteredBMagnetoResistance();
-    DataTypeInContainer const * getFilteredHallEffect();
-    DataTypeInContainer const * getFilteredMagnetoResistance();
-    DataTypeInContainer const * getExtrapolatedB();
+	TSignal const * getFilteredBHall();
+	TSignal const * getFilteredBMagnetoResistance();
+    TSignal const * getFilteredHallEffect();
+    TSignal const * getFilteredMagnetoResistance();
+    TSignal const * getExtrapolatedB();
 
-	DataTypeInContainer const * getExtrapolatedBHall();
-	DataTypeInContainer const * getExtrapolatedBMagnetoResistance();
-    DataTypeInContainer const * getExtrapolatedHallEffect();
-    DataTypeInContainer const * getExtrapolatedMagnetoResistance();   
+	TSignal const * getExtrapolatedBHall();
+	TSignal const * getExtrapolatedBMagnetoResistance();
+    TSignal const * getExtrapolatedHallEffect();
+    TSignal const * getExtrapolatedMagnetoResistance();   
 
-    DataTypeInContainer const * getSxx();
-    DataTypeInContainer const * getSxy();
-    DataTypeInContainer const * getAveragedB();
-    DataTypeInContainer const * getRh_eff();
-    DataTypeInContainer const * getS_eff();
+    TSignal const * getSxx();
+    TSignal const * getSxy();
+    TSignal const * getAveragedB();
+    TSignal const * getRh_eff();
+    TSignal const * getS_eff();
 	
 
 	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,
@@ -106,15 +109,15 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 	void getSplittedDataFromADC();
 
 	void loadData(TStringList * tsl);
-	void MagneticFieldDependence::loadSampleDescription(TStringList *Names,TStringList *Values,AnsiString FileName);
+	void loadSampleDescription(TStringList *Names,TStringList *Values,AnsiString FileName);
 
-	void setDependence(DataTypeInContainer::iterator beginB, 
-		DataTypeInContainer::iterator endB, DataTypeInContainer::iterator beginHall, 
-		DataTypeInContainer::iterator beginResistance);
+	void setDependence(TSignal::iterator beginB, 
+		TSignal::iterator endB, TSignal::iterator beginHall, 
+		TSignal::iterator beginResistance);
 	// Сохранение данных.
 	void setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
 
-	void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams=false);
+	void SaveAllData(AnsiString FileName,bool isCombinedParams=false);
 
 	//-------Построение графиков-------------------------------------- 
 	bool constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color);
@@ -124,7 +127,7 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
 	//-----Расчет тензора проводимости---------------------------------
 	
-	void calcutaleTenzor(DataKind dataKind);
+	void calculateTenzor(DataKind dataKind);
 
 	//------Фильтрация результатов-------------------------------------
 	bool setFilterParamsHall(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
@@ -163,8 +166,8 @@ DataTypeInContainer * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 private:
 
 	ParamsType paramsType;
-	DataTypeInContainer leftBound;
-	DataTypeInContainer rightBound;
+	TSignal leftBound;
+	TSignal rightBound;
 
 	channelsInfo chanInfo;
 
@@ -186,76 +189,79 @@ private:
     SignalType dependenceType);
 
     //------Загрузка данных-------------------------------------------- 
-	void loadDataHelper(DataTypeInContainer &temp, String AnsiS,const std::string delimiter);
-	inline void MagneticFieldDependence::ReplaceDotsToComma(std::string &in, std::string & out);
+	void loadDataHelper(TSignal &temp, String AnsiS,const std::string delimiter);
+	inline void ReplaceDotsToComma(std::string &in, std::string & out);
 
 	
 
 	//---------Обработка данных----------------------------------------
 	void multiplyB(DataKind dataKind);
 
-    void GetEqualNumberOfPoints(DataTypeInContainer & B,
-DataTypeInContainer & BHall,DataTypeInContainer & BRes, DataTypeInContainer & Hall,
-DataTypeInContainer & Res);
+    void GetEqualNumberOfPoints(TSignal & B,
+TSignal & BHall,TSignal & BRes, TSignal & Hall,
+TSignal & Res);
 
 	void calculateEffectiveParamsFromSignals();
 	void calculateTenzorFromEffectiveParams();
 	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.
-	void averageData(DataTypeInContainer & inY, DataTypeInContainer &outY, FeatType featType);
+	void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry);
 	
 	void cutData(DataKind dataKind); // оставляет только положительные значения магнитного поля
 
-	void MagneticFieldDependence::clearCurrentParams();
-	void MagneticFieldDependence::clearFilteredParams();
+	void clearCurrentParams();
+	void clearFilteredParams();
 
-	DataTypeInContainer * getPointerB(DataKind dataKind);
-	DataTypeInContainer * getPointerHall(DataKind dataKind);
-	DataTypeInContainer * getPointerMagnetoResistance(DataKind dataKind);
+	TSignal * getPointerB(DataKind dataKind);
+	TSignal * getPointerHall(DataKind dataKind);
+	TSignal * getPointerMagnetoResistance(DataKind dataKind);
 
 	//---------------Много переменных----------------------------------
 	// Текущие магнитное поле и эффект Холла/магнитосопротивление,
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
 
     DataSet currentData;
+    //Signal * testB;
+    //Signal * testHall;
 
-	DataTypeInContainer B;
-	DataTypeInContainer BHall;
-	DataTypeInContainer BMagnetoResistance;
-	DataTypeInContainer HallEffect;
-    DataTypeInContainer MagnetoResistance;
+
+	TSignal B;
+	TSignal BHall;
+	TSignal BMagnetoResistance;
+	TSignal HallEffect;
+    TSignal MagnetoResistance;
 	// Первоначальные значения, полученные от АЦП сохраняются в текущие.
 	// Фильтрованные значения.
-	DataTypeInContainer FilteredB;
-	DataTypeInContainer FilteredBHall;
-	DataTypeInContainer FilteredBMagnetoResistance;
-    DataTypeInContainer FilteredHallEffect;
-    DataTypeInContainer FilteredMagnetoResistance;
+	TSignal FilteredB;
+	TSignal FilteredBHall;
+	TSignal FilteredBMagnetoResistance;
+    TSignal FilteredHallEffect;
+    TSignal FilteredMagnetoResistance;
 
 	// Экстраполированные значения.
-	DataTypeInContainer ExtrapolatedB;
-	DataTypeInContainer ExtrapolatedBHall;
-	DataTypeInContainer ExtrapolatedBMagnetoResistance;
-    DataTypeInContainer ExtrapolatedHallEffect;
-    DataTypeInContainer ExtrapolatedMagnetoResistance;
+	TSignal ExtrapolatedB;
+	TSignal ExtrapolatedBHall;
+	TSignal ExtrapolatedBMagnetoResistance;
+    TSignal ExtrapolatedHallEffect;
+    TSignal ExtrapolatedMagnetoResistance;
 
     // Усредненные значения.
-    DataTypeInContainer AveragedB;
-	DataTypeInContainer AveragedBHall;
-	DataTypeInContainer AveragedBMagnetoResistance;
-	DataTypeInContainer AveragedHallEffect;
-	DataTypeInContainer AveragedMagnetoResistance;
+    TSignal AveragedB;
+	TSignal AveragedBHall;
+	TSignal AveragedBMagnetoResistance;
+	TSignal AveragedHallEffect;
+	TSignal AveragedMagnetoResistance;
 
     // И ещё мы кушаем память для усредненных значений, которые будем
     // кормить спектру подвижности.
     /*
-    DataTypeInContainer AveragedB;
-    DataTypeInContainer sxx;
-	DataTypeInContainer sxy; */
+    TSignal AveragedB;
+    TSignal sxx;
+	TSignal sxy; */
 
-	DataTypeInContainer s_eff;
-	DataTypeInContainer Rh_eff;
-	DataTypeInContainer sxx;
-	DataTypeInContainer sxy;
+	TSignal s_eff;
+	TSignal Rh_eff;
+	TSignal sxx;
+	TSignal sxy;
     
 };
 

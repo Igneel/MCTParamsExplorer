@@ -21,8 +21,8 @@ public:
 
 	void SaveSampleDescription(AnsiString FileName);
 
-void DataSaver::SaveData(DataKind dataKind,const DataTypeInContainer *B,
-const DataTypeInContainer * HallEffect, const DataTypeInContainer * MagnetoResistance,
+void DataSaver::SaveData(DataKind dataKind,const TSignal *B,
+const TSignal * HallEffect, const TSignal * MagnetoResistance,
 SaveType saveType,AnsiString FileName);
 
     void setBaseFileName(AnsiString FileName);
@@ -33,8 +33,8 @@ SaveType saveType,AnsiString FileName);
 private:
 
 	ParamsType paramsType;
-	DataTypeInContainer leftBound;
-	DataTypeInContainer rightBound;
+	TSignal leftBound;
+	TSignal rightBound;
 
 	AnsiString BaseFileName;
 
@@ -53,9 +53,9 @@ private:
 	AnsiString SampleWidth; // ширина образца, мм
 	AnsiString SampleThickness; // толщина образца, мкм
     
-    void SaveDataHelper(const DataTypeInContainer *saveB,
-	const DataTypeInContainer * saveHall,
-	const DataTypeInContainer * saveResistance,SaveType mode,
+    void SaveDataHelper(const TSignal *saveB,
+	const TSignal * saveHall,
+	const TSignal * saveResistance,SaveType mode,
 	AnsiString FileName);
 	inline void ReplaceDotsToComma(std::string &in, std::string & out);
 	inline void ReplaceCommaToDots(std::string &in, std::string & out);

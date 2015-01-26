@@ -4,6 +4,78 @@
 		"selected_items":
 		[
 			[
+				"inB",
+				"inBHall"
+			],
+			[
+				"i",
+				"index"
+			],
+			[
+				"in",
+				"in"
+			],
+			[
+				"v",
+				"value"
+			],
+			[
+				"TSi",
+				"TSignalIt"
+			],
+			[
+				"h",
+				"HallEffect"
+			],
+			[
+				"E",
+				"ExtapolatePolinomDegree"
+			],
+			[
+				"p",
+				"public"
+			],
+			[
+				"T",
+				"TSignal"
+			],
+			[
+				"e",
+				"extrapolate"
+			],
+			[
+				"f",
+				"featTo"
+			],
+			[
+				"fo",
+				"forv	Vector For Loop"
+			],
+			[
+				"sig",
+				"signal"
+			],
+			[
+				"si",
+				"signal"
+			],
+			[
+				"I",
+				"iterator"
+			],
+			[
+				"m",
+				"MagneticField"
+			],
+			[
+				"min",
+				"min-i"
+			],
+			[
+				"out",
+				"outY"
+			],
+			[
 				"siz",
 				"size_t"
 			],
@@ -14,10 +86,6 @@
 			[
 				"be",
 				"beginB"
-			],
-			[
-				"m",
-				"multiplyB"
 			],
 			[
 				"Me",
@@ -152,10 +220,6 @@
 				"tempX"
 			],
 			[
-				"in",
-				"inc	#include \"…\""
-			],
-			[
 				"di",
 				"dist"
 			],
@@ -178,10 +242,6 @@
 			[
 				"size",
 				"size"
-			],
-			[
-				"inB",
-				"inB"
 			],
 			[
 				"re",
@@ -226,10 +286,6 @@
 			[
 				"getP",
 				"getPointerHall"
-			],
-			[
-				"p",
-				"pointToY"
 			],
 			[
 				"Data",
@@ -316,10 +372,6 @@
 				"SampleTemperature"
 			],
 			[
-				"T",
-				"Text"
-			],
-			[
 				"Crs",
 				"CurrentRes"
 			],
@@ -330,10 +382,6 @@
 			[
 				"C",
 				"ChannelHall"
-			],
-			[
-				"I",
-				"ItemIndex"
 			],
 			[
 				"st",
@@ -440,24 +488,12 @@
 				"LCardADC"
 			],
 			[
-				"i",
-				"inc	#include \"…\""
-			],
-			[
 				"max",
 				"max_elem"
 			],
 			[
 				"Num",
 				"NumberOfDecimalPlaces"
-			],
-			[
-				"f",
-				"for	For Loop"
-			],
-			[
-				"fo",
-				"forv	Vector For Loop"
 			],
 			[
 				"In",
@@ -478,14 +514,6 @@
 			[
 				"Filte",
 				"FilterParams"
-			],
-			[
-				"filter",
-				"filterLength"
-			],
-			[
-				"find",
-				"findIndex"
 			]
 		]
 	},
@@ -495,55 +523,7 @@
 			"file": "MagneticFieldDependence.cpp",
 			"settings":
 			{
-				"buffer_size": 34841,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ExtrapolateUnit.cpp",
-			"settings":
-			{
-				"buffer_size": 9408,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "LCard.cpp",
-			"settings":
-			{
-				"buffer_size": 19654,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "commonFunctions.cpp",
-			"settings":
-			{
-				"buffer_size": 2607,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "commonFunctions.h",
-			"settings":
-			{
-				"buffer_size": 3165,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "FilteringUnit.h",
-			"settings":
-			{
-				"buffer_size": 2090,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "FilteringUnit.cpp",
-			"settings":
-			{
-				"buffer_size": 7546,
+				"buffer_size": 39246,
 				"line_ending": "Windows"
 			}
 		},
@@ -551,34 +531,31 @@
 			"file": "MagneticFieldDependence.h",
 			"settings":
 			{
-				"buffer_size": 8229,
+				"buffer_size": 7824,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Unit1.cpp",
+			"file": "FilteringUnit.cpp",
 			"settings":
 			{
-				"buffer_size": 43219,
+				"buffer_size": 7758,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "\nhttp://www.aspirantura.spb.ru/\n\nhttp://habrahabr.ru/post/213367/\n\nhttp://www.yaaspirant.ru/\n\nhttps://github.com/AndreyAkinshin/Russian-Phd-LaTeX-Dissertation-Template\n\n140-180 листов.\n\nВ соответствии с «Положением о порядке присуждения ученых степеней» ученая степень кандидата наук присуждается диссертационным советом по результатам публичной защиты диссертации соискателем. \nДиссертация должна быть подготовлена лично соискателем степени, при использовании в тексте диссертации каких-либо литературных источников должны быть указаны ссылки на эти источники. В диссертации должен быть четко прописан личный вклад автора в науку. \nПредложенные автором новые решения должны быть аргументированы и критически оценены по сравнению с другими известными решениями. \nВ диссертации, имеющей прикладное значение, должны приводиться сведения о практическом использовании полученных автором научных результатов, а в диссертации, имеющей теоретическое значение, - рекомендации по использованию научных выводов. \nОформление диссертации должно соответствовать требованиям, устанавливаемым Министерством образования и науки Российской Федерации. \nДиссертация это в первую очередь научная работа. Научная работа предусматривает выполнение исследований в следующем порядке: выбор темы исследований, анализ литературных источников по теме исследований, определение круга нерешенных задач и выбор задач, подлежащих исследованию, выбор методов исследований, разработка гипотезы (предполагаемых результатов), решение поставленных задач, выводы по проделанной работе. Опыт выполнения научной работы у аспирантов есть, так как они в упрощенном виде решали научную задачу при подготовке дипломной работы. \nСущественным отличием диссертации от диплома является то, что решаемая научная задача должна иметь существенное значение для соответствующей отрасли науки или для экономики или обеспечения обороноспособности страны. \nРекомендации по выбору темы исследований и других параметрах диссертации приведены в соответствующих разделах сайта. \nОбычно кандидатская диссертация представляется в виде рукописи объемом 140-180 листов. Диссертация, как правило, пишется на русском языке. \nОсновные научные результаты диссертации должны быть опубликованы в научных изданиях. Список изданий, рекомендуемых ВАК представлен на сайте. \nТиповая структура кандидатской диссертации состоит из введения, основной части и заключения. Также в диссертацию включают библиографический список (библиография, список использованной литературы) - тут возможно применение любого из указанных наименований и выбор зачастую зависит от требований кафедры (учебного заведения). Иногда диссертация имеет приложения, если ряд материалов, имеющих справочный характер или результаты экспериментов в связи с их значительным объемом нецелесообразно включать в основной текст диссертации. \nВо введении в диссертацию (5-10 листов) должны обязательно отражены: \n  актуальность темы диссертации; \n  цели и задачи диссертации; \n  объект и предмет исследования; \n  теоретическая и методическая основа исследования; \n  степень разработанности проблемы; \n  информационная база исследования; \n  научная новизна диссертации; \n  достоверность научных положений; \n  научные положения, выносимые на защиту; \n  практическая значимость работы; \n  апробация и внедрение результатов; \n  публикации по теме диссертации; \n  структура и объем диссертации. \nПодробно по каждому разделу рекомендации приведены на сайте. \n\nОсновная часть диссертации обычно состоит из трех глав. \nТиповое содержание глав диссертации: первая глава посвящается критическому анализу положения дел по исследуемому вопросу и литературных источников. \nВо второй главе на базе выполненного анализа приводятся новые решения автора исследования, \nв третьей главе описываются результаты реализации новых решений автора с их критической оценкой. \n\nВсе главы заканчиваются выводами по главе. \n\nВ заключении по диссертации приводятся основные выводы и результаты работы. \n\nНиже приведены примеры структуры кандидатской диссертации (примеры оглавлений защищенных диссертаций по экономике, праву, психологии - более 20 примеров оглавлений диссертации). \n\n\nИтак вот о чем речь.\n\nВообще мы конечно будем уменьшать погрешность определения параметров носителей заряда (концентраций и подвижностей).\n\nОднако, во-первых нам нужна какая-то новизна.\n\nКак вариант - это усовершенствование алгоритма определения параметров\n\nПотому что: \nцифровые фильтры уже придумали задолго до нас. Расчет параметров оных конкретно в терминах магнитного поля и прочего - в принципе есть что-то новое, но по мне - мало этого.\n\n\nЕсли говорить о решении самой задачи:\n\n1. Методика измерений напряжения.\nНужно поработать над ней, возможно стоит проверить соответствует ли она международным стандартам.\n\n2. Аналогично с методикой оцифровки результатов.\n\nДальнейшая обработка уже само-собой.\n\nНужно метрологически оценить эффективность алгоритмов, которые мы используем.\nПотому что сейчас все эти подобранные значения - экспериментальные/итеративно подбирались.\n\n\n\n\nПоскольку у нас там есть постоянная погрешность по напряжению (ноль не на месте) - оба сигнала надо сдвигать в нужном направлении.\nПричем это можно бы и автоматизировать.\n\n\nПо поводу улучшения алгоритма:\n\n1. Регуляризация.\n2. Теорема Пикара (ну вдруг подойдет)\n3. \n\nНадо подтягивать математику и программирование.\n\nВыделить спектр подвижности в отдельную dll библиотеку, так, чтобы его можно было использовать из сей.\n\nАвтоматизированная фильтрация:\n\nметодика измерений:\nпогрешность измерения - цифровая обработка\n\nметодка обработки результатов измерений:\nпогрешность расчета - методы расчета.\n\nкритерии оценки\nправильность определения параметров.\n\nВозможно стоит анализировать получаемые спектры и подбирать параметры фильтрации так, чтобы они были наиболее выражены (пики на спектре).\n\n\n\n\nСама структура работы:\n\n1. Обзорная часть.\n\nПричем пора за неё серьезно браться. Я конечно уже смотрел статьи по поводу алгоритма спектра подвижности - и кстати, у меня же есть вопросы.\n\nКакая именно версия используется у нас. Уже улучшенная или ещё нет?\n\nПо каким критериям идет минимизация отклонения? \nУчитывается ли отклонение производных? Есть ли интерполяция данных? И т.п.\n\n1а. Как проводятся измерения (метод ван дер Пау).\n\n2. Моя фильтрация (Снижение погрешности измерений)\n\n3. Алгоритмы определения (Снижение погрешности определения)\n\n4. Соответствие стандартам российским и международным.\n\n\n\nЧто ж.\n\nДень можно сказать первый.\n\n06 августа 2014 года.\n\nПриступаем к выработке плана \"А что ж мы будем делать, исследовать и вообще в чем новизна нашей работы будет заключаться?\"\n\nПомним об оформительской части - скачан шаблон латеха, будем пытаться писать в нем, в конце-концов если что гугл мне в помощь.\n\nНадо попытаться сделать dll для спектра подвижности. Уж очень сильно оно мне надо:).\n\n\n\nПо поводу определения частоты в герцах для определенной подвижности - можно построить графики тензоров проводимости (ну и соответственно сигналов)\nс использованием модели, ну и дальше уже теоретически рассчитать формулу зависимости.\n",
-			"file": "/K/Дела/Институт СГГА/Аспирантура/Кандидатская диссертация/Планирование и общее обсуждение.txt",
-			"file_size": -1,
-			"file_write_time": -1,
+			"file": "commonFunctions.h",
 			"settings":
 			{
-				"buffer_size": 7048,
+				"buffer_size": 4140,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Project1.cpp",
+			"file": "commonFunctions.cpp",
 			"settings":
 			{
-				"buffer_size": 728,
+				"buffer_size": 4078,
 				"line_ending": "Windows"
 			}
 		},
@@ -586,47 +563,63 @@
 			"file": "UsedTypes.h",
 			"settings":
 			{
-				"buffer_size": 829,
+				"buffer_size": 1506,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "DataSaver.h",
+			"file": "Signal.h",
 			"settings":
 			{
-				"buffer_size": 2051,
+				"buffer_size": 1686,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "DataSaver.cpp",
+			"file": "Signal.cpp",
 			"settings":
 			{
-				"buffer_size": 7130,
+				"buffer_size": 1768,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "SettingsSaver.h",
+			"file": "FeatUnit.cpp",
 			"settings":
 			{
-				"buffer_size": 1008,
+				"buffer_size": 7074,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Unit1.h",
+			"file": "MagneticField.h",
 			"settings":
 			{
-				"buffer_size": 8944,
+				"buffer_size": 301,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "LCard.h",
+			"file": "hallEffect.h",
 			"settings":
 			{
-				"buffer_size": 4439,
+				"buffer_size": 347,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "hallEffect.cpp",
+			"settings":
+			{
+				"buffer_size": 4538,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MagneticField.cpp",
+			"settings":
+			{
+				"buffer_size": 2729,
 				"line_ending": "Windows"
 			}
 		}
@@ -662,6 +655,83 @@
 	},
 	"file_history":
 	[
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/f50.1SampleN123456T77I250CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/f50SampleN050701T77I400CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/nofiltSampleN050701T77I400CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/4Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/2Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T90_hall_13oct/2_f50Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T90_hall_13oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/3_f100Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/f51SampleN123456T77I250CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/f51SampleN123456T77I250CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f100.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f2.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f2.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f2SampleN031202T90I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f2SampleN031202T90I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f100.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f70.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f70.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f50.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f50.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f20.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/f20.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/5ComSampleN031202T90I500CurrDataAllP.txt",
+		"/E/Дела/Информационная безопасность/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/ipmap.txt",
+		"/E/Дела/Информационная безопасность/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/help.txt",
+		"/E/Дела/Информационная безопасность/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/flags.txt",
+		"/E/Дела/Информационная безопасность/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/FORENSIC/read.txt",
+		"/G/temp/7zOBF97.tmp/README",
+		"/E/Дела/Информационная безопасность/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/read.txt",
+		"/G/temp/7zOA637.tmp/help.txt",
+		"/G/temp/7zO73FF.tmp/read.txt",
+		"/G/temp/7zOA11F.tmp/read.txt",
+		"/G/temp/7zO4789.tmp/read.txt",
+		"/J/Победитель/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Signal.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FeatUnit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FeatUnit.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FeatUnit.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FeatUnit.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Signal.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.~h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.ilc",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.tds",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.~cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticField.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticField.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Планирование и общее обсуждение.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/HallEffect.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SettingsSaver.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Project1.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.cpp",
 		"/C/Users/Jonatan Livingston/Desktop/exp/Исправленная модель/Расчеты_10_07_2013_2/1T_80_tenzor_ideal_11Znacheniy_.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Изм 14 мая/Отчет/T77/Из спектра подвижности.hs",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/9июня/ФП/77К/1DirSampleN050701T77I250CurrDataAllP.txt",
@@ -712,88 +782,11 @@
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/5_Direct__SampleN_050701_T_77_I_250_current_data_AllPoints.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/5_Direct__SampleN_050701_T_77_I_250_current_data_11Points.txt",
 		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/3_Combine__SampleN_050701_T_77_I_250_current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/4_Combine__SampleN_050701_T_77_I_250_current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/4_Direct__SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/4_Reverse__SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/2_Combine__SampleN_050701_T_77_I_250_current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/1_Combine__SampleN_050701_T_77_I_250_current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/1_Combine__SampleN_050701_T_77_I_250_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/1_Combine_.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/Новая папка/11_Combine__SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/I250_T77__Reverse__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/I250_T77__Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.h",
-		"/K/Дела/Институт физики полупроводников/plotsInMathLab/main.m",
-		"/K/Дела/Институт физики полупроводников/Описание фильтра/Исследование длины фильтра.txt",
-		"/C/Users/Jonatan Livingston/Desktop/exp/Старый Хлам/графики/main.m",
-		"/K/Дела/Институт физики полупроводников/plotsInMathLab/README.md",
-		"/C/Users/Jonatan Livingston/Desktop/exp/Старый Хлам/графики/importfile.m",
-		"/C/Users/Jonatan Livingston/Desktop/exp/Исправленная модель/Новая папка/FScr.m",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/Reverse.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/new Reverese.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/new Direct.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/+I_l20.txt_SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/I252mkA_T77K__Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/I252mkA_T77K__Combine__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031202/I253_T77_Combine__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031202/I253_T77_Combine__current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/Новая папка/1_Reverse__SampleN_070605_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Тензор/фильт 10_SampleN_070605_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Тензор/фильт 5_SampleN_070605_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Тензор/без фильтра_SampleN_070605_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/1_Reverse_.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/I252mkA_T77K__Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/I252mkA_T77K__Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/I252mkA_T77K__Reverse__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/1_Direct__SampleN_031126_T_77_I_252_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/Убрал сдвиг/1_Combine__SampleN_031126_T_77_I_252_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031126/Новая папка/I252mkA_T77K__Combine__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/031202/тензор/фильтр8и8_SampleN_031202_T_77_I_253_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/отрI2_SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/отрI_SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/Результаты.hmr",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/7_SampleN_050701_T_77_I_250_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Обработанные данные/2_Direct__SampleN_000_T_77_I_251_filtered_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Обработанные данные/1_Direct__SampleN_000_T_77_I_251_filtered_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/Обработанные данные/1_Direct__SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/070605/I250_T77_Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/3_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/5_SampleN_000_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/4_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/3_SampleN_000_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/2_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Тензора/2_SampleN_000_T_77_I_251_current_data_11Points.txt",
-		"/J/Games/Mount & Blade. Эпоха турниров/Modules/Native2/module.ini",
-		"/J/Games/Mount & Blade. Эпоха турниров/Modules/Native2/scene_props.txt",
-		"/J/Games/Mount & Blade. Эпоха турниров/Modules/Native/module.ini",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit2.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/tenzorCalculate.hs",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/1_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/1_SampleN_000_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/КРТ_программа Дениса/КРТv2/KPT.cfg",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/tenzorforus uy.txt_SampleN_000_T_77_I_251_current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/tenzorforus uy.txtsxx.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/us_uyTheor.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/tenzorforus uy.txt_SampleN_000_T_77_I_251_current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SettingsSaver.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SettingsSaver.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/settings.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.h",
-		"/K/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.cpp",
-		"/K/Дела/Институт физики полупроводников/Lcard/hMCTParamsExplorer/Thin.hs",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__filtered_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/Новая папка/1_Combine__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__filtered_data_21Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (3)/1_Combine__current_data_11Points.txt",
-		"/K/Дела/Институт физики полупроводников/Lcard/Тестовые данные/InAs/Новая папка (2)/U2_1_Direct__current_data_AllPoints.txt",
-		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка (2)/I-250_T77__Direct__original_data_AllPoints.txt"
+		"/K/Дела/Институт физики полупроводников/Данные измеренных образцов 28_04_2014/050701/Новая папка/test/4_Combine__SampleN_050701_T_77_I_250_current_data_21Points.txt"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -808,6 +801,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			" ",
+			"extrapolateData",
+			"extrapo",
+			"loadData",
+			"filter",
+			"calculateTenzor",
+			"averageData",
+			"avera",
+			"min",
+			"HallEffect",
+			"halleffect",
+			"featD",
+			"extrapolateD",
+			"trfor",
+			"DataTypeInContainer",
+			"featda",
+			"feat",
+			"calculateten",
+			"filt",
+			"avera",
 			"feat",
 			"Filter",
 			"extrapolateDa",
@@ -915,27 +928,7 @@
 			"repla",
 			"openFileHelper",
 			"loadData",
-			"3",
-			"paramsDirect",
-			"params",
-			"paramsDirect",
-			"begin",
-			"getHallEffect",
-			"getHall",
-			"paramsDirect",
-			"mul",
-			"paramsReverse",
-			"params",
-			"new",
-			"convert",
-			"counter",
-			"MagneticFieldDependence",
-			"SYMBOL",
-			"MagneticFieldDependence",
-			"SYMBOL",
-			"sko",
-			"in",
-			"roundM"
+			"3"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -943,6 +936,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"	",
+			"THallEffect",
+			"TSignal",
 			"roundM",
 			",",
 			"\\r"
@@ -956,7 +952,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -965,15 +961,335 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 34841,
+						"buffer_size": 39246,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								21652,
+								21652
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 12892.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "MagneticFieldDependence.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7824,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4564,
+								4564
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2080.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "FilteringUnit.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7758,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4775,
+								4775
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2460.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "commonFunctions.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4140,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1937,
+								1937
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "commonFunctions.cpp",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4078,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								454,
+								454
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 1860.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "UsedTypes.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								267,
+								267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Signal.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1686,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								201,
+								201
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Signal.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1768,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								298,
+								298
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "FeatUnit.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7074,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1290,
+								1290
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 780.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "MagneticField.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 301,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								166,
+								166
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "hallEffect.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								347,
+								347
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "hallEffect.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4538,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								711,
+								711
 							]
 						],
 						"settings":
@@ -986,83 +1302,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "ExtrapolateUnit.cpp",
+					"buffer": 12,
+					"file": "MagneticField.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9408,
+						"buffer_size": 2729,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								429,
-								429
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 780.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "LCard.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19654,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8859.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "commonFunctions.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2607,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1306,
-								1306
+								249,
+								249
 							]
 						],
 						"settings":
@@ -1077,385 +1334,6 @@
 					},
 					"stack_index": 9,
 					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "commonFunctions.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3165,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "FilteringUnit.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2090,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 171.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "FilteringUnit.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7546,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2565.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "MagneticFieldDependence.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8229,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1482.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Unit1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 43219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/K/Дела/Институт СГГА/Аспирантура/Кандидатская диссертация/Планирование и общее обсуждение.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7048,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7047,
-								7047
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 570.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "Project1.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 728,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "UsedTypes.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 829,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "DataSaver.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2051,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1717,
-								1717
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "DataSaver.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7130,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4690,
-								4690
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1920.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "SettingsSaver.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1008,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "Unit1.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8944,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3804.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "LCard.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4439,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1134.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
 				}
 			]
 		}
@@ -1466,7 +1344,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 36.0
 	},
 	"layout":
 	{
@@ -1502,7 +1380,7 @@
 	"project": "MCTParamsExplorer.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":

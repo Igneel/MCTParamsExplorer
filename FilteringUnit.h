@@ -19,9 +19,9 @@ public:
     FilterLowBand(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh);
     ~FilterLowBand();
 
-    void FilterDataWithAutoShift(DataTypeInContainer & inB,
-    DataTypeInContainer & inY,DataTypeInContainer & outB,
-    DataTypeInContainer & outY);
+    void FilterDataWithAutoShift(TSignal & inB,
+    TSignal & inY,TSignal & outB,
+    TSignal & outY);
 
     double FilterData (const std::vector<long double> &in,
     std::vector<long double> & out);
@@ -42,15 +42,15 @@ private:
     std::vector<long double> W;   //Весовая функция
 };
 
-MyDataType BlockLowBandFilter(DataTypeInContainer & inB,
-DataTypeInContainer & inY,DataTypeInContainer & outB,
-DataTypeInContainer & outY,
+MyDataType BlockLowBandFilter(TSignal & inB,
+TSignal & inY,TSignal & outB,
+TSignal & outY,
 size_t lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh,
 size_t blockSize);
 
-MyDataType TrForMassiveFilter(DataTypeInContainer & inB,
-DataTypeInContainer & inY,DataTypeInContainer & outB,
-DataTypeInContainer & outY,
+MyDataType TrForMassiveFilter(TSignal & inB,
+TSignal & inY,TSignal & outB,
+TSignal & outY,
 int lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh);
 
 double Filter (const std::vector<long double> &in,

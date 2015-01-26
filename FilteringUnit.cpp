@@ -64,9 +64,9 @@ double FilterLowBand::FilterData (const std::vector<long double> &in, std::vecto
     return (N-1.0)/2.0;
 }
 
-void FilterLowBand::FilterDataWithAutoShift(DataTypeInContainer & inB,
-    DataTypeInContainer & inY,DataTypeInContainer & outB,
-    DataTypeInContainer & outY)
+void FilterLowBand::FilterDataWithAutoShift(TSignal & inB,
+    TSignal & inY,TSignal & outB,
+    TSignal & outY)
 {
     int lengthMassive=inY.size();
     if(lengthMassive==0)
@@ -103,19 +103,30 @@ std::vector<long double> W(N);   //Весовая функция
 
 //Расчет импульсной характеристики фильтра
 long double Fc = (Fpropysk + Fzatyh) / (2.0 * Fd);
-/*long double Fc;
-if(N!=0)
-Fc = 5.5/(long double)N;  //  5.5*Fd/(long double)N и нормируем это на Fd;
-else
-Fc = 1;   */
+long double Wc = 2*M_PI*Fc;
+/*
+Строго говоря ширина перехода для функции Блэкмана фиксирована и составляет 5.5/N
+
+Стало быть частота среза будет равна
+
+*/
+//Fzatyh= Fpropysk/Fd+5.5/(long double) N;
+//Fc =  (Fpropysk + Fzatyh) / 2.0;
+//Wc = 2*M_PI*Fc;
+
+for (unsigned int i=0;i<N;++i)
+{ // Идеальная импульсная характеристика фильтра нижних частот
+if (i==N/2) H_id[i] = 2*Fc;
+else H_id[i] =2*Fc*sinl(Wc*(i-N/2))/(Wc*(i-N/2));
+}
 
 for (unsigned int i=0;i<N;++i)
 {
-    if (i==0) H_id[i] = 1;
-    else H_id[i] =sinl(2*M_PI*Fc*i)/(2*M_PI*Fc*i);
+    //if (i==0) H_id[i] = 2*Fc;
+    //else H_id[i] =2*Fc*sinl(Wc*i)/(Wc*i);
     // весовая функция Блекмена
     if(N>1)
-        W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( N-1)) + 0.08 * cosl((4*M_PI*i) /( N-1));
+        W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( long double)N) + 0.08 * cosl((4*M_PI*i) /( long double)N);
     else
         W[i]=1;
     H [i] = H_id[i] * W[i];
@@ -139,6 +150,19 @@ return (N-1)/2.0;
 }
 
 
+long double TrForMassiveFilter(TSignal & in,TSignal &out,
+int lengthFilter,long double Fdisk,
+long double Fpropysk,long double Fzatyh)
+{
+    int lengthMassive=in.size();
+    if(lengthMassive==0)
+    {
+    return 0;
+    }
+    out.resize(lengthMassive);
+    long double k=Filter(in,out,lengthFilter,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
+    return k;
+}
 
 
 // функция трамплин для фильтра.  ----------------------------------------------
@@ -181,19 +205,19 @@ k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;
 }
 
 
-MyDataType BlockLowBandFilter(DataTypeInContainer & inB,
-DataTypeInContainer & inY,DataTypeInContainer & outB,
-DataTypeInContainer & outY,
+MyDataType BlockLowBandFilter(TSignal & inB,
+TSignal & inY,TSignal & outB,
+TSignal & outY,
 size_t lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh,
 size_t blockSize)
 {
 if(blockSize<lengthFilter)
         lengthFilter=blockSize-1;
 
-        DataTypeInContainer tempInB;
-        DataTypeInContainer tempInS;
-        DataTypeInContainer tempOutB;
-        DataTypeInContainer tempOutS;
+        TSignal tempInB;
+        TSignal tempInS;
+        TSignal tempOutB;
+        TSignal tempOutS;
         size_t timesToRepeat=inB.size()/blockSize;
         for(unsigned int i=0; i <timesToRepeat;i++)
         {

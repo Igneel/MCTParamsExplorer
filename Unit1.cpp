@@ -281,11 +281,11 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
             //-- кнопки-----------------------------------------------
             
             bFilterRes->Enabled=0;
-            uiHallFeat->Enabled=0;
+
             uiFFTHall->Enabled=0;
-            uiFaradeyFeat->Enabled=0;
+
             uiFFTFaradey->Enabled=0;
-            uiFoygtFeat->Enabled=0;
+            
             uiFFTFoygt->Enabled=0;
             CurrentFaradey->Enabled=0;
             CurrentFoygt->Enabled=0;
@@ -319,11 +319,9 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 
         
         bFilterRes->Enabled=1;
-        uiHallFeat->Enabled=1;
+
         uiFFTHall->Enabled=1;
-        uiFaradeyFeat->Enabled=1;
         uiFFTFaradey->Enabled=1;
-        uiFoygtFeat->Enabled=1;
         uiFFTFoygt->Enabled=1;
 
         CurrentFaradey->Enabled=1;
@@ -358,37 +356,6 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-
-
-// Подгонка магнитосопротивления
-void __fastcall TForm1::uiResFeatClick(TObject *Sender)
-{
-    EvenFeat(SeriesRes1,0);
-    EvenFeat(SeriesRes2,0);
-    MidCurve(SeriesRes1,SeriesRes2,0);
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::uiHallFeatClick(TObject *Sender)
-{
-    OddFeat(SeriesHall1,0);
-    OddFeat(SeriesHall2,0);
-    MidCurve(SeriesHall1,SeriesHall2,0);
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::uiFaradeyFeatClick(TObject *Sender)
-{
-    EvenFeat(SeriesFaradey1,0);
-    EvenFeat(SeriesFaradey2,0);
-    MidCurve(SeriesFaradey1,SeriesFaradey2,0);
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::uiFoygtFeatClick(TObject *Sender)
-{
-    FoygtFeat(SeriesFoygt1,SeriesFoygt2,0);
-}
-//----------------------------------------------------------------------------
 
 void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
 {  
@@ -930,53 +897,53 @@ void TForm1::concatDependence()
          eAttenuationFHall->Text, eLengthFilterHall->Text);
     }
 
-    DataTypeInContainer B; // создаем буфер для новых зависимостей.
-    DataTypeInContainer Hall;
-    DataTypeInContainer Resistance;
+    TSignal B; // создаем буфер для новых зависимостей.
+    TSignal Hall;
+    TSignal Resistance;
 
-    DataTypeInContainer B2; // создаем буфер для новых зависимостей.
-    DataTypeInContainer Hall2;
-    DataTypeInContainer Resistance2;
+    TSignal B2; // создаем буфер для новых зависимостей.
+    TSignal Hall2;
+    TSignal Resistance2;
 
     StatusBar->Panels->Items[1]->Text="Объединение зависимостей.";
     Form1->Update();
     // вбрасываем в обратном порядке зависимости для отрицательного магнитного поля.
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
+    for (TSignal::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
     {
         B.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getHallEffect()->rbegin(); i != paramsReverse->getHallEffect()->rend(); ++i)
+    for (TSignal::const_reverse_iterator i = paramsReverse->getHallEffect()->rbegin(); i != paramsReverse->getHallEffect()->rend(); ++i)
     {
         Hall.push_back(*i);    
     }
 
-    for (DataTypeInContainer::const_reverse_iterator i = paramsReverse->getMagnetoResistance()->rbegin(); i != paramsReverse->getMagnetoResistance()->rend(); ++i)
+    for (TSignal::const_reverse_iterator i = paramsReverse->getMagnetoResistance()->rbegin(); i != paramsReverse->getMagnetoResistance()->rend(); ++i)
     {
         Resistance.push_back(*i);    
     }
     // вбрасываем в прямом порядке зависимости для положительного поля.
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
+    for (TSignal::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
     {
         B.push_back(*i);   
         B2.push_back(*i);  
     }
 
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
+    for (TSignal::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
     {
         Hall.push_back(*i);  
         Hall2.push_back(*i);   
     }
 
-    for (DataTypeInContainer::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
+    for (TSignal::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
     {
         Resistance.push_back(*i);  
         Resistance2.push_back(*i);   
     }
 
-    DataTypeInContainer outB;
-    DataTypeInContainer outHall;
-    DataTypeInContainer outResistance;
+    TSignal outB;
+    TSignal outHall;
+    TSignal outResistance;
 
     size_t minimalLength=paramsReverse->getB()->size()>paramsDirect->getB()->size()?
     paramsDirect->getB()->size() : paramsReverse->getB()->size();
@@ -1036,14 +1003,14 @@ void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
         uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
         p=*par;
-        p->calcutaleTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
+        p->calculateTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
 
         p->constructPlotFromTwoMassive(SXX,AVERAGED_DATA,Series6,clRed);
         p->constructPlotFromTwoMassive(SXY,AVERAGED_DATA,LineSeries1,clRed);
 
         ErrorLog->Lines->Add(p->getSxx()->size());
         ErrorLog->Lines->Add(p->getSxy()->size());
-
+        UpdatePlots();
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         if(SaveDialog1->Execute())
@@ -1338,15 +1305,15 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
     {
         p=*par;
 
-        DataTypeInContainer B(p->getAveragedB()->begin(),p->getAveragedB()->end());
-        DataTypeInContainer sxx(p->getSxx()->begin(),p->getSxx()->end());
-        DataTypeInContainer sxy(p->getSxy()->begin(),p->getSxy()->end());
+        TSignal B(p->getAveragedB()->begin(),p->getAveragedB()->end());
+        TSignal sxx(p->getSxx()->begin(),p->getSxx()->end());
+        TSignal sxy(p->getSxy()->begin(),p->getSxy()->end());
 
         
 
-        DataTypeInContainer nB;
-        DataTypeInContainer nSxx;
-        DataTypeInContainer nSxy;
+        TSignal nB;
+        TSignal nSxx;
+        TSignal nSxy;
 
         thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
         thiningSignal(B, sxx, nB, nSxy,0, 2, 11);

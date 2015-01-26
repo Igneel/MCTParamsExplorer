@@ -29,9 +29,9 @@ private:
     template <class T>
     void SaveUnit::RoundM(T *pos, T* endPos);
 
-    void SaveUnit::SaveDataHelper(DataTypeInContainer &saveB,
-	DataTypeInContainer & saveHall,
-	DataTypeInContainer & saveResistance,SaveType mode,
+    void SaveUnit::SaveDataHelper(TSignal &saveB,
+	TSignal & saveHall,
+	TSignal & saveResistance,SaveType mode,
 	AnsiString FileName);
 
 

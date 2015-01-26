@@ -359,10 +359,10 @@ void LCardADC::DisplayOnForm(int channelN, MyDataType value)
 Ну и само получение данных.
 */
 
-void LCardADC::realTimeFilter(DataTypeInContainer & inData,
-DataTypeInContainer & outData)
+void LCardADC::realTimeFilter(TSignal & inData,
+TSignal & outData)
 {
-    DataTypeInContainer tempOutData;
+    TSignal tempOutData;
     tempOutData.resize(inData.size());
     //outData.resize(inData.size());
     Filter (inData, tempOutData, 20, 1000, 30, 35);
@@ -372,7 +372,7 @@ DataTypeInContainer & outData)
 //------------------------------------------------------------------
 // сохранение данных из буфера
 // применяет медианный фильтр
-void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
+void LCardADC::writeDataToVector(TSignal & tempData)
 {
 
     splitToChannels(tempData,splittedData); // разделяем данные по каналам.
@@ -453,7 +453,7 @@ void LCardADC::writeDataToVector(DataTypeInContainer & tempData)
 //------------------------------------------------------------------
 unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 {
-    DataTypeInContainer tempData;
+    TSignal tempData;
 
 	WORD i;
 	WORD RequestNumber;
@@ -568,11 +568,11 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
 	return 0x0;
 }
 //------------------------------------------------------------------
-std::vector<DataTypeInContainer > *  LCardADC::getSplittedData(int a)
+std::vector<TSignal > *  LCardADC::getSplittedData(int a)
 {
     return &ReadData;
 }
-std::vector<DataTypeInContainer > const &  LCardADC::getSplittedData()
+std::vector<TSignal > const &  LCardADC::getSplittedData()
 {
     return ReadData;
 }
@@ -643,7 +643,7 @@ void LCardADC::convertToVolt()
     if(ReadData.size()==0)
         return;
     
-    DataTypeInContainer::iterator pos;
+    TSignal::iterator pos;
     for(int i=0;i<ap.ChannelsQuantity;++i)
     for(pos=ReadData[i].begin();pos!=ReadData[i].end();++pos)
     *pos=convertToVolt(*pos,i);
@@ -660,8 +660,8 @@ void LCardADC::clearBuffer()
 
 //------------------------------------------------------------------
 
-void LCardADC::splitToChannels(DataTypeInContainer &tempData,
-std::vector<DataTypeInContainer > &splittedData)
+void LCardADC::splitToChannels(TSignal &tempData,
+std::vector<TSignal > &splittedData)
 {
     // Выделяем места сколько надо.
     splittedData.resize(ap.ChannelsQuantity);
@@ -691,7 +691,7 @@ void LCardADC::testSetReadBuffer()
 
     ap.ChannelsQuantity=3;
     ReadData.resize(ap.ChannelsQuantity);
-    DataTypeInContainer tempData;
+    TSignal tempData;
     unsigned int tsize=5;
 
     short *tempBuffer=new short[tsize]; 

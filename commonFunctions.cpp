@@ -21,7 +21,7 @@ inline MyDataType dist(MyDataType x1, MyDataType x2)
 в порядке от 0 до -2
 т.е. вообще говоря в обратном, поэтому это не пашет.
 */
-bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence, DataTypeInContainer & outB, DataTypeInContainer & outDependence,
+bool thiningSignal(TSignal & inB, TSignal & inDependence, TSignal & outB, TSignal & outDependence,
     MyDataType left, MyDataType right, size_t NewLength)
 {
     if (right<left) // если при вызове перепутали границы.
@@ -54,7 +54,7 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
     outB.clear(); // чистим выходные зависимости, на случай если это не сделали за нас.
     outDependence.clear();
 
-    DataTypeInContainer idealB; // тут будем хранить опорные точки.
+    TSignal idealB; // тут будем хранить опорные точки.
 
     // шаг есть величина диапазона на количество интервалов (на единицу меньше количества точек)
     MyDataType shag=(right-left)/(static_cast<MyDataType>(NewLength)-1.0);
@@ -67,8 +67,8 @@ bool thiningSignal(DataTypeInContainer & inB, DataTypeInContainer & inDependence
     }
     // тут начинается поиск.
     /*
-    DataTypeInContainer indexes(NewLength);
-    DataTypeInContainer distance(NewLength);
+    TSignal indexes(NewLength);
+    TSignal distance(NewLength);
     for (int i = 0; i < NewLength; ++i)
     {
         indexes[i]=0;

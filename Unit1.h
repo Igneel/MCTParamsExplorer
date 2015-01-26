@@ -25,7 +25,6 @@
 #include "FilteringUnit.h"  
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
-#include "FeatUnit.h"
 #include "SettingsSaver.h"
 
 
@@ -58,7 +57,6 @@ __published:	// IDE-managed Components
     TLineSeries *SeriesRes2;
     TChart *ChartHall;
     TRadioGroup *HallCurveIndex;
-    TButton *uiHallFeat;
     TButton *uiHallControl;
     TMemo *Memo3;
     TLineSeries *SeriesHall1;
@@ -72,7 +70,6 @@ __published:	// IDE-managed Components
     TLabel *Label13;
     TRadioGroup *FaradeyCurveIndex;
     TButton *uiFaradeyControl;
-    TButton *uiFaradeyFeat;
     TMemo *Memo4;
     TMenuItem *N4;
     TMenuItem *N5;
@@ -87,7 +84,6 @@ __published:	// IDE-managed Components
     TLabel *Label14;
     TRadioGroup *FoygtCurveIndex;
     TButton *uiFoygtControl;
-    TButton *uiFoygtFeat;
     TMemo *Memo5;
     TLineSeries *SeriesFFTFaradey;
     TButton *bFilterRes;
@@ -226,11 +222,7 @@ __published:	// IDE-managed Components
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
-    void __fastcall uiResFeatClick(TObject *Sender);
         void __fastcall bClearClick(TObject *Sender);
-    void __fastcall uiHallFeatClick(TObject *Sender);
-    void __fastcall uiFaradeyFeatClick(TObject *Sender);
-    void __fastcall uiFoygtFeatClick(TObject *Sender);
     void __fastcall bFilterResClick(TObject *Sender);
     void __fastcall N5Click(TObject *Sender);
         void __fastcall N4Click(TObject *Sender);

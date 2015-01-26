@@ -74,8 +74,8 @@ DataSaver::~DataSaver()
 
 //-------------------------------------------------------------------------------
 
-void DataSaver::SaveData(DataKind dataKind,const DataTypeInContainer *B,
-const DataTypeInContainer * HallEffect, const DataTypeInContainer * MagnetoResistance,
+void DataSaver::SaveData(DataKind dataKind,const TSignal *B,
+const TSignal * HallEffect, const TSignal * MagnetoResistance,
 SaveType saveType,AnsiString FileName)
 {
 
@@ -99,17 +99,17 @@ SaveType saveType,AnsiString FileName)
 }
 //-------------------------------------------------------------------------------
 
-void DataSaver::SaveDataHelper(const DataTypeInContainer *saveB,
-const DataTypeInContainer * saveHall,
-const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
+void DataSaver::SaveDataHelper(const TSignal *saveB,
+const TSignal * saveHall,
+const TSignal * saveResistance,SaveType mode, AnsiString FileName)
 {
     TStringList * tsl=new TStringList();
 
-    DataTypeInContainer savingXData(saveB->begin(),saveB->end());
-    DataTypeInContainer savingY1Data(saveResistance->begin(),saveResistance->end());
-    DataTypeInContainer savingY2Data(saveHall->begin(),saveHall->end());
+    TSignal savingXData(saveB->begin(),saveB->end());
+    TSignal savingY1Data(saveResistance->begin(),saveResistance->end());
+    TSignal savingY2Data(saveHall->begin(),saveHall->end());
 
-    DataTypeInContainer::iterator pos;
+    TSignal::iterator pos;
 
     int length=savingXData.size();
     if(isRoundNeeded==true)
@@ -122,8 +122,8 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
 	if (mode==POINTS_11) 
 	{
         FileName+="11P";
-        DataTypeInContainer tempX;
-        DataTypeInContainer tempY;
+        TSignal tempX;
+        TSignal tempY;
         thiningSignal(savingXData,savingY1Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],11);
         savingY1Data = tempY;
 
@@ -140,8 +140,8 @@ const DataTypeInContainer * saveResistance,SaveType mode, AnsiString FileName)
     {
         FileName+="21P";
         
-        DataTypeInContainer tempX;
-        DataTypeInContainer tempY;
+        TSignal tempX;
+        TSignal tempY;
         thiningSignal(savingXData,savingY1Data,tempX,tempY,leftBound[paramsType],rightBound[paramsType],21);
         savingY1Data = tempY;
 

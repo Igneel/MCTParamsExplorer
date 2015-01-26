@@ -50,17 +50,17 @@ switch(dataKind)
 }
 
 
-void SaveUnit::SaveDataHelper(DataTypeInContainer &saveB,
-DataTypeInContainer & saveHall,
-DataTypeInContainer & saveResistance,SaveType mode, AnsiString FileName)
+void SaveUnit::SaveDataHelper(TSignal &saveB,
+TSignal & saveHall,
+TSignal & saveResistance,SaveType mode, AnsiString FileName)
 {
     TStringList * tsl=new TStringList();
 
-    DataTypeInContainer savingXData(saveB.begin(),saveB.end());
-    DataTypeInContainer savingY1Data(saveResistance.begin(),saveResistance.end());
-    DataTypeInContainer savingY2Data(saveHall.begin(),saveHall.end());
+    TSignal savingXData(saveB.begin(),saveB.end());
+    TSignal savingY1Data(saveResistance.begin(),saveResistance.end());
+    TSignal savingY2Data(saveHall.begin(),saveHall.end());
 
-    DataTypeInContainer::iterator pos;
+    TSignal::iterator pos;
 
     int length=savingXData.size();
     if(isRoundNeeded==true)

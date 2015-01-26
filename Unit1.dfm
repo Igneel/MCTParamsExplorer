@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = FirstTab
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -1017,22 +1017,13 @@ object Form1: TForm1
         TabOrder = 1
         OnClick = HallCurveIndexClick
       end
-      object uiHallFeat: TButton
-        Left = 384
-        Top = 288
-        Width = 75
-        Height = 25
-        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
-        TabOrder = 2
-        OnClick = uiHallFeatClick
-      end
       object uiHallControl: TButton
         Left = 384
         Top = 256
         Width = 75
         Height = 25
         Caption = 'Start'
-        TabOrder = 3
+        TabOrder = 2
         OnClick = uiControlClick
       end
       object Memo3: TMemo
@@ -1040,7 +1031,7 @@ object Form1: TForm1
         Top = 320
         Width = 185
         Height = 89
-        TabOrder = 4
+        TabOrder = 3
       end
       object uiFFTHall: TButton
         Left = 464
@@ -1048,7 +1039,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
-        TabOrder = 5
+        TabOrder = 4
         OnClick = bFilterResClick
       end
       object bClearPlotHall: TButton
@@ -1057,7 +1048,7 @@ object Form1: TForm1
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
-        TabOrder = 6
+        TabOrder = 5
         OnClick = bClearPlotHallClick
       end
       object uiHallShiftValue: TLabeledEdit
@@ -1070,7 +1061,7 @@ object Form1: TForm1
         EditLabel.Caption = #1042#1077#1083#1080#1095#1080#1085#1072' '#1089#1076#1074#1080#1075#1072
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 7
+        TabOrder = 6
         Text = '0,01'
         OnKeyPress = Edit1KeyPress
       end
@@ -1086,7 +1077,7 @@ object Form1: TForm1
           #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
           #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
           #1059#1089#1088#1077#1076#1077#1085#1085#1099#1077' '#1076#1072#1085#1085#1099#1077)
-        TabOrder = 8
+        TabOrder = 7
       end
       object bShiftHallCurve: TButton
         Left = 120
@@ -1094,7 +1085,7 @@ object Form1: TForm1
         Width = 121
         Height = 25
         Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
-        TabOrder = 9
+        TabOrder = 8
         OnClick = bShiftHallCurveClick
       end
       object uiHallLeftBound: TComboBox
@@ -1104,7 +1095,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 10
+        TabOrder = 9
         Text = '-2'
         Items.Strings = (
           '-2'
@@ -1120,7 +1111,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 11
+        TabOrder = 10
         Text = '0'
         Items.Strings = (
           '-2'
@@ -1135,7 +1126,7 @@ object Form1: TForm1
         Width = 201
         Height = 145
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1080
-        TabOrder = 12
+        TabOrder = 11
         object Label16: TLabel
           Left = 23
           Top = 24
@@ -1393,21 +1384,12 @@ object Form1: TForm1
         TabOrder = 4
         OnClick = uiControlClick
       end
-      object uiFaradeyFeat: TButton
-        Left = 448
-        Top = 232
-        Width = 75
-        Height = 25
-        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
-        TabOrder = 5
-        OnClick = uiFaradeyFeatClick
-      end
       object Memo4: TMemo
         Left = 416
         Top = 264
         Width = 185
         Height = 89
-        TabOrder = 6
+        TabOrder = 5
       end
       object uiFFTFaradey: TButton
         Left = 528
@@ -1415,7 +1397,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
-        TabOrder = 7
+        TabOrder = 6
       end
       object Button7: TButton
         Left = 296
@@ -1423,7 +1405,7 @@ object Form1: TForm1
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
-        TabOrder = 8
+        TabOrder = 7
         OnClick = Button7Click
       end
       object Lfilter3: TEdit
@@ -1431,7 +1413,7 @@ object Form1: TForm1
         Top = 96
         Width = 73
         Height = 21
-        TabOrder = 9
+        TabOrder = 8
         Text = '20'
         OnKeyPress = Edit1KeyPress
       end
@@ -1440,7 +1422,7 @@ object Form1: TForm1
         Top = 120
         Width = 73
         Height = 21
-        TabOrder = 10
+        TabOrder = 9
         Text = '5000'
         OnKeyPress = Edit1KeyPress
       end
@@ -1449,7 +1431,7 @@ object Form1: TForm1
         Top = 144
         Width = 73
         Height = 21
-        TabOrder = 11
+        TabOrder = 10
         Text = '15'
         OnKeyPress = Edit1KeyPress
       end
@@ -1458,7 +1440,7 @@ object Form1: TForm1
         Top = 168
         Width = 73
         Height = 21
-        TabOrder = 12
+        TabOrder = 11
         Text = '25'
         OnKeyPress = Edit1KeyPress
       end
@@ -1636,21 +1618,12 @@ object Form1: TForm1
         TabOrder = 4
         OnClick = uiControlClick
       end
-      object uiFoygtFeat: TButton
-        Left = 448
-        Top = 232
-        Width = 75
-        Height = 25
-        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
-        TabOrder = 5
-        OnClick = uiFoygtFeatClick
-      end
       object Memo5: TMemo
         Left = 416
         Top = 264
         Width = 185
         Height = 89
-        TabOrder = 6
+        TabOrder = 5
       end
       object uiFFTFoygt: TButton
         Left = 528
@@ -1658,7 +1631,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
-        TabOrder = 7
+        TabOrder = 6
       end
       object Button8: TButton
         Left = 296
@@ -1666,7 +1639,7 @@ object Form1: TForm1
         Width = 107
         Height = 25
         Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1075#1088#1072#1092#1080#1082#1080
-        TabOrder = 8
+        TabOrder = 7
         OnClick = Button8Click
       end
       object Fd4: TEdit
@@ -1674,7 +1647,7 @@ object Form1: TForm1
         Top = 120
         Width = 73
         Height = 21
-        TabOrder = 9
+        TabOrder = 8
         Text = '5000'
         OnKeyPress = Edit1KeyPress
       end
@@ -1683,7 +1656,7 @@ object Form1: TForm1
         Top = 96
         Width = 73
         Height = 21
-        TabOrder = 10
+        TabOrder = 9
         Text = '20'
         OnKeyPress = Edit1KeyPress
       end
@@ -1692,7 +1665,7 @@ object Form1: TForm1
         Top = 144
         Width = 73
         Height = 21
-        TabOrder = 11
+        TabOrder = 10
         Text = '15'
         OnKeyPress = Edit1KeyPress
       end
@@ -1701,7 +1674,7 @@ object Form1: TForm1
         Top = 168
         Width = 73
         Height = 21
-        TabOrder = 12
+        TabOrder = 11
         Text = '25'
         OnKeyPress = Edit1KeyPress
       end
