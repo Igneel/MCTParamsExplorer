@@ -142,15 +142,14 @@ T medianFilter(std::vector <T>::iterator &beg, std::vector <T>::iterator &end)
 template <class T>
 void medianFilter(std::vector <T> & in,std::vector <T> & out,size_t size)
 {
-    for(std::vector <T>::iterator i=in.begin();i<in.end() && i!=in.end() ;i+=size)
+    if (in.size()<size)
     {
-    if(std::distance(i,in.end())<size)
-    {
-    std::sort(i,in.end());
-    out.push_back(*(i+std::distance(i,in.end())/2));
+        out.push_back(medianFilter(in));
     }
-        std::sort(i,i+size);
-        out.push_back(*(i+size/2));
+    for(unsigned int i=size;i<in.size() ;i+=size)
+    {    
+        std::sort(&in[i-size],&in[i]);
+        out.push_back(in[i-size/2]);
     }
 }
 

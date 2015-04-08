@@ -391,7 +391,7 @@ else
     p->filterData();
     StatusBar->Panels->Items[1]->Text="Ёкстрапол€ци€ данных.";
     Form1->Update();
-    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
     UpdatePlots();
     StatusBar->Panels->Items[1]->Text="√отова к работе.";
 }
@@ -1155,7 +1155,7 @@ else
     p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
     p->blockfilterData();
-    p->extrapolateData(PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
+    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
     UpdatePlots();
 }

@@ -146,7 +146,8 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
     void setExtrapolateParams(int powPolinowHall,int powPolinomRes);
 
-	bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
+	//bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
+	bool extrapolateData( DataKind dataKind, const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
 	
 	// просто трамплин на сейвер. возможно он него можно как-нибудь избавиться.
 	void setRoundNeeded(bool needRound);

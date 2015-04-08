@@ -22,7 +22,7 @@ MagneticFieldDependence::MagneticFieldDependence(AnsiString current, AnsiString 
     rightBound[COMBINE]=2;
 
     PowPolinomRes=2;
-    PowPolinomHall=4;
+    PowPolinomHall=2;
 
 
 }
@@ -77,7 +77,7 @@ void MagneticFieldDependence::loadSampleDescription(TStringList *Names,TStringLi
     Names->Clear();
     Values->Clear();
 
-    for (int i=0;i<tts->Count;i++)
+    for (int i=0;i<tts->Count;++i)
     {
         s=tts->Strings[i].c_str();
         std::string::size_type start = 0;
@@ -108,7 +108,7 @@ void MagneticFieldDependence::loadData(TStringList * tts)
     TSignal Resistance;
     TSignal temp;
 
-    for(int i=0;i<tts->Count;i++) // по количеству строк
+    for(int i=0;i<tts->Count;++i) // по количеству строк
     {
         if(tts->Strings[i].IsEmpty()) // пустые строки пропускаем
             continue;
@@ -173,12 +173,13 @@ void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType
 {
     /*
     Усредненный сигнал на данный момент существует лишь для положительного магнитного поля.
-
-
-    
+   
     */
     int size=inY.size();
-    outY.resize(size/2); // Размер уменьшится вдвое.
+
+    // Размер рассчитывается в зависимости от точки симметрии.
+    outY.resize(std::min(centerOfSimmetry + 1,size - centerOfSimmetry));
+    
     
         switch(featType)
         {
@@ -223,15 +224,34 @@ void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType
 
 
         */
-        for(int i=0;i<size/2;i++)
+        for(int i=0;i<size/2+1;++i)
             {
+                /*
+                Есть такая точка - центр симметрии.
+                Мы усредняем график относительно этого центра.
+                Таким образом получается
+                */
 
                 if (centerOfSimmetry+i<size && centerOfSimmetry-i>=0) // дабы не вывалиться за границы
                 {
-                    outY[i]=(inY[centerOfSimmetry+i]-inY[centerOfSimmetry-i])/2.0;                    
+                    outY[i]=(inY[centerOfSimmetry+i]-inY[centerOfSimmetry-i])/2.0;     
+
                 }
-                else
-                {                
+                
+                else // Пока значений хватает всё вроде как хорошо
+                    // Однако когда они заканчиваются тут начинается простое переписывание оставшихся
+                    // Это не очень правильно. Нужно экстраполировать.
+                { 
+                    /*
+                        Нужно определить шаг.
+                        Определить сколько точек нужно экстраполировать.
+                        Видимо до 2+h Тл
+                        Вызывать экстраполяцию.
+                        Дописать результаты сюда.
+                        Этот подход будет правильней. И без глюков с прыжками.
+                    */               
+
+                    /*
                     if (centerOfSimmetry-i<0 && centerOfSimmetry+i<size)
                     {
                         outY[i]=inY[centerOfSimmetry+i];
@@ -242,7 +262,7 @@ void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType
                         {
                             outY[i]=-inY[centerOfSimmetry-i];
                         }                   
-                    }
+                    }*/
                 }
 /*
 
@@ -288,12 +308,15 @@ void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType
         
         //ShowMessage(FloatToStr(inY[min])+" "+IntToStr((int)min));
             
-        for(int i=0;i<size/2;i++) // Элементов станет в два раза меньше.
+        for(int i=0;i<size/2+1;++i) // Элементов станет в два раза меньше.
         {
             if (centerOfSimmetry+i<size && centerOfSimmetry-i>=0) // дабы не вывалиться за границы
             {
                 outY[i]=(inY[centerOfSimmetry-i]+inY[centerOfSimmetry+i])/2.0;
+                if(fabs(outY[i])<0.0001)
+                     ShowMessage("Ахтунг здесь!");     
             }
+            /*
             else
             {                
                 if (centerOfSimmetry-i<0 && centerOfSimmetry+i<size)
@@ -307,15 +330,15 @@ void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType
                         outY[i]=inY[centerOfSimmetry-i];
                     }                   
                 }
-            }
+            }*/
             //outY[i]=(inY[i]+inY[size-1-i])/2.0;
             //tempY[size-1-i]=tempY[i];
 
         }
         break;
     }
-    // А зачем он этот реверс-то?О_о
-    //std::reverse(outY.begin(),outY.end());
+
+    
 }
 
 void MagneticFieldDependence::featData(DataKind dataKind)
@@ -337,6 +360,97 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     averageData(tempInX,AveragedB,ODD_FEAT,indexOfElemClosestToValue(tempInX,0));
     averageData(tempInHall,AveragedHallEffect,ODD_FEAT,indexOfElemClosestToValue(tempInX,0));
     averageData(tempInResistance,AveragedMagnetoResistance,EVEN_FEAT,indexOfElemClosestToValue(tempInX,0));
+
+    // extrapolateData(AVERAGED_DATA, 1, 1);
+
+
+    TSignal * BToExtrapolate=& AveragedB;
+    TSignal * HallToExtrapolate=& AveragedHallEffect;
+    TSignal * ResistanceToExtrapolate=& AveragedMagnetoResistance;
+
+    
+
+    
+    
+    TSignal inBHall;
+    TSignal inBMagnetoResistance;
+
+    TSignal inHallEffect;
+    TSignal inMagnetoResistance;
+
+    /*
+    Экстраполяция данных ведется по последней четверти фильтрованных значений.
+
+    Вот тут собственно и косяк.
+    Экстраполировать нужно либо по фильтрованным, либо по усредненным значениям.
+    */
+    for (size_t i =0 /*(2.5*BToExtrapolate->size())/4*/; i < BToExtrapolate->size(); ++i)
+    {
+        inBHall.push_back( (*BToExtrapolate)[i]);
+        inBMagnetoResistance.push_back( (*BToExtrapolate)[i]);
+        inHallEffect.push_back( (*HallToExtrapolate)[i]);
+        inMagnetoResistance.push_back( (*ResistanceToExtrapolate)[i]);
+    }
+/*
+    int ves=200;
+    for (unsigned int i = 0; i<ves; ++i) 
+    {
+        inBHall.push_back(BToExtrapolate->back());
+        inBMagnetoResistance.push_back(BToExtrapolate->back());
+        inHallEffect.push_back(HallToExtrapolate->back());
+        inMagnetoResistance.push_back(ResistanceToExtrapolate->back());
+    } */
+  
+    unsigned int NumberOfPoints=inBHall.size();
+    if(NumberOfPoints==0)
+    {
+    ShowMessage("Количество точек равно нулю! Я не хочу делить на ноль:)");
+    return;
+    }
+    MyDataType h=(max_abs_elem(inBHall)- min_elem(inBHall))/ static_cast<MyDataType>(NumberOfPoints);
+    PowPolinomRes=1;
+    PowPolinomHall=1;
+    
+    TSignal koefMagnetoResistance(PowPolinomRes+1);
+    TSignal koefHallEffect(PowPolinomHall+1);
+
+    if(!curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,PowPolinomRes))
+    return;
+    if(!curveFittingUniversal(&inBHall,&inHallEffect, &koefHallEffect,PowPolinomHall))
+    return;   
+
+    TSignal newB;
+    TSignal newHallEffect;
+    TSignal newMagnetoResistance;
+
+    
+
+    newB.clear();
+    newB.push_back(BToExtrapolate->back()-h); // заполняем магнитное поле.
+    for (unsigned int i = 1; i<NumberOfPoints; ++i) {
+        newB.push_back(newB[i-1]+h);
+    }
+
+    // вычисляем экстраполированные зависимости.
+    calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
+    calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
+
+    //----------А вот тут прикручиваем недостающий кусочек в сигналы----
+
+    unsigned int i=0;
+    while(i<NumberOfPoints && newB[i]<=BToExtrapolate->back())
+    ++i; // находим элемент на котором заканчивается фильтрованное магнитное поле.    
+
+    for(unsigned int j=i;j<NumberOfPoints && newB[j]<=2.5;j++)
+    {     // в конце дописываем экстраполированные значения.
+        BToExtrapolate->push_back(newB[j]);
+        ResistanceToExtrapolate->push_back(newMagnetoResistance[j]);
+        HallToExtrapolate->push_back(newHallEffect[j]);
+    }
+
+    // А зачем он этот реверс-то?О_о
+    //std::reverse(outY.begin(),outY.end());
+    
 }
 
 void MagneticFieldDependence::GetEqualNumberOfPoints(TSignal & B,
@@ -423,11 +537,38 @@ void MagneticFieldDependence::filterData()
     GetEqualNumberOfPoints(B,BHall,BMagnetoResistance,
     HallEffect,MagnetoResistance);
 
+    if( B[0]<-1.0 && B.back() >1.0) // Если это комбинированный сигнал
+    {
+    featData(CURRENT_DATA);// его надо усреднить 
+    // и фильтровать будем усредненный сигнал.
+	}
+
     filterDataHelper((*filterParamsHall),HALL_EFFECT);
+    
+    /* TStringList * tsl= new TStringList;
+    for (int i=0; i<AveragedB.size(); ++i)
+    {
+        tsl->Add(FloatToStr(AveragedB[i]) );
+    }
+    tsl->SaveToFile("E:\\Дела\\Институт физики полупроводников\\Lcard\\MCTParamsExplorer\\AveragedB.txt");
+
+    */
     filterDataHelper((*filterParamsResistance),MAGNETORESISTANCE);
     FilteredB=FilteredBHall;
+    
+
     GetEqualNumberOfPoints(FilteredB,FilteredBHall,FilteredBMagnetoResistance,
     FilteredHallEffect,FilteredMagnetoResistance);
+    
+    /*tsl->Clear();
+     //TStringList * tsl= new TStringList;
+    for (int i=0; i<FilteredMagnetoResistance.size(); ++i)
+    {
+        tsl->Add(FloatToStr(FilteredB[i]) + "\t"+ FloatToStr(FilteredMagnetoResistance[i]));
+    }
+    tsl->SaveToFile("E:\\Дела\\Институт физики полупроводников\\Lcard\\MCTParamsExplorer\\filterOutPutAftFiltr2.txt");
+*/
+
 }
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::filterData(FilterParams &fPHall, FilterParams &fPResistance)
@@ -457,7 +598,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
 
     if( B[0]<-1.0 && B.back() >1.0) // Если это комбинированный сигнал
     {
-        featData(CURRENT_DATA); // его надо усреднить
+        //featData(CURRENT_DATA); // его надо усреднить
         inB=&AveragedB; // фильтровать будем усредненный сигнал
         inHallEffect=&AveragedHallEffect;
         inMagnetoResistance=&AveragedMagnetoResistance;
@@ -488,7 +629,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
 
     // формируем сигнал для фильтра.
     // достраивая его в отрицательные магнитные поля.
-    for (unsigned int i = 0; i < NumberOfPoints; i++)
+    for (unsigned int i = 0; i < NumberOfPoints; ++i)
     {
     /*
     Давайте внимательно сюда посмотрим.
@@ -515,7 +656,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
 
     
 
-    for (unsigned int i = 0; i < NumberOfPoints; i++)
+    for (unsigned int i = 0; i < NumberOfPoints; ++i)
     {
         tempInSignal[i]=(*inMagnetoResistance)[NumberOfPoints-i-1];   // чет
         //tempInSignal[i]=-Dependence[NumberOfPoints-i-1]+2*Dependence[0];  // нечет
@@ -542,10 +683,10 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     TrForMassiveFilter(tempInB,tempInSignal,tempOutB,tempOutSignal,
                 fP.filterLength,fP.SamplingFrequecy,fP.BandwidthFrequency,fP.AttenuationFrequency);
 
-    
+
     // Размер внутри фильтра меняется, в зависимости от длины фильтра.
     NumberOfPoints=tempOutB.size();
-    for(unsigned int i=fP.filterLength;i<NumberOfPoints;i++)
+    for(unsigned int i=fP.filterLength;i<NumberOfPoints;++i)
     {
         
     switch(dependenceType)
@@ -563,6 +704,8 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     }
     }
 
+
+
     
 /*
     unsigned int i=0;
@@ -570,7 +713,7 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
     while(i<NumberOfPoints && tempOutB[i]<=0 ) ++i; // ищем где поле становится положительным.
 
     // нагло записываем положительную часть фильтрованного сигнала обратно.
-    for(;i<NumberOfPoints;i++)
+    for(;i<NumberOfPoints;++i)
     {
 
     switch(dependenceType)
@@ -593,24 +736,47 @@ void MagneticFieldDependence::filterDataHelper(FilterParams &fP,
 
 //-------------------------------------------------------------------------------
 
-bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResistance=4, const int polinomPowForHallEffect=4)
+bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect)
 {
+	/*
+	Раз уж пошли такие баги - буду разбираться комментированием кода.
+	Имеются три указателя на экстраполируемые данные.
+	В зависимости от того какие нужно, это будут либо фильтрованные, либо усредненные данные.
+	Если вдруг что-то пошло не так - мы убегаем.
+	Экстраполяция проходит только по части сигнала - на данный момент по последним двум третям.
+
+	Потом проходит увеличение веса точки 0, 0 для холловского напряжения.
+
+	Выделяем память для коэффициентов и вызываем функцию поиска решения ( curveFittingUniversal ).
+	Эта функция кстати тоже не безгрешна, но там баги искать это совсем страшное зло.
+
+	Магнитное поле заполняется заданным шагом (кстати, возможно шаг нужно рассчитывать как-то по другому), начиная с последнего текущего значения.
+
+	*/
     bool returnValue=true;
 
-    TSignal koefMagnetoResistance(polinomPowForMagnetoResistance+1);
-    TSignal koefHallEffect(polinomPowForHallEffect+1);
+    TSignal * BToExtrapolate= NULL;
+    TSignal * HallToExtrapolate= NULL;
+    TSignal * ResistanceToExtrapolate= NULL;
 
-    TSignal newB;
-    TSignal newHallEffect;
-    TSignal newMagnetoResistance;
+    if (dataKind==FILTERED_DATA)
+    {
+        BToExtrapolate= & FilteredB;
+        HallToExtrapolate= & FilteredHallEffect;
+        ResistanceToExtrapolate= & FilteredMagnetoResistance;
+    }
+    if(dataKind ==AVERAGED_DATA)
+    {
+        BToExtrapolate= & AveragedB;
+        HallToExtrapolate= & AveragedHallEffect;
+        ResistanceToExtrapolate= & AveragedMagnetoResistance;
+    }   
+    // Если вдруг что-то пошло не так - мы убегаем.
+    if(BToExtrapolate==NULL)
+    {
+    	return false;
+    } 
 
-    // копируем фильтрованные данные
-    /*TSignal inBHall(FilteredB);
-    TSignal inBMagnetoResistance(FilteredB);
-
-    TSignal inHallEffect(FilteredHallEffect);
-    TSignal inMagnetoResistance(FilteredMagnetoResistance);
-*/
     TSignal inBHall;
     TSignal inBMagnetoResistance;
 
@@ -619,38 +785,36 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
 
     /*
     Экстраполяция данных ведется по последней четверти фильтрованных значений.
+
+    Вот тут собственно и косяк.
+    Экстраполировать нужно либо по фильтрованным, либо по усредненным значениям.
     */
-    for (size_t i = 3*FilteredB.size()/4; i < FilteredB.size(); ++i)
+    for (size_t i = (3*BToExtrapolate->size())/4; i < BToExtrapolate->size(); ++i)
     {
-        inBHall.push_back( FilteredB[i]);
-        inBMagnetoResistance.push_back( FilteredB[i]);
-        inHallEffect.push_back( FilteredHallEffect[i]);
-        inMagnetoResistance.push_back( FilteredMagnetoResistance[i]);
+        inBHall.push_back( (*BToExtrapolate)[i]);
+        inBMagnetoResistance.push_back( (*BToExtrapolate)[i]);
+        inHallEffect.push_back( (*HallToExtrapolate)[i]);
+        inMagnetoResistance.push_back( (*ResistanceToExtrapolate)[i]);
     }
-/*
-    for (unsigned int i=B.size()-filterParamsHall->filterLength; i<B.size();++i)
-    { // дописываем измеренные данные
-        inHallEffect.push_back(HallEffect[i]);
-        inMagnetoResistance.push_back(MagnetoResistance[i]);
-        inBHall.push_back(B[i]);
-        inBMagnetoResistance.push_back(B[i]);
-    }
-*/   
+
     unsigned int NumberOfPoints=inBHall.size();
     if(NumberOfPoints==0)
     {
     ShowMessage("Количество точек равно нулю! Я не хочу делить на ноль:)");
     return false;
     }
-    MyDataType h=2.2/NumberOfPoints;
+
+    MyDataType h=2.5/NumberOfPoints;
     
     int ves = inBHall.size()/10;
-	for(int i=0;i<ves;++i) // увеличиваем вес точки (0,0) для эффекта Холла.
-	{
-		inBHall.push_back(0);
-		inHallEffect.push_back(0);
-	}
+    for(int i=0;i<ves;++i) // увеличиваем вес точки (0,0) для эффекта Холла.
+    {
+        inBHall.push_back(0);
+        inHallEffect.push_back(0);
+    }
 
+    TSignal koefMagnetoResistance(polinomPowForMagnetoResistance+1);
+    TSignal koefHallEffect(polinomPowForHallEffect+1);
     
     if(!curveFittingUniversal(&inBMagnetoResistance,&inMagnetoResistance, &koefMagnetoResistance,polinomPowForMagnetoResistance))
     return false;
@@ -658,16 +822,18 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     return false;
 
     
+    TSignal newB;
+    TSignal newHallEffect;
+    TSignal newMagnetoResistance;
 
-	newB.clear();
-	newB.push_back(1.0); // заполняем магнитное поле.
-	for (unsigned int i = 1; i<NumberOfPoints; i++) {
-		newB.push_back(newB[i-1]+h);
-	}
+    newB.push_back(BToExtrapolate->back()-h); // заполняем магнитное поле.
+    for (unsigned int i = 1; i<NumberOfPoints; ++i) {
+        newB.push_back(newB[i-1]+h);
+    }
 
     // вычисляем экстраполированные зависимости.
-	calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
-	calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
+    calculatePolinomByKoef(newB,koefMagnetoResistance,newMagnetoResistance);
+    calculatePolinomByKoef(newB,koefHallEffect,newHallEffect);
 
     ExtrapolatedB.clear();
     ExtrapolatedMagnetoResistance.clear();
@@ -677,25 +843,34 @@ bool MagneticFieldDependence::extrapolateData(const int polinomPowForMagnetoResi
     ExtrapolatedMagnetoResistance=newMagnetoResistance;
     ExtrapolatedHallEffect=newHallEffect;
     
-	//----------А вот тут прикручиваем недостающий кусочек в сигналы----
+    //----------А вот тут прикручиваем недостающий кусочек в сигналы----
 
     // Упс, а мы точки-то лишние из фильтрованного удаляем?
     // Где-то явно не удаляем, но возможно и не здесь.
     
     unsigned int i=0;
-	while(i<NumberOfPoints && newB[i]<FilteredB.back())
+    while(i<NumberOfPoints && newB[i]<=BToExtrapolate->back())
     ++i; // находим элемент на котором заканчивается фильтрованное магнитное поле.
 
-   	for(unsigned int j=i;j<NumberOfPoints;j++)
-	{     // в конце дописываем экстраполированные значения.
-		FilteredB.push_back(newB[j]);
-        FilteredMagnetoResistance.push_back(newMagnetoResistance[j]);
-        FilteredHallEffect.push_back(newHallEffect[j]);
-	}
-	//------------------------------------------------------------------
-       
+    for(unsigned int j=i;j<NumberOfPoints;j++)
+    {     // в конце дописываем экстраполированные значения.
+        BToExtrapolate->push_back(newB[j]);
+        ResistanceToExtrapolate->push_back(newMagnetoResistance[j]);
+        HallToExtrapolate->push_back(newHallEffect[j]);
+    }
+    //------------------------------------------------------------------
+    
+    /* TStringList * tsl= new TStringList;
+    for (int i=0; i<FilteredMagnetoResistance.size(); ++i)
+    {
+        tsl->Add(FloatToStr(FilteredB[i]) + "\t"+ FloatToStr(FilteredMagnetoResistance[i]));
+    }
+    tsl->SaveToFile("E:\\Дела\\Институт физики полупроводников\\Lcard\\MCTParamsExplorer\\filterOutPutAftExtr.txt");
+*/
+
 return returnValue;   
 }
+
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
 {
@@ -816,7 +991,7 @@ void MagneticFieldDependence::constructPlotFromOneMassive(SignalType p,TLineSeri
         break;
     }
     unsigned int NumberOfPoints=temp->size();
-	for (unsigned int i = 0; i < NumberOfPoints; i++)
+	for (unsigned int i = 0; i < NumberOfPoints; ++i)
 	{
 		s->AddY((*temp)[i],"",color);
 	} 
@@ -876,7 +1051,7 @@ void MagneticFieldDependence::setDependence(TSignal::iterator beginB,
 
 
     filterData();
-    extrapolateData(PowPolinomRes,PowPolinomHall);
+    extrapolateData(FILTERED_DATA,PowPolinomRes,PowPolinomHall);
     // в перспективе степень будет зависеть от температуры и возможно чего-нибудь ещё.      
 }
 
@@ -1015,7 +1190,7 @@ void MagneticFieldDependence::calculateEffectiveParamsFromSignals()
         s_eff.resize(NumberOfPoints);
         Rh_eff.resize(NumberOfPoints);
 
-        for (unsigned int i = 0; i < NumberOfPoints ; i++)
+        for (unsigned int i = 0; i < NumberOfPoints ; ++i)
         {
             if(fabs(AveragedMagnetoResistance[i])<THEALMOSTZERO)
                 s_eff[i]=0;
@@ -1041,7 +1216,7 @@ void MagneticFieldDependence::calculateTenzorFromEffectiveParams()
         sxx.resize(NumberOfPoints);
         sxy.resize(NumberOfPoints);
 
-        for (unsigned int i = 0; i < NumberOfPoints ; i++)
+        for (unsigned int i = 0; i < NumberOfPoints ; ++i)
         {
             sxx[i]=s_eff[i]/
                 (Rh_eff[i]*Rh_eff[i]*s_eff[i]*s_eff[i]+1.0);
@@ -1120,7 +1295,7 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind)
 void MagneticFieldDependence::calculateTenzor(DataKind dataKind)
 {
     featData(dataKind);
-    cutData(AVERAGED_DATA);
+    //cutData(AVERAGED_DATA);
     calculateEffectiveParamsFromSignals();
     calculateTenzorFromEffectiveParams();
 }

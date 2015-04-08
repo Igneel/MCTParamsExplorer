@@ -19,18 +19,19 @@ void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdi
         N = length; //Длина фильтра
         Fd = Fdisk; //Частота дискретизации входных данных 
         Fs = Fpropysk; //Частота конца полосы пропускания  
-        Fx = Fzatyh; //Частота начала полосы затухания    
+        Fx = Fzatyh; //Частота начала полосы затухания
+         
 
         H.resize(N);
         H_id.resize(N);
         W.resize(N);
         //Расчет импульсной характеристики фильтра
         long double Fc = (Fs + Fx) / (2.0 * Fd);
-
+        long double Wc = 2*M_PI*Fc;
         for (unsigned int i=0;i<N;++i)
         {
-            if (i==0) H_id[i] = 2.0*Fc;
-            else H_id[i] =2.0*Fc* sinl(M_PI*i )/(M_PI*i);
+            if (i==N/2) H_id[i] = 2*Fc;
+            else H_id[i] =2*Fc*sinl(Wc*(i-N/2))/(Wc*(i-N/2));
             // весовая функция Блекмена
             if (N>1)
             W[i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( N-1.0)) + 0.08 * cosl((4.0*M_PI*i) /( N-1.0));
@@ -100,10 +101,10 @@ long double Fd = Fdisk; //Частота дискретизации входных данных 2000
 std::vector<long double> H(N);  //Импульсная характеристика фильтра
 std::vector<long double> H_id(N); //Идеальная импульсная характеристика
 std::vector<long double> W(N);   //Весовая функция
-
+    
 //Расчет импульсной характеристики фильтра
 long double Fc = (Fpropysk + Fzatyh) / (2.0 * Fd);
-long double Wc = 2*M_PI*Fc;
+long double Wc = 2.0*M_PI*Fc;
 /*
 Строго говоря ширина перехода для функции Блэкмана фиксирована и составляет 5.5/N
 
@@ -116,35 +117,54 @@ long double Wc = 2*M_PI*Fc;
 
 for (unsigned int i=0;i<N;++i)
 { // Идеальная импульсная характеристика фильтра нижних частот
-if (i==N/2) H_id[i] = 2*Fc;
-else H_id[i] =2*Fc*sinl(Wc*(i-N/2))/(Wc*(i-N/2));
+if (i==N/2) H_id[i] = 2.0*Fc;
+else H_id[i] =2.0*Fc*sinl(Wc*(i-N/2.0))/(Wc*(i-N/2.0));
 }
 
 for (unsigned int i=0;i<N;++i)
 {
-    //if (i==0) H_id[i] = 2*Fc;
-    //else H_id[i] =2*Fc*sinl(Wc*i)/(Wc*i);
     // весовая функция Блекмена
     if(N>1)
-        W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( long double)N) + 0.08 * cosl((4*M_PI*i) /( long double)N);
+        W [i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( long double)N) + 0.08 * cosl((4.0*M_PI*i) /( long double)N);
     else
-        W[i]=1;
+        W[i]=1.0;
     H [i] = H_id[i] * W[i];
 }
 
 //Нормировка импульсной характеристики
-long double SUM=0;
+long double SUM=0.0;
 for (unsigned int i=0; i<N; ++i) SUM +=H[i];
 for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
 
+
 //Фильтрация входных данных
 unsigned int dataSize=in.size();
-for (unsigned int i=0; i<dataSize; ++i)
+for (int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;
+/*
 for (unsigned int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
 out[i]+= H[j]*in[i-j];
 }
+
+*/
+for (int j=0; j<N; ++j)// та самая формула фильтра
+    if(i-j>=0)
+        out[i]+= H[j]*in[i-j];
+
+
+
+
+}
+/*
+TStringList * tsl= new TStringList;
+for (int i=0; i<dataSize; ++i)
+{
+    tsl->Add(FloatToStr(out[i]));
+}
+tsl->SaveToFile("E:\\Дела\\Институт физики полупроводников\\Lcard\\MCTParamsExplorer\\filterOutPut.txt");
+*/
+
 
 return (N-1)/2.0;
 }
@@ -184,7 +204,7 @@ long double Fpropysk,long double Fzatyh)
 //----------------------------------------------
 //---------добавление для фильтрации магнитного поля
 // ахтунг
-Filter(inB,outB,lengthFilter,Fdisk,Fpropysk,Fzatyh);
+//Filter(inB,outB,lengthFilter,Fdisk,Fpropysk,Fzatyh);
 // внимание - она пока работает не корректно ибо фильтр наполняется только за
 // его длину.
 /*double *in2=new double[size];  // выделяем память

@@ -860,7 +860,7 @@ object Form1: TForm1
           Width = 73
           Height = 21
           TabOrder = 0
-          Text = '2'
+          Text = '900'
           OnChange = eLengthFilterResChange
           OnKeyPress = Edit1KeyPress
         end
@@ -893,7 +893,7 @@ object Form1: TForm1
           LabelPosition = lpLeft
           LabelSpacing = 3
           TabOrder = 3
-          Text = '2'
+          Text = '1'
           OnKeyPress = Edit1KeyPress
         end
         object eSamplingFRes: TEdit

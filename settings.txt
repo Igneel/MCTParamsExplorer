@@ -7,7 +7,7 @@ ChannelResistance	3
 ChannelResistanceRange	1
 MeasurementFrencuency	400
 PowPolinomHall	4
-PowPolinomRes	2
+PowPolinomRes	1
 SampleInventoryNumber	123456
 SampleLength	1,24
 SampleTemperature	77
@@ -17,7 +17,7 @@ eAttenuationFHall	25
 eAttenuationFRes	25
 eBandWidthFHall	15
 eBandWidthFRes	15
-eLengthFilterRes	2
+eLengthFilterRes	900
 eSamplingFHall	10000
 eSamplingFRes	10000
 isMedianFilterEnabled	1
