@@ -407,9 +407,9 @@ void MagneticFieldDependence::featData(DataKind dataKind)
     ShowMessage("Количество точек равно нулю! Я не хочу делить на ноль:)");
     return;
     }
-    MyDataType h=(max_abs_elem(inBHall)- min_elem(inBHall))/ static_cast<MyDataType>(NumberOfPoints);
+    MyDataType h=(max_abs_elem(inBHall)- min_elem(inBHall))/static_cast<MyDataType>(NumberOfPoints);
     PowPolinomRes=1;
-    PowPolinomHall=1;
+    PowPolinomHall=2;
     
     TSignal koefMagnetoResistance(PowPolinomRes+1);
     TSignal koefHallEffect(PowPolinomHall+1);
@@ -789,7 +789,7 @@ bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int poli
     Вот тут собственно и косяк.
     Экстраполировать нужно либо по фильтрованным, либо по усредненным значениям.
     */
-    for (size_t i = (3*BToExtrapolate->size())/4; i < BToExtrapolate->size(); ++i)
+    for (size_t i = (2*BToExtrapolate->size())/4; i < BToExtrapolate->size(); ++i)
     {
         inBHall.push_back( (*BToExtrapolate)[i]);
         inBMagnetoResistance.push_back( (*BToExtrapolate)[i]);
@@ -804,7 +804,7 @@ bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int poli
     return false;
     }
 
-    MyDataType h=2.5/NumberOfPoints;
+    MyDataType h=(max_abs_elem(inBHall)- min_elem(inBHall)) /NumberOfPoints;
     
     int ves = inBHall.size()/10;
     for(int i=0;i<ves;++i) // увеличиваем вес точки (0,0) для эффекта Холла.
