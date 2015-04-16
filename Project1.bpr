@@ -6,7 +6,8 @@
     <PROJECT value="Project1.exe"/>
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
-      DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj"/>
+      DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj 
+      mobilityspectrum.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -70,6 +71,8 @@
       <FILE FILENAME="commonFunctions.cpp" FORMNAME="" UNITNAME="commonFunctions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="UsedTypes.h" FORMNAME="" UNITNAME="UsedTypes.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Unit3.cpp" FORMNAME="Form3" UNITNAME="Unit3" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="mobilityspectrum.h" FORMNAME="" UNITNAME="mobilityspectrum.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="mobilityspectrum.cpp" FORMNAME="" UNITNAME="mobilityspectrum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

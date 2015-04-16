@@ -1161,7 +1161,7 @@ else
 }
 }
 //---------------------------------------------------------------------------
-    typedef int __stdcall (*pointerToFunc)(long double &, long double &,long double &, DWORD);
+    typedef int __stdcall (*pointerToFunc)(long double *, long double *,long double *, DWORD);
 
     typedef long double * __stdcall (*resPointFunc) (long double *,long double *,long double *,long double *);
 
@@ -1171,27 +1171,17 @@ else
 
 
 
-void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,int length)
+void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 {
-
-    HANDLE hLibHandle;
-    hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
-
-    pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
-
-    //resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
-
-      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
-      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
-      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
-      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
-
       if(length==0)
       {
       Form1->ErrorLog->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
         return;
       }
-      int size=(*pFunc)(*B,*sxx,*sxy, length);
+
+      mobilitySpectrum c(B,sxx,sxy,B.size());
+
+      int size=c.getResultSize();
 
       long double * ex=new long double [size];
       long double * eY=new long double [size];
@@ -1206,17 +1196,16 @@ void calculateMobilitySpectrum(long double *B,long double *sxx,long double *sxy,
 
       for(int i =0;i<size;i++)
       {
-      ex[i]=getEX(i);
-      eY[i]=getEY(i);
-      hx[i]=getHX(i);
-      hY[i]=getHY(i);
+
+      ex[i]=c.getResultEX(i);
+      eY[i]=c.getResultEY(i);
+      hx[i]=c.getResultHX(i);
+      hY[i]=c.getResultHY(i);
 
       Form1->Series1->AddXY(ex[i],eY[i],"",clBlue);
       Form1->Series2->AddXY(hx[i],hY[i],"",clRed);
       }
 
-      if ( hLibHandle )
-      FreeLibrary( hLibHandle );
 
     delete [] ex;
     delete [] eY;
@@ -1244,46 +1233,45 @@ StringGrid1->Cells[2][0]="Подвижность";
 //-------------------------------------------------------------
 
 
-long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
-long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
-long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
+long double B[]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
+long double sxx[]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
+long double sxy[]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
 
-    HANDLE hLibHandle;
-    hLibHandle = LoadLibrary("lib\\MobilitySpectrum.dll");
+int testSize=11;
+vector <long double> B2;
+vector <long double> sxx2;
+vector <long double> sxy2;
+for(int i=0;i<testSize;++i)
+{
+B2.push_back(B[i]);
+sxx2.push_back(sxx[i]);
+sxy2.push_back(sxy[i]);
+}
+mobilitySpectrum c(B2,sxx2,sxy2,testSize);
 
-      pointerToFunc pFunc = (pointerToFunc)GetProcAddress(hLibHandle,"RunMobilitySpectrum");
-
-      resPointFunc getResult = (resPointFunc)GetProcAddress(hLibHandle,"getResults");
-
-      resFunc getEY=(resFunc) GetProcAddress(hLibHandle,"getResultEY");
-      resFunc getEX=(resFunc) GetProcAddress(hLibHandle,"getResultEX");
-      resFunc getHY=(resFunc) GetProcAddress(hLibHandle,"getResultHY");
-      resFunc getHX=(resFunc) GetProcAddress(hLibHandle,"getResultHX");
-
-      int size=(*pFunc)(*B,*sxx,*sxy, 11);
-
+    int size=c.getResultSize();
       long double * ex=new long double [size];
       long double * eY=new long double [size];
       long double * hx=new long double [size];
       long double * hY=new long double [size];
+      
       Series1->Clear();
       Series2->Clear();
       Chart1->LeftAxis->Logarithmic=true;
       Chart1->BottomAxis->Logarithmic=true;
 
+      
       for(int i =0;i<size;i++)
       {
-      ex[i]=getEX(i);
-      eY[i]=getEY(i);
-      hx[i]=getHX(i);
-      hY[i]=getHY(i);
 
-      Series1->AddXY(getEX(i),getEY(i),"",clBlue);
-      Series2->AddXY(getHX(i),getHY(i),"",clRed);
+      ex[i]=c.getResultEX(i);
+      eY[i]=c.getResultEY(i);
+      hx[i]=c.getResultHX(i);
+      hY[i]=c.getResultHY(i);
+
+      Series1->AddXY(ex[i],eY[i],"",clBlue);
+      Series2->AddXY(hx[i],hY[i],"",clRed);
       }
-
-      if ( hLibHandle )
-      FreeLibrary( hLibHandle );
 
       delete [] ex;
       delete [] eY;
@@ -1315,10 +1303,10 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
         TSignal nSxx;
         TSignal nSxy;
 
-        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
-        thiningSignal(B, sxx, nB, nSxy,0, 2, 11);
+        thiningSignal(B, sxx, nB, nSxx,0, 2, 21);
+        thiningSignal(B, sxy, nB, nSxy,0, 2, 21);
 
-        calculateMobilitySpectrum(nB.begin(),nSxx.begin(),nSxy.begin(),11);
+        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
 
         
     }

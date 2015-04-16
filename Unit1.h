@@ -26,6 +26,7 @@
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
 #include "SettingsSaver.h"
+#include "mobilityspectrum.h"
 
 
 //---------------------------------------------------------------------------
