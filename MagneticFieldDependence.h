@@ -13,6 +13,7 @@
 #include "UsedTypes.h"
 #include "ExtrapolateUnit.h"
 #include "commonFunctions.h"
+#include "Dependence.h"
 //#include "Signal.h"
 //#include "MagneticField.h"
 //#include "hallEffect.h"
@@ -187,7 +188,7 @@ private:
     int PowPolinomHall;
 
     void filterDataHelper(FilterParams &fP,
-    SignalType dependenceType);
+    SignalType dependenceType,DataKind dataKind);
 
     //------Загрузка данных-------------------------------------------- 
 	void loadDataHelper(TSignal &temp, String AnsiS,const std::string delimiter);
@@ -213,6 +214,8 @@ TSignal & Res);
 	void clearFilteredParams();
 
 	TSignal * getPointerB(DataKind dataKind);
+	TSignal * getPointerBHall(DataKind dataKind);
+	TSignal * getPointerBResistance(DataKind dataKind);
 	TSignal * getPointerHall(DataKind dataKind);
 	TSignal * getPointerMagnetoResistance(DataKind dataKind);
 
@@ -223,6 +226,8 @@ TSignal & Res);
     DataSet currentData;
     //Signal * testB;
     //Signal * testHall;
+
+
 
 
 	TSignal B;

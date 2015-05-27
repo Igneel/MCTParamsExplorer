@@ -21,6 +21,7 @@
 #pragma hdrstop
 
 #include "Unit2.h"
+#include "SignalShiftForm.h"
 #include "ExtrapolateUnit.h"
 #include "FilteringUnit.h"  
 #include "MagneticFieldDependence.h"
@@ -220,6 +221,8 @@ __published:	// IDE-managed Components
     TComboBox *ComboBox7;
     TComboBox *ComboBox8;
     TButton *Button3;
+    TMenuItem *N18;
+    TMenuItem *N19;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -263,6 +266,7 @@ __published:	// IDE-managed Components
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall uiFrenqChange(TObject *Sender);
     void __fastcall Button3Click(TObject *Sender);
+    void __fastcall N19Click(TObject *Sender);
     
 
 private:	// User declarations

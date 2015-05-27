@@ -1,7 +1,7 @@
 object Form3: TForm3
-  Left = 359
-  Top = 298
-  Width = 405
+  Left = 691
+  Top = 309
+  Width = 581
   Height = 294
   Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1086#1074
   Color = clBtnFace
@@ -51,6 +51,7 @@ object Form3: TForm3
     Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1090#1086#1095#1077#1082':'
     Items.Strings = (
       #1042#1099#1073#1088#1072#1090#1100' '#1080#1079' '#1089#1087#1080#1089#1082#1072
+      #1047#1072#1076#1072#1090#1100
       #1042#1089#1077' '#1090#1086#1095#1082#1080)
     TabOrder = 1
   end
@@ -85,5 +86,74 @@ object Form3: TForm3
     Height = 25
     Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 4
+  end
+  object LabeledEdit1: TLabeledEdit
+    Left = 16
+    Top = 216
+    Width = 97
+    Height = 21
+    EditLabel.Width = 93
+    EditLabel.Height = 13
+    EditLabel.Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1090#1086#1095#1077#1082':'
+    LabelPosition = lpAbove
+    LabelSpacing = 3
+    TabOrder = 5
+    Text = '11'
+  end
+  object CheckBox1: TCheckBox
+    Left = 400
+    Top = 24
+    Width = 137
+    Height = 17
+    Caption = #1048#1079#1084#1077#1088#1077#1085#1085#1099#1077' '
+    TabOrder = 6
+  end
+  object CheckBox2: TCheckBox
+    Left = 400
+    Top = 48
+    Width = 137
+    Height = 17
+    Caption = #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1077
+    TabOrder = 7
+  end
+  object CheckBox3: TCheckBox
+    Left = 400
+    Top = 72
+    Width = 137
+    Height = 17
+    Caption = #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1077
+    TabOrder = 8
+  end
+  object CheckBox4: TCheckBox
+    Left = 400
+    Top = 96
+    Width = 97
+    Height = 17
+    Caption = #1059#1089#1088#1077#1076#1085#1077#1085#1085#1099#1077
+    TabOrder = 9
+  end
+  object CheckBox5: TCheckBox
+    Left = 400
+    Top = 120
+    Width = 129
+    Height = 17
+    Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099' '#1086#1073#1088#1072#1079#1094#1072
+    TabOrder = 10
+  end
+  object CheckBox6: TCheckBox
+    Left = 400
+    Top = 144
+    Width = 145
+    Height = 17
+    Caption = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1080
+    TabOrder = 11
+  end
+  object Memo2: TMemo
+    Left = 400
+    Top = 176
+    Width = 145
+    Height = 65
+    ScrollBars = ssVertical
+    TabOrder = 12
   end
 end

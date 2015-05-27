@@ -52,6 +52,41 @@ size_t indexOfElemClosestToValue(const std::vector<T> & in,MyDataType value)
     }
     return index;
 }
+//-------------------------------------------------------------------------------
+
+template <class T>
+size_t indexOfElemClosestToValueFromLeft(const std::vector<T> & in,MyDataType value)
+{
+    MyDataType dist=fabs(in[0]-value);
+    size_t index=0;
+    for (int i = 1; i < in.size(); ++i)
+    {
+        if (dist>fabs(in[i]-value))
+        {
+            dist=fabs(in[i]-value);
+            index=i;
+        }
+    }
+    return index;
+}
+//-------------------------------------------------------------------------------
+
+
+template <class T>
+size_t indexOfElemClosestToValueFromRight(const std::vector<T> & in,MyDataType value)
+{
+    MyDataType dist=fabs(in[0]-value);
+    size_t index=0;
+    for (int i = in.size()-1; i >= 0; --i)
+    {
+        if (dist>fabs(in[i]-value))
+        {
+            dist=fabs(in[i]-value);
+            index=i;
+        }
+    }
+    return index;
+}
 
 //-------------------------------------------------------------------------------
 template <class T>
@@ -105,6 +140,25 @@ inline T min_elem(const std::vector<T> & in)
     {
         if(*pos<min)
         min=*pos;
+    }
+    return min;
+}
+//-------------------------------------------------------------------------------
+
+template <class T>
+inline T min_abs_elem(const std::vector<T> & in)
+{
+    if(in.size()==0)
+    {
+        //"Сложно найти максимальный элемент, когда нет ни одного");
+        return 0;
+    }
+    std::vector<T>::const_iterator pos;
+    T min=fabs(*in.begin());
+    for(pos=in.begin();pos!=in.end();++pos)
+    {
+        if(fabs(*pos)<min)
+        min=fabs(*pos);
     }
     return min;
 }

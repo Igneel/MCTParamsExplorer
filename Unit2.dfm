@@ -1,5 +1,5 @@
 object SaveForm: TSaveForm
-  Left = 227
+  Left = 326
   Top = 171
   BorderStyle = bsDialog
   Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1086#1074

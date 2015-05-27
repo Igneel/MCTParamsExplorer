@@ -7,12 +7,12 @@
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
       DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj 
-      mobilityspectrum.obj"/>
+      mobilityspectrum.obj SignalShiftForm.obj Dependence.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm Unit3.dfm"/>
+    <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm Unit3.dfm SignalShiftForm.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="tee.lib rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib tee.lib"/>
@@ -29,15 +29,16 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="Project1.cpp"/>
-    <INCLUDEPATH value="$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot;;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w8092 -w8091 -w8090 -w8089 -w8087 -wprc -wucp -wstv -wstu -wpin -w-par 
       -wnod -wdef -wcln -wbbf -wasm -wamp -wamb"/>
     <WARNOPTSTR value=""/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-src_suffix cpp -D_DEBUG -I$(BCB)\include -I$(BCB)\include\vcl -boa"/>
+    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder6\Projects&quot; -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
     <CFLAG1 value="-Od -H=j:\PROGRA~1\borland\CBUILD~1\lib\vcl60.csm -Q -Vx -Ve -Tkh30000 -X- 
       -r- -a8 -5 -b- -d -k -y -v -vi- -c -tW -tWM"/>
     <CFLAG2 value=""/>
@@ -73,6 +74,8 @@
       <FILE FILENAME="Unit3.cpp" FORMNAME="Form3" UNITNAME="Unit3" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="mobilityspectrum.h" FORMNAME="" UNITNAME="mobilityspectrum.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="mobilityspectrum.cpp" FORMNAME="" UNITNAME="mobilityspectrum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SignalShiftForm.cpp" FORMNAME="Form4" UNITNAME="SignalShiftForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Dependence.cpp" FORMNAME="" UNITNAME="Dependence" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
@@ -109,33 +112,36 @@ Comments=
 c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
 
 [HistoryLists\hlIncludePath]
-Count=10
-Item0=$(BCB)\include;$(BCB)\include\vcl
-Item1=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;C:\Program Files\Vt\Samples\INTERFACES
-Item2=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;C:\Program Files\Vt\Samples\INTERFACES
-Item3=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
-Item4=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
-Item5=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES
-Item6=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\
-Item7=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces
-Item8=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces;d:\projects\Interfaces
-Item9=$(BCB)\include;$(BCB)\include\vcl;d:\Projects\Interfaces
+Count=11
+Item0=C:\Program Files (x86)\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item1=$(BCB)\include;$(BCB)\include\vcl
+Item2=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;C:\Program Files\Vt\Samples\INTERFACES
+Item3=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces;C:\Program Files\Vt\Samples\INTERFACES
+Item4=\\VBOXSVR\MCTParamsExplorer;$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
+Item5=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES\
+Item6=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\;C:\Program Files\Vt\Samples\INTERFACES
+Item7=$(BCB)\include;$(BCB)\include\vcl;C:\Interfaces\
+Item8=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces
+Item9=$(BCB)\include;$(BCB)\include\vcl;..\..\..\..\Interfaces;d:\projects\Interfaces
+Item10=$(BCB)\include;$(BCB)\include\vcl;d:\Projects\Interfaces
 
 [HistoryLists\hlLibraryPath]
-Count=6
-Item0=$(BCB)\lib\obj;$(BCB)\lib
-Item1=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib
-Item2=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
-Item3=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
-Item4=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
-Item5=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
+Count=7
+Item0=C:\Program Files (x86)\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item1=$(BCB)\lib\obj;$(BCB)\lib
+Item2=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib
+Item3=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
+Item4=\\VBOXSVR\MCTParamsExplorer;$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
+Item5=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib\
+Item6=$(BCB)\lib\obj;$(BCB)\lib;C:\Program Files\Borland\Lib
 
 [HistoryLists\hlDebugSourcePath]
-Count=4
-Item0=\Include\
-Item1=c:\program files\borland\cbuilder6\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
-Item2=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
-Item3=$(BCB)\source\vcl
+Count=5
+Item0=\Include\;E:\Дела\Институт физики полупроводников\КРТ_программа Дениса\MultizoneFeat\
+Item1=\Include\
+Item2=c:\program files\borland\cbuilder6\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
+Item3=c:\program files\borland\cbuilder5\source\vcl;\Include\;\Include\;C:\Users\Alex\Desktop\Lcard\MCTParamsExplorer\Include\
+Item4=$(BCB)\source\vcl
 
 [HistoryLists\hlConditionals]
 Count=2

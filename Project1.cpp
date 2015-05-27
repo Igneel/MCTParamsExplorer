@@ -5,6 +5,7 @@
 USEFORM("Unit1.cpp", Form1);
 USEFORM("Unit2.cpp", SaveForm);
 USEFORM("Unit3.cpp", Form3);
+USEFORM("SignalShiftForm.cpp", Form4);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -13,6 +14,8 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
          Application->Initialize();
          Application->CreateForm(__classid(TForm1), &Form1);
          Application->CreateForm(__classid(TForm3), &Form3);
+         Application->CreateForm(__classid(TForm4), &Form4);
+         Application->CreateForm(__classid(TSaveForm), &SaveForm);
          Application->Run();
     }
     catch (Exception &exception)

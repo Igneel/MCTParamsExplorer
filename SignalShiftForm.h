@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
-#ifndef Unit3H
-#define Unit3H
+#ifndef SignalShiftFormH
+#define SignalShiftFormH
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
 #include <Controls.hpp>
@@ -9,29 +9,20 @@
 #include <Forms.hpp>
 #include <ExtCtrls.hpp>
 //---------------------------------------------------------------------------
-class TForm3 : public TForm
+class TForm4 : public TForm
 {
 __published:	// IDE-managed Components
-    TRadioGroup *RadioGroup1;
-    TRadioGroup *RadioGroup2;
-    TMemo *Memo1;
-    TComboBox *ComboBox1;
-    TLabel *Label1;
-    TLabel *Label2;
-    TButton *Button1;
-    TLabeledEdit *LabeledEdit1;
-    TCheckBox *CheckBox1;
-    TCheckBox *CheckBox2;
-    TCheckBox *CheckBox3;
-    TCheckBox *CheckBox4;
-    TCheckBox *CheckBox5;
-    TCheckBox *CheckBox6;
-    TMemo *Memo2;
+    TLabeledEdit *uiShiftValue;
+    TComboBox *uiLeftBound;
+    TComboBox *uiRightBound;
+    TRadioGroup *uiDataKind;
+    TButton *bResShiftCurve;
+    TLabel *Label7;
 private:	// User declarations
 public:		// User declarations
-    __fastcall TForm3(TComponent* Owner);
+    __fastcall TForm4(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm3 *Form3;
+extern PACKAGE TForm4 *Form4;
 //---------------------------------------------------------------------------
 #endif

@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = 216
+  Left = 311
   Top = 130
   Width = 995
   Height = 707
@@ -911,7 +911,7 @@ object Form1: TForm1
         Top = 256
         Width = 145
         Height = 25
-        Caption = #1041#1083#1086#1095#1085#1072#1103' '#1092#1080#1083#1100#1090#1088#1072#1094#1080#1103
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1074#1089#1077' '#1076#1072#1085#1085#1099#1077
         TabOrder = 17
         OnClick = Button2Click
       end
@@ -1794,7 +1794,7 @@ object Form1: TForm1
     object uiSampleThickness: TLabeledEdit
       Left = 120
       Top = 116
-      Width = 89
+      Width = 81
       Height = 21
       EditLabel.Width = 80
       EditLabel.Height = 13
@@ -1907,9 +1907,12 @@ object Form1: TForm1
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
       object N4: TMenuItem
-        Caption = #1054#1090#1082#1088#1099#1090#1100
+        Caption = #1054#1090#1082#1088#1099#1090#1100' '#1089#1080#1075#1085#1072#1083
         ShortCut = 16463
         OnClick = N4Click
+      end
+      object N18: TMenuItem
+        Caption = #1054#1090#1082#1088#1099#1090#1100' '#1090#1077#1085#1079#1086#1088
       end
       object N5: TMenuItem
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
@@ -1948,6 +1951,10 @@ object Form1: TForm1
       object N10: TMenuItem
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
         Enabled = False
+      end
+      object N19: TMenuItem
+        Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
+        OnClick = N19Click
       end
     end
     object N2: TMenuItem

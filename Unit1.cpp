@@ -16,10 +16,6 @@ TODO
 Надо бы предусмотреть отдельный поток для вывода.
 И вызывать его по таймеру.
 
-Выпилить ненужные параметры фильтрации. По сути мне достаточно иметь
-частоту среза и длину фильтра с частотой дискретизации.
-Впрочем частота среза определяется из длины фильтра (по идее).
-
 Сделать работу с прогой более комфортной.
 Автоматическое переключение
 записываемого графика (положительное поле, отрицательное поле).
@@ -31,10 +27,6 @@ TODO
 автоматическое сохранение измеряемого сигнала (скажем каждые Т точек).
 
 Пора внедрять фильтр как класс.
-Магнитное поле на данный момент уже фильтруется. Результаты неплохие.
-
-Есть предложение фильтровать автоматически только уже объединенные зависимости.
-
 
 Нужно добавить усреднение по току.
 
@@ -309,7 +301,6 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
     {
         GainKoefFaradey->Enabled=1;
         uiCurrent->Enabled=1;
-        //CurrentHall->Enabled=1;
         ResCurveIndex->Enabled=1;
         HallCurveIndex->Enabled=1;
 
@@ -344,13 +335,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         uiHallControl->Caption = AnsiString("Начать запись");
         uiFaradeyControl->Caption = AnsiString("Начать запись");
         uiFoygtControl->Caption = AnsiString("Начать запись");
-        /*
-        if (paramsDirect && paramsReverse)
-        {
-            StatusBar->Panels->Items[1]->Text="Идёт объединение данных.";
-            concatDependence();
-        }        
-           */
+        
         StatusBar->Panels->Items[1]->Text="Готова к работе.";        
       }
 }
@@ -1161,15 +1146,6 @@ else
 }
 }
 //---------------------------------------------------------------------------
-    typedef int __stdcall (*pointerToFunc)(long double *, long double *,long double *, DWORD);
-
-    typedef long double * __stdcall (*resPointFunc) (long double *,long double *,long double *,long double *);
-
-    typedef long double  __stdcall (*resFunc) (int);
-
-    
-
-
 
 void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 {
@@ -1194,6 +1170,9 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       Form1->Chart1->LeftAxis->Logarithmic=true;
       Form1->Chart1->BottomAxis->Logarithmic=true;
 
+      TStringList *tsl = new TStringList;
+
+
       for(int i =0;i<size;i++)
       {
 
@@ -1201,10 +1180,12 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       eY[i]=c.getResultEY(i);
       hx[i]=c.getResultHX(i);
       hY[i]=c.getResultHY(i);
-
+      tsl->Add(FloatToStr(ex[i])+"\t"+FloatToStr(eY[i])+"\t"+FloatToStr(hY[i]));
       Form1->Series1->AddXY(ex[i],eY[i],"",clBlue);
       Form1->Series2->AddXY(hx[i],hY[i],"",clRed);
       }
+
+      tsl->SaveToFile("mobilitySpectrum.txt");
 
 
     delete [] ex;
@@ -1307,6 +1288,7 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
         thiningSignal(B, sxy, nB, nSxy,0, 2, 21);
 
         calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
+
 
         
     }
@@ -1572,6 +1554,12 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
     }
 
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N19Click(TObject *Sender)
+{
+Form4->Visible=true;
 }
 //---------------------------------------------------------------------------
 
