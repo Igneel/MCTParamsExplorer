@@ -1147,6 +1147,33 @@ else
 }
 //---------------------------------------------------------------------------
 
+int findMaximum(std::vector<long double> & diffY,int start)
+{
+    const long double min=10E-16;
+    long double max;
+    int i_max=diffY.size();
+    max=min;
+    for (int i = start; i < diffY.size(); ++i)
+    {
+        if(diffY[i]>max)
+        {
+            max=diffY[i];
+            i_max=i;
+        }
+    }
+
+    if (i_max==start && start>0 && diffY[i_max-1]>max)
+    {
+        i_max=-1;
+    }
+
+    //while (i<diffY.size()-2 && diffY[i+1]>=diffY[i]) ++i;
+    //--i;
+    //int i2=start;
+   // while(i<diffY.size()-2 && diffY[])
+    return i_max;
+}
+
 void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 {
       if(length==0)
@@ -1166,6 +1193,7 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 
       Form1->Series1->Clear();
       Form1->Series2->Clear();
+      Form1->Series4->Clear();
 
       Form1->Chart1->LeftAxis->Logarithmic=true;
       Form1->Chart1->BottomAxis->Logarithmic=true;
@@ -1186,6 +1214,31 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       }
 
       tsl->SaveToFile("mobilitySpectrum.txt");
+
+      std::vector<long double> diffeY;
+      for (int i = 1; i < size; ++i)
+      {
+          diffeY.push_back(fabs((eY[i]-eY[i-1])));
+          Form1->Series4->AddXY(ex[i-1],diffeY[i-1],"",clGreen);
+      }
+
+    for(int i=0; i< diffeY.size();++i)
+    {
+    int p=findMaximum(diffeY,i);
+
+    if (p!=diffeY.size()-1 && p>=0)
+    {
+        addPeak(Form1->Series1,p);
+    }
+
+    if(p>i) i = p;
+
+    }
+    
+        
+      
+
+      
 
 
     delete [] ex;
@@ -1287,27 +1340,22 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
         thiningSignal(B, sxx, nB, nSxx,0, 2, 21);
         thiningSignal(B, sxy, nB, nSxy,0, 2, 21);
 
-        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
-
-
-        
+        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());        
     }
 }
 //---------------------------------------------------------------------------
 
-
-void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
-      TMouseButton Button, TShiftState Shift, int X, int Y)
-{   
+void addPeak(TChartSeries *Sender,int ValueIndex)
+{
     long double electronCharge=1.602e-19;
     long double G_p=Sender->YValues->Value[ValueIndex];
     long double Mu= Sender->XValues->Value[ValueIndex];
     long double Concentration=G_p/(Mu*electronCharge);
 
-    StringGrid1->Cells[2][StringGrid1->Selection.Top]= FloatToStr( Mu);
-    StringGrid1->Cells[1][StringGrid1->Selection.Top]= FloatToStr(Concentration);
+    Form1->StringGrid1->Cells[2][Form1->StringGrid1->Selection.Top]= FloatToStr( Mu);
+    Form1->StringGrid1->Cells[1][Form1->StringGrid1->Selection.Top]= FloatToStr(Concentration);
 
-    TGridRect tgr=StringGrid1->Selection;
+    TGridRect tgr=Form1->StringGrid1->Selection;
     tgr.Top++;
     tgr.Bottom++;
     if(tgr.Top>3)
@@ -1315,7 +1363,13 @@ void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
         tgr.Top=1;
         tgr.Bottom=1;
     }
-    StringGrid1->Selection =tgr;
+    Form1->StringGrid1->Selection =tgr;
+}
+
+void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
+      TMouseButton Button, TShiftState Shift, int X, int Y)
+{   
+    addPeak(Sender, ValueIndex);    
 }
 //---------------------------------------------------------------------------
 
@@ -1560,6 +1614,42 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 void __fastcall TForm1::N19Click(TObject *Sender)
 {
 Form4->Visible=true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button4Click(TObject *Sender)
+{
+if(!testExtrapolateUnit()) ShowMessage("Не пройден тест по экстраполяции");
+TSignal inX;
+TSignal inY;
+inX.push_back(0);
+inY.push_back(1.92);
+	for (int i = 0; i < 3; ++i)
+	{
+		inX.push_back(inX.back()+0.02);
+        inY.push_back(inX.back()*inX.back());
+	}
+TSignal newX;
+newX.push_back(0);
+	for (int i = 0; i < 151; ++i)
+	{
+		newX.push_back(newX.back()+0.02);
+	}
+
+TSignal outY;
+
+LagrangeExtrapolation(inX,inY,newX,outY);
+
+for (int i=0;i<inX.size();++i)
+{
+SeriesRes1->AddXY(inX[i],inY[i],"",clRed);
+}
+
+for (int i=0;i<newX.size();++i)
+{
+if(fabs(outY[i])<1000)
+SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
+}
 }
 //---------------------------------------------------------------------------
 

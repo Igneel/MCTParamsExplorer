@@ -1902,6 +1902,15 @@ object Form1: TForm1
     TabOrder = 9
     OnClick = Button3Click
   end
+  object Button4: TButton
+    Left = 816
+    Top = 568
+    Width = 75
+    Height = 25
+    Caption = 'Button4'
+    TabOrder = 10
+    OnClick = Button4Click
+  end
   object MainMenu1: TMainMenu
     Top = 440
     object N1: TMenuItem

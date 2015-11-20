@@ -1,12 +1,12 @@
 #ifndef COMMONFUNCTIONS_H
-#define COMMONFUNCTIONS_H 
+#define COMMONFUNCTIONS_H
 
 #include "UsedTypes.h"
 #include <math>
 #include <algorithm>
 inline MyDataType dist(MyDataType x1, MyDataType x2);
 
-bool thiningSignal(TSignal & inB, TSignal & inDependence, TSignal & outB, TSignal & outDependence, 
+bool thiningSignal(TSignal & inB, TSignal & inDependence, TSignal & outB, TSignal & outDependence,
     MyDataType left, MyDataType right, size_t NewLength);
 
 //---------------------------------------------------------------------------
@@ -42,7 +42,7 @@ size_t indexOfElemClosestToValue(const std::vector<T> & in,MyDataType value)
 {
     MyDataType dist=fabs(in[0]-value);
     size_t index=0;
-    for (int i = 1; i < in.size(); ++i)
+    for (size_t i = 1; i < in.size(); ++i)
     {
         if (dist>fabs(in[i]-value))
         {
@@ -201,7 +201,8 @@ void medianFilter(std::vector <T> & in,std::vector <T> & out,size_t size)
         out.push_back(medianFilter(in));
     }
     for(unsigned int i=size;i<in.size() ;i+=size)
-    {    
+    {
+        
         std::sort(&in[i-size],&in[i]);
         out.push_back(in[i-size/2]);
     }

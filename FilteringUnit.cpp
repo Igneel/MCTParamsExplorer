@@ -138,7 +138,7 @@ for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
 
 
 //Фильтрация входных данных
-unsigned int dataSize=in.size();
+int dataSize=in.size();
 for (int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;

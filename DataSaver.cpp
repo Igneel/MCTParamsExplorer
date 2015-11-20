@@ -7,7 +7,7 @@ DataSaver::DataSaver(AnsiString Temperature, AnsiString Current, AnsiString Samp
 	setSampleDescription(Temperature, Current, SampleInventoryNumber, length, width, Thickness);
 	isRoundNeeded=true;
 	defaultExtension=".txt";
-	NumberOfDecimalPlaces=5;
+	NumberOfDecimalPlaces=10;
 	paramsType=DIRECT;
 
 	leftBound.resize(3);
@@ -92,6 +92,9 @@ SaveType saveType,AnsiString FileName)
 	    case EXTRAPOLATED_DATA:
 	        NewFileName+="ExtrData";
 	        break;
+	    case AVERAGED_DATA:
+	    	NewFileName+="AvData";
+	    	break;
 	}
 
 	SaveDataHelper(B,HallEffect,MagnetoResistance,saveType,NewFileName);
@@ -133,7 +136,9 @@ const TSignal * saveResistance,SaveType mode, AnsiString FileName)
 
         for (unsigned int i = 0; i < savingXData.size(); ++i)
         {
-        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
+        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY1Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY2Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1));
         }
 	}
     if (mode==POINTS_21)
@@ -151,7 +156,9 @@ const TSignal * saveResistance,SaveType mode, AnsiString FileName)
 
         for (unsigned int i = 0; i < savingXData.size(); ++i)
         {
-        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
+        	tsl->Add(FloatToStrF(savingXData[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY1Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY2Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1));
         }        
     }
 	if(mode==ALL_POINTS)
@@ -159,7 +166,9 @@ const TSignal * saveResistance,SaveType mode, AnsiString FileName)
         FileName+="AllP";
 		for(int i=0;i<length;i++)
 		{
-			tsl->Add(FloatToStrF(savingXData[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY1Data[i],ffFixed,9,5)+"\t"+FloatToStrF(savingY2Data[i],ffFixed,9,5));
+			tsl->Add(FloatToStrF(savingXData[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY1Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1)+"\t"+
+            FloatToStrF(savingY2Data[i],ffFixed,NumberOfDecimalPlaces+1,NumberOfDecimalPlaces+1));
 		}
 	}
     //std::string text=tsl->Text.c_str();

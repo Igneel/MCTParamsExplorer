@@ -11,6 +11,7 @@ typedef std::vector<MyDataType> TSignal;
 typedef TSignal::iterator TSignalIt;
 typedef TSignal::const_iterator TSignalconstIt;
 typedef std::vector<TSignal> TwoDimensionalContainer;
+typedef std::vector<std::vector<MyDataType> > TMatrix;
 
 /*
 Давайте поиграем в продумывание архитектуры

@@ -223,6 +223,7 @@ __published:	// IDE-managed Components
     TButton *Button3;
     TMenuItem *N18;
     TMenuItem *N19;
+    TButton *Button4;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -267,6 +268,7 @@ __published:	// IDE-managed Components
     void __fastcall uiFrenqChange(TObject *Sender);
     void __fastcall Button3Click(TObject *Sender);
     void __fastcall N19Click(TObject *Sender);
+    void __fastcall Button4Click(TObject *Sender);
     
 
 private:	// User declarations
@@ -292,6 +294,7 @@ int AllSeries[26];
 extern LCardADC *adc;
 
 void Gist(std::vector<long double> & in);
+void addPeak(TChartSeries *Sender,int ValueIndex);
 
 void KillImpulps(TLineSeries * a,double Left, double Right);
 
