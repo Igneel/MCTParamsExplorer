@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 311
-  Top = 130
+  Left = 795
+  Top = 262
   Width = 995
-  Height = 707
+  Height = 743
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MinHeight = 630
@@ -21,7 +21,7 @@ object Form1: TForm1
   TextHeight = 13
   object LabelChan1: TLabel
     Left = 16
-    Top = 544
+    Top = 560
     Width = 240
     Height = 75
     Caption = '0.000000'
@@ -38,7 +38,7 @@ object Form1: TForm1
   end
   object LabelChan2: TLabel
     Left = 272
-    Top = 544
+    Top = 560
     Width = 240
     Height = 75
     Caption = '0.000000'
@@ -55,7 +55,7 @@ object Form1: TForm1
   end
   object LabelChan3: TLabel
     Left = 528
-    Top = 544
+    Top = 560
     Width = 240
     Height = 75
     Caption = '0.000000'
@@ -72,7 +72,7 @@ object Form1: TForm1
   end
   object Label31: TLabel
     Left = 16
-    Top = 520
+    Top = 536
     Width = 135
     Height = 22
     Alignment = taCenter
@@ -86,7 +86,7 @@ object Form1: TForm1
   end
   object Label32: TLabel
     Left = 528
-    Top = 520
+    Top = 536
     Width = 136
     Height = 22
     Alignment = taCenter
@@ -100,7 +100,7 @@ object Form1: TForm1
   end
   object Label33: TLabel
     Left = 272
-    Top = 520
+    Top = 536
     Width = 227
     Height = 22
     Alignment = taCenter
@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = Resistance
+    ActivePage = DensAndMobDetermination
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 5
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -937,6 +937,7 @@ object Form1: TForm1
           #1043#1088#1072#1092#1080#1082' '#1101#1092#1092#1077#1082#1090#1072' '#1061#1086#1083#1083#1072)
         Legend.Visible = False
         View3D = False
+        PopupMenu = PopupMenu1
         TabOrder = 0
         object SeriesHall1: TLineSeries
           Marks.ArrowLength = 8
@@ -1679,10 +1680,244 @@ object Form1: TForm1
         OnKeyPress = Edit1KeyPress
       end
     end
+    object DensAndMobDetermination: TTabSheet
+      Caption = 'DensAndMobDetermination'
+      ImageIndex = 5
+      object Chart4: TChart
+        Left = 0
+        Top = 0
+        Width = 305
+        Height = 241
+        BackWall.Brush.Color = clWhite
+        BackWall.Brush.Style = bsClear
+        Title.Text.Strings = (
+          'TChart')
+        BottomAxis.Logarithmic = True
+        LeftAxis.Logarithmic = True
+        Legend.TextStyle = ltsRightPercent
+        Legend.Visible = False
+        View3D = False
+        TabOrder = 0
+        object ChSpHoleComponent: TLineSeries
+          Marks.ArrowLength = 8
+          Marks.Visible = False
+          SeriesColor = clRed
+          OnClick = Series1Click
+          LinePen.Width = 5
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+        object ChspElecComponent: TLineSeries
+          Marks.ArrowLength = 8
+          Marks.Visible = False
+          SeriesColor = clBlue
+          OnClick = Series1Click
+          LinePen.Width = 5
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+      end
+      object Chart5: TChart
+        Left = 312
+        Top = 0
+        Width = 249
+        Height = 185
+        BackWall.Brush.Color = clWhite
+        BackWall.Brush.Style = bsClear
+        Title.Text.Strings = (
+          'TChart')
+        Legend.Visible = False
+        View3D = False
+        TabOrder = 1
+        object ChSxx_theor: TLineSeries
+          Marks.ArrowLength = 8
+          Marks.Visible = False
+          SeriesColor = clRed
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+        object ChSxxExper: TPointSeries
+          Marks.ArrowLength = 0
+          Marks.Visible = False
+          SeriesColor = clYellow
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = True
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+      end
+      object Chart6: TChart
+        Left = 312
+        Top = 184
+        Width = 249
+        Height = 185
+        BackWall.Brush.Color = clWhite
+        BackWall.Brush.Style = bsClear
+        Title.Text.Strings = (
+          'TChart')
+        Legend.Visible = False
+        View3D = False
+        TabOrder = 2
+        object ChSxy_theor: TLineSeries
+          Marks.ArrowLength = 8
+          Marks.Visible = False
+          SeriesColor = clRed
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+        object ChSxyExper: TPointSeries
+          Marks.ArrowLength = 0
+          Marks.Visible = False
+          SeriesColor = clGreen
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = True
+          XValues.DateTime = False
+          XValues.Name = 'X'
+          XValues.Multiplier = 1
+          XValues.Order = loAscending
+          YValues.DateTime = False
+          YValues.Name = 'Y'
+          YValues.Multiplier = 1
+          YValues.Order = loNone
+        end
+      end
+      object MobSpecResults: TStringGrid
+        Left = 0
+        Top = 243
+        Width = 313
+        Height = 94
+        ColCount = 3
+        DefaultColWidth = 100
+        DefaultRowHeight = 20
+        RowCount = 4
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
+        TabOrder = 3
+      end
+      object btnMobilitySpectrum: TButton
+        Left = 0
+        Top = 352
+        Width = 75
+        Height = 25
+        Caption = #1057#1087#1077#1082#1090#1088
+        TabOrder = 4
+        OnClick = btnMobilitySpectrumClick
+      end
+      object btnMultiCarrierFit: TButton
+        Left = 488
+        Top = 384
+        Width = 75
+        Height = 25
+        Caption = #1055#1086#1076#1075#1086#1085#1082#1072
+        TabOrder = 5
+        OnClick = btnMultiCarrierFitClick
+      end
+      object LabeledEdit1: TLabeledEdit
+        Left = 96
+        Top = 360
+        Width = 49
+        Height = 21
+        EditLabel.Width = 45
+        EditLabel.Height = 13
+        EditLabel.Caption = #1042#1077#1089' '#1087#1086' '#1093':'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 6
+        Text = '1'
+      end
+      object LabeledEdit2: TLabeledEdit
+        Left = 144
+        Top = 360
+        Width = 57
+        Height = 21
+        EditLabel.Width = 45
+        EditLabel.Height = 13
+        EditLabel.Caption = #1042#1077#1089' '#1087#1086' y:'
+        LabelPosition = lpAbove
+        LabelSpacing = 3
+        TabOrder = 7
+        Text = '1'
+      end
+      object btnSaveCarrierParams: TButton
+        Left = 488
+        Top = 432
+        Width = 131
+        Height = 25
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1087#1072#1088#1072#1084#1077#1090#1088#1099
+        TabOrder = 8
+      end
+      object FitResults: TStringGrid
+        Left = 0
+        Top = 384
+        Width = 465
+        Height = 81
+        ColCount = 7
+        DefaultRowHeight = 20
+        RowCount = 3
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs]
+        TabOrder = 9
+      end
+      object ProgressBar1: TProgressBar
+        Left = 584
+        Top = 16
+        Width = 46
+        Height = 353
+        Min = 0
+        Max = 100
+        Orientation = pbVertical
+        Position = 25
+        Smooth = True
+        Step = 100
+        TabOrder = 10
+      end
+    end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 630
+    Top = 666
     Width = 979
     Height = 19
     Panels = <
@@ -1812,7 +2047,7 @@ object Form1: TForm1
     Top = 216
     Width = 225
     Height = 25
-    Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1079#1072#1087#1091#1089#1082' '#1089#1087#1077#1082#1090#1088#1072' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
+    Caption = 'S'
     TabOrder = 4
     OnClick = Button1Click
   end
@@ -1912,7 +2147,8 @@ object Form1: TForm1
     OnClick = Button4Click
   end
   object MainMenu1: TMainMenu
-    Top = 440
+    Left = 936
+    Top = 576
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
       object N4: TMenuItem
@@ -1980,16 +2216,16 @@ object Form1: TForm1
     end
   end
   object SaveDialog1: TSaveDialog
-    Left = 24
-    Top = 440
+    Left = 936
+    Top = 584
   end
   object OpenDialog1: TOpenDialog
-    Left = 48
-    Top = 440
+    Left = 936
+    Top = 592
   end
   object PopupMenu1: TPopupMenu
-    Left = 128
-    Top = 432
+    Left = 952
+    Top = 608
     object N14: TMenuItem
       Caption = #1043#1088#1072#1092#1080#1082#1080
       object N15: TMenuItem
@@ -2004,5 +2240,13 @@ object Form1: TForm1
         OnClick = N17Click
       end
     end
+  end
+  object XMLsettings: TXMLDocument
+    Active = True
+    FileName = 'settings.xml'
+    Options = [doNodeAutoCreate, doAttrNull, doAutoPrefix, doNamespaceDecl, doAutoSave]
+    Left = 808
+    Top = 608
+    DOMVendorDesc = 'Open XML'
   end
 end

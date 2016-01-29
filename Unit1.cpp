@@ -2,6 +2,7 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include "multizoneFit.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -43,7 +44,6 @@ MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
 channelsInfo cI;
 
-SettingsSaver * settings;
 
 MagneticFieldDependence * TForm1::InitParams()
 {
@@ -65,7 +65,7 @@ MagneticFieldDependence * TForm1::InitParams()
     (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
      eAttenuationFHall->Text, eLengthFilterHall->Text);
     (*p)->setExtrapolateParams(PowPolinomHall->Text.ToInt(),PowPolinomRes->Text.ToInt());
-    return *p;    
+    return *p;
 }
 
 MagneticFieldDependence ** TForm1::ActiveParams()
@@ -79,7 +79,7 @@ MagneticFieldDependence ** TForm1::ActiveParams()
     break;
     case 1:
         p=&paramsReverse;
-    break;            
+    break;
     case 2:
         p=&params;
     
@@ -87,7 +87,7 @@ MagneticFieldDependence ** TForm1::ActiveParams()
     default:
     break;
     }
-    return p;          
+    return p;
 }
 
 void TForm1::DeleteActiveParams()
@@ -148,73 +148,113 @@ __fastcall TForm1::TForm1(TComponent* Owner)
     : TForm(Owner)
 {
 }
-//---------------------------------------------------------------------------
-void TForm1::saveSettings()
-{
-    // создание текущей копии настроек
-    settings= new SettingsSaver();
-    settings->Add("MeasurementFrencuency",uiFrenq->Text.c_str());
-    settings->Add("ChannelB",IntToStr(ComboBox4->ItemIndex).c_str());
-    settings->Add("ChannelResistance",IntToStr(ComboBox5->ItemIndex).c_str());
-    settings->Add("ChannelHall",IntToStr(ComboBox6->ItemIndex).c_str());
-    settings->Add("ChannelBRange",IntToStr(ComboBox1->ItemIndex).c_str());
-    settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
-    settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
-    settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
-    settings->Add("uiCurrent",uiCurrent->Text.c_str());
-    settings->Add("SampleTemperature",uiTemperature->Text.c_str());
-    settings->Add("SampleInventoryNumber",uiInventoryNumber->Text.c_str());
-    settings->Add("SampleLength",uiSampleLength->Text.c_str());
-    settings->Add("SampleWidth",uiSampleWidth->Text.c_str());
-    settings->Add("SampleThickness",uiSampleThickness->Text.c_str());
-    settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
-    settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
-    settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
-    settings->Add("eAttenuationFRes",eAttenuationFRes->Text.c_str());
-    settings->Add("PowPolinomRes",PowPolinomRes->Text.c_str());
-    settings->Add("eSamplingFHall",eSamplingFHall->Text.c_str());
-    settings->Add("eBandWidthFHall",eBandWidthFHall->Text.c_str());
-    settings->Add("eAttenuationFHall",eAttenuationFHall->Text.c_str());
-    settings->Add("PowPolinomHall",PowPolinomHall->Text.c_str());
-    settings->Add("ActivePageIndex",IntToStr(PC->ActivePageIndex).c_str());
-}
 
-void TForm1::loadSettings()
-{
-
-}
 
 void __fastcall TForm1::FormCreate(TObject *)
 {
-    // загрузка настроек.
 
-    // создание текущей копии настроек
-    settings= new SettingsSaver();
-    settings->Add("MeasurementFrencuency",uiFrenq->Text.c_str());
-    settings->Add("ChannelB",IntToStr(ComboBox4->ItemIndex).c_str());
-    settings->Add("ChannelResistance",IntToStr(ComboBox5->ItemIndex).c_str());
-    settings->Add("ChannelHall",IntToStr(ComboBox6->ItemIndex).c_str());
-    settings->Add("ChannelBRange",IntToStr(ComboBox1->ItemIndex).c_str());
-    settings->Add("ChannelResistanceRange",IntToStr(ComboBox2->ItemIndex).c_str());
-    settings->Add("ChannelHallRange",IntToStr(ComboBox3->ItemIndex).c_str());
-    settings->Add("isMedianFilterEnabled",IntToStr(CheckBox1->Checked).c_str());
-    settings->Add("uiCurrent",uiCurrent->Text.c_str());
-    settings->Add("SampleTemperature",uiTemperature->Text.c_str());
-    settings->Add("SampleInventoryNumber",uiInventoryNumber->Text.c_str());
-    settings->Add("SampleLength",uiSampleLength->Text.c_str());
-    settings->Add("SampleWidth",uiSampleWidth->Text.c_str());
-    settings->Add("SampleThickness",uiSampleThickness->Text.c_str());
-    settings->Add("eLengthFilterRes",eLengthFilterRes->Text.c_str());
-    settings->Add("eSamplingFRes",eSamplingFRes->Text.c_str());
-    settings->Add("eBandWidthFRes",eBandWidthFRes->Text.c_str());
-    settings->Add("eAttenuationFRes",eAttenuationFRes->Text.c_str());
-    settings->Add("PowPolinomRes",PowPolinomRes->Text.c_str());
-    settings->Add("eSamplingFHall",eSamplingFHall->Text.c_str());
-    settings->Add("eBandWidthFHall",eBandWidthFHall->Text.c_str());
-    settings->Add("eAttenuationFHall",eAttenuationFHall->Text.c_str());
-    settings->Add("PowPolinomHall",PowPolinomHall->Text.c_str());
-    settings->Add("ActivePageIndex",IntToStr(PC->ActivePageIndex).c_str());
-       
+    // загрузка настроек.
+    _di_IXMLNode node = XMLsettings->ChildNodes->FindNode("Settings");
+    if(node)
+    {
+    _di_IXMLNode node2=node->ChildNodes->FindNode("Resistance");
+        if(node2)
+        {
+            _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
+            if(node3)
+            {
+                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
+                if(node4)
+                {
+                    eLengthFilterRes->Text = node4->GetText();
+                }
+
+                node4=node3->ChildNodes->FindNode("eSamplingFRes");
+                if(node4)
+                {
+                     eSamplingFRes->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("eBandWidthFRes");
+                if(node4)
+                {
+                     eBandWidthFRes->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("eAttenuationFRes");
+                if(node4)
+                {
+                     eAttenuationFRes->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("PolinomPow");
+                if(node4)
+                {
+                     PowPolinomRes->Text=node4->GetText();
+                }
+            }
+
+            node3=node2->ChildNodes->FindNode("CurveNumber");
+            if(node3)
+            {
+                ResCurveIndex->ItemIndex = StrToInt(node3->GetText());
+            }
+
+            
+        }
+        node2=node->ChildNodes->FindNode("HallEffect");
+        if(node2)
+        {
+        _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
+            if(node3)
+            {
+                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
+                if(node4)
+                {
+                     eLengthFilterHall->Text=node4->GetText();
+                }
+
+                node4=node3->ChildNodes->FindNode("eSamplingFHall");
+                if(node4)
+                {
+                     eSamplingFHall->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("eBandWidthFHall");
+                if(node4)
+                {
+                     eBandWidthFHall->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("eAttenuationFHall");
+                if(node4)
+                {
+                     eAttenuationFHall->Text=node4->GetText();
+                }
+                node4=node3->ChildNodes->FindNode("PolinomPow");
+                if(node4)
+                {
+                     PowPolinomHall->Text=node4->GetText();
+                }
+            }
+            node3=node2->ChildNodes->FindNode("CurveNumber");
+            if(node3)
+            {
+                HallCurveIndex->ItemIndex = StrToInt(node3->GetText());
+            }
+    }
+}
+
+
+    MobSpecResults->Cells[0][1]="Тяжелые дырки";
+    MobSpecResults->Cells[0][2]="Легкие дырки";
+    MobSpecResults->Cells[0][3]="Электроны";
+    MobSpecResults->Cells[1][0]="Концентрация";
+    MobSpecResults->Cells[2][0]="Подвижность";
+
+    FitResults->Cells[1][0]="Mu e";
+    FitResults->Cells[2][0]="N e";
+    FitResults->Cells[3][0]="Mu lh";
+    FitResults->Cells[4][0]="P lh";
+    FitResults->Cells[5][0]="Mu hh";
+    FitResults->Cells[6][0]="P hh";
+    FitResults->Cells[0][1]="Минимальные значения";
+    FitResults->Cells[0][2]="Средние значения";
     
 
     cI.clear();
@@ -671,13 +711,99 @@ void __fastcall TForm1::Button13Click(TObject *Sender)
 
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 {
+
+  _di_IXMLNode node = XMLsettings->ChildNodes->FindNode("Settings");
+    if(node)
+    {
+    _di_IXMLNode node2=node->ChildNodes->FindNode("Resistance");
+        if(node2)
+        {
+            _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
+            if(node3)
+            {
+                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
+                if(node4)
+                {
+                     node4->SetText(eLengthFilterRes->Text);
+                }
+
+                node4=node3->ChildNodes->FindNode("eSamplingFRes");
+                if(node4)
+                {
+                     node4->SetText(eSamplingFRes->Text);
+                }
+                node4=node3->ChildNodes->FindNode("eBandWidthFRes");
+                if(node4)
+                {
+                     node4->SetText(eBandWidthFRes->Text);
+                }
+                node4=node3->ChildNodes->FindNode("eAttenuationFRes");
+                if(node4)
+                {
+                     node4->SetText(eAttenuationFRes->Text);
+                }
+                node4=node3->ChildNodes->FindNode("PolinomPow");
+                if(node4)
+                {
+                     node4->SetText(PowPolinomRes->Text);
+                }
+            }
+            node3=node2->ChildNodes->FindNode("CurveNumber");
+            if(node3)
+            {
+                node3->SetText(IntToStr(ResCurveIndex->ItemIndex));
+            }
+        }
+
+        node2=node->ChildNodes->FindNode("HallEffect");
+        if(node2)
+        {
+        _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
+            if(node3)
+            {
+                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
+                if(node4)
+                {
+                     node4->SetText(eLengthFilterHall->Text);
+                }
+
+                node4=node3->ChildNodes->FindNode("eSamplingFHall");
+                if(node4)
+                {
+                     node4->SetText(eSamplingFHall->Text);
+                }
+                node4=node3->ChildNodes->FindNode("eBandWidthFHall");
+                if(node4)
+                {
+                     node4->SetText(eBandWidthFHall->Text);
+                }
+                node4=node3->ChildNodes->FindNode("eAttenuationFHall");
+                if(node4)
+                {
+                     node4->SetText(eAttenuationFHall->Text);
+                }
+                node4=node3->ChildNodes->FindNode("PolinomPow");
+                if(node4)
+                {
+                     node4->SetText(PowPolinomHall->Text);
+                }
+            }
+
+            node3=node2->ChildNodes->FindNode("CurveNumber");
+            if(node3)
+            {
+                node3->SetText(IntToStr(HallCurveIndex->ItemIndex));
+            }
+        }
+    }
+
+
+
+
 if(adc)
     adc->StopMeasurement();
 
-    AnsiString x= Application->ExeName;
-    AnsiString nx=x.SubString(0,x.Length()-12);
-    settings->Save(nx+"settings.txt");
-    delete settings;
+    
     if(adc)
         delete adc;
     if(params)
@@ -1174,6 +1300,69 @@ int findMaximum(std::vector<long double> & diffY,int start)
     return i_max;
 }
 
+
+
+size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition)
+{
+    if(startPosition>=size)
+        return size;
+
+      size_t dsize=size-2;
+      size_t d2size=dsize-2;
+      // Посчитаем производную методом конечных разностей
+      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
+
+      std::vector<long double> dY(size);
+
+      for(int i =0;i<dsize;i++)
+      {
+        dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+      }
+
+      std::vector<long double> d2Y(size);
+
+      for(int i =0;i<d2size;i++)
+      {
+        d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+      }
+
+      /*
+        Поиск пиков. Считаем производные первого и второго порядков.
+        Самые ярко выраженные пики должны иметь такие признаки:
+        1. Первая производная сначала растет и положительна.
+        2. После пика - убывает и отрицательна (хотя вроде должна постепенно приближаться к нулю, а не убывать)
+        3. Вторая производная до пика - положительна.
+        4. После пика - отрицательна.
+        5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
+      */
+
+        for (int i = startPosition; i < dsize-1; ++i)
+        {
+            /*
+            Поиск такой:
+            1. ищем участок на котором первая производная положительна и растет.
+            */
+            while (i<dsize-1 && (dY[i]<0 || dY[i]-dY[i+1]>0)) ++i;
+            // ищем точку, с которой рост первой производной прекращается
+            while (i<dsize-1 && (dY[i]>0)) ++i;
+
+            --i;
+            // Теперь проверим остальные условия - вторая производная должна изменить знак.
+            // Вероятно стоит расширить диапазон поиска до +-10 значений
+            if (i+3<dsize-1 && i-3>=0 && (d2Y[i-3]>0 || d2Y[i-2]>0 || d2Y[i-1]>0 || d2Y[i]>0) && (d2Y[i+3]<0 || d2Y[i+2]<0 || d2Y[i+1]<0) )
+            {
+                return i;
+            }
+        }
+        return size;
+}
+
+long double calcConcentrationFromGp(long double G_p, long double Mu)
+{
+    long double electronCharge=1.602e-19;
+    return G_p/(Mu*electronCharge);
+}
+
 void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 {
       if(length==0)
@@ -1191,12 +1380,12 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       long double * hx=new long double [size];
       long double * hY=new long double [size];
 
-      Form1->Series1->Clear();
-      Form1->Series2->Clear();
+      Form1->ChspElecComponent->Clear();
+      Form1->ChSpHoleComponent->Clear();
       Form1->Series4->Clear();
 
-      Form1->Chart1->LeftAxis->Logarithmic=true;
-      Form1->Chart1->BottomAxis->Logarithmic=true;
+      //Form1->Chart1->LeftAxis->Logarithmic=true;
+      //Form1->Chart1->BottomAxis->Logarithmic=true;
 
       TStringList *tsl = new TStringList;
 
@@ -1209,8 +1398,8 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       hx[i]=c.getResultHX(i);
       hY[i]=c.getResultHY(i);
       tsl->Add(FloatToStr(ex[i])+"\t"+FloatToStr(eY[i])+"\t"+FloatToStr(hY[i]));
-      Form1->Series1->AddXY(ex[i],eY[i],"",clBlue);
-      Form1->Series2->AddXY(hx[i],hY[i],"",clRed);
+      Form1->ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
+      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],"",clRed);
       }
 
       tsl->SaveToFile("mobilitySpectrum.txt");
@@ -1222,24 +1411,26 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
           Form1->Series4->AddXY(ex[i-1],diffeY[i-1],"",clGreen);
       }
 
-    for(int i=0; i< diffeY.size();++i)
-    {
-    int p=findMaximum(diffeY,i);
+      size_t index = searchSignificantPeak(eY,size,0); // электроны
+      if(index!=size)
+      {
+          Form1->MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
+          Form1->MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
+      }
 
-    if (p!=diffeY.size()-1 && p>=0)
-    {
-        addPeak(Form1->Series1,p);
-    }
+      index = searchSignificantPeak(hY,size,0); // тяжелые дырки
+      if(index!=size)
+      {
+          Form1->MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
+          Form1->MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
+      }
 
-    if(p>i) i = p;
-
-    }
-    
-        
-      
-
-      
-
+      index = searchSignificantPeak(hY, size, index+4); // легкие дырки
+      if(index!=size)
+      {
+          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
+          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
+      }
 
     delete [] ex;
     delete [] eY;
@@ -1248,6 +1439,7 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 
 }
 
+
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
 /*
@@ -1255,17 +1447,12 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
 */
 
-StringGrid1->Cells[0][1]="Тяжелые дырки";
-StringGrid1->Cells[0][2]="Легкие дырки";
-StringGrid1->Cells[0][3]="Электроны";
-
-StringGrid1->Cells[1][0]="Концентрация";
-StringGrid1->Cells[2][0]="Подвижность";
-
-
-
+MobSpecResults->Cells[0][1]="Тяжелые дырки";
+MobSpecResults->Cells[0][2]="Легкие дырки";
+MobSpecResults->Cells[0][3]="Электроны";
+MobSpecResults->Cells[1][0]="Концентрация";
+MobSpecResults->Cells[2][0]="Подвижность";
 //-------------------------------------------------------------
-
 
 long double B[]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
 long double sxx[]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
@@ -1289,8 +1476,12 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
       long double * hx=new long double [size];
       long double * hY=new long double [size];
       
+      //ChspElecComponent->Clear();
       Series1->Clear();
       Series2->Clear();
+      Series3->Clear();
+      Series4->Clear();
+      Series5->Clear();
       Chart1->LeftAxis->Logarithmic=true;
       Chart1->BottomAxis->Logarithmic=true;
 
@@ -1304,8 +1495,44 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
       hY[i]=c.getResultHY(i);
 
       Series1->AddXY(ex[i],eY[i],"",clBlue);
+      //ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
       Series2->AddXY(hx[i],hY[i],"",clRed);
       }
+
+     
+
+      size_t index = searchSignificantPeak(eY,size,0); // электроны
+      if(index!=size)
+      {
+          MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
+          MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
+      }
+
+      index = searchSignificantPeak(hY,size,0); // тяжелые дырки
+      if(index!=size)
+      {
+          MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
+          MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
+      }
+
+      index = searchSignificantPeak(hY, size, index+4); // легкие дырки
+      if(index!=size)
+      {
+          MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
+          MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
+      }
+      
+
+
+        
+      TStringList *tosaving=new TStringList;
+
+      for (int i =0;i<size;i++)
+      {
+      tosaving->Add(FloatToStr(ex[i])+"\t"+FloatToStr(eY[i])+"\t"+FloatToStr(hY[i]));
+      }
+      
+      tosaving->SaveToFile("MobilityTestSpectrum.txt");
 
       delete [] ex;
       delete [] eY;
@@ -1331,16 +1558,16 @@ void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
         TSignal sxx(p->getSxx()->begin(),p->getSxx()->end());
         TSignal sxy(p->getSxy()->begin(),p->getSxy()->end());
 
-        
+
 
         TSignal nB;
         TSignal nSxx;
         TSignal nSxy;
 
-        thiningSignal(B, sxx, nB, nSxx,0, 2, 21);
-        thiningSignal(B, sxy, nB, nSxy,0, 2, 21);
+        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
+        thiningSignal(B, sxy, nB, nSxy,0, 2, 11);
 
-        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());        
+        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
     }
 }
 //---------------------------------------------------------------------------
@@ -1352,10 +1579,10 @@ void addPeak(TChartSeries *Sender,int ValueIndex)
     long double Mu= Sender->XValues->Value[ValueIndex];
     long double Concentration=G_p/(Mu*electronCharge);
 
-    Form1->StringGrid1->Cells[2][Form1->StringGrid1->Selection.Top]= FloatToStr( Mu);
-    Form1->StringGrid1->Cells[1][Form1->StringGrid1->Selection.Top]= FloatToStr(Concentration);
+    Form1->MobSpecResults->Cells[2][Form1->MobSpecResults->Selection.Top]= FloatToStr( Mu);
+    Form1->MobSpecResults->Cells[1][Form1->MobSpecResults->Selection.Top]= FloatToStr(Concentration);
 
-    TGridRect tgr=Form1->StringGrid1->Selection;
+    TGridRect tgr=Form1->MobSpecResults->Selection;
     tgr.Top++;
     tgr.Bottom++;
     if(tgr.Top>3)
@@ -1363,7 +1590,7 @@ void addPeak(TChartSeries *Sender,int ValueIndex)
         tgr.Top=1;
         tgr.Bottom=1;
     }
-    Form1->StringGrid1->Selection =tgr;
+    Form1->MobSpecResults->Selection =tgr;
 }
 
 void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
@@ -1620,6 +1847,7 @@ Form4->Visible=true;
 void __fastcall TForm1::Button4Click(TObject *Sender)
 {
 if(!testExtrapolateUnit()) ShowMessage("Не пройден тест по экстраполяции");
+if(!testCommonFunctions()) ShowMessage("Не пройден тест по общим функциям");
 TSignal inX;
 TSignal inY;
 inX.push_back(0);
@@ -1650,6 +1878,149 @@ for (int i=0;i<newX.size();++i)
 if(fabs(outY[i])<1000)
 SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
 }
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
+{
+ MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");
+        return;
+    }
+    else
+    {
+        p=*par;
+
+    long double VesGxx=StrToFloat(LabeledEdit1->Text);
+    long double VesGxy=StrToFloat(LabeledEdit2->Text);
+
+    // важный вопрос - в каком порядке нужно помещать сюда данные.
+    // Порядок такой: подвижность электронов, легких дырок и тяжелых дырок.
+    // Далее - концентрации в том же порядке.
+    std::vector<long double> ExactBound; // сюда нужны пики из спектра
+
+    ExactBound.push_back(-StrToFloat(MobSpecResults->Cells[2][3])); // Подвижность электронов
+    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[2][2])); // Подвижность легких дырок
+    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[2][1])); // Подвижность тяжелых дырок
+
+    ExactBound.push_back(-StrToFloat(MobSpecResults->Cells[1][3])); // Концентрация электронов
+    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[1][2])); // Концентрация легких дырок
+    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[1][1])); // Концентрация тяжелых дырок
+
+
+    // Нужно выяснить отчего зависит разброс.
+    // Полагаю это какие-то коэффициенты
+    std::vector<long double> coef;
+    
+    coef.push_back(0.5);
+    coef.push_back(0.5);
+    coef.push_back(0.5);
+    coef.push_back(0.5);
+    coef.push_back(0.5);
+    coef.push_back(0.5);
+
+
+    std::vector<long double> LowBound; // сюда - границы для поиска
+    std::vector<long double> UpBound;
+
+    for (int i = 0; i < ExactBound.size(); ++i)
+    {
+        LowBound.push_back(ExactBound[i]-ExactBound[i]*coef[i]);
+        UpBound.push_back(ExactBound[i]+ExactBound[i]*coef[i]);
+    }
+
+    // Получаем сам спектр и компоненты тензора
+    InDataSpectr MagSpectr(p->getAveragedB()->begin(),p->getAveragedB()->end());
+    InDataSpectr GxxIn(p->getSxx()->begin(),p->getSxx()->end());
+    InDataSpectr GxyIn(p->getSxy()->begin(),p->getSxy()->end());
+
+    InDataSpectr nMagSpectr;
+    InDataSpectr nGxxIn;
+    InDataSpectr nGxyIn;
+
+
+
+    thiningSignal(MagSpectr, GxxIn, nMagSpectr, nGxxIn,0, 2, 11);
+    thiningSignal(MagSpectr, GxyIn, nMagSpectr, nGxyIn,0, 2, 11);
+
+    //ChSxxExper
+    //ChSxyExper
+    // ChSxx_theor
+    // ChSxy_theor
+
+    // Сюда сохраняются выходные значения.
+    MyData_spektr outGxx;
+    MyData_spektr outGxy;
+    TStatistic outValues;
+
+    int GxxSize=nMagSpectr.size();
+    int numberOfCarrierTypes=3;
+
+    MultiZoneFit * mzf=new MultiZoneFit();
+
+
+    int result=mzf->RunMultizoneFeat(VesGxx, VesGxy,
+                          LowBound,  UpBound,
+                          nMagSpectr,  nGxxIn, nGxyIn,
+                           outGxx,  outGxy,
+                           outValues,
+                           GxxSize,
+                           numberOfCarrierTypes);
+
+    for (int i = 0; i < outGxx.size(); ++i)
+    {
+        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i],"",clRed);
+        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i],"",clRed);
+    }
+
+    for (int i = 0; i < nMagSpectr.size(); ++i)
+    {
+        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i],"",clBlue);
+        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i],"",clBlue);
+    }
+
+    FitResults->Cells[2][1]="Year!";
+
+    }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)
+{
+    MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");
+        return;
+    }
+    else
+    {
+        p=*par;
+
+        TSignal B(p->getAveragedB()->begin(),p->getAveragedB()->end());
+        TSignal sxx(p->getSxx()->begin(),p->getSxx()->end());
+        TSignal sxy(p->getSxy()->begin(),p->getSxy()->end());
+
+
+
+        TSignal nB;
+        TSignal nSxx;
+        TSignal nSxy;
+
+        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
+        thiningSignal(B, sxy, nB, nSxy,0, 2, 11);
+
+        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
+    } 
 }
 //---------------------------------------------------------------------------
 

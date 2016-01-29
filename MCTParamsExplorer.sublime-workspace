@@ -4,6 +4,90 @@
 		"selected_items":
 		[
 			[
+				"new",
+				"newBRes"
+			],
+			[
+				"k",
+				"k"
+			],
+			[
+				"ex",
+				"extrapolateData"
+			],
+			[
+				"koe",
+				"koefHallEffect"
+			],
+			[
+				"BRe",
+				"BResToExtrapolate"
+			],
+			[
+				"Bh",
+				"BHallToExtrapolate"
+			],
+			[
+				"BHal",
+				"BHallToExtrapolate"
+			],
+			[
+				"Sh",
+				"ShowMessage"
+			],
+			[
+				"N",
+				"NumberOfDecimalPlaces"
+			],
+			[
+				"r",
+				"roundM"
+			],
+			[
+				"n",
+				"NumberOfDecimalPlaces"
+			],
+			[
+				"do",
+				"double"
+			],
+			[
+				"ma",
+				"material"
+			],
+			[
+				"so",
+				"sortedwordlist"
+			],
+			[
+				"w",
+				"word"
+			],
+			[
+				"u",
+				"unscrambler"
+			],
+			[
+				"wo",
+				"word"
+			],
+			[
+				"wr",
+				"wordlist"
+			],
+			[
+				"size",
+				"size"
+			],
+			[
+				"fo",
+				"for	For Loop"
+			],
+			[
+				"v",
+				"vector	std::vector"
+			],
+			[
 				"f",
 				"fibh"
 			],
@@ -172,10 +256,6 @@
 				"Dependence"
 			],
 			[
-				"size",
-				"size_t"
-			],
-			[
 				"el",
 				"indexOfElemClosestToValue"
 			],
@@ -264,16 +344,8 @@
 				"negativeNewB"
 			],
 			[
-				"new",
-				"newB"
-			],
-			[
 				"inB",
 				"inBHall"
-			],
-			[
-				"v",
-				"value"
 			],
 			[
 				"TSi",
@@ -290,10 +362,6 @@
 			[
 				"T",
 				"TSignal"
-			],
-			[
-				"fo",
-				"forv	Vector For Loop"
 			],
 			[
 				"sig",
@@ -384,10 +452,6 @@
 				"FilteredBMagnetoResistance"
 			],
 			[
-				"r",
-				"right"
-			],
-			[
 				"for",
 				"for	For Loop"
 			],
@@ -398,10 +462,6 @@
 			[
 				"inde",
 				"indexes"
-			],
-			[
-				"N",
-				"NewLength"
 			],
 			[
 				"ou",
@@ -454,119 +514,75 @@
 			[
 				"Dic",
 				"DataTypeInContainer"
-			],
-			[
-				"tor",
-				"tempOutResistance"
-			],
-			[
-				"a",
-				"averageData"
-			],
-			[
-				"tox",
-				"tempOutX"
-			],
-			[
-				"se",
-				"settings"
-			],
-			[
-				"Te",
-				"Text"
-			],
-			[
-				"Ac",
-				"ActivePageIndex"
-			],
-			[
-				"eat",
-				"eAttenuationFHall"
-			],
-			[
-				"eb",
-				"eBandWidthFHall"
-			],
-			[
-				"eS",
-				"eSamplingFHall"
-			],
-			[
-				"sthi",
-				"SampleThickness"
-			],
-			[
-				"Sthi",
-				"SampleThickness"
-			],
-			[
-				"sl",
-				"SampleLength"
-			],
-			[
-				"es",
-				"eSampleInventoryNumber"
-			],
-			[
-				"stue",
-				"SampleTemperature"
-			],
-			[
-				"Tem",
-				"SampleTemperature"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "http://captf.com/practice-ctf/\n\nPractice CTF List / Permanant CTF List\n\nHere's a list of some CTF practice sites and tools or CTFs that are long-running. Thanks, RSnake for starting the original that this is based on. If you have any corrections or suggestions, feel free to email ctf at the domain psifertex with a dot com tld.\n\nLive Online Games\n\nRecommended\n\nWhether they're being updated, contain high quality challenges, or just have a lot of depth, these are probably where you want to spend the most time.\n\nhttp://pwnable.kr/ (one of the more popular recent wargamming sets of challenges)\nhttps://picoctf.com/ (Designed for high school students while the event is usually new every year, it's left online and has a great difficulty progression)\nhttps://microcorruption.com/login (one of the best interfaces, a good difficulty curve and introduction to low-level reverse engineering, specifically on an MSP430)\nhttp://reversing.kr/\nhttp://hax.tor.hu/\nhttps://w3challs.com/\nhttps://pwn0.com/\nhttp://www.smashthestack.org/\nhttp://ringzer0team.com/\nhttp://www.hellboundhackers.org/\nhttp://www.overthewire.org/wargames/\nhttp://counterhack.net/Counter_Hack/Challenges.html\nhttp://www.hackthissite.org/\nhttp://vulnhub.com/\nOthers\n\nhttp://hackthecause.info/\nhttp://bright-shadows.net/\nhttp://www.mod-x.co.uk/main.php\nhttp://scanme.nmap.org/\nhttp://www.hackertest.net/\nhttp://net-force.nl/\nhttp://securityoverride.org/ Some good concepts, but \"canned\" vulnerabilities (string matching on input) will frustrate knowledgable hackers and teach newbies the wrong lessons\nMeta\n\nhttp://www.wechall.net/sites.php (excellent list of challenge sites)\nhttp://ctf.forgottensec.com/wiki/ (good CTF wiki, though focused on CCDC)\nhttp://repo.shell-storm.org/CTF/ (great archive of CTFs)\nWebapp Specific\n\nhttp://demo.testfire.net/\nhttp://wocares.com/xsstester.php\nhttp://crackme.cenzic.com/\nhttp://test.acunetix.com/\nhttp://zero.webappsecurity.com/\nForensics Specific\n\nhttp://computer-forensics.sans.org/community/challenges\nhttp://forensicscontest.com/\nRecruiting\n\nhttps://www.praetorian.com/challenges/pwnable/\nhttp://rtncyberjobs.com/\nhttp://0x41414141.com/\nPaid Training\n\nhttp://heorot.net/\nDownloadable Offline Games\n\nhttp://www.badstore.net/\nhttp://www.owasp.org/index.php/Category:OWASP_WebGoat_Project\nhttp://www.owasp.org/index.php/Owasp_SiteGenerator\nDamn Vulnerable Web App\nStanford SecureBench\nStanford SecureBench Micro\nhttp://www.irongeek.com/i.php?page=security/mutillidae-deliberately-vulnerable-php-owasp-top-10\nVirtual Machines\n\nhttps://pentesterlab.com/exercises/\nhttp://sourceforge.net/projects/metasploitable/files/Metasploitable2/\nDamn Vulnerable Linux (not currently live? local mirror)\nInactive or Gone\n\nJust around for historical sake, or on the off-chance they come back.\n\nhttp://rootcontest.com/\nhttp://intruded.net/\nhttps://how2hack.net\nWebMaven (Buggy Bank)\nhttp://www.foundstone.com/us/resources/proddesc/hacmetravel.htm\nhttp://www.foundstone.com/us/resources/proddesc/hacmebooks.htm\nhttp://www.foundstone.com/us/resources/proddesc/hacmecasino.htm\nhttp://www.foundstone.com/us/resources/proddesc/hacmeshipping.htm\nhttp://hackme.ntobjectives.com/\nhttp://testphp.acunetix.com/\nhttp://testasp.acunetix.com/Default.asp\nhttp://prequals.nuitduhack.com\nhttp://www.gat3way.eu/index.php (Russian)\nhttp://exploit-exercises.com/ (challenges mirrored on vulnhub)\nhttp://damo.clanteam.com/\nhttp://p6drad-teel.net/~windo/wargame/\nhttp://roothack.org/\nhttp://ha.ckers.org/challenge/\nhttp://ha.ckers.org/challenge2/\nhttp://www.dc3.mil/challenge/\n[ICO]	Name	Last modified	Size\n[DIR]	Parent Directory	 	-\nIndices 1.1\n\nhttps://ctf.acm.illinois.edu\n\n\nhttp://mdsec.net/wahh/\n\n\n475758b6dfdc427962ea3ba147468811\nF3B0B5286895251DB239475D0F4F0BA8",
-			"file": "/E/Дела/Информационная безопасность/CtfPractise.txt",
-			"file_size": 3770,
-			"file_write_time": 130918828879140625,
+			"contents": "Прошу Вас в срок до 23 декабря (если раньше, то лучше) разработать (в соответствии с ФГОС ВО он же ФГОС 3+) учебные программы дисциплин  для нового направления подготовки бакалавров 12.03.03 \"Фотоника и оптоинформатика\"  по профилям \"Компьютерная фотоника (КФ)\" и \"Оптика наноструктур (ОН)\":\n\n\n\"Основы фотоники\"  (для КФ и ОН)\n\n\"Физические основы фотоники\" (для ОН)\n\n\"Специальные разделы фотоники \" (для КФ)\n\n\"Методы анализа и распознавания изображений\" (КФ)\n\n\"Методы и компьютерные средства научно-технических расчетов\" (для КФ)\n\nи даже\n\n\"Технологии искусственного интеллекта\" (КФ) (бортанем Сырецкого :-0)\n\npowertripping\n\nНазваниеФриман, Роджер. Волоконно-оптические системы связи : Пер. с англ. / Р. Фриман ; ред. пер. Н. Н. Слепов. - 3-е изд., доп. - М. : Техносфера, 2006. - 495[1] с. : ил., табл. - (Мир связи ; IX-03).\n\n\nНазваниеВ.М. Шандаров. Основы физической и квантовой оптики. – Томск: Томск. гос. Ун-т систем упр. и радиоэлектроники, 2005. – 258 с.\nТ\n\nНазваниеВ.М.Шандаров. Волоконно-оптические устройства технологического назначения: учеб. пособие. – Томск : Томск. гос. ун-т систем упр. и радиоэлектроники, 2007. – 190с.\n\nНазваниеА.Ярив, П.Юх. Оптические волны в кристаллах. - М.: Мир, 1987. - 616 с. 2д. Ю.Н.Кульчин. Распределенные волоконно – оптические измерительные системы. – М.: Физматлит, 2001 г., 272 с.\n\n\nНазваниеГончаренко, Андрей Маркович. Основы теории оптических волноводов / А. М. Гончаренко, В. А. Карпенко. - 2-е изд., испр. . - М. : Едиториал УРСС, 2004. - 236[4] с. : ил. - Библиогр.: с. 6-7.\n\n\nНазваниеФоторефрактивные эффекты в электрооптических кристаллах: монография / С. М. Шандаров [и др.] ; Федеральное агентство по образованию, Томский государственный университет систем управления и радиоэлектроники. - Томск : ТУСУР, 2007. - 241[1] с.\n\n\nОсновы фотоники\n\nВводная часть\n• Предмет фотоники.\nДифракция\n• Приближение Френеля.\n• Приближение Фраунгофера.\n• Пространственное преобразование Фурье, пространственные частоты.\nУравнения Максвелла и материальные уравнения\n• Уравнения Максвелла.\n• Материальные уравнения.\n• Материальные уравнения в однородных изотропных и анизотропных диэлектриках, металлах,\nоптически активных и магнитных диэлектриках.\n• Собственные (нормальные) волны в однородных изотропных и анизотропных диэлектриков,\nметаллов, оптически активных и магнитных диэлектриках.\n• Изменение поляризации в однородных анизотропных, оптически активных и магнитных\nдиэлектриках.\n• Понятие пучка, импульса, волнового пакета, импульсного пучка.\nДифракция\n• Изменение параметров пучка (амплитуда, фаза, фазовый (волновой) фронт, ширина) при\nдифракции.\n• Приближение медленно меняющейся амплитуды, характерное расстояние, на котором\nпроявляется дифракция.\n• Дифракция гауссовых пучков.\n• Пучки с фазовыми дислокациями (определение, типы, примеры, особенности дифракции,\nпоток энергии в вортексе).\n• Способы фокусировки пучков.\nДисперсия\n• Связь дисперсии и поглощения в диэлектриках.\n• Влияние дисперсии на распространение импульсов (спектральный метод Фурье, 1 и 2\nприближения теории дисперсии).\n• Понятие фазовой и групповой скорости.\n• Импульсы с фазовой модуляцией. Компрессия импульсов.\n• Понятие предельно коротких импульсов.\nНелинейная оптика\nУравнения Максвелла, волновые и материальные уравнения\n• Поляризуемость среды, её линейная и нелинейная части. Разложение поляризуемости по\nстепеням E.\n• Тензоры восприимчивости.\n• Квадратичная и кубичная восприимчивость и свойства симметрии.\n• Принцип Неймана.\nКвадратичная нелинейность\n• Оптическое детектирование.\nГенерация второй гармоники\n• Волновое уравнение и метод медленно меняющихся амплитуд.\n• Закон сохранения энергии и импульса. \n• Приближение заданного поля, условия применимости.\n• Расстройка волновых векторов и синхронизм. Методы компенсации расстройки.\nТрехчастотное взаимодействие\n• Волновое уравнение и метод медленно меняющихся амплитуд.\n• Соотношения Мэнли-Роу и закон сохранения энергии.\n• Преобразования энергии при низкочастотной накачке и при высокочастотной накачке.\nРаспадная неустойчивость.\n• Параметрический генератор света.\n• Вынужденное комбинационное рассеяние.\nКубичная нелинейность\n• Кросс-модуляция. Тепловая нелинейность.\n• Оптические пинцеты.\nСамовоздействие света\n• Нелинейная дисперсия.\n• Нелинейное поглощение.\nСамофокусировка и самодефокусировка света\n• Параболическое уравнение для пучка в кубично нелинейной среде.\n• Интегралы движения.\n• Критическая мощность.\n• Волноводное распространение света в кубично нелинейной среде.\n• Понятие о каскадной нелинейности.\nИмпульсы в кубично нелинейной среде\n• Самокомпрессия импульсов. Солитоны.\n• Фотонное эхо.\nОсновы волоконной оптики\n• Волноводные моды планарного волновода.\n• Ступенчатое и градиентное волокно.\n• Типы дисперсии в волноводах. Характерный график зависимости фазовой и групповой\nскорости от частоты для волноводных мод.\n• Характеристики волновода: поперечный размер, числовая апертура.\n• Окна прозрачности кварцевого волокна.\nДискретная дифракция\n• Понятие дискретной дифракции.\nФотонные кристаллы\n• Понятие фотонного кристалла.\n• Брэгговский резонанс. Запрещенная зона. Зависимость ширины запрещённой зоны от\nдиэлектрического контраста. 1-я зона Бриллюэна. Дисперсионная диаграмма одномерного\nфотонного кристалла.\n• Зависимость положения запрещённых зон от угла падения света.\n• Зависимость коэффициентов отражения и пропускания фотонного кристалла от длины волны\nдля двух случаев: а) фотонный кристалл не содержит дефектов, б) фотонный кристалл содержит\nдефект в виде слоя удвоенной толщины.\n• Явление замедления света в фотонных кристаллах.\n• Применения фотонных кристаллов. Суперпризма.\nМетаматериалы\n• Понятие метаматериала в широком и в узком смысле.\n• «Левая» среда, ее показатель преломления и волновой импеданс. Взаимная ориентация\nвекторов напряжённостей электрического и магнитного полей, волнового вектора и вектора\nУмова-Пойнтинга для «левой» среды. Энергия электромагнитного поля в «левой» среде.\nПреломление волны на границе обычной и «левой» сред.\n• Структурные элементы метаматериала с отрицательным показателем преломления для\nмикроволного диапазона.\n• Применения метаматериалов. Суперлинза. Плащ-невидимка.\nПлазмоника\n• Поверхностные плазмон-поляритоны, условия существования, свойства и характеристики.\nДисперсионное соотношение и дисперсионная диаграмма поверхностного плазмон-поляритона\nдля случая границы двух полубесконечных сред.\n• Способы возбуждения поверхностных плазмон-поляритонов.\n• Локализованные плазмоны.\n• Применения плазмоники.\nМагнитооптика\n• Материальное уравнение и тензор диэлектрической проницаемости магнитной среды.\n• Магнитооптические эффекты.\n• Магнитооптические материалы.\n• Усиление магнитооптических эффектов в фотонных кристаллах.\n• Применения магнитооптики. Оптический модулятор и оптический изолятор.\nЭлектрооптика\n• Оптическая индикатриса. Поверхность волновых векторов. Снос энергии оптической волны в\nанизотропных средах.\nЭффект Поккельса\n• В каких средах может наблюдаться? Полуволновое напряжение.\n• Электрооптический модулятор. Продольный и поперечный эффект. Фазовая модуляция.\nАмплитудная модуляция. Частотная модуляция.\n• Электрооптический дефлектор. Пространственное разрешение.\nЭффект Керра\n• В каких средах может наблюдаться? Постоянная Керра. Полуволновое напряжение.\n• Электрооптический затвор.\nПреимущества и недостатки электрооптических приборов\n• Быстродействие. Быстрая и медленная части эффектов Керра и Поккельса.\n• Полуволновое напряжение. Интегральные электрооптические модуляторы. Модуляция света\nСВЧ сигналами.\nАкустооптика\n• Уравнение Кристоффеля. Закон Гука в тензорной форме. Смещение, деформация, напряжение,\nтензор упругости. Эффект фотоупругости.\n• Дифракция света на ультразвуке.\n• Уравнения Рамана-Ната. Режим дифракции Рамана-Ната. Режим дифракции Брэгга. Угол\nБрэгга. Углочастотная характеристика. Понятие вектора расстройки.\n• Акустооптические приборы. Дефлекторы, модуляторы и фильтры.\nИсточники и приемники излучения\n• Принцип действия лазера. Типы лазеров.\n• Основные разновидности и принципы действия фотоприемных устройств.\n\n\nФизические основы фотоники\n\nПрограмма курса лекций\n«Физические основы фотоники и нанофотоники»\n\n(3 курс, осень, 5 семестр)\nпрофессор А.А. Фомичёв \n1. Основные определения фотоники как технологии генерации и преобразования излучения с использованием фотона в качестве квантовой единицы. Области науки, входящие в ФОТОНИКУ.\n2. Квантовая теория теплового излучения. Формула Планка. Излучение черного тела. Индуцированное и спонтанное излучение. Связь коэффициентов Эйнштейна для спонтанного и вынужденного излучения.\n3. Уравнения генерации лазера. Классическое описание (вероятностный подход, уравнения Статца - Де Марса), полуклассическое (самосогласованные уравнения, уравнение Ван дер Поля), понятия о квантовых уравнениях.\n4. Оптические резонаторы. Открытый резонатор. Основные параметры резонатора: добротность, число Френеля, критерий устойчивости. Параметры лазерных пучков: расходимость, фактор качества M2.\n5. Гауссов пучок как решение волнового уравнения в параксиальном приближении. Моды высшего порядка. Понятие лучевых матриц. Методы расчета резонаторов: на основе дифракционного интеграла, ABCD закона преобразования комплексного параметра. Обобщенный двухзеркальный резонатор, области устойчивости.\n6. Спонтанное и стимулированное излучение. Атомные переходы в конденсированной среде. Форма линии. Коэффициенты поглощения и усиления. Инверсная населенность.\n7. Скоростные уравнения (уравнения Статца - Де Марса). Пороговые условия генерации. Стационарный и модуляции добротности режимы. Уравнения Ван дер Поля лазерной генерации.\n8. Когерентность электромагнитного излучения. Многолучевая интерференция. Лазерные интерференционные зеркала.\n9. Оптические волоконные световоды. Волоконно-оптические линии связи (ВОЛС). Материальная и волновая дисперсия в световодах. Одно- и многомодовые волокна. Микроструктурные волокна (фотонные кристаллы). Виды потерь в волокне. Типы волокон, активные волокна. Датчики на основе оптоволокна.\n10. Полупроводниковые источники лазерного излучения. Твердые растворы соединений. Гомо и гетеропереходы. Квазиуровни Ферми. Энергетическая зонная диаграмма лазерного диода.\n11. Электронные волны де Бройля и зонная диаграмма. Прямые и непрямые переходы. Неравновесные состояния. Условия генерации. Кванторазмерные эффекты в п/п лазерах. Каскадные лазеры. РОС лазерные диоды.\n12. Синхронизация мод в лазерах, методы синхронизации. Сверхсильные световые поля. Нелинейно-оптические эффекты в лазерном поле. Пико- и фемтосекундные импульсы излучения. Спектрально-ограниченные импульсы. «Чирп» частоты. Волоконно-оптические компрессоры. Понятие о синхронизме в нелинейной оптике.\n13. Распространение сверхкоротких лазерных импульсов в оптических средах:\n-         линейной дисперсионной среде;\n-         усиливающей среде;\n-         нелинейной среде c керровской нелинейностью;\n-         через частотный фильтр.\n  Описание лазерных импульсов. Распространение волнового пакета в дисперсионной линейной среде с дисперсией вида: n=no+aw. Керровская нелинейность. Поведение волнового пакета в нелинейной среде . Прохождение волнового пакета через частотный фильтр.\n14. Характерные интенсивности лазерного поля. Методы формирования сверхкоротких импульсов, измерения параметров. Петаваттные лазерные комплексы.\n15. Волоконные лазеры. Активные волоконные среды. Концентрационное тушение. Брегговские волоконные зеркала. Нелинейные явления в волоконных лазерах.\n16. Адаптивная оптика. Датчики Шака-Гартмана. Нелинейные адаптивные оптические системы на эффекте рассеяния Мандельштама-Бриллюэна. 3-х и 4-х частотное взаимодействие.\n17. Оптическая гирометрия. Эффект Саньяка. Лазерные оптические гироскопы. Волоконно-оптические гироскопы. Эффекты невзаимности встречных волн. Понятие об «атом-чипе». Атомно-лучевая гирометрия. Волны де Бройля. \nЛитература\n\n1.     Л.Д.Ландау и Е.М.Лифщиц. Теоретическая физика 2, 3, 4, 5, 7 т.т.\n2.     Н.И.Калитеевский. Волновая оптика.\n3.     Дж.Макомбер. Динамика спектроскопических переходов.\n4.     Пантел и Путхоф. Основы квантовой электроники.\n5.     Н.В.Карлов. Лекции по квантовой электронике.\n6.     В.А.Астапенко и А.А.Фомичев. Когерентные процессы и интерференционные эффекты в лазерной физике.",
+			"file": "/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
+			"file_size": 22373,
+			"file_write_time": 130945412348663360,
 			"settings":
 			{
-				"buffer_size": 3734,
+				"buffer_size": 12170,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "флаги от Касперского\n\nв группе 2\nна стене админа 1\nжурнах Хакер в новостях - много\nна главной странице \n\n\ncal.pl\nindex.php\nk1kh31b1n55h.php\nlevel7.php",
+			"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
 			"settings":
 			{
-				"buffer_size": 150,
-				"line_ending": "Windows",
-				"name": "флаги от Касперского"
+				"buffer_size": 7565,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Threat Modeling: Designing for Security \nThe Practice of Network Security Monitoring: Understanding Incident Detection and Response \n Android Hacker's Handbook \n\nShopping (Amazon)\nSocial networking (Facebook)\nBanking (Citibank)\nWeb search (Google)\nAuctions (eBay)\nGambling (Betfair)\nWeb logs (Blogger)\nWeb mail (Gmail)\nInteractive information (Wikipedia)\n\n",
+			"contents": "bool candiesThrownGotChocolateBar=true, bool candyBoxBoxOpened=false, bool castleBigRoomHovenHappy=true, bool castleRoom2LitFire=true, bool castleRoom2TookObject=true, bool castleTowerFirstVisitDone=true, bool castleTowerPStoneDone=true, bool castleTowerLStoneDone=true, bool castleTowerAStoneDone=false, bool castleTowerYStoneDone=false, bool castleTowerTookTalkingCandy=false, bool castleKilledNougatMonster=true, bool cellarDone=true, bool dragonDone=true, bool dragonUnlockedCyclops=true, bool forgeFoundLollipop=true, bool forgeBoughtWoodenSword=true, bool forgeBoughtIronAxe=true, bool forgeBoughtPolishedSilverSword=true, bool forgeBoughtLightweightBodyArmour=true, bool forgeBoughtScythe=true, bool fortressRoom1ChestFound=false, bool fortressRoom3ChestFound=false, bool fourthHouseFoundLollipopOnCupboard=true, bool gameDebug=false, bool gameInvertedColors=false, bool lighthousePuzzleDone=false, bool lollipopFarmPlant1LollipopButtonUnlocked=true, bool lollipopFarmPlant10LollipopsButtonUnlocked=true, bool lollipopFarmPlant100LollipopsButtonUnlocked=true, bool lollipopFarmPlant1000LollipopsButtonUnlocked=true, bool lollipopFarmIsProductionEachSecond=true, bool lollipopFarmConstructMillButtonUnlocked=true, bool lollipopFarmMillConstructed=true, bool lollipopFarmDigPondButtonUnlocked=true, bool lollipopFarmPondDug=true, bool lollipopFarmPondFeedingLolligators=false, bool lonelyHouseOpenBoxDone=true, bool lonelyHouseShakeBoxDone=true, bool lonelyHouseBreakLockDone=true, bool lonelyHouseKickBoxDone=true, bool lonelyHouseAskTheBoxToOpenItselfDone=true, bool lonelyHouseLureTheBoxWithACandyDone=true, bool lonelyHouseTakeTheBoxDone=true, bool mainMapDoneDesert=true, bool mainMapDoneBridge=true, bool mainMapDoneCaveEntrance=true, bool mainMapDonePier=true, bool mainMapDoneForest=true, bool mainMapDoneCastleEntrance=true, bool questPlayerSpellHealthPotionHasSpell=true, bool questPlayerSpellTurtlePotionHasSpell=false, bool questPlayerSpellAntiGravityPotionHasSpell=true, bool questPlayerSpellBerserkPotionHasSpell=false, bool questPlayerSpellCloningPotionHasSpell=false, bool questPlayerSpellPPotionHasSpell=false, bool questPlayerSpellXPotionHasSpell=false, bool secondHouseLollipop1Bought=true, bool secondHouseLollipop2Bought=true, bool secondHouseLollipop3Bought=true, bool secondHouseLeatherBootsBought=false, bool secondHouseChocolateBarBought=true, bool secondHouseMerchantHatBought=true, bool secondHouseTimeRingBought=true, bool sorceressHutTookLollipop=false, bool sorceressHutBoughtGrimoire=true, bool sorceressHutBoughtGrimoire2=true, bool sorceressHutBoughtCauldron=true, bool sorceressHutBoughtHat=false, bool statusBarUnlocked=true, bool statusBarUnlockedCfg=true, bool statusBarUnlockedSave=true, bool statusBarUnlockedMap=true, bool statusBarUnlockedInventory=true, bool statusBarUnlockedLollipopFarm=true, bool statusBarUnlockedCauldron=true, bool statusBarUnlockedInsideYourBox=false, bool statusBarUnlockedTheComputer=false, bool statusBarUnlockedTheArena=false, bool statusBarUnlockedHealthBar=true, bool SuperRPGReward1=true, bool SuperRPGReward2=false, bool SuperRPGReward3=false, bool SuperRPGReward4=false, bool SuperRPGUnlockedHardmode=false, bool TheCavePattern_ChocolateBarNowGotTheBar=true, bool TheCavePattern_TreasureMapSawMap=true, bool TheCavePattern_TreasureMapFoundTreasure=false, bool theHoleFirstChestFound=true, bool theHoleSecondChestFound=true, bool theHoleThirdChestFound=true, bool theHoleFourthChestFound=true, bool wishingWellFirstCandyThrown=true, bool wishingWellFirstLollipopThrown=true, bool wishingWellWeAreEnchanting=false, bool wishingWellWeArePainAuChocolating=false, bool gridItemPossessedMainMap=true, bool gridItemPossessedTimeRing=true, bool gridItemPossessedThirdHouseKey=true, bool gridItemPossessedBeginnersGrimoire=true, bool gridItemPossessedFeather=true, bool gridItemPossessedPogoStick=true, bool gridItemPossessedHeartPlug=true, bool gridItemPossessedAdvancedGrimoire=true, bool gridItemPossessedSponge=true, bool gridItemPossessedShellPowder=true, bool gridItemPossessedRedSharkFin=true, bool gridItemPossessedBlackMagicGrimoire=true, bool gridItemPossessedGreenSharkFin=true, bool gridItemPossessedPurpleSharkFin=false, bool gridItemPossessedHeartPendant=true, bool gridItemPossessedFortressKey=true, bool gridItemPossessedUnicornHorn=false, bool gridItemPossessedXinopherydonClaw=false, bool gridItemPossessedPitchfork=true, bool gridItemPossessedTalkingCandy=false, bool gridItemPossessedP=true, bool gridItemPossessedL=true, bool gridItemPossessedA=false, bool gridItemPossessedY=false, bool eqItemWeaponWoodenSword=true, bool eqItemWeaponIronAxe=true, bool eqItemWeaponPolishedSilverSword=true, bool eqItemWeaponTrollBludgeon=true, bool eqItemWeaponMonkeyWizardStaff=true, bool eqItemWeaponEnchantedMonkeyWizardStaff=true, bool eqItemWeaponTribalSpear=false, bool eqItemWeaponSummoningTribalSpear=true, bool eqItemWeaponGiantSpoon=false, bool eqItemWeaponScythe=true, bool eqItemWeaponGiantSpoonOfDoom=false, bool eqItemHatOctopusKingCrown=true, bool eqItemHatOctopusKingCrownWithJaspers=true, bool eqItemHatOctopusKingCrownWithObsidian=true, bool eqItemHatMerchantHat=true, bool eqItemHatSorceressHat=false, bool eqItemBodyArmoursLightweightBodyArmour=true, bool eqItemBodyArmoursKnightBodyArmour=true, bool eqItemBodyArmoursEnchantedKnightBodyArmour=true, bool eqItemGlovesLeatherGloves=false, bool eqItemGlovesRedEnchantedGloves=true, bool eqItemGlovesPinkEnchantedGloves=true, bool eqItemBootsLeatherBoots=true, bool eqItemBootsRocketBoots=false, bool eqItemBootsBootsOfIntrospection=false, number aTreeStep=9, number cauldronBookCurrentPage=0, number fourthHouseCupboardStep=2, number fourthHouseCarpetStep=0, number galacticWarsBestScore=644, number gameSecondsElapsedSinceLastLollipopsProduction=0, number gameCandiesAccumulated=7194361, number gameCandiesCurrent=168199, number gameCandiesMax=5155017, number gameLollipopsAccumulated=27561079, number gameLollipopsCurrent=5820985, number gameLollipopsMax=11739485, number gameChocolateBarsAccumulated=10, number gameChocolateBarsCurrent=5, number gameChocolateBarsMax=6, number gamePainsAuChocolatAccumulated=3, number gamePainsAuChocolatCurrent=0, number gamePainsAuChocolatMax=2, number gameCandiesEatenAccumulated=925719, number gameCandiesEatenCurrent=925719, number gameCandiesEatenMax=925719, number gameCandiesThrownAccumulated=1630, number gameCandiesThrownCurrent=1630, number gameCandiesThrownMax=1630, number gameCandiesUsedToRequestFeaturesAccumulated=55, number gameCandiesUsedToRequestFeaturesCurrent=55, number gameCandiesUsedToRequestFeaturesMax=55, number gameCandiesInCauldronAccumulated=7005, number gameCandiesInCauldronCurrent=0, number gameCandiesInCauldronMax=2000, number gameLollipopsInCauldronAccumulated=1, number gameLollipopsInCauldronCurrent=0, number gameLollipopsInCauldronMax=1, number gameGiftPower=1, number gameGiftHealth=1, number gameGiftMagic=1, number lollipopFarmLollipopsPlanted=126781, number lollipopFarmTimeSinceLastProduction=0, number lollipopFarmProduction=4500, number lollipopFarmPondHowManyLolligators=20, number lollipopFarmPondConversionRate=251, number lollipopFarmPreviousCandiesProduction=21, number lollipopFarmCurrentCandiesProduction=34, number mainMapDefaultScroll=0, number playerHp=1759.2, number questPlayerSpellHealthPotionQuantity=1, number questPlayerSpellAntiGravityPotionQuantity=1, number questPlayerSpellTurtlePotionQuantity=0, number questPlayerSpellBerserkPotionQuantity=0, number questPlayerSpellCloningPotionQuantity=0, number questPlayerSpellPPotionQuantity=0, number questPlayerSpellXPotionQuantity=0, number statusBarCornerStep=0, number wishingWellPreviousCandyWishPrice=1552, number wishingWellCurrentCandyWishPrice=4240, number wishingWellCurrentLollipopWishPrice=100000000, number wishingWellHowManyChocolateBarsThrown=7, number wishingWellHowManyPainsAuChocolatThrown=3, string gameLanguage=ru, string gameWeaponSelected=eqItemWeaponScythe, string gameHatSelected=eqItemHatMerchantHat, string gameBodyArmourSelected=eqItemBodyArmoursEnchantedKnightBodyArmour, string gameGlovesSelected=eqItemGlovesPinkEnchantedGloves, string gameBootsSelected=eqItemBootsLeatherBoots, string gameGameMode=normal",
 			"settings":
 			{
-				"buffer_size": 356,
+				"buffer_size": 8223,
 				"line_ending": "Windows",
-				"name": "Threat Modeling: Designing for Security"
+				"name": "bool candiesThrownGotChocolateBar=true, bool candy"
 			}
 		},
 		{
-			"contents": "Основа основ - раз уж мы защищаем информацию, то надо определиться что это такое.\nЯсное дело, что это понятие расплывчатое, но мы ограничим его определением вида (из ФЗ):\nинформация - это сведения, данные независимо от формы их представления.\nПолучается, что это по сути всё - биты на винчестере, флешке, электромагнитные волны от монитора и процессора и так далее.\nПод самой защитой мы понимаем обеспечение конфиденциальности (не даём посторонним доступа), целостности (не даём другим изменять информацию) и доступности (обеспечиваем бесперебойный доступ определенному кругу лиц).\nЭто в принципе всё, что написано в сотнях книг по информационной безопасности на русском языке).\n\nУ нас на кружке мы изучаем только компьютерную безопасность. Получается что техническая(генераторы шума), физическая(замки, заборы, сейфы) и организационная (как обучать сотрудников, как работать с секретной информацией, в том числе как уничтожать) защита информации остаётся за гранью.\nЕсли мы лезем в компьютерную безопасность, то вот что мы имеем:\n1. Информация - это файлы, пакеты, байты, т.е. только цифровая составляющая.\n2. Защищаем мы теперь целостность, конфиденциальность и доступность этих самих байтов.\nПо вопросам:\nУничтожение входит в организационную защиту информации, точнее в правила ведения документооборота. Могу рассказать подробней и об этой части, если хочешь:)\nС определением многие бы поспорили (и действительно спорят, но законодательство есть законодательство, поэтому работает с тем что есть).\nЗащита микроконтроллеров и т.д. от взлома - относится к сохранению целостности информации (например программы в микроконтроллере от изменения, или от перехвата управления), и доступности - микроконтроллер должен продолжать работать и выдавать результаты своей работы своим \"хозяевам\"\n\nИтак компьютерная безопасность. Поскольку исторически сложилось так, что корпорации разработчики программ не хотели тратить деньги на безопасность у каждого направления две противоположных цели - атака и защита . несколько основных направлений : forensic ( компьютерная экспертиза, понять что произошло, как это произошло и кто виноват, либо скрыть все следы) ; reverse engineering обратная разработка - у нас есть программа, нужно понять что она делает (исследование вируса), понять какая у неё защита (кряки к программам так делают), либо всячески затруднить подобное исследование ; криптография (создать стойкий шифр, либо сломать существующий).\nсуществует три способа получить доступ к информации - физический доступ к системе, локальный доступ (когда мы находимся у компьютера, но не можем ковырять его отверткой), и самый актуальный сейчас - удалённый доступ, когда сидя на диване дома можно проникнуть в систему управления большим адронным коллайдером (реальный случай).\n\nРаньше всякая попытка исследования программы считалась незаконной, сейчас некоторые компании наоборот спонсируют поиск уязвимостей.\nУязвимость - это недостаток системы, позволяющий изменить ход работы системы. В самых серьёзных случаях мы получаем полный контроль над системой.\n\nНемного о том, откуда берутся уязвимости. Разумеется это баги, то есть ошибки в программном обеспечении, либо в аппаратуре на который это все работает. Большая часть багов не приводит к уязвимости, программа просто работает не правильно, но перехватить управление мы не можем. Некоторая часть багов является уязвимостями, это значит что теоретически мы можем перехватить управление или получить доступ к конфиденциальной информации. И только часть уязвимостей является эксплуатируемой, то есть есть реальный эксплойт - последовательность действий или байтов, которая позволяет использовать уязвимость.\n\nОсобенности работы эксплойта и его написание сильно отличается в зависимости от того, на каком языке написано приложение и что это за приложение вообще.\nЕсли это веб приложение, то эксплойт будет содержать javascript, php, sql. То есть код на том языке, на котором написан сайт. Если речь идёт об обычной программе - word, autocad и так далее, здесь основная часть кода написана на си ++ и java. Но основное отличие в том, что код этот скомпилирован, то есть из языка си ++ получается машинный код, который дальше исполняется процессором, поэтому эксплойты в этом случае пишутся на машинном языке.\nпоскольку уязвимости бывают очень разные, существует общепринятая классификация по уровню опасности. И два разных подхода к оценке защищенности системы. Первый - оценка уязвимостей. Мы находим уязвимости в системе, оцениваем их по уровню опасности и всё. Сейчас стал очень популярным второй подход - тестирование на проникновение (penetration testing или pentest). В ходе пентеста проводится не только поиск уязвимостей, но и их эксплуатация, чтобы выявить какие из них наиболее опасны.\n\nРазумеется чтобы искать и эксплуатировать уязвимости нужно обладать кучей знаний, навыков, которыми один человек вряд ли может овладеть за всю жизнь. Именно для этого ведётся разработка различных инструментов и утилит для проведения пентеста, компьютерной экспертизы, исследования программ и файлов.\n\nРазумеется чтобы искать и эксплуатировать уязвимости нужно обладать кучей знаний, навыков, которыми один человек вряд ли может овладеть за всю жизнь. Именно для этого ведётся разработка различных инструментов и утилит для проведения пентеста, компьютерной экспертизы, исследования программ и файлов.\nОгpомное количество инструментов собрано в Kali Linux (собирается на основе Debian). *тут я обычно предлагаю его скачать *\n\nСамые важный и популярный инструмент -Metasploit. Это огромный набор инструментов для генерации полезной нагрузки эксплойтов (какие команды выполнит система, когда эксплуатация пройдёт успешно). Обычно это открытие шелла ( думаю ты с ними знакома: cmd, powershell, bash, sh, dash, zsh - кому что удобнее и что из этого есть на атакуемой системе).\n\nВ целом процесс проникновения в систему можно описать так :\n1. Поиск информации о системе, компании, сайте и так далее. На выходе мы получаем ip адреса серверов и возможных точек входа в систему (например локальную сеть предприятия).\n2. Исследование (сканирование) этих целей. Пытаемся узнать что это, какие функции выполняет, операционные системы и их версии, установленные программ, открытые порты, какие службы работают на этих портах и так далее.\n\n3. Поиск уязвимостей. Используем сканеры, смотрим версии по в базе данных по уязвимостям, в общем ищем все что только можно попробовать. \n4. Эксплуатация - мы пробуем проникнуть в систему, через найденные уязвимости.\n5. Пост эксплуатация. Проникли мы в систему, но это не конечная цель, мы должны получить доступ к важным данным, повысить привилегии (до уровня администратора), попытаться закрепиться в системе (backdoor, который всегда будет рад нас видеть)\n6. Отчёт. Описываем что получилось, что нашли и как это можно исправить.\n\nСам по себе пентест также может быть разных видов.\nМетод черного ящика - когда мы не знаем, что за систему тестируем и метод белого ящика - когда мы имеем все данные о ней.\nТакже при проведении реального пентеста важно оговаривать можно ли использовать социальную инженерию. Социальная инженерия позволяет существенно упростить проникновение в систему, потому что главная слабость любой системы - человек.\nТеперь рассмотрим самый первый этап - поиск информации о системе. Первое с чего стоит начать - с веб-сайта организации: данные о сотрудниках, их почта, телефоны и так далее. Можно делать как в ручную, так и с помощью специальных программ.\nСледующий инструмент - whois, сведения о домене, сервере и об администраторах этого домена😉.\nЧтобы получить подробную информацию о сервере существует специальная утилита dig, так команда dig sgugit.ru any расскажет нам об адресах сайта и используемых там dns серверах.\nА dnsenum sgugit.ru - покажет в том числе и все другие сайты, расположенные на этом же сервере (что очень полезно, если эти сайты содержат уязвимости, тогда с помощью этих уязвимостей можно получить доступ к серверу и уже потом спокойно контролировать и сайт тестируемой компании).\n\nСканирование целей, для этого в Кали есть целый ряд инструментов: ping, ping6, arping, nping, p0f и nmap.\nping и ping6 - обычный пинг, по протоколу ICMP, первый по протоколу ipv4, второй по протоколу ipv6.\narping - работает по протоколу ARP ( он используется для преобразования ip адреса в MAC-адрес)\nnping - более мощная утилита, способна работать по нескольким протоколам: TCP, UDP, ICMP и ARP, что позволяет обходить большинство межсетевых экранов:).\np0f - очень интересная утилита, она позволяет определить операционную систему и её версию на тестируемой системе (просто так с удаленным хостом это сделать не получится).\nnmap - уже не стоит использовать на каких-либо сайтах без разрешения, так как это самый популярный инструмент сканирования, позволяет просканировать все порты на удаленной машине и определить какие службы на этих портах работают.\nПо практике, дистрибутив для первых тестов: http://sourceforge.net/projects/metasploitable/files/..\nКали можно найти на офф. сайте (есть уже готовый образ жесткого диска для виртуальной машины):\nhttps://www.kali.org/downloads/\nДля виртуальной машины рекомендую качать 32битную Кали, чтобы две параллельно запущенные виртуальные машины не сильно тормозили:)\nСаму виртуалку - рекомендую VMware Player, так как VirtualBox глючил последнее время.\n\n\n\nСканирование и эксплуатацию в первый раз удобнее делать в Armitage. Это графическая надстройка над огромным фреймворком - Metasploit Framework.\nВ нем содержится огромная база сканирующих модулей, уязвимостей (устаревших) и эксплойтов к ним, а также эксплойтов и бекдоров для стадии постэксплуатации. Т.е. эта система обеспечивает всё что нужно для настоящего пентеста. В том числе с помощью данной системы удобно писать свои собственные эксплойты, или генерировать новые на основе связки нескольких существующих.\nДля запуска Armitage сперва необходимо сгенерировать базу данных для работы, командой: msfdb init.\nПосле этого его можно спокойно запускать, кому как удобнее. При старте он спросит запускать ли свой сервер и базу данных. На всё соглашаемся и ждем.\nКогда он запустится, в левой части - видим модули, все разбиты по группам (сканирующие, эксплойты, пост-эксплуатация и т.д.). Далее в каждой категории находятся эксплойты под нужные платформы (Windows/Linux/Mac/Android/ARM) или программы (например Firefox или telnet).\nДля того, чтобы начать атаку, нужно добавить хост в базу данных. Если мы не знаем его ip-адрес, то в меню Scan используем сканирование с помощью nmap и задаём нужную подсеть для поиска. Результаты сканирования будут выведены в нижней части экрана, где будут перечислены все найденные хосты и имеющаяся о них информация. Нужные хосты можно добавить через меню Hosts - Add, указав их ip-адреса.\nТеперь добавленные хосты появятся в центральном окне Armitage. Если щелкнуть правой кнопкой по любому из хостов и выбрать опцию сканирования - будет проведено сканирование хоста, с поиском открытых портов, запущенных служб, определением версии операционной системы и так далее.\nПосле сканирования при щелчке правой кнопкой мыши появится опция Find Attacks. Вся информация, полученная на этапе сканирования будет использоваться для поиска подходящих модулей. Эти модули в свою очередь проверяют может ли быть на данном хосте определенная уязвимость.\nТак составляется список эксплойтов пригодных для атаки. Теперь для простоты мы запускаем режим Hail Mary (из меню Атаки). Его никогда не стоит использовать при реальной атаке - он слишком заметен, но так как это обучение - мы можем наблюдать в консоли как все, отобранные на предыдущем этапе эксплойты запускаются. После окончания атаки может пройти некоторое время - пока сервер Метасплойта получит ответ от сработавших эксплойтов. Как правило из сотен эксплойтов срабатывают десятки, если не единицы, но и этого достаточно. Если атака удалась, то при правом клике по хосту в меню будут Шеллы (если их несколько - Armitage их просто пронумерует). Собственно система взломана и мы можем делать с ней всё что захотим:).\n\n\nWiFi\n\nОбщий принцип достаточно простой - есть источник (роутер, например соседский), есть приёмник/клиент - ноутбук, телефон. В частотном диапазоне 2.4 ГГц существует 14 каналов. Когда будем атаковать - намного быстрее будет сначала определить канал, на котором работает WiFi, а уже потом проводить атаку - так получится быстрее.\n\nWiFi разумеется имеет некоторую защиту - шифрование. Виды шифрования:\nOPEN - открытая, незащищенная сеть, по которой данные может перехватить кто угодно.\nWEP - старый алгоритм шифрования, давно устарел, но ещё поддерживается роутерами.\nWPA и WPA2 - более свежие наборы алгоритмов (802.1X + EAP (Extensible Authentication Protocol) + TKIP/AES + MIC (Message Integrity Check), то есть это технология аутентификации, шифрование либо TKIP, либо AES и проверка целостности сообщений), WPA ломается достаточно быстро, а вот WPA2 - обеспечивает достаточно хорошую защиту, если используем AES. TKIP на данный момент уже взломан.\n\nКроме шифрования есть дополнительные методы защиты:\nФильтрация по MAC адресам и скрытие вай-фай сети.\n\n\nДля удобства пользователей придумали такую технологию как WPS/QSS – короткий пин-код (восемь символов). А ещё, чтобы нам было удобно - адаптеры сами ищут знакомые сети (по имени).\nЦена удобства - отстуствие безопасности.\nМожно создать точку доступа с распространенным именем\nАдаптер самостоятельно к нам подключится\nИ все данные уже у нас:)\n\nПароли по умолчанию и простые/словарные пароли - составляют весьма немаленькую часть наиболее распространенных проблем.\n\nСам WiFi адаптер может работать в нескольких режимах.\nClient mode - обычный режим работы.\nАдаптер получает все пакеты, сравнивает и отбрасывает все пакеты, адресованные не ему.\nMonitor mode - самый интересный для взлома режим, в этом режиме адаптер получает все пакеты и никуда их не отбрасывает.\n\nЧто же, теперь будем обходить системы защиты.\n\nФильтрация по MAC адресам.\nДоступ к точке имеет только список разрешенных MAC-адресов.\nПосмотрим как называется наш адаптер:\n\niwconfig\n\nОтключаем все программы, которые могут использовать наш адаптер:\nairmon-ng check kill\nПереводим адаптер в режим монитора:\nairmon-ng start wlan0\n\nТеперь можно запустить airodump и просто подождать - если сеть используется, мы увидим MAC-адреса клиентов и запишем их. Когда клиент уйдет и можем сменить свой MAC-адрес:\n\nifconfig wlan0 down \nifconfig wlan0 hw ether 00:11:22:AA:AA:AA \nifconfig wlan0 up\n\nИ теперь у нас есть доступ к сети.\nНо что если там включено шифрование?\nПлан действий:\n\nВключаем режим мониторинга.\nНачинаем перехватывать пакеты (можно уточнить канал, BSSID - MAC-адрес и ESSID - имя жертвы).\nМожно искать жертву вот так:\niwlist wlan0 scan\n\nили например воспользоваться утилитой wash:\nВторой параметр - имя монитора, созданного командой airmon-ng start wlan0:\n\nwash -i mon0\n\nЕсть более сложные и громоздские программы (wifite,\nkismet) с графическим интерфейсом и множеством удобств.\n\nТеперь, когда с жертвой определились, запускаем запись перехватываемых пакетов:\n\nуказываем монитор, пятый канал, имя точки и выходной файл.\nairodump-ng mon0 -c 5 --bssid AP_BSSID –w tplinkcap\n\n\nВежливо «просим» всех клиентов / или только одного переподключиться.\nдля одного клиента:\nмонитор, пятый канал\nMAC-адрес точки доступа и MAC-адрес клиента, если последний не указывать - переподключаться будут все.\n\naireplay-ng mon0 -0 5 -a 4F:B1:A4:05:5C:21 -c 5B:23:15:00:C8:57\n\nНаслаждаемся надписью WPA Handshake - это значит что мы поймали рукопожатие - т.е. те самые пакеты в которых передается зашифрованный пароль. Осталось этот пароль подобрать.\n\nДля атаки по словарю можно сгенерировать словарь с помощью crunch\nЭтот пример создаст список паролей, состоящий из восьми цифр и сохранит их в файл w.lst:\ncrunch 8 8 –t %%%%%%%% -o w.lst\n\nЧтобы запустить перебор по словарю:\n/usr/share/wordlists/nmap.lst  - словарь\nfile.cap - перехваченные пакеты\naircrack-ng –w /usr/share/wordlists/nmap.lst file.cap\n\nНо словарь может оказаться очень велик (можно оценить его размер запустив crunch 8 15, ужаснуться и остановить это).\nВ этом случае словарь можно не сохранять на диск, а сразу перенаправлять в атакующую программу, например pyrit:\n\ncrunch 8 15| pyrit -r handshake.cap -o found.pass.txt -i -    attack_passthrough\n\nПеребор может оказаться очень долгим и утомительным.\nНо если у точки доступа включен WPS - у нас есть шанс.\nСам принцип WPS: создается 8 значный пин-код, который используется для подключения к сети.\nКазалось бы 10^8 вариантов, но 1 цифра - контрольная сумма и оставшиеся символы разбивается на две части, каждая из которых проверяется отдельно, итого: 10^4+10^3 – с нормальной задержкой (чтобы роутер не блокировал WPS) двое-трое суток.\nНо и это ещё не всё, часть роутеров является уязвимыми и взламываются таким методом за несколько минут.\nХотя в целом картина не такая уж плохая.\nВ большинстве роутеров WPS исправлена или отключена.\nВ некоторой части добавлена дополнительная защита – увеличено время ожидания, либо при попытке взлома роутер отключает WPS.\n\nНу а если нам повезло, то:\nreaver –i mon0 –c 1 –b 00:11:22:33:44:55:66 –va\nК примеру: \nZyxel Keenetic Lite (ПО V1.00(AABL.1.4)D0) сломался меньше чем за минуту.\n\nТеперь когда есть доступ к WiFi - можно попытаться получить контроль над роутером:\nАтака по словарю:\nhydra -l admin -P /usr/share/wordlists/fasttrack.txt http://192.168.2.1\nЛибо пароль можно генерировать:\nhydra –l admin –x 2:8:a1 http://192.168.2.1\n\n\nЭксплойты.\n\n// Думаю ты многое про работу компьютера знаешь, пишу для полноты изложения:)\n\nПро них уже много писал, о том, что это некая последовательность действий или байт, нарушающая нормальный ход выполнения программы. Сам по себе эксплойты - только атакует уязвимость и передаёт управление своей полезной нагрузке (payload). Обычно в качестве полезной нагрузки мы запускаем шелл. На этот раз речь пойдет о том, как устроены эксплойты и как их писать.\n\nСперва несколько слов о том, как работает компьютер. Рассматриваем 32битную архитектуру - для простоты. При запуске программы операционная система загружает её в оперативную память. В оперативной памяти у каждой ячейки есть свой адрес. Программа как правило состоит из нескольких секций, наиболее важные для нас сейчас - секция кода и секция данных.\nСекция кода содержит сам код программы, который будет выполняться. Эта секция защищена от записи, поэтому на неё повлиять мы не можем.\nСекция данных - хранит переменные, которые программа будет использовать. Она доступна для записи - значит что-то может и получится.\nПосле того, как операционная система подготовила всё к запуску программы - она передаёт программе управление.\n\nПроцессор начинает последовательное выполнение команд, до тех пор пока не дойдет до команды перехода, вызова функции или до конца программы.\nПроцессор имеет собственные переменные - регистры. Они бывают общего назначения: EAX, EBX, ECX, EDX и специальные - ESP - указатель на вершину стека, EIP - указатель на инструкцию, которая будет выполнена следующей.\nПри последовательном выполнении процессор читает инструкцию по адресу, хранящемуся в EIP, увеличивает EIP на нужное количество байт (по размеру инструкции - в современной архитектуре размер инструкций может быть разный), выполняет команду и так далее.\nНо всё меняется при вызове функции - процессору нужно запомнить состояние своих регистров и запомнить куда возвращаться после окончания работы функции. При этом в вызываемой функции может понадобиться вызвать ещё какую-то функцию, следовательно процесс запоминания и восстановления запомненных значений должен быть максимально удобным и быстрым. Для этого придумали структуру данных под названием - стек. Он работает по принципу последним пришел - первым ушел. И при этом стек растет \"вверх\" - в сторону уменьшения адресов.\nПри вызове функции процессор записывает данные о состоянии регистров и адрес возврата в стек, после чего увеличивает стек - нам ведь нужна память для переменных вызываемой функции. В стеке также хранятся все локальные переменные функций, выделенные статически (т.е. для которых при компиляции был явно задан размер).\nНапример, если у нас есть программа:\n\nvoid doSomething(int d,int c)\n{\n	int k;\n	cout << b << c <<endl;\n}\n\nmain()\n{\n	int a,b;\n	doSomething(a,b);\n}\n\nТо после вызова doSomething стек будет выглядеть примерно так:\n\nмладшие адреса\n...\nвершина стека (регистр ESP указывает на это место)\nпеременная k\nпеременная d\nпеременная c\nадрес возврата в main\nпеременная a\nпеременная b\nадрес возврата (ведет в системную библиотеку, которая помогает программе завершить свою работу)\n...\nстаршие адреса\n\nРассмотрим классическую уязвимость на переполнение буфера, допустим есть такой код:\n\nmain(int argc,char *argv[])\n{\n	char s[500];\n	strcpy(s, argv[1]); // нет проверки на количество символов\n}\n\nв стеке получается такая картина:\n\nмладшие адреса\n...\nвершина стека (регистр ESP указывает на это место)\nбуфер s\nбуфер s\nбуфер s\nбуфер s\nбуфер s\nадрес возврата\n...\nстаршие адреса\n\nПолучается если мы запишем более 500 байт в буфер - то сможем переписать адрес возврата, процессор прочитает его - и перейдет туда, куда мы его отправим. Чтобы не писать 500 символов в ручную удобно использовать какой-нибудь скриптовый язык (в этой лекции - Perl), так чтобы написать букву \"A\" 500 раз нужно написать print \"A\"x500;\nДля запуска этого кода, нужно вызывать интерпретатор пёрла, всё вместе будет выглядеть как:\n\nperl -e ' print \"A\"x500; '\n\nПовторять можно не только одиночные символы, но и целые фразы:\n\nperl -e ' print \"I love you;)\"x500; '\n\nЕсли нам нужно, чтобы эти символы попали на вход нашему приложению, можно сделать так:\n\nnameOfExeFile $(perl -e ' print \"I love you;)\"x500; ')\n\nВ том числе это применимо и в отладчике gdb, который мы будем использовать позже.\n\nКонец первой части. Продолжение следует.\n\n\n\n\nСтруктура курса превращения студента первого курса в специалиста по компьютерной безопасности:\n1. Введение\n	1.1 Понятие информации\n	1.2 Понятие безопасности информации\n	1.3 Компьютерная безопасность и её место в безопасности информации\n	1.4 Основные понятия компьютерной безопасности\n		Уязвимость\n		Эксплойт\n		Баг\n		Патч\n		Троян\n		Вирус\n		Анонимность\n		Анонимайзер\n\n2. Используемые инструменты\nОсновы работы в системе Kali Linux\nПринцип работы сетей\nПоиск уязвимостей\nОсновные виды уязвимостей\nОсновные векторы атак\nОсновные источники информации об уязвимостях и эксплойтах\n3. Эксплуатация\n	3.1 Переполнение стека\n	3.2 Обход защиты стека от выполнения\n	3.3 Возвратно-ориентированное программирование\n	3.4 Обход защиты - канарейки в стеке\n4. Базы данных\n5. Криптография\n\n\n11111111\n12345678\n01234567\n\n9b9d<9ll\n9a7a;4fe",
-			"file": "/E/Дела/Информационная безопасность/Иб лекции.txt",
-			"file_size": 39451,
-			"file_write_time": 130920563041757813,
+			"contents": "Сервисы для проверки навыков тестирования на проникновение\n\n\nhttps://lab.pentestit.ru\n\nБесплатная пентест-лаборатория, разработанная на основе корпоративной сети реальной компании. \nСюжет: На этот раз вам, профессиональным хакерам, предстоит произвести взлом реальной сети виртуальной компании «SecureSoft LLC», занимающейся разработкой программного обеспечения. Ситуацию усложняет факт высокой осведомленности в области ИБ сотрудников компании. Согласно отчету наших агентов о состоянии информационной безопасности компании, ИТ-структура «SecureSoft LLC» достаточно хорошо защищена от атак. Однако, есть предположение, что уязвимые места все же имеются. Ваша цель — первыми обнаружить «Ахиллесову пяту» и получить доступ к системам «SecureSoft LLC». Содержит уязвимости веб-приложений, сетевые уязвимости и смешанных типов, онлайн-сервис.\n\nHack This Site\n\nhttps://www.hackthissite.org/\n\nБесплатный, безопасный и законный полигон для хакеров, чтобы проверить и расширить свои навыки взлома. Больше, чем просто еще один WarGames-сайт — множество разнообразных проектов, огромный форум, irc-канал. Миссии разбиты по типам: простые, реалистичные, атаки на приложения, форензика и т.д. Онлайн-сервис.\n\nHack Me\n\nhttps://hack.me\n\nБесплатный проект, созданный и регулируемый eLearnSecurity. Существует возможность разрабатывать и добавлять свои задания. Задания разбиты по конкретным уязвимостям, в основном для новичков. Онлайн-сервис.\n\nHacking Lab\n\nhttps://www.hacking-lab.com\n\nОнлайн платформа для изучения сетевой безопасности и повышения навыков этичного хакинга. Содержит задания, приближенные к CTF: форензика, криптография, реверс-инжиниринг. Необходимо скачать образ виртуальной машины и с помошью него подключаться по VPN к лаборатории. Решения, похоже, проверяются вручную.\n\nEnigma Group\n\nwww.enigmagroup.org/ \n\nСервис создан для тех, кто хочет понимать как устроен безопасный код, как хакеры могут атаковать ваши системы. Содержит уязвимости веб-приложений разного уровня, криптографические, логические, задачи на реверс-инжиниринг. Онлайн-сервис.\n\nbWAPP\n\nwww.itsecgames.com \n\nСпециализированное веб-приложение с открытым исходным кодом. Содержит порядка 100 уязвимостей, классифицированных по методологии OWASP. Одна из самых лучших сборок, must have. Содержится в с специализированной виртуальной машине — bee-box.\n\nDamn Vulnerable Web Application\n\nwww.dvwa.co.uk/ \n\nПо словам разработчиков — это веб-приложение чертовски уязвимо. Специалистам по безопасности оно поможет проверить свои навыки в легальной среде, а веб-разработчикам лучше понять процессы защиты своих приложений. Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nMutillidae\n\nwww.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10 \n\nБесплатная opensource-платформа для тестирования безопасности веб-приложений. Проверена большинством популярных утилит — sqlmap, burp suite и т.д. Наряду с bWAPP — одна из самых известных платформ. Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nSQLI LABS\n\nhttps://github.com/Audi-1/sqli-labs\n\nПлатформа для тестирования навыков работы с sql-injections. 65 заданий, от простых до сложных (обход WAF, mysql_real_escape_string). Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nWebGoat Project\n\nwebgoat.github.io/ \n\nНазвание проекта авторы связывают с синдромом обморочных коз: в чрезвычайных ситуациях коза впадает в полный ступор и падает на спину или набок с вытянутыми ногами. Это присуще породе коз со странным генетическим заболеванием. Также и уязвимый код в приложениях может положить его набок в обморочном состоянии. Основной упор сделан именно на образовательную сторону вопроса, а не создание уязвимой платформы для опытов. WebGoat — кроссплатформенный инструмент, его можно запустить в любой ОС, в которой будут работать Apache Tomcat и Java SDK.\n\nGame of hacks\n\nwww.gameofhacks.com/ \n\nТест, с различными уровнями сложностями для оценки уровня ваших знаний в уязвимом коде. Дается кусок исходного кода, в котором за определенный промежуток времени вы должны определить и выбрать уязвимость. Онлайн сервис для новичков.\n\nDamn Vulnerable iOS Application\n\ndamnvulnerableiosapp.com/ \n\nПроект для проверки своих знаний в области безопасности iOS приложений. Была представлена на PHD V виде hands-on лаборатории. Позволяет эксплуатировать различные виды уязвимостей iOS приложений: Insecure Data Storage, Runtime Manipulation, Security Decisions via Untrusted input и т.д. Содержится в виде IPA или DEB, уязвимости проверены до iOS 8.1 версии.\n\nExploitMe Mobile Android Labs\n\nsecuritycompass.github.io/AndroidLabs/index.html \n\nOpensource-проект для демонстрации эксплуатации уязвимостей платформы Android: File system access permissions, Insecure storage of files, Parameter manipulation of mobile traffic и т.д. Необходим эмулятор, база и лаб-сервер.\n\nДанные дистрибутивы помогут вам расширить свои навыки этичного хакера, понять природу уязвимостей и лучше изучить инструментарий. Happy hack!-http://habrahabr.ru/company/pentestit/blog/261569/\n\nПрохождение части заданий из тестовой лаборатории PentestIT, участниками Античата :wink: -http://forum.antichat.ru/threads/428978/ (есть видео по настройке Kali linux и подключении к лаборатории), а также описаны и показано прохождение задания.. :hi:\n\nНебольшая полезная статья о стендах для тестирования и краткий обзор по Metasploitable2-http://www.securitylab.ru/analytics/474650.php...\n\nеще один курс, который тоже может оказаться полезен для \"общего развития\" - https://stepic.org/course/Анализ-безопасности-веб-проектов-127/syllabus?section=1\n\n",
 			"settings":
 			{
-				"buffer_size": 22505,
+				"buffer_size": 5640,
 				"line_ending": "Windows",
-				"name": "Основа основ - раз уж мы защищаем информацию, то н"
+				"name": "Сервисы для проверки навыков тестирования на прони"
+			}
+		},
+		{
+			"file": "/E/Дела/Информационная безопасность/Планы.txt",
+			"settings":
+			{
+				"buffer_size": 1558,
+				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "Packages/User/CBuilder6.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 242.0,
 		"selected_items":
 		[
+			[
+				"hex",
+				"Hex Viewer: Toggle Hex View"
+			],
+			[
+				"he",
+				"Hex Viewer: Toggle Hex View"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
 			[
 				"package in",
 				"Package Control: Install Package"
@@ -600,6 +616,121 @@
 	],
 	"file_history":
 	[
+		"/G/Downloads/2_Rabochaya_programma_distsipliny2.htm",
+		"/G/Downloads/2_Rabochaya_programma_distsipliny.htm",
+		"/G/Downloads/secretfile.rar",
+		"/C/Users/Jonathan/Desktop/settings.xml",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Copy of 1T_77_tenzor_ideal_11Znacheniy.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.cpp",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
+		"/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2DirSampleN070605T77I401FiltDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2ComSampleN070605T77I400AvDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/3ComSampleN070605T77I400FiltDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.2.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/nofilt.2.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_20_01_1,5.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/tenzor/nofilt.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/tenzor/nofilt.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_2,5_3,5.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_2,5_3,5.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/tenzor/filt200_20_01_1,5.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/nofilt.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.3.hmr",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/tenzor/filt200_20_01_1,5.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.1.hs",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/ftestSampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/ftestSampleN031202T77I500CurrDataAllP.txt",
+		"/G/Downloads/john179j5w/john179j5/run/in.txt",
+		"/G/Установки/john179j5/run/test.txt",
+		"/C/Users/Jonathan/Desktop/admin.php",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_03_04SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_06_09SampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_06_09SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_03_04SampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл77/2ComSampleN031126T77I305CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500FiltData21P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_1.5_2.5_1000SampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2ComSampleN070605T77I401CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_1.5_2.5_1000SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_07_09SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_07_09SampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofiltSampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Расчетный тензор.4знака.txt",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Расчетный тензор.4знака.hs",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Новая папка/nofilt.2.hs",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Новая папка/nofilt_mobilitySpectrum.txt",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/MobilityTestSpectrum.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/3ComSampleN050701T77I400AvDataAllP.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/FORENSIC/read.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/Из найденного.txt",
+		"/E/Дела/Для души и тела/Катенька2.txt",
+		"/I/Видеоуроки/OffSec Lectures/offL.txt",
+		"/G/temp/7zO4079.tmp/description.txt",
+		"/G/temp/7zO1AEE.tmp/description.txt",
+		"/G/temp/7zOBFEC.tmp/description.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/ipmap.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/help.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/FORENSIC/jhc_rc2/readme",
+		"/E/Дела/Для души и тела/НГ 2016.txt",
+		"/G/Downloads/wordlist/unscramble.hs",
+		"/G/Downloads/wordlist/wordlist.txt",
+		"/E/Дела/Информационная безопасность/Qctf.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/help.txt",
+		"/E/Дела/Информационная безопасность/QCTF/space_adventure_log.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/read.txt",
+		"/E/Дела/Институт СГГА/По работе/Информационная безопасность/Что надо.txt",
+		"/E/Дела/Информационная безопасность/QCTF/Qmessage1.txt",
+		"/C/Users/Jonathan/Desktop/qcft1.txt",
+		"/I/VideoTanya/1.txt",
+		"/E/Alex/Алтай-Вест/Стадия П/Новый текстовый документ.txt",
+		"/E/Alex/Алтай-Вест/Стадия Р/Новый текстовый документ.txt",
+		"/E/Alex/Алтай-Вест/Новый текстовый документ.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Холл77_20окт/-iDescription.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Холл77_20окт/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/СопротивлениеИХолл_90К_6окт/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Е77_ФП_13oct/2Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Е77_ФП_13oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/2Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/2_O_o_Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/1bDescription.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.h",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1RevSampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt10SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500AvDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt10.2SampleN031202T77I500CurrData11P.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1DirSampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Информационная безопасность/CtfPractise.txt",
+		"/E/Дела/Информационная безопасность/флаги от Касперского",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К/1bDescription.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К_обр ток/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К_обрток2/3Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/28oct/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/ФП89К_1йканал_12nov/1Description.txt",
+		"/E/Дела/Информационная безопасность/Иб лекции.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл90/1Description.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл77/1Description.txt",
 		"/C/Users/Jonathan/Desktop/скачанные файлы.gif",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor2/nofilt.2.hs",
 		"/I/l17.hs",
@@ -612,122 +743,7 @@
 		"/E/Дела/Информационная безопасность/название команды - Team Information Offensive (TIO",
 		"/E/Дела/Информационная безопасность/haxtor",
 		"/E/Дела/Информационная безопасность/l11.pl",
-		"/E/Дела/Информационная безопасность/Планы.txt",
-		"/M/Наглядная школа/Linux Installer",
-		"/M/Наглядная школа/.airinstall.cfg",
-		"/M/C Alex/Дополнения/Установочные/FStarForce/Инструкция.txt",
-		"/G/Downloads/john179j5w/zeronights.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor3/f200_42_0.1_0.5.2.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor3/f200_20_0.5_0.9.2.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor/nofilt.hs",
-		"/I/needsmore.jpg",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Paris/Новый текстовый документ.txt",
-		"/I/About_Time_2013/ANY!/Unit_Key_RO.inf",
-		"/E/Дела/Институт физики полупроводников/La-7/MctErrorEstimating/NoiseUnit.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticField.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/hallEffect.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/hallEffect.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticField.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FeatUnit.cpp",
-		"/G/Downloads/Контрольная работа/Контрольная работа/HashTable/HashTable/HashTableContainer.h",
-		"/G/Downloads/Контрольная работа/Контрольная работа/HashTable/HashTable/targetver.h",
-		"/G/Downloads/Контрольная работа/Контрольная работа/HashTable/HashTable/HashTable.cpp",
-		"/G/Downloads/Vector/Vector/Vector/VectorContainer.h",
-		"/G/Downloads/Vector/Vector/Vector/Vector.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/testUnit.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Signal.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Signal.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilteringUnit.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/MCT/UnitMain.pas",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/C/Program Files (x86)/tinc/vpn/tinc.conf",
-		"/E/Архивы/Дача/ищем окна.txt",
-		"/E/Дела/Курсера/Hello.hs",
-		"/E/Дела/Информационная безопасность/Материалы/HackingEricson/booksrc/exploit_notesearch.c",
-		"/E/Дела/Информационная безопасность/Материалы/HackingEricson/booksrc/notesearch.c",
-		"/C/Users/Jonathan/Desktop/Ерош И.Л.txt",
-		"/E/Дела/Информационная безопасность/Материалы/HackingEricson/Новый текстовый документ.txt",
-		"/C/Users/Jonathan/Desktop/vuln.c",
-		"/C/Users/Jonathan/Desktop/exptext.txt",
-		"/C/Users/Jonathan/Desktop/password.rde",
-		"/C/Program Files/OpenVPN/config/README.txt",
-		"/C/Users/Jonathan/Desktop/fw.lst",
-		"/I/Lk_test/ConsoleApplication1/ConsoleApplication1/ReadMe.txt",
-		"/I/Lk_test/ConsoleApplication1/input.txt",
-		"/I/Lk_test/ConsoleApplication1/Release/input.txt",
-		"/I/Lk_test/ConsoleApplication1/Debug/input.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Грант на стипендию президента РФ 2015/что делать.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Отчеты/ToDo.txt",
-		"/G/Установки/industrial-ctf/Protocols/02/readme.txt",
-		"/G/Установки/industrial-ctf/readme.txt",
-		"/G/Downloads/industrial-ctf/readme.txt",
-		"/G/Установки/industrial-ctf/Protocols/03/readme.txt",
-		"/C/Users/Jonathan/Desktop/spring-security.xml",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/Е77_ФП_13oct/inputFilt50.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031126/ФП77/Новая папка/f100.mpcr",
-		"/G/Downloads/IOPEXPORT_BIB (1).bib",
-		"/I/RunWebGoat.bat",
-		"/G/Downloads/industrial-ctf/Protocols/03/readme.txt",
-		"/G/Downloads/Програмка/Програмка/D.txt",
-		"/G/Установки/industrial-ctf/Reverse/01/readme.txt",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/ConfigHist.txt",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/ALARM.INI",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/BackupRestore.ini",
-		"/G/Установки/industrial-ctf/Crypt/02/UserRocks!/readme.txt",
-		"/G/Установки/industrial-ctf/Reverse/02/readme.txt",
-		"/G/Установки/industrial-ctf/Reverse/03/readme.txt",
-		"/G/Установки/industrial-ctf/Crypt/01/CCCrypt/readme.txt",
-		"/G/Установки/industrial-ctf/Protocols/04/readme.txt",
-		"/G/Установки/industrial-ctf/Fun/03/readme.txt",
-		"/G/Установки/industrial-ctf/Fun/01/readme.txt",
-		"/G/Установки/industrial-ctf/Protocols/01/readme.txt",
-		"/G/Downloads/industrial-ctf/Crypt/04/CheckThePass/readme.txt",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/FIX.dtg",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/default.srt",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/readme.txt",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/AlarmAreas.AAD",
-		"/G/Установки/industrial-ctf/Protocols/04/example.bin",
-		"/G/Установки/industrial-ctf/Reverse/02/SplitCap_2-1/dump/dump.pcap.TCP_192-168-2-103_44818_192-168-2-116_49896.id0",
-		"/G/Установки/industrial-ctf/Reverse/02/SplitCap_2-1/dump/dump.pcap.TCP_192-168-2-103_44818_192-168-2-116_49896.bin",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/Copy of LOCAL/AnimationTasks.tbc",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/LOCAL/workspace.ini",
-		"/G/Установки/industrial-ctf/Crypt/03/FixIt/LOCAL/SystemTreeError.TXT",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/LOCAL/FixUserPreferences.ini",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/LOCAL/ALARM.INI",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/LOCAL/SystemTree.CSV",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/LOCAL/workspace.ini",
-		"/G/Downloads/industrial-ctf/Reverse/03/readme.txt",
-		"/G/Downloads/industrial-ctf/Reverse/02/readme.txt",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/readme.txt",
-		"/G/Downloads/industrial-ctf/Crypt/02/UserRocks!/readme.txt",
-		"/G/Downloads/industrial-ctf/Crypt/01/CCCrypt/readme.txt",
-		"/G/Downloads/industrial-ctf/Fun/01/readme.txt",
-		"/G/Downloads/industrial-ctf/Fun/02/readme.txt",
-		"/G/Downloads/industrial-ctf/Fun/03/readme.txt",
-		"/G/Downloads/industrial-ctf/Protocols/01/readme.txt",
-		"/G/Downloads/industrial-ctf/Protocols/02/readme.txt",
-		"/G/Downloads/industrial-ctf/Protocols/04/readme.txt",
-		"/G/Downloads/industrial-ctf/Reverse/01/readme.txt",
-		"/G/Downloads/industrial-ctf/Fun/04/readme.txt",
-		"/G/Downloads/industrial-ctf/Crypt/03/FixIt/LOCAL/secnet.ini",
-		"/G/Downloads/industrial-ctf/Crypt/02/UserRocks!/users.act",
-		"/G/Downloads/industrial-ctf/Crypt/01/CCCrypt/CIPdemo.mdf",
-		"/E/Дела/Институт физики полупроводников/Архив грядущих конференций/Питер-2015/info.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/1DirSampleN050701T77I400FiltDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/1DirSampleN050701T77I400CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031126/холл77/1DirSampleN031126T77I305CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031126/холл77/1DirSampleN031126T77I305FiltDataAllP.txt",
-		"/I/About_Time_2013/ANY!/Content002.cer",
-		"/E/Дела/Институт физики полупроводников/Архив грядущих конференций/Питер-2015/Для усреднения/k3_3.hmr",
-		"/E/Дела/Институт физики полупроводников/Архив грядущих конференций/Питер-2015/Для усреднения/k3_1.hs",
-		"/E/Дела/Институт физики полупроводников/Архив грядущих конференций/Питер-2015/Для усреднения/k2_1.hs"
+		"/E/Дела/Информационная безопасность/Планы.txt"
 	],
 	"find":
 	{
@@ -746,6 +762,64 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"  ",
+			" .",
+			"\\([1-9]\\)",
+			"()",
+			"([1-9].[1-9])",
+			"pass",
+			"prote",
+			"pass",
+			",",
+			" ",
+			"featData(",
+			"calculateTenzor",
+			"BHallToExtrapolate",
+			"extra",
+			"averageData",
+			"extrapolateData(",
+			"extra",
+			"featData",
+			"clearCur",
+			"setDepe",
+			"update",
+			"featData",
+			"getPointerB",
+			"getPointerBM",
+			"filterD",
+			"filter",
+			"extrapolate",
+			" ",
+			".21",
+			".{3}.{3}.{3}",
+			"featData",
+			"calculateTenzor",
+			"  ",
+			",",
+			".",
+			",",
+			"декаб",
+			"test",
+			"\"",
+			"e2 ",
+			"e2",
+			".",
+			"extrapolateData",
+			"extrapo",
+			"roundM",
+			"FloatToStrF",
+			"Round",
+			"ORIGINAL_DATA",
+			"Round",
+			"isRoundNeed",
+			"isRoundNe",
+			"saveB",
+			"DataSaver",
+			"Saver",
+			"SaveAll",
+			"ORIGINAL_DATA",
+			"DataKind",
+			"SaveAllData",
 			" ",
 			"\\t",
 			"\"",
@@ -815,72 +889,29 @@
 			"merge",
 			"<rect ng-show=\"merge\" ng-attr-style=\"$$data.bgStyle$$\" ng-repeat=\"data in dataset\" ng-attr-width=\"$$width()$$\" ng-attr-height=\"$$height(data.bgVal)$$\" ng-attr-x=\"$$x($index)$$\" ng-attr-y=\"$$y(data.bgVal)$$\" class=\"ng-scope ng-hide\" style=\"display:none\" width=\"20\" height=\"0\" x=\"20\" y=\"200\">    </rect>",
 			"<button",
-			"<script",
-			"<rect",
-			"<!--",
-			"<button",
-			"<script",
-			"fil",
-			"playli",
-			"albu",
-			"you",
-			"(vimeo.com/)+([0-9])*",
-			"(vimeo.com/)+([1-9])*",
-			"(vimeo.com/)+*",
-			"(vimeo.com/)+*(.+)",
-			"vimeo.com/*",
-			"for myi=0 to NPoint-1 do",
-			":=",
-			"};",
-			"end",
-			"begin",
-			"}",
-			"{",
-			"Integer",
-			"extended",
-			"tred2",
-			"makeMNK",
-			"makeInter",
-			"makeMnk",
-			" ",
-			"2,0000",
-			" ",
-			"featData(",
-			"2,000",
-			"saveToFil",
-			"save",
-			"featDa",
-			",",
-			"median",
-			"filterDataH",
-			"extrapolateData(",
-			"averageData",
-			"filterData",
-			"featData",
-			"filterData(",
-			"averageData(",
-			"featData",
-			"averageData(",
-			"extrapolate",
-			"extrapolateDa",
-			"featData",
-			"averageData",
-			"featData",
-			"calculateTenz",
-			"i++",
-			" ",
-			"extrapolateData",
-			"extrapo",
-			"loadData",
-			"filter",
-			"calculateTenzor"
+			"<script"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
+			" ",
+			".",
+			"",
+			"\\t",
+			"*\\n",
+			".{3}.{3}.{3}\\n",
+			"\\t",
+			".",
+			",",
+			"\\t",
+			"",
+			"e2",
+			"\\ne2",
+			"e2\\n",
+			",",
 			"\\t",
 			"",
 			"\\n",
@@ -924,24 +955,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/E/Дела/Информационная безопасность/CtfPractise.txt",
+					"file": "/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3734,
+						"buffer_size": 12170,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3642,
-								3642
+								622,
+								609
 							]
 						],
 						"settings":
@@ -949,31 +980,87 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1716.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 150,
+						"buffer_size": 7565,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								123,
-								139
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_name": "флаги от Касперского",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 528.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								8223
+							]
+						],
+						"settings":
+						{
+							"auto_name": "bool candiesThrownGotChocolateBar=true, bool candy",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 132.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1222,
+								1207
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Сервисы для проверки навыков тестирования на прони",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -984,60 +1071,31 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
+					"file": "/E/Дела/Информационная безопасность/Планы.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 356,
+						"buffer_size": 1558,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								162,
-								355
+								1558,
+								1558
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Threat Modeling: Designing for Security",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 528.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/E/Дела/Информационная безопасность/Иб лекции.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 22505,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								22505,
-								22497
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Основа основ - раз уж мы защищаем информацию, то н",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 7744.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1081,6 +1139,10 @@
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 142.0
 	},
 	"project": "MCTParamsExplorer.sublime-project",
 	"replace":

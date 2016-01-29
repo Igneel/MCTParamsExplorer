@@ -7,15 +7,15 @@
     <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
       DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj 
-      mobilityspectrum.obj SignalShiftForm.obj Dependence.obj"/>
+      mobilityspectrum.obj SignalShiftForm.obj Dependence.obj multizoneFit.obj"/>
     <RESFILES value="Project1.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm Unit3.dfm SignalShiftForm.dfm"/>
     <LIBFILES value=""/>
-    <LIBRARIES value="tee.lib rtl.lib vcl.lib"/>
-    <SPARELIBS value="vcl.lib rtl.lib tee.lib"/>
+    <LIBRARIES value="inet.lib xmlrtl.lib tee.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib tee.lib xmlrtl.lib inet.lib"/>
     <PACKAGES value="dbrtl.bpi vcldb.bpi bdertl.bpi vcldbx.bpi bcbsmp.bpi dclocx.bpi qrpt.bpi 
       teeui.bpi vclsmp.bpi teedb.bpi tee.bpi ibsmp.bpi dss.bpi nmfast.bpi 
       inetdb.bpi inet.bpi dsnap.bpi RXCTL.bpi RXDB.bpi sdlnumlab.bpi"/>
@@ -76,6 +76,7 @@
       <FILE FILENAME="mobilityspectrum.cpp" FORMNAME="" UNITNAME="mobilityspectrum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="SignalShiftForm.cpp" FORMNAME="Form4" UNITNAME="SignalShiftForm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Dependence.cpp" FORMNAME="" UNITNAME="Dependence" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="multizoneFit.cpp" FORMNAME="" UNITNAME="multizoneFit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

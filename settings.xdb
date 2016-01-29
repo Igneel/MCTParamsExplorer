@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+	<xs:element name="Settings" type="SettingsType"/>
+	<xs:complexType name="SettingsType"><xs:annotation>
+			<xs:appinfo xdb:docElement="Settings"/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

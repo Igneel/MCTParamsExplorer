@@ -18,6 +18,10 @@
 #include <math.h>
 #include <TeEngine.hpp>
 #include <Grids.hpp>
+#include <oxmldom.hpp>
+#include <XMLDoc.hpp>
+#include <xmldom.hpp>
+#include <XMLIntf.hpp>
 #pragma hdrstop
 
 #include "Unit2.h"
@@ -26,7 +30,6 @@
 #include "FilteringUnit.h"  
 #include "MagneticFieldDependence.h"
 #include "LCard.h"
-#include "SettingsSaver.h"
 #include "mobilityspectrum.h"
 
 
@@ -224,6 +227,25 @@ __published:	// IDE-managed Components
     TMenuItem *N18;
     TMenuItem *N19;
     TButton *Button4;
+    TTabSheet *DensAndMobDetermination;
+    TChart *Chart4;
+    TChart *Chart5;
+    TChart *Chart6;
+    TStringGrid *MobSpecResults;
+    TButton *btnMobilitySpectrum;
+    TButton *btnMultiCarrierFit;
+    TLabeledEdit *LabeledEdit1;
+    TLabeledEdit *LabeledEdit2;
+    TButton *btnSaveCarrierParams;
+    TLineSeries *ChSpHoleComponent;
+    TLineSeries *ChspElecComponent;
+    TLineSeries *ChSxx_theor;
+    TPointSeries *ChSxxExper;
+    TLineSeries *ChSxy_theor;
+    TPointSeries *ChSxyExper;
+    TStringGrid *FitResults;
+    TXMLDocument *XMLsettings;
+    TProgressBar *ProgressBar1;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -269,6 +291,8 @@ __published:	// IDE-managed Components
     void __fastcall Button3Click(TObject *Sender);
     void __fastcall N19Click(TObject *Sender);
     void __fastcall Button4Click(TObject *Sender);
+    void __fastcall btnMultiCarrierFitClick(TObject *Sender);
+    void __fastcall btnMobilitySpectrumClick(TObject *Sender);
     
 
 private:	// User declarations

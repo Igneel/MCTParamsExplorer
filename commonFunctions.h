@@ -9,31 +9,32 @@ inline MyDataType dist(MyDataType x1, MyDataType x2);
 bool thiningSignal(TSignal & inB, TSignal & inDependence, TSignal & outB, TSignal & outDependence,
     MyDataType left, MyDataType right, size_t NewLength);
 
+
 //---------------------------------------------------------------------------
 // Округление с заданной точностью.
 template <class T>
 void roundM(T *pos, T* endPos, unsigned int NumberOfDecimalPlaces )
 {
-    int S=pow(10,NumberOfDecimalPlaces);
+    long long S=pow(10,NumberOfDecimalPlaces);
     for(;pos!=endPos;++pos)
     {
-        int n=(int)(*pos*S*10)%10;
-        if(n<5)
-            *pos=floorl(*pos*S)/S;
+        int n=static_cast<int>(*pos*S*10)%10;
+        if(n<5.0)
+            *pos=static_cast<long double>(floorl(*pos*S))/S;
         else
-            *pos=ceill(*pos*S)/S;
+            *pos=static_cast<long double>(ceill(*pos*S))/S;
     }
 }
 //-------------------------------------------------------------------------------
 template <class T>
 T roundM(T x, unsigned int NumberOfDecimalPlaces )
 {
-    int S=pow(10,NumberOfDecimalPlaces);
+    long double S=pow(10,NumberOfDecimalPlaces);
         T n=static_cast<int>(x*S*10.0)%10;
         if(n<5.0)
-            x=floorl(x*S)/S;
+            x=static_cast<long double>(floorl(x*S))/S;
         else
-            x=ceill(x*S)/S;
+            x=static_cast<long double>(ceill(x*S))/S;
     return x;
 }
 //-------------------------------------------------------------------------------
@@ -202,10 +203,35 @@ void medianFilter(std::vector <T> & in,std::vector <T> & out,size_t size)
     }
     for(unsigned int i=size;i<in.size() ;i+=size)
     {
-        
         std::sort(&in[i-size],&in[i]);
         out.push_back(in[i-size/2]);
     }
+}
+
+bool testCommonFunctions()
+{
+    long double e=10e-6;
+    long double x=1.123456;
+    long double y=1.123454;
+    unsigned int NumberOfDecimalPlaces=5;
+    if(fabs(roundM(x,NumberOfDecimalPlaces)-1.12346)>e)
+    {
+        return false;
+    }
+    if (fabs(roundM(y,NumberOfDecimalPlaces)-1.12345)>e)
+    {
+        return false;
+    }
+
+    TSignal s;
+    s.push_back(1.123456);
+    s.push_back(1.123454);
+    roundM(s.begin(), s.end(),NumberOfDecimalPlaces);
+    if (fabs(s[0]-1.12346)>e || fabs(s[1]-1.12345)>e)
+    {
+        return false;
+    }
+    return true;
 }
 
 
