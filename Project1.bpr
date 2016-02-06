@@ -86,9 +86,9 @@
 IncludeVerInfo=1
 AutoIncBuild=1
 MajorVer=0
-MinorVer=8
-Release=35
-Build=1268
+MinorVer=9
+Release=36
+Build=1269
 Debug=0
 PreRelease=0
 Special=0
@@ -100,7 +100,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=
 FileDescription=
-FileVersion=0.8.35.1268
+FileVersion=0.9.36.1269
 InternalName=
 LegalCopyright=
 LegalTrademarks=
@@ -166,7 +166,7 @@ RemoteDebug=0
 
 [Compiler]
 ShowInfoMsgs=1
-LinkDebugVcl=0
+LinkDebugVcl=1
 LinkCGLIB=0
 
 [CORBA]

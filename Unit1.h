@@ -108,7 +108,6 @@ __published:	// IDE-managed Components
         TLineSeries *out2;
         TLineSeries *out3;
         TLineSeries *out4;
-        TButton *bTest;
     TButton *bClearPlotsRes;
     TButton *bClearPlotHall;
         TButton *Button7;
@@ -134,7 +133,6 @@ __published:	// IDE-managed Components
         TButton *ImpulsKiller;
         TMenuItem *N8;
         TMenuItem *N101;
-        TButton *Button10;
         TMenuItem *N9;
         TMenuItem *N10;
         TButton *Button13;
@@ -204,7 +202,6 @@ __published:	// IDE-managed Components
         TButton *Button2;
     TButton *Button1;
     TButton *bMobilitySpectrum;
-        TStringGrid *StringGrid1;
         TMenuItem *N12;
         TChart *Chart2;
         TLineSeries *Series6;
@@ -223,7 +220,6 @@ __published:	// IDE-managed Components
     TLabeledEdit *uiSamplingFreq;
     TComboBox *ComboBox7;
     TComboBox *ComboBox8;
-    TButton *Button3;
     TMenuItem *N18;
     TMenuItem *N19;
     TButton *Button4;
@@ -246,6 +242,14 @@ __published:	// IDE-managed Components
     TStringGrid *FitResults;
     TXMLDocument *XMLsettings;
     TProgressBar *ProgressBar1;
+    TMenuItem *N20;
+    TMenuItem *N21;
+    TMenuItem *N22;
+    TMenuItem *N23;
+    TMenuItem *N24;
+    TMenuItem *N25;
+    TMenuItem *N26;
+    TButton *Button3;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -261,7 +265,6 @@ __published:	// IDE-managed Components
         void __fastcall Button8Click(TObject *Sender);
         void __fastcall Edit1KeyPress(TObject *Sender, char &Key);
         void __fastcall ImpulsKillerClick(TObject *Sender);
-        void __fastcall Button10Click(TObject *Sender);
         void __fastcall N9Click(TObject *Sender);
         void __fastcall Button13Click(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
@@ -279,20 +282,25 @@ __published:	// IDE-managed Components
     void __fastcall ComboBox5Change(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
     void __fastcall Button1Click(TObject *Sender);
-    void __fastcall bMobilitySpectrumClick(TObject *Sender);
         void __fastcall Series1Click(TChartSeries *Sender, int ValueIndex,
           TMouseButton Button, TShiftState Shift, int X, int Y);
         void __fastcall N12Click(TObject *Sender);
     void __fastcall N13Click(TObject *Sender);
     void __fastcall N17Click(TObject *Sender);
     void __fastcall N16Click(TObject *Sender);
-    void __fastcall bTestClick(TObject *Sender);
     void __fastcall uiFrenqChange(TObject *Sender);
-    void __fastcall Button3Click(TObject *Sender);
     void __fastcall N19Click(TObject *Sender);
     void __fastcall Button4Click(TObject *Sender);
     void __fastcall btnMultiCarrierFitClick(TObject *Sender);
     void __fastcall btnMobilitySpectrumClick(TObject *Sender);
+    void __fastcall N25Click(TObject *Sender);
+    void __fastcall N26Click(TObject *Sender);
+    void __fastcall eMedianFilterSizeKeyPress(TObject *Sender, char &Key);
+    void __fastcall XMLsettingsBeforeOpen(TObject *Sender);
+    void __fastcall Button3Click(TObject *Sender);
+    void __fastcall openFileWithSignal(AnsiString filename);
+    void __fastcall calculateTenzor();
+    void __fastcall N21Click(TObject *Sender);
     
 
 private:	// User declarations

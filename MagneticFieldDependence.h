@@ -102,6 +102,15 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
     TSignal const * getAveragedB();
     TSignal const * getRh_eff();
     TSignal const * getS_eff();
+
+    TSignal const * getMobility();
+	TSignal const * getHoleConductivity();
+	TSignal const * getElectronConductivity();
+	
+    TSignal const * getHoleConcentration();
+    TSignal const * getHoleMobility();
+    TSignal const * getElectronConcentration();
+    TSignal const * getElectronMobility();
 	
 
 	//(получение, фильтрация, экстраполяция, увеличение/уменьшение, вырезка и т.п.,
@@ -118,7 +127,7 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 	// Сохранение данных.
 	void setSampleDescription(AnsiString Temperature, AnsiString Current, AnsiString SampleInventoryNumber, AnsiString length, AnsiString width, AnsiString Thickness);
 
-	void SaveAllData(AnsiString FileName,bool isCombinedParams=false);
+	void SaveAllData(AnsiString FileName);
 
 	//-------Построение графиков-------------------------------------- 
 	bool constructPlotFromTwoMassive(SignalType pt, DataKind dk,TLineSeries* s,TColor color);
@@ -159,6 +168,12 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
     void multiplySignal(SignalType s, MyDataType x);
     void rearrangeSignal();
+
+
+    // Спектр подвижности
+    bool calculateMobilitySpectrum();
+    // Многозонная подгонка
+    bool runMultiCarrierFit();
 
 
 
@@ -268,7 +283,16 @@ TSignal & Res);
 	TSignal Rh_eff;
 	TSignal sxx;
 	TSignal sxy;
-    
+
+	// Результаты работы спектра подвижности
+	TSignal mobility;
+	TSignal holeConductivity;
+	TSignal electronConductivity;
+	// В этих хранятся значения, соответствующие пикам для дырок и электронов
+    TSignal holeConcentration;
+    TSignal holeMobility;
+    TSignal electronConcentration;
+    TSignal electronMobility;
 };
 
 

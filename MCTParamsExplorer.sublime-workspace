@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"d2",
+				"d2Y"
+			],
+			[
+				"dy",
+				"d2Y"
+			],
+			[
+				"ChS",
+				"ChSxy_theor"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"start",
+				"startPosition"
+			],
+			[
+				"siz",
+				"size_t"
+			],
+			[
+				"noe",
+				"node4"
+			],
+			[
+				"no",
+				"node3"
+			],
+			[
+				"Ex",
+				"ExactBound"
+			],
+			[
+				"Up",
+				"UpBound"
+			],
+			[
+				"E",
+				"ExactBound"
+			],
+			[
 				"new",
 				"newBRes"
 			],
@@ -118,10 +162,6 @@
 			[
 				"tem",
 				"tempInB"
-			],
-			[
-				"siz",
-				"size"
 			],
 			[
 				"Add",
@@ -240,10 +280,6 @@
 				"j"
 			],
 			[
-				"in",
-				"indexOfElemClosestToValue"
-			],
-			[
 				"Ma",
 				"MagnetoResistance"
 			],
@@ -354,10 +390,6 @@
 			[
 				"h",
 				"HallEffect"
-			],
-			[
-				"E",
-				"ExtapolatePolinomDegree"
 			],
 			[
 				"T",
@@ -482,88 +514,11 @@
 			[
 				"tos",
 				"tempOutSignal"
-			],
-			[
-				"Fi",
-				"FilteredHallEffect"
-			],
-			[
-				"calT",
-				"calculateTenzorFromEffectiveParams"
-			],
-			[
-				"av",
-				"averageData"
-			],
-			[
-				"ave",
-				"AveragedB"
-			],
-			[
-				"S",
-				"SampleLength"
-			],
-			[
-				"Data",
-				"DataKind"
-			],
-			[
-				"NM",
-				"NumberOfPoints"
-			],
-			[
-				"Dic",
-				"DataTypeInContainer"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"contents": "Прошу Вас в срок до 23 декабря (если раньше, то лучше) разработать (в соответствии с ФГОС ВО он же ФГОС 3+) учебные программы дисциплин  для нового направления подготовки бакалавров 12.03.03 \"Фотоника и оптоинформатика\"  по профилям \"Компьютерная фотоника (КФ)\" и \"Оптика наноструктур (ОН)\":\n\n\n\"Основы фотоники\"  (для КФ и ОН)\n\n\"Физические основы фотоники\" (для ОН)\n\n\"Специальные разделы фотоники \" (для КФ)\n\n\"Методы анализа и распознавания изображений\" (КФ)\n\n\"Методы и компьютерные средства научно-технических расчетов\" (для КФ)\n\nи даже\n\n\"Технологии искусственного интеллекта\" (КФ) (бортанем Сырецкого :-0)\n\npowertripping\n\nНазваниеФриман, Роджер. Волоконно-оптические системы связи : Пер. с англ. / Р. Фриман ; ред. пер. Н. Н. Слепов. - 3-е изд., доп. - М. : Техносфера, 2006. - 495[1] с. : ил., табл. - (Мир связи ; IX-03).\n\n\nНазваниеВ.М. Шандаров. Основы физической и квантовой оптики. – Томск: Томск. гос. Ун-т систем упр. и радиоэлектроники, 2005. – 258 с.\nТ\n\nНазваниеВ.М.Шандаров. Волоконно-оптические устройства технологического назначения: учеб. пособие. – Томск : Томск. гос. ун-т систем упр. и радиоэлектроники, 2007. – 190с.\n\nНазваниеА.Ярив, П.Юх. Оптические волны в кристаллах. - М.: Мир, 1987. - 616 с. 2д. Ю.Н.Кульчин. Распределенные волоконно – оптические измерительные системы. – М.: Физматлит, 2001 г., 272 с.\n\n\nНазваниеГончаренко, Андрей Маркович. Основы теории оптических волноводов / А. М. Гончаренко, В. А. Карпенко. - 2-е изд., испр. . - М. : Едиториал УРСС, 2004. - 236[4] с. : ил. - Библиогр.: с. 6-7.\n\n\nНазваниеФоторефрактивные эффекты в электрооптических кристаллах: монография / С. М. Шандаров [и др.] ; Федеральное агентство по образованию, Томский государственный университет систем управления и радиоэлектроники. - Томск : ТУСУР, 2007. - 241[1] с.\n\n\nОсновы фотоники\n\nВводная часть\n• Предмет фотоники.\nДифракция\n• Приближение Френеля.\n• Приближение Фраунгофера.\n• Пространственное преобразование Фурье, пространственные частоты.\nУравнения Максвелла и материальные уравнения\n• Уравнения Максвелла.\n• Материальные уравнения.\n• Материальные уравнения в однородных изотропных и анизотропных диэлектриках, металлах,\nоптически активных и магнитных диэлектриках.\n• Собственные (нормальные) волны в однородных изотропных и анизотропных диэлектриков,\nметаллов, оптически активных и магнитных диэлектриках.\n• Изменение поляризации в однородных анизотропных, оптически активных и магнитных\nдиэлектриках.\n• Понятие пучка, импульса, волнового пакета, импульсного пучка.\nДифракция\n• Изменение параметров пучка (амплитуда, фаза, фазовый (волновой) фронт, ширина) при\nдифракции.\n• Приближение медленно меняющейся амплитуды, характерное расстояние, на котором\nпроявляется дифракция.\n• Дифракция гауссовых пучков.\n• Пучки с фазовыми дислокациями (определение, типы, примеры, особенности дифракции,\nпоток энергии в вортексе).\n• Способы фокусировки пучков.\nДисперсия\n• Связь дисперсии и поглощения в диэлектриках.\n• Влияние дисперсии на распространение импульсов (спектральный метод Фурье, 1 и 2\nприближения теории дисперсии).\n• Понятие фазовой и групповой скорости.\n• Импульсы с фазовой модуляцией. Компрессия импульсов.\n• Понятие предельно коротких импульсов.\nНелинейная оптика\nУравнения Максвелла, волновые и материальные уравнения\n• Поляризуемость среды, её линейная и нелинейная части. Разложение поляризуемости по\nстепеням E.\n• Тензоры восприимчивости.\n• Квадратичная и кубичная восприимчивость и свойства симметрии.\n• Принцип Неймана.\nКвадратичная нелинейность\n• Оптическое детектирование.\nГенерация второй гармоники\n• Волновое уравнение и метод медленно меняющихся амплитуд.\n• Закон сохранения энергии и импульса. \n• Приближение заданного поля, условия применимости.\n• Расстройка волновых векторов и синхронизм. Методы компенсации расстройки.\nТрехчастотное взаимодействие\n• Волновое уравнение и метод медленно меняющихся амплитуд.\n• Соотношения Мэнли-Роу и закон сохранения энергии.\n• Преобразования энергии при низкочастотной накачке и при высокочастотной накачке.\nРаспадная неустойчивость.\n• Параметрический генератор света.\n• Вынужденное комбинационное рассеяние.\nКубичная нелинейность\n• Кросс-модуляция. Тепловая нелинейность.\n• Оптические пинцеты.\nСамовоздействие света\n• Нелинейная дисперсия.\n• Нелинейное поглощение.\nСамофокусировка и самодефокусировка света\n• Параболическое уравнение для пучка в кубично нелинейной среде.\n• Интегралы движения.\n• Критическая мощность.\n• Волноводное распространение света в кубично нелинейной среде.\n• Понятие о каскадной нелинейности.\nИмпульсы в кубично нелинейной среде\n• Самокомпрессия импульсов. Солитоны.\n• Фотонное эхо.\nОсновы волоконной оптики\n• Волноводные моды планарного волновода.\n• Ступенчатое и градиентное волокно.\n• Типы дисперсии в волноводах. Характерный график зависимости фазовой и групповой\nскорости от частоты для волноводных мод.\n• Характеристики волновода: поперечный размер, числовая апертура.\n• Окна прозрачности кварцевого волокна.\nДискретная дифракция\n• Понятие дискретной дифракции.\nФотонные кристаллы\n• Понятие фотонного кристалла.\n• Брэгговский резонанс. Запрещенная зона. Зависимость ширины запрещённой зоны от\nдиэлектрического контраста. 1-я зона Бриллюэна. Дисперсионная диаграмма одномерного\nфотонного кристалла.\n• Зависимость положения запрещённых зон от угла падения света.\n• Зависимость коэффициентов отражения и пропускания фотонного кристалла от длины волны\nдля двух случаев: а) фотонный кристалл не содержит дефектов, б) фотонный кристалл содержит\nдефект в виде слоя удвоенной толщины.\n• Явление замедления света в фотонных кристаллах.\n• Применения фотонных кристаллов. Суперпризма.\nМетаматериалы\n• Понятие метаматериала в широком и в узком смысле.\n• «Левая» среда, ее показатель преломления и волновой импеданс. Взаимная ориентация\nвекторов напряжённостей электрического и магнитного полей, волнового вектора и вектора\nУмова-Пойнтинга для «левой» среды. Энергия электромагнитного поля в «левой» среде.\nПреломление волны на границе обычной и «левой» сред.\n• Структурные элементы метаматериала с отрицательным показателем преломления для\nмикроволного диапазона.\n• Применения метаматериалов. Суперлинза. Плащ-невидимка.\nПлазмоника\n• Поверхностные плазмон-поляритоны, условия существования, свойства и характеристики.\nДисперсионное соотношение и дисперсионная диаграмма поверхностного плазмон-поляритона\nдля случая границы двух полубесконечных сред.\n• Способы возбуждения поверхностных плазмон-поляритонов.\n• Локализованные плазмоны.\n• Применения плазмоники.\nМагнитооптика\n• Материальное уравнение и тензор диэлектрической проницаемости магнитной среды.\n• Магнитооптические эффекты.\n• Магнитооптические материалы.\n• Усиление магнитооптических эффектов в фотонных кристаллах.\n• Применения магнитооптики. Оптический модулятор и оптический изолятор.\nЭлектрооптика\n• Оптическая индикатриса. Поверхность волновых векторов. Снос энергии оптической волны в\nанизотропных средах.\nЭффект Поккельса\n• В каких средах может наблюдаться? Полуволновое напряжение.\n• Электрооптический модулятор. Продольный и поперечный эффект. Фазовая модуляция.\nАмплитудная модуляция. Частотная модуляция.\n• Электрооптический дефлектор. Пространственное разрешение.\nЭффект Керра\n• В каких средах может наблюдаться? Постоянная Керра. Полуволновое напряжение.\n• Электрооптический затвор.\nПреимущества и недостатки электрооптических приборов\n• Быстродействие. Быстрая и медленная части эффектов Керра и Поккельса.\n• Полуволновое напряжение. Интегральные электрооптические модуляторы. Модуляция света\nСВЧ сигналами.\nАкустооптика\n• Уравнение Кристоффеля. Закон Гука в тензорной форме. Смещение, деформация, напряжение,\nтензор упругости. Эффект фотоупругости.\n• Дифракция света на ультразвуке.\n• Уравнения Рамана-Ната. Режим дифракции Рамана-Ната. Режим дифракции Брэгга. Угол\nБрэгга. Углочастотная характеристика. Понятие вектора расстройки.\n• Акустооптические приборы. Дефлекторы, модуляторы и фильтры.\nИсточники и приемники излучения\n• Принцип действия лазера. Типы лазеров.\n• Основные разновидности и принципы действия фотоприемных устройств.\n\n\nФизические основы фотоники\n\nПрограмма курса лекций\n«Физические основы фотоники и нанофотоники»\n\n(3 курс, осень, 5 семестр)\nпрофессор А.А. Фомичёв \n1. Основные определения фотоники как технологии генерации и преобразования излучения с использованием фотона в качестве квантовой единицы. Области науки, входящие в ФОТОНИКУ.\n2. Квантовая теория теплового излучения. Формула Планка. Излучение черного тела. Индуцированное и спонтанное излучение. Связь коэффициентов Эйнштейна для спонтанного и вынужденного излучения.\n3. Уравнения генерации лазера. Классическое описание (вероятностный подход, уравнения Статца - Де Марса), полуклассическое (самосогласованные уравнения, уравнение Ван дер Поля), понятия о квантовых уравнениях.\n4. Оптические резонаторы. Открытый резонатор. Основные параметры резонатора: добротность, число Френеля, критерий устойчивости. Параметры лазерных пучков: расходимость, фактор качества M2.\n5. Гауссов пучок как решение волнового уравнения в параксиальном приближении. Моды высшего порядка. Понятие лучевых матриц. Методы расчета резонаторов: на основе дифракционного интеграла, ABCD закона преобразования комплексного параметра. Обобщенный двухзеркальный резонатор, области устойчивости.\n6. Спонтанное и стимулированное излучение. Атомные переходы в конденсированной среде. Форма линии. Коэффициенты поглощения и усиления. Инверсная населенность.\n7. Скоростные уравнения (уравнения Статца - Де Марса). Пороговые условия генерации. Стационарный и модуляции добротности режимы. Уравнения Ван дер Поля лазерной генерации.\n8. Когерентность электромагнитного излучения. Многолучевая интерференция. Лазерные интерференционные зеркала.\n9. Оптические волоконные световоды. Волоконно-оптические линии связи (ВОЛС). Материальная и волновая дисперсия в световодах. Одно- и многомодовые волокна. Микроструктурные волокна (фотонные кристаллы). Виды потерь в волокне. Типы волокон, активные волокна. Датчики на основе оптоволокна.\n10. Полупроводниковые источники лазерного излучения. Твердые растворы соединений. Гомо и гетеропереходы. Квазиуровни Ферми. Энергетическая зонная диаграмма лазерного диода.\n11. Электронные волны де Бройля и зонная диаграмма. Прямые и непрямые переходы. Неравновесные состояния. Условия генерации. Кванторазмерные эффекты в п/п лазерах. Каскадные лазеры. РОС лазерные диоды.\n12. Синхронизация мод в лазерах, методы синхронизации. Сверхсильные световые поля. Нелинейно-оптические эффекты в лазерном поле. Пико- и фемтосекундные импульсы излучения. Спектрально-ограниченные импульсы. «Чирп» частоты. Волоконно-оптические компрессоры. Понятие о синхронизме в нелинейной оптике.\n13. Распространение сверхкоротких лазерных импульсов в оптических средах:\n-         линейной дисперсионной среде;\n-         усиливающей среде;\n-         нелинейной среде c керровской нелинейностью;\n-         через частотный фильтр.\n  Описание лазерных импульсов. Распространение волнового пакета в дисперсионной линейной среде с дисперсией вида: n=no+aw. Керровская нелинейность. Поведение волнового пакета в нелинейной среде . Прохождение волнового пакета через частотный фильтр.\n14. Характерные интенсивности лазерного поля. Методы формирования сверхкоротких импульсов, измерения параметров. Петаваттные лазерные комплексы.\n15. Волоконные лазеры. Активные волоконные среды. Концентрационное тушение. Брегговские волоконные зеркала. Нелинейные явления в волоконных лазерах.\n16. Адаптивная оптика. Датчики Шака-Гартмана. Нелинейные адаптивные оптические системы на эффекте рассеяния Мандельштама-Бриллюэна. 3-х и 4-х частотное взаимодействие.\n17. Оптическая гирометрия. Эффект Саньяка. Лазерные оптические гироскопы. Волоконно-оптические гироскопы. Эффекты невзаимности встречных волн. Понятие об «атом-чипе». Атомно-лучевая гирометрия. Волны де Бройля. \nЛитература\n\n1.     Л.Д.Ландау и Е.М.Лифщиц. Теоретическая физика 2, 3, 4, 5, 7 т.т.\n2.     Н.И.Калитеевский. Волновая оптика.\n3.     Дж.Макомбер. Динамика спектроскопических переходов.\n4.     Пантел и Путхоф. Основы квантовой электроники.\n5.     Н.В.Карлов. Лекции по квантовой электронике.\n6.     В.А.Астапенко и А.А.Фомичев. Когерентные процессы и интерференционные эффекты в лазерной физике.",
-			"file": "/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
-			"file_size": 22373,
-			"file_write_time": 130945412348663360,
-			"settings":
-			{
-				"buffer_size": 12170,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
-			"settings":
-			{
-				"buffer_size": 7565,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "bool candiesThrownGotChocolateBar=true, bool candyBoxBoxOpened=false, bool castleBigRoomHovenHappy=true, bool castleRoom2LitFire=true, bool castleRoom2TookObject=true, bool castleTowerFirstVisitDone=true, bool castleTowerPStoneDone=true, bool castleTowerLStoneDone=true, bool castleTowerAStoneDone=false, bool castleTowerYStoneDone=false, bool castleTowerTookTalkingCandy=false, bool castleKilledNougatMonster=true, bool cellarDone=true, bool dragonDone=true, bool dragonUnlockedCyclops=true, bool forgeFoundLollipop=true, bool forgeBoughtWoodenSword=true, bool forgeBoughtIronAxe=true, bool forgeBoughtPolishedSilverSword=true, bool forgeBoughtLightweightBodyArmour=true, bool forgeBoughtScythe=true, bool fortressRoom1ChestFound=false, bool fortressRoom3ChestFound=false, bool fourthHouseFoundLollipopOnCupboard=true, bool gameDebug=false, bool gameInvertedColors=false, bool lighthousePuzzleDone=false, bool lollipopFarmPlant1LollipopButtonUnlocked=true, bool lollipopFarmPlant10LollipopsButtonUnlocked=true, bool lollipopFarmPlant100LollipopsButtonUnlocked=true, bool lollipopFarmPlant1000LollipopsButtonUnlocked=true, bool lollipopFarmIsProductionEachSecond=true, bool lollipopFarmConstructMillButtonUnlocked=true, bool lollipopFarmMillConstructed=true, bool lollipopFarmDigPondButtonUnlocked=true, bool lollipopFarmPondDug=true, bool lollipopFarmPondFeedingLolligators=false, bool lonelyHouseOpenBoxDone=true, bool lonelyHouseShakeBoxDone=true, bool lonelyHouseBreakLockDone=true, bool lonelyHouseKickBoxDone=true, bool lonelyHouseAskTheBoxToOpenItselfDone=true, bool lonelyHouseLureTheBoxWithACandyDone=true, bool lonelyHouseTakeTheBoxDone=true, bool mainMapDoneDesert=true, bool mainMapDoneBridge=true, bool mainMapDoneCaveEntrance=true, bool mainMapDonePier=true, bool mainMapDoneForest=true, bool mainMapDoneCastleEntrance=true, bool questPlayerSpellHealthPotionHasSpell=true, bool questPlayerSpellTurtlePotionHasSpell=false, bool questPlayerSpellAntiGravityPotionHasSpell=true, bool questPlayerSpellBerserkPotionHasSpell=false, bool questPlayerSpellCloningPotionHasSpell=false, bool questPlayerSpellPPotionHasSpell=false, bool questPlayerSpellXPotionHasSpell=false, bool secondHouseLollipop1Bought=true, bool secondHouseLollipop2Bought=true, bool secondHouseLollipop3Bought=true, bool secondHouseLeatherBootsBought=false, bool secondHouseChocolateBarBought=true, bool secondHouseMerchantHatBought=true, bool secondHouseTimeRingBought=true, bool sorceressHutTookLollipop=false, bool sorceressHutBoughtGrimoire=true, bool sorceressHutBoughtGrimoire2=true, bool sorceressHutBoughtCauldron=true, bool sorceressHutBoughtHat=false, bool statusBarUnlocked=true, bool statusBarUnlockedCfg=true, bool statusBarUnlockedSave=true, bool statusBarUnlockedMap=true, bool statusBarUnlockedInventory=true, bool statusBarUnlockedLollipopFarm=true, bool statusBarUnlockedCauldron=true, bool statusBarUnlockedInsideYourBox=false, bool statusBarUnlockedTheComputer=false, bool statusBarUnlockedTheArena=false, bool statusBarUnlockedHealthBar=true, bool SuperRPGReward1=true, bool SuperRPGReward2=false, bool SuperRPGReward3=false, bool SuperRPGReward4=false, bool SuperRPGUnlockedHardmode=false, bool TheCavePattern_ChocolateBarNowGotTheBar=true, bool TheCavePattern_TreasureMapSawMap=true, bool TheCavePattern_TreasureMapFoundTreasure=false, bool theHoleFirstChestFound=true, bool theHoleSecondChestFound=true, bool theHoleThirdChestFound=true, bool theHoleFourthChestFound=true, bool wishingWellFirstCandyThrown=true, bool wishingWellFirstLollipopThrown=true, bool wishingWellWeAreEnchanting=false, bool wishingWellWeArePainAuChocolating=false, bool gridItemPossessedMainMap=true, bool gridItemPossessedTimeRing=true, bool gridItemPossessedThirdHouseKey=true, bool gridItemPossessedBeginnersGrimoire=true, bool gridItemPossessedFeather=true, bool gridItemPossessedPogoStick=true, bool gridItemPossessedHeartPlug=true, bool gridItemPossessedAdvancedGrimoire=true, bool gridItemPossessedSponge=true, bool gridItemPossessedShellPowder=true, bool gridItemPossessedRedSharkFin=true, bool gridItemPossessedBlackMagicGrimoire=true, bool gridItemPossessedGreenSharkFin=true, bool gridItemPossessedPurpleSharkFin=false, bool gridItemPossessedHeartPendant=true, bool gridItemPossessedFortressKey=true, bool gridItemPossessedUnicornHorn=false, bool gridItemPossessedXinopherydonClaw=false, bool gridItemPossessedPitchfork=true, bool gridItemPossessedTalkingCandy=false, bool gridItemPossessedP=true, bool gridItemPossessedL=true, bool gridItemPossessedA=false, bool gridItemPossessedY=false, bool eqItemWeaponWoodenSword=true, bool eqItemWeaponIronAxe=true, bool eqItemWeaponPolishedSilverSword=true, bool eqItemWeaponTrollBludgeon=true, bool eqItemWeaponMonkeyWizardStaff=true, bool eqItemWeaponEnchantedMonkeyWizardStaff=true, bool eqItemWeaponTribalSpear=false, bool eqItemWeaponSummoningTribalSpear=true, bool eqItemWeaponGiantSpoon=false, bool eqItemWeaponScythe=true, bool eqItemWeaponGiantSpoonOfDoom=false, bool eqItemHatOctopusKingCrown=true, bool eqItemHatOctopusKingCrownWithJaspers=true, bool eqItemHatOctopusKingCrownWithObsidian=true, bool eqItemHatMerchantHat=true, bool eqItemHatSorceressHat=false, bool eqItemBodyArmoursLightweightBodyArmour=true, bool eqItemBodyArmoursKnightBodyArmour=true, bool eqItemBodyArmoursEnchantedKnightBodyArmour=true, bool eqItemGlovesLeatherGloves=false, bool eqItemGlovesRedEnchantedGloves=true, bool eqItemGlovesPinkEnchantedGloves=true, bool eqItemBootsLeatherBoots=true, bool eqItemBootsRocketBoots=false, bool eqItemBootsBootsOfIntrospection=false, number aTreeStep=9, number cauldronBookCurrentPage=0, number fourthHouseCupboardStep=2, number fourthHouseCarpetStep=0, number galacticWarsBestScore=644, number gameSecondsElapsedSinceLastLollipopsProduction=0, number gameCandiesAccumulated=7194361, number gameCandiesCurrent=168199, number gameCandiesMax=5155017, number gameLollipopsAccumulated=27561079, number gameLollipopsCurrent=5820985, number gameLollipopsMax=11739485, number gameChocolateBarsAccumulated=10, number gameChocolateBarsCurrent=5, number gameChocolateBarsMax=6, number gamePainsAuChocolatAccumulated=3, number gamePainsAuChocolatCurrent=0, number gamePainsAuChocolatMax=2, number gameCandiesEatenAccumulated=925719, number gameCandiesEatenCurrent=925719, number gameCandiesEatenMax=925719, number gameCandiesThrownAccumulated=1630, number gameCandiesThrownCurrent=1630, number gameCandiesThrownMax=1630, number gameCandiesUsedToRequestFeaturesAccumulated=55, number gameCandiesUsedToRequestFeaturesCurrent=55, number gameCandiesUsedToRequestFeaturesMax=55, number gameCandiesInCauldronAccumulated=7005, number gameCandiesInCauldronCurrent=0, number gameCandiesInCauldronMax=2000, number gameLollipopsInCauldronAccumulated=1, number gameLollipopsInCauldronCurrent=0, number gameLollipopsInCauldronMax=1, number gameGiftPower=1, number gameGiftHealth=1, number gameGiftMagic=1, number lollipopFarmLollipopsPlanted=126781, number lollipopFarmTimeSinceLastProduction=0, number lollipopFarmProduction=4500, number lollipopFarmPondHowManyLolligators=20, number lollipopFarmPondConversionRate=251, number lollipopFarmPreviousCandiesProduction=21, number lollipopFarmCurrentCandiesProduction=34, number mainMapDefaultScroll=0, number playerHp=1759.2, number questPlayerSpellHealthPotionQuantity=1, number questPlayerSpellAntiGravityPotionQuantity=1, number questPlayerSpellTurtlePotionQuantity=0, number questPlayerSpellBerserkPotionQuantity=0, number questPlayerSpellCloningPotionQuantity=0, number questPlayerSpellPPotionQuantity=0, number questPlayerSpellXPotionQuantity=0, number statusBarCornerStep=0, number wishingWellPreviousCandyWishPrice=1552, number wishingWellCurrentCandyWishPrice=4240, number wishingWellCurrentLollipopWishPrice=100000000, number wishingWellHowManyChocolateBarsThrown=7, number wishingWellHowManyPainsAuChocolatThrown=3, string gameLanguage=ru, string gameWeaponSelected=eqItemWeaponScythe, string gameHatSelected=eqItemHatMerchantHat, string gameBodyArmourSelected=eqItemBodyArmoursEnchantedKnightBodyArmour, string gameGlovesSelected=eqItemGlovesPinkEnchantedGloves, string gameBootsSelected=eqItemBootsLeatherBoots, string gameGameMode=normal",
-			"settings":
-			{
-				"buffer_size": 8223,
-				"line_ending": "Windows",
-				"name": "bool candiesThrownGotChocolateBar=true, bool candy"
-			}
-		},
-		{
-			"contents": "Сервисы для проверки навыков тестирования на проникновение\n\n\nhttps://lab.pentestit.ru\n\nБесплатная пентест-лаборатория, разработанная на основе корпоративной сети реальной компании. \nСюжет: На этот раз вам, профессиональным хакерам, предстоит произвести взлом реальной сети виртуальной компании «SecureSoft LLC», занимающейся разработкой программного обеспечения. Ситуацию усложняет факт высокой осведомленности в области ИБ сотрудников компании. Согласно отчету наших агентов о состоянии информационной безопасности компании, ИТ-структура «SecureSoft LLC» достаточно хорошо защищена от атак. Однако, есть предположение, что уязвимые места все же имеются. Ваша цель — первыми обнаружить «Ахиллесову пяту» и получить доступ к системам «SecureSoft LLC». Содержит уязвимости веб-приложений, сетевые уязвимости и смешанных типов, онлайн-сервис.\n\nHack This Site\n\nhttps://www.hackthissite.org/\n\nБесплатный, безопасный и законный полигон для хакеров, чтобы проверить и расширить свои навыки взлома. Больше, чем просто еще один WarGames-сайт — множество разнообразных проектов, огромный форум, irc-канал. Миссии разбиты по типам: простые, реалистичные, атаки на приложения, форензика и т.д. Онлайн-сервис.\n\nHack Me\n\nhttps://hack.me\n\nБесплатный проект, созданный и регулируемый eLearnSecurity. Существует возможность разрабатывать и добавлять свои задания. Задания разбиты по конкретным уязвимостям, в основном для новичков. Онлайн-сервис.\n\nHacking Lab\n\nhttps://www.hacking-lab.com\n\nОнлайн платформа для изучения сетевой безопасности и повышения навыков этичного хакинга. Содержит задания, приближенные к CTF: форензика, криптография, реверс-инжиниринг. Необходимо скачать образ виртуальной машины и с помошью него подключаться по VPN к лаборатории. Решения, похоже, проверяются вручную.\n\nEnigma Group\n\nwww.enigmagroup.org/ \n\nСервис создан для тех, кто хочет понимать как устроен безопасный код, как хакеры могут атаковать ваши системы. Содержит уязвимости веб-приложений разного уровня, криптографические, логические, задачи на реверс-инжиниринг. Онлайн-сервис.\n\nbWAPP\n\nwww.itsecgames.com \n\nСпециализированное веб-приложение с открытым исходным кодом. Содержит порядка 100 уязвимостей, классифицированных по методологии OWASP. Одна из самых лучших сборок, must have. Содержится в с специализированной виртуальной машине — bee-box.\n\nDamn Vulnerable Web Application\n\nwww.dvwa.co.uk/ \n\nПо словам разработчиков — это веб-приложение чертовски уязвимо. Специалистам по безопасности оно поможет проверить свои навыки в легальной среде, а веб-разработчикам лучше понять процессы защиты своих приложений. Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nMutillidae\n\nwww.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10 \n\nБесплатная opensource-платформа для тестирования безопасности веб-приложений. Проверена большинством популярных утилит — sqlmap, burp suite и т.д. Наряду с bWAPP — одна из самых известных платформ. Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nSQLI LABS\n\nhttps://github.com/Audi-1/sqli-labs\n\nПлатформа для тестирования навыков работы с sql-injections. 65 заданий, от простых до сложных (обход WAF, mysql_real_escape_string). Приложение дается в виде PHP/MySQL инстанса для самостоятельного развертывания.\n\nWebGoat Project\n\nwebgoat.github.io/ \n\nНазвание проекта авторы связывают с синдромом обморочных коз: в чрезвычайных ситуациях коза впадает в полный ступор и падает на спину или набок с вытянутыми ногами. Это присуще породе коз со странным генетическим заболеванием. Также и уязвимый код в приложениях может положить его набок в обморочном состоянии. Основной упор сделан именно на образовательную сторону вопроса, а не создание уязвимой платформы для опытов. WebGoat — кроссплатформенный инструмент, его можно запустить в любой ОС, в которой будут работать Apache Tomcat и Java SDK.\n\nGame of hacks\n\nwww.gameofhacks.com/ \n\nТест, с различными уровнями сложностями для оценки уровня ваших знаний в уязвимом коде. Дается кусок исходного кода, в котором за определенный промежуток времени вы должны определить и выбрать уязвимость. Онлайн сервис для новичков.\n\nDamn Vulnerable iOS Application\n\ndamnvulnerableiosapp.com/ \n\nПроект для проверки своих знаний в области безопасности iOS приложений. Была представлена на PHD V виде hands-on лаборатории. Позволяет эксплуатировать различные виды уязвимостей iOS приложений: Insecure Data Storage, Runtime Manipulation, Security Decisions via Untrusted input и т.д. Содержится в виде IPA или DEB, уязвимости проверены до iOS 8.1 версии.\n\nExploitMe Mobile Android Labs\n\nsecuritycompass.github.io/AndroidLabs/index.html \n\nOpensource-проект для демонстрации эксплуатации уязвимостей платформы Android: File system access permissions, Insecure storage of files, Parameter manipulation of mobile traffic и т.д. Необходим эмулятор, база и лаб-сервер.\n\nДанные дистрибутивы помогут вам расширить свои навыки этичного хакера, понять природу уязвимостей и лучше изучить инструментарий. Happy hack!-http://habrahabr.ru/company/pentestit/blog/261569/\n\nПрохождение части заданий из тестовой лаборатории PentestIT, участниками Античата :wink: -http://forum.antichat.ru/threads/428978/ (есть видео по настройке Kali linux и подключении к лаборатории), а также описаны и показано прохождение задания.. :hi:\n\nНебольшая полезная статья о стендах для тестирования и краткий обзор по Metasploitable2-http://www.securitylab.ru/analytics/474650.php...\n\nеще один курс, который тоже может оказаться полезен для \"общего развития\" - https://stepic.org/course/Анализ-безопасности-веб-проектов-127/syllabus?section=1\n\n",
-			"settings":
-			{
-				"buffer_size": 5640,
-				"line_ending": "Windows",
-				"name": "Сервисы для проверки навыков тестирования на прони"
-			}
-		},
-		{
-			"file": "/E/Дела/Информационная безопасность/Планы.txt",
-			"settings":
-			{
-				"buffer_size": 1558,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Packages/User/CBuilder6.sublime-build",
 	"command_palette":
@@ -616,6 +571,30 @@
 	],
 	"file_history":
 	[
+		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/рус/Белый конус Алаида.txt",
+		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/рус/1.pl",
+		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/eng/1.pl",
+		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/1.pl",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MobilityTestSpectrum.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrum.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrumDerivative.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrumLogDerivative.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilitySpectrumDerivative.txt",
+		"/E/Дела/Для души и тела/Катя.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SettingsSaver.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveSettings.ini",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/settings.xml",
+		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/MCT/Optim1.pas",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/multizoneFit.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/multizoneFit.h",
+		"/E/Дела/Информационная безопасность/Материалы/Новый текстовый документ.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/settings.txt",
+		"/E/Дела/Информационная безопасность/Планы.txt",
+		"/E/Дела/Информационная безопасность/Сервисы для проверки навыков тестирования на прони.txt",
+		"/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
+		"/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
 		"/G/Downloads/2_Rabochaya_programma_distsipliny2.htm",
 		"/G/Downloads/2_Rabochaya_programma_distsipliny.htm",
 		"/G/Downloads/secretfile.rar",
@@ -626,12 +605,10 @@
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.h",
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.cpp",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.1.hs",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
-		"/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2DirSampleN070605T77I401FiltDataAllP.txt",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2ComSampleN070605T77I400AvDataAllP.txt",
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/3ComSampleN070605T77I400FiltDataAllP.txt",
@@ -721,29 +698,7 @@
 		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1DirSampleN031202T77I500CurrDataAllP.txt",
 		"/E/Дела/Информационная безопасность/CtfPractise.txt",
 		"/E/Дела/Информационная безопасность/флаги от Касперского",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К/1bDescription.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К_обр ток/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К_обрток2/3Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/28oct/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/ФП89К_1йканал_12nov/1Description.txt",
-		"/E/Дела/Информационная безопасность/Иб лекции.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл90/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл77/1Description.txt",
-		"/C/Users/Jonathan/Desktop/скачанные файлы.gif",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/050701/T77_hall_13oct/tenzor2/nofilt.2.hs",
-		"/I/l17.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/nofiltSampleN031202T90I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/nofilt2.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/nofiltSampleN031202T90I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Обработка результатов/031202/холл90/Новая папка/tenzor/nofilt2.3.hmr",
-		"/E/Дела/Информационная безопасность/Материалы/Новый текстовый документ.txt",
-		"/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
-		"/E/Дела/Информационная безопасность/название команды - Team Information Offensive (TIO",
-		"/E/Дела/Информационная безопасность/haxtor",
-		"/E/Дела/Информационная безопасность/l11.pl",
-		"/E/Дела/Информационная безопасность/Планы.txt"
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К/1bDescription.txt"
 	],
 	"find":
 	{
@@ -762,6 +717,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"calculate",
+			"node",
+			"get",
+			"mu",
+			"calculateMobilitySpectrum",
+			"FloatToStr",
+			"FloatToStrEx",
+			"while",
+			"do",
+			"until",
+			"hook",
+			"mobility",
+			"settings",
+			"btnFeatMultiClick",
+			"RunMultizoneFeat",
+			"подвижно",
+			"calculateMobilitySpectrum",
 			"  ",
 			" .",
 			"\\([1-9]\\)",
@@ -872,24 +844,7 @@
 			"GetEqualNumberOfPoints",
 			"filterData",
 			"featData",
-			"average",
-			"getPointer",
-			"Ахтунг",
-			"average",
-			"averageDa",
-			"featD",
-			"sigh",
-			";",
-			"average",
-			"calculateTenzor",
-			"Quick",
-			"start",
-			"<rect ng-attr-style=\"$$data.style$$\"",
-			"Merge",
-			"merge",
-			"<rect ng-show=\"merge\" ng-attr-style=\"$$data.bgStyle$$\" ng-repeat=\"data in dataset\" ng-attr-width=\"$$width()$$\" ng-attr-height=\"$$height(data.bgVal)$$\" ng-attr-x=\"$$x($index)$$\" ng-attr-y=\"$$y(data.bgVal)$$\" class=\"ng-scope ng-hide\" style=\"display:none\" width=\"20\" height=\"0\" x=\"20\" y=\"200\">    </rect>",
-			"<button",
-			"<script"
+			"average"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -955,149 +910,8 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12170,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								622,
-								609
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7565,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 528.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8223,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								8223
-							]
-						],
-						"settings":
-						{
-							"auto_name": "bool candiesThrownGotChocolateBar=true, bool candy",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 132.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5640,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1222,
-								1207
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Сервисы для проверки навыков тестирования на прони",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/E/Дела/Информационная безопасность/Планы.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1558,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1558,
-								1558
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 528.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

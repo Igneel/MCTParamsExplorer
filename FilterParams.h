@@ -13,6 +13,8 @@ public:
 	FilterParams(String samplingFrequecy,String bandwidthFrequency,String attenuationFrequency, String length);
 	void setFilterParams(MyDataType samplingFrequecy,MyDataType bandwidthFrequency,MyDataType attenuationFrequency, int length);
 
+	String getFilterParams();
+
 	MyDataType SamplingFrequecy;
 	MyDataType BandwidthFrequency;
 	MyDataType AttenuationFrequency;

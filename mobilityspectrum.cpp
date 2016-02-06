@@ -1052,14 +1052,8 @@ mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx
 
     TLineSeries Gxx, Gxy;
     TLineSeries ExpXX, ExpXY;
-    //Data_spektr MagneticFieldP, Exx, Exy;
-
 
     NumberOfPoints = MaxPoints-1;
-
-    /*MagneticFieldP.resize(MaxPoints);
-    Exx.resize(MaxPoints);
-    Exy.resize(MaxPoints);*/
 
     MagField_spektr.resize(MaxPoints);
     GxxExp.resize(MaxPoints);
@@ -1099,6 +1093,216 @@ mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx
         GxyExp[i]=Exy[i];
     }
     //MakeInterpolate(Gxx,Gxy,ExpXX,ExpXY);
-    MakeMNK(true,Gxx,Gxy,ExpXX,ExpXY);    
+    MakeMNK(true,Gxx,Gxy,ExpXX,ExpXY);
     MobilitySpectrumFunc(electronMobilitySpectrum,holeMobilitySpectrum);
+
+    for (int i = 0; i < electronMobilitySpectrum.size(); ++i)
+    {
+      resultElectronConductivity.push_back(electronMobilitySpectrum.operator [](i).second);
+      resultHoleConductivity.push_back(holeMobilitySpectrum.operator [](i).second);
+      resultMobility.push_back(electronMobilitySpectrum.operator [](i).first);
+    }
+
+    size_t index = searchSignificantPeak(resultElectronConductivity, 0, resultMobility[1]-resultMobility[0]); // электроны
+      if(index!=resultMobility.size())
+      {
+          extremumElectronIndex.push_back(index);
+      }
+
+      index = searchSignificantPeak(resultHoleConductivity, 0, resultMobility[1]-resultMobility[0]); // тяжелые дырки
+      if(index!=resultMobility.size())
+      {
+          extremumHoleIndex.push_back(index);
+      }
+
+      index = searchSignificantPeak(resultHoleConductivity, index+4, resultMobility[1]-resultMobility[0]); // легкие дырки
+      if(index!=resultMobility.size())
+      {
+          extremumHoleIndex.push_back(index);
+      }
+      else
+      {
+        if (extremumHoleIndex.size()!=0)
+        {
+        index = searchSignalSlowdown(resultHoleConductivity, extremumHoleIndex.back()+40, resultMobility[1]-resultMobility[0]); // легкие дырки
+        if(index!=resultMobility.size())
+        {
+          extremumHoleIndex.push_back(index);
+        }
+        }
+      }
+
+      if (extremumElectronIndex.size()==0)
+      {
+        extremumElectronIndex.push_back(0);
+      }
+      if(extremumHoleIndex.size()==0)
+      {
+        extremumHoleIndex.push_back(0);
+        extremumHoleIndex.push_back(0);
+      }
+      if(extremumHoleIndex.size()==1)
+      {
+        extremumHoleIndex.push_back(0);
+      }
+}
+//-----------------------------------------------------------------------
+
+long double mobilitySpectrum::calcConcentrationFromGp(long double G_p, long double Mu)
+{
+    long double electronCharge=1.60217656535E-19;// Кл
+    return G_p/(Mu*electronCharge);
+}
+
+void mobilitySpectrum::getExtremums(TSignal & holeConcentration, TSignal & holeMobility, TSignal & electronConcentration, TSignal & electronMobility)
+{
+  for (int i = 0; i < extremumHoleIndex.size(); ++i)
+  {
+    holeConcentration.push_back(calcConcentrationFromGp(resultHoleConductivity[extremumHoleIndex[i]],resultMobility[extremumHoleIndex[i]]));
+    holeMobility.push_back(resultMobility[extremumHoleIndex[i]]);
+  }
+  for (int i = 0; i < extremumElectronIndex.size(); ++i)
+  {
+    electronConcentration.push_back(calcConcentrationFromGp(resultElectronConductivity[extremumElectronIndex[i]],resultMobility[extremumElectronIndex[i]]));
+    electronMobility.push_back(resultMobility[extremumElectronIndex[i]]);
+  }
+}
+
+size_t mobilitySpectrum::searchSignalSlowdown(TSignal &y, size_t startPosition, long double h)
+{
+  size_t size=y.size();
+    /*
+    Функция должна реагировать на замедление изменения сигнала.
+    Т.е. на малозаметный пик.
+    */
+    if(startPosition>=size)
+        return size;
+
+      size_t dsize=size-2;
+      size_t d2size=dsize-2;
+      // Посчитаем производную методом конечных разностей
+      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
+
+      // формула df/dx=(f(x+h)-f(x-h))/2/h;
+      std::vector<long double> dY(size);
+
+      for(int i =0;i<dsize;i++)
+      {
+        dY[i]=(y[i+2]-y[i])/2.0/h;
+      }
+
+      std::vector<long double> d2Y(size);
+
+      for(int i =0;i<d2size;i++)
+      {
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+      }
+
+      for (int i = startPosition; i < dsize-1; ++i)
+        {
+            /*
+            Поиск такой:
+            1. ищем участок на котором первая производная отрицательная.
+            */
+            while (i<dsize-1 && (dY[i]>0)) ++i;
+
+            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]<0)) ++i; // первая производная отрицательная и уменьшается
+
+            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]>0)) ++i; // первая производная отрицательная и увеличивается
+
+            --i;
+            // Теперь проверим остальные условия - вторая производная должна изменить знак.
+            // Вероятно стоит расширить диапазон поиска до +-10 значений
+            if (i+10<dsize-1 && i-10>=0 && (d2Y[i-10]>0 && d2Y[i+10]<0) )
+            {
+                return i;
+            }
+            if( i<startPosition)
+            {
+            return size;
+            }
+        }
+        return size;
+
+}
+
+size_t mobilitySpectrum::searchSignificantPeak(TSignal &y, size_t startPosition, long double h)
+{
+  size_t size=y.size();
+    if(startPosition>=size)
+        return size;
+
+      size_t dsize=size-2;
+      size_t d2size=dsize-2;
+      // Посчитаем производную методом конечных разностей
+      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
+
+      // формула df/dx=(f(x+h)-f(x-h))/2/h;
+
+      std::vector<long double> dY(size);
+
+      for(int i =0;i<dsize;i++)
+      {
+        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+        dY[i]=(y[i+2]-y[i])/2.0/h;
+      }
+
+      std::vector<long double> d2Y(size);
+
+      for(int i =0;i<d2size;i++)
+      {
+        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+        // формула f(x-h)-2f(x)+f(x+h)/h^2
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
+      }
+
+      /*
+        Поиск пиков. Считаем производные первого и второго порядков.
+        Самые ярко выраженные пики должны иметь такие признаки:
+        1. Первая производная сначала растет и положительна.
+        2. После пика - убывает и отрицательна 
+
+        3. Вторая производная до пика - положительна.
+        4. После пика - отрицательна.
+        5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
+      */
+
+        for (int i = startPosition; i < dsize-1; ++i)
+        {
+            /*
+            Поиск такой:
+            1. ищем участок на котором первая производная положительна и растет.
+            */
+            while (i<dsize-1 && (dY[i]<0)) ++i;
+            // ищем точку, с которой рост первой производной прекращается
+            while (i<dsize-1 && (dY[i]>0)) ++i;
+
+            --i;
+            // Теперь проверим остальные условия - вторая производная отрицательна
+            // Вероятно стоит расширить диапазон поиска до +-10 значений
+            if (d2Y[i]<0 )
+            {
+                return i;
+            }
+        }
+        return size;
+}
+
+
+void mobilitySpectrum::getExtremumHoleIndex(std::vector<size_t> &v)
+{
+  v=extremumHoleIndex;
+}
+void mobilitySpectrum::getExtremumElectronIndex(std::vector<size_t> &v)
+{
+  v=extremumElectronIndex;
+}
+
+void mobilitySpectrum::getResults(TSignal & mobility, TSignal & HoleConductivity, TSignal & ElectronConductivity)
+{
+  mobility=resultMobility;
+  HoleConductivity=resultHoleConductivity;
+  ElectronConductivity=resultElectronConductivity;
 }

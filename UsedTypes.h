@@ -34,7 +34,7 @@ typedef std::set<std::pair<std::string, TSignal> >DataSet;
 typedef std::vector< std::pair<int, int> > channelsInfo;
 typedef std::vector< std::pair<std::string, std::string> > optionDescription;
 
-enum DataKind {CURRENT_DATA=0, FILTERED_DATA=1, EXTRAPOLATED_DATA=2, AVERAGED_DATA=3};
+enum DataKind {CURRENT_DATA=0, FILTERED_DATA=1, EXTRAPOLATED_DATA=2, AVERAGED_DATA=3, TENZOR_DATA=4, MOBILITY_DATA=5, FIT_DATA=6};
 
 enum SignalType {MAGNETIC_FIELD=0, HALL_EFFECT=1, MAGNETORESISTANCE=2, PHOTOCONDUCTIVITY_FARADEY=3, PHOTOCONDICTIVITY_FOYGHT=4,MAGNETIC_FIELD_F=5, SXX=6,SXY=7};
 //enum PlotType {MAGNETIC_FIELD, HALL_EFFECT, MAGNETORESISTANCE,MAGNETIC_FIELD_F, SXX,SXY};

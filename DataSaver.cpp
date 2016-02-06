@@ -80,20 +80,29 @@ SaveType saveType,AnsiString FileName)
 {
 
 	AnsiString NewFileName;
-	NewFileName=FileName+"SampleN"+SampleInventoryNumber+"T"+Temperature+"I"+Current;
+	NewFileName=FileName+"SN"+SampleInventoryNumber+"T"+Temperature+"I"+Current;
 	switch(dataKind)
 	{
 	    case CURRENT_DATA:
-	        NewFileName+="CurrData";
+	        NewFileName+="CurrD";
 	        break;
 	    case FILTERED_DATA:
-	        NewFileName+="FiltData";
+	        NewFileName+="FiltD";
 	        break;
 	    case EXTRAPOLATED_DATA:
-	        NewFileName+="ExtrData";
+	        NewFileName+="ExtrD";
 	        break;
 	    case AVERAGED_DATA:
-	    	NewFileName+="AvData";
+	    	NewFileName+="AvD";
+	    	break;
+	    case TENZOR_DATA:
+	    	NewFileName+="TenzorD";
+	    	break;
+	    case MOBILITY_DATA:
+	    	NewFileName+="MobSpecD";
+	    	break;
+	    case FIT_DATA:
+	    	NewFileName+="FitD";
 	    	break;
 	}
 

@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 795
-  Top = 262
-  Width = 995
-  Height = 743
+  Left = 532
+  Top = 254
+  Width = 963
+  Height = 722
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MinHeight = 630
@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = DensAndMobDetermination
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 5
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -288,7 +288,7 @@ object Form1: TForm1
         Height = 21
         TabOrder = 2
         Text = '4196'
-        OnKeyPress = Edit1KeyPress
+        OnKeyPress = eMedianFilterSizeKeyPress
       end
       object uiFrenq: TEdit
         Left = 408
@@ -309,24 +309,6 @@ object Form1: TForm1
         TabOrder = 4
         OnClick = bClearClick
       end
-      object bTest: TButton
-        Left = 496
-        Top = 216
-        Width = 75
-        Height = 25
-        Caption = #1053#1077' '#1085#1072#1078#1080#1084#1072#1090#1100'!'
-        TabOrder = 5
-        OnClick = bTestClick
-      end
-      object Button10: TButton
-        Left = 496
-        Top = 248
-        Width = 75
-        Height = 25
-        Caption = 'Button10'
-        TabOrder = 6
-        OnClick = Button10Click
-      end
       object CheckBox1: TCheckBox
         Left = 272
         Top = 336
@@ -335,7 +317,7 @@ object Form1: TForm1
         Caption = #1052#1077#1076#1080#1072#1085#1085#1099#1081' '#1092#1080#1083#1100#1090#1088
         Checked = True
         State = cbChecked
-        TabOrder = 7
+        TabOrder = 5
       end
       object bApplyADCSettings: TButton
         Left = 408
@@ -343,7 +325,7 @@ object Form1: TForm1
         Width = 163
         Height = 25
         Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1080' '#1040#1062#1055
-        TabOrder = 8
+        TabOrder = 6
         OnClick = bApplyADCSettingsClick
       end
       object ComboBox1: TComboBox
@@ -353,7 +335,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 9
+        TabOrder = 7
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -368,7 +350,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 10
+        TabOrder = 8
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -383,7 +365,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 2
-        TabOrder = 11
+        TabOrder = 9
         Text = '0,625'#1042
         Items.Strings = (
           '10'#1042
@@ -398,7 +380,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 0
-        TabOrder = 12
+        TabOrder = 10
         Text = '1'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -426,7 +408,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 3
-        TabOrder = 13
+        TabOrder = 11
         Text = '4'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -454,7 +436,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 6
-        TabOrder = 14
+        TabOrder = 12
         Text = '7'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -475,20 +457,6 @@ object Form1: TForm1
           '15'
           '16')
       end
-      object StringGrid1: TStringGrid
-        Left = 256
-        Top = 360
-        Width = 377
-        Height = 120
-        ColCount = 3
-        RowCount = 4
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
-        TabOrder = 15
-        ColWidths = (
-          110
-          123
-          121)
-      end
       object eMedianFilterSize: TLabeledEdit
         Left = 408
         Top = 293
@@ -499,9 +467,10 @@ object Form1: TForm1
         EditLabel.Caption = #1044#1083#1080#1085#1072' '#1084#1077#1076#1080#1072#1085#1085#1086#1075#1086' '#1092#1080#1083#1100#1090#1088#1072':'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 16
+        TabOrder = 13
         Text = '32'
         OnChange = uiFrenqChange
+        OnKeyPress = eMedianFilterSizeKeyPress
       end
       object uiSamplingFreq: TLabeledEdit
         Left = 408
@@ -513,7 +482,9 @@ object Form1: TForm1
         EditLabel.Caption = #1063#1072#1089#1090#1086#1090#1072' '#1076#1080#1089#1082#1088#1077#1090#1080#1079#1072#1094#1080#1080'('#1082#1043#1094'):'
         LabelPosition = lpAbove
         LabelSpacing = 3
-        TabOrder = 17
+        ReadOnly = True
+        TabOrder = 14
+        OnKeyPress = Edit1KeyPress
       end
       object ComboBox7: TComboBox
         Left = 408
@@ -522,7 +493,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 9
-        TabOrder = 18
+        TabOrder = 15
         Text = '10'
         OnChange = ComboBox5Change
         Items.Strings = (
@@ -550,7 +521,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         ItemIndex = 1
-        TabOrder = 19
+        TabOrder = 16
         Text = '2,5'#1042
         Items.Strings = (
           '10'#1042
@@ -690,7 +661,7 @@ object Form1: TForm1
       end
       object Interval1: TEdit
         Left = 8
-        Top = 432
+        Top = 412
         Width = 49
         Height = 21
         TabOrder = 5
@@ -699,7 +670,7 @@ object Form1: TForm1
       end
       object Interval2: TEdit
         Left = 64
-        Top = 432
+        Top = 412
         Width = 49
         Height = 21
         TabOrder = 6
@@ -708,7 +679,7 @@ object Form1: TForm1
       end
       object ImpulsKiller: TButton
         Left = 8
-        Top = 456
+        Top = 436
         Width = 105
         Height = 25
         Caption = #1059#1073#1088#1072#1090#1100' '#1074#1089#1087#1083#1077#1089#1082
@@ -718,7 +689,7 @@ object Form1: TForm1
       end
       object Button13: TButton
         Left = 120
-        Top = 456
+        Top = 436
         Width = 75
         Height = 25
         Caption = #1054#1094#1077#1085#1080#1090#1100' '#1096#1091#1084
@@ -761,8 +732,8 @@ object Form1: TForm1
         OnKeyPress = Edit1KeyPress
       end
       object bResShiftCurve: TButton
-        Left = 224
-        Top = 448
+        Left = 408
+        Top = 424
         Width = 121
         Height = 25
         Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
@@ -792,6 +763,7 @@ object Form1: TForm1
         ItemIndex = 0
         TabOrder = 14
         Text = '-2'
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '-2'
           '-1'
@@ -808,6 +780,7 @@ object Form1: TForm1
         ItemIndex = 2
         TabOrder = 15
         Text = '0'
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '-2'
           '-1'
@@ -1081,8 +1054,8 @@ object Form1: TForm1
         TabOrder = 7
       end
       object bShiftHallCurve: TButton
-        Left = 120
-        Top = 456
+        Left = 304
+        Top = 432
         Width = 121
         Height = 25
         Caption = #1057#1076#1074#1080#1085#1091#1090#1100' '#1075#1088#1072#1092#1080#1082
@@ -1098,6 +1071,7 @@ object Form1: TForm1
         ItemIndex = 0
         TabOrder = 9
         Text = '-2'
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '-2'
           '-1'
@@ -1114,6 +1088,7 @@ object Form1: TForm1
         ItemIndex = 2
         TabOrder = 10
         Text = '0'
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '-2'
           '-1'
@@ -1355,6 +1330,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         TabOrder = 2
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '30'
           '10'
@@ -1580,6 +1556,7 @@ object Form1: TForm1
         Height = 21
         ItemHeight = 13
         TabOrder = 1
+        OnKeyPress = Edit1KeyPress
         Items.Strings = (
           '30'
           '10'
@@ -1686,8 +1663,8 @@ object Form1: TForm1
       object Chart4: TChart
         Left = 0
         Top = 0
-        Width = 305
-        Height = 241
+        Width = 265
+        Height = 209
         BackWall.Brush.Color = clWhite
         BackWall.Brush.Style = bsClear
         Title.Text.Strings = (
@@ -1827,8 +1804,8 @@ object Form1: TForm1
       end
       object MobSpecResults: TStringGrid
         Left = 0
-        Top = 243
-        Width = 313
+        Top = 210
+        Width = 265
         Height = 94
         ColCount = 3
         DefaultColWidth = 100
@@ -1836,10 +1813,14 @@ object Form1: TForm1
         RowCount = 4
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
         TabOrder = 3
+        ColWidths = (
+          100
+          80
+          75)
       end
       object btnMobilitySpectrum: TButton
-        Left = 0
-        Top = 352
+        Left = 4
+        Top = 314
         Width = 75
         Height = 25
         Caption = #1057#1087#1077#1082#1090#1088
@@ -1857,7 +1838,7 @@ object Form1: TForm1
       end
       object LabeledEdit1: TLabeledEdit
         Left = 96
-        Top = 360
+        Top = 319
         Width = 49
         Height = 21
         EditLabel.Width = 45
@@ -1870,7 +1851,7 @@ object Form1: TForm1
       end
       object LabeledEdit2: TLabeledEdit
         Left = 144
-        Top = 360
+        Top = 319
         Width = 57
         Height = 21
         EditLabel.Width = 45
@@ -1891,12 +1872,11 @@ object Form1: TForm1
       end
       object FitResults: TStringGrid
         Left = 0
-        Top = 384
+        Top = 353
         Width = 465
-        Height = 81
+        Height = 114
         ColCount = 7
         DefaultRowHeight = 20
-        RowCount = 3
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs]
         TabOrder = 9
       end
@@ -1917,8 +1897,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 666
-    Width = 979
+    Top = 645
+    Width = 947
     Height = 19
     Panels = <
       item
@@ -1935,16 +1915,16 @@ object Form1: TForm1
     SimplePanel = False
   end
   object uiCalculateTenzor: TButton
-    Left = 664
+    Left = 656
     Top = 176
-    Width = 97
+    Width = 95
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1090#1077#1085#1079#1086#1088#1072
     TabOrder = 2
     OnClick = uiCalculateTenzorClick
   end
   object GroupBox1: TGroupBox
-    Left = 664
+    Left = 656
     Top = 8
     Width = 225
     Height = 153
@@ -2043,11 +2023,11 @@ object Form1: TForm1
     end
   end
   object Button1: TButton
-    Left = 664
+    Left = 656
     Top = 216
     Width = 225
     Height = 25
-    Caption = 'S'
+    Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1089#1087#1077#1082#1090#1088' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
     TabOrder = 4
     OnClick = Button1Click
   end
@@ -2058,10 +2038,10 @@ object Form1: TForm1
     Height = 25
     Caption = #1056#1072#1089#1095#1077#1090' '#1089#1087#1077#1082#1090#1088#1072
     TabOrder = 5
-    OnClick = bMobilitySpectrumClick
+    OnClick = btnMobilitySpectrumClick
   end
   object Chart2: TChart
-    Left = 664
+    Left = 656
     Top = 248
     Width = 137
     Height = 137
@@ -2090,7 +2070,7 @@ object Form1: TForm1
     end
   end
   object Chart3: TChart
-    Left = 808
+    Left = 797
     Top = 248
     Width = 144
     Height = 137
@@ -2119,7 +2099,7 @@ object Form1: TForm1
     end
   end
   object ErrorLog: TMemo
-    Left = 672
+    Left = 656
     Top = 400
     Width = 273
     Height = 113
@@ -2128,27 +2108,27 @@ object Form1: TForm1
     ScrollBars = ssVertical
     TabOrder = 8
   end
-  object Button3: TButton
-    Left = 792
-    Top = 528
-    Width = 75
-    Height = 25
-    Caption = 'Button3'
-    TabOrder = 9
-    OnClick = Button3Click
-  end
   object Button4: TButton
     Left = 816
     Top = 568
     Width = 75
     Height = 25
-    Caption = 'Button4'
-    TabOrder = 10
+    Caption = #1058#1077#1089#1090#1099
+    TabOrder = 9
     OnClick = Button4Click
   end
+  object Button3: TButton
+    Left = 688
+    Top = 520
+    Width = 161
+    Height = 25
+    Caption = #1040#1074#1090#1086#1084#1072#1090#1080#1095#1077#1089#1082#1072#1103' '#1086#1073#1088#1072#1073#1086#1090#1082#1072
+    TabOrder = 10
+    OnClick = Button3Click
+  end
   object MainMenu1: TMainMenu
-    Left = 936
-    Top = 576
+    Left = 896
+    Top = 512
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
       object N4: TMenuItem
@@ -2202,6 +2182,33 @@ object Form1: TForm1
         OnClick = N19Click
       end
     end
+    object N20: TMenuItem
+      Caption = #1056#1072#1089#1095#1077#1090#1099
+      object N23: TMenuItem
+        Caption = #1060#1080#1083#1100#1090#1088#1072#1094#1080#1103
+        OnClick = bFilterResClick
+      end
+      object N21: TMenuItem
+        Caption = #1058#1077#1085#1079#1086#1088' '#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080
+        OnClick = N21Click
+      end
+      object N22: TMenuItem
+        Caption = #1057#1087#1077#1082#1090#1088' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
+        OnClick = btnMobilitySpectrumClick
+      end
+      object N24: TMenuItem
+        Caption = #1052#1085#1086#1075#1086#1079#1086#1085#1085#1072#1103' '#1087#1086#1076#1075#1086#1085#1082#1072
+        OnClick = btnMultiCarrierFitClick
+      end
+      object N25: TMenuItem
+        Caption = #1042#1089#1105' '#1082#1088#1086#1084#1077' '#1087#1086#1076#1075#1086#1085#1082#1080
+        OnClick = N25Click
+      end
+      object N26: TMenuItem
+        Caption = #1042#1086#1086#1073#1097#1077' '#1074#1089#1105
+        OnClick = N26Click
+      end
+    end
     object N2: TMenuItem
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
       Enabled = False
@@ -2216,16 +2223,16 @@ object Form1: TForm1
     end
   end
   object SaveDialog1: TSaveDialog
-    Left = 936
-    Top = 584
+    Left = 864
+    Top = 512
   end
   object OpenDialog1: TOpenDialog
-    Left = 936
-    Top = 592
+    Left = 896
+    Top = 616
   end
   object PopupMenu1: TPopupMenu
-    Left = 952
-    Top = 608
+    Left = 864
+    Top = 616
     object N14: TMenuItem
       Caption = #1043#1088#1072#1092#1080#1082#1080
       object N15: TMenuItem
@@ -2245,6 +2252,7 @@ object Form1: TForm1
     Active = True
     FileName = 'settings.xml'
     Options = [doNodeAutoCreate, doAttrNull, doAutoPrefix, doNamespaceDecl, doAutoSave]
+    BeforeOpen = XMLsettingsBeforeOpen
     Left = 808
     Top = 608
     DOMVendorDesc = 'Open XML'

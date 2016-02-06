@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <vector>
+#include "UsedTypes.h"
 
 using namespace std;
 
@@ -42,11 +43,14 @@ private:
 
     TLineSeries electronMobilitySpectrum, holeMobilitySpectrum;
 
+    TSignal resultElectronConductivity;
+    TSignal resultHoleConductivity;
+    TSignal resultMobility;
+
+    std::vector<size_t> extremumHoleIndex;
+    std::vector<size_t> extremumElectronIndex;
+
     int  MaxPoints;
-
-public:
-
-    size_t getResultSize();
 
     void  InitArray();
     void  InitArray2();
@@ -83,6 +87,12 @@ public:
     void  MakeMatrA();
     void  InverseMatrC(Dat2 & Ci,Dat2 & C,long double & Su,const int NP);
     long double S_s(const long double Mi);
+
+public:
+
+    size_t getResultSize();
+
+    
     void  MobilitySpectrumFunc(TLineSeries &LineSeries1, TLineSeries &Series5);
 
     long double getResultEY(const int i);
@@ -95,6 +105,16 @@ public:
 
     mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx,
                      Data_spektr &Exy,const int size);
+
+    void getExtremums(TSignal & holeConcentration, TSignal & holeMobility, TSignal & electronConcentration, TSignal & electronMobility);
+    void getExtremumHoleIndex(std::vector<size_t> &v);
+    void getExtremumElectronIndex(std::vector<size_t> &v);
+    void getResults(TSignal & mobility, TSignal & HoleConductivity, TSignal & ElectronConductivity);
+
+    long double calcConcentrationFromGp(long double G_p, long double Mu);
+    size_t searchSignalSlowdown(TSignal & y, size_t startPosition, long double h);
+    size_t searchSignificantPeak(TSignal & y, size_t startPosition, long double h);
+
 };
 
 #endif // MOBILITYSPECTRUM_H

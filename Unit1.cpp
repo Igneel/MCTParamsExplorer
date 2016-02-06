@@ -197,6 +197,12 @@ void __fastcall TForm1::FormCreate(TObject *)
                 ResCurveIndex->ItemIndex = StrToInt(node3->GetText());
             }
 
+            node3=node2->ChildNodes->FindNode("uiDataKind");
+            if(node3)
+            {
+                uiDataKind->ItemIndex=StrToInt(node3->GetText());
+            }
+
             
         }
         node2=node->ChildNodes->FindNode("HallEffect");
@@ -248,13 +254,15 @@ void __fastcall TForm1::FormCreate(TObject *)
     MobSpecResults->Cells[2][0]="Подвижность";
 
     FitResults->Cells[1][0]="Mu e";
-    FitResults->Cells[2][0]="N e";
-    FitResults->Cells[3][0]="Mu lh";
-    FitResults->Cells[4][0]="P lh";
-    FitResults->Cells[5][0]="Mu hh";
+    FitResults->Cells[4][0]="N e";
+    FitResults->Cells[2][0]="Mu lh";
+    FitResults->Cells[5][0]="P lh";
+    FitResults->Cells[3][0]="Mu hh";
     FitResults->Cells[6][0]="P hh";
     FitResults->Cells[0][1]="Минимальные значения";
     FitResults->Cells[0][2]="Средние значения";
+    FitResults->Cells[0][3]="СКО";
+    FitResults->Cells[0][4]="СКО, %%";
     
 
     cI.clear();
@@ -283,6 +291,8 @@ void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
 //----много кода, выключает/включает графические элементы, во время работы АЦП-
 //---------------------------------------
 void __fastcall TForm1::uiControlClick(TObject *Sender)
+{
+if(adc)
 {
     if (!adc->isWritingEnabled())
     {
@@ -379,6 +389,7 @@ void __fastcall TForm1::uiControlClick(TObject *Sender)
         StatusBar->Panels->Items[1]->Text="Готова к работе.";        
       }
 }
+}
 
 //---------------------------------------------------------------------------
 
@@ -439,28 +450,30 @@ void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
 
 //-------------------Открытие файла------------------------------------------
 
-void __fastcall TForm1::N4Click(TObject *Sender)
-{ 
-    if(OpenDialog1->Execute())  // если мы что-то выбрали
-    {
+void __fastcall TForm1::openFileWithSignal(AnsiString filename)
+{
         TStringList *tts=new TStringList();  // сюда будем загружать из файла
-        tts->LoadFromFile(OpenDialog1->Files->Strings[0]);// загрузили
-
+        tts->LoadFromFile(filename);// загрузили
 
         MagneticFieldDependence * p=InitParams();
-
         if (p)
         {
             TStringList *Names=new TStringList();
             TStringList *Values=new TStringList();
 
             p->loadSampleDescription(Names,Values,OpenDialog1->Files->Strings[0]);
-
             UpdateSampleDescription(Names,Values);
-            
             p->loadData(tts);
             UpdatePlots();
         }
+        delete tts;
+}
+
+void __fastcall TForm1::N4Click(TObject *Sender)
+{ 
+    if(OpenDialog1->Execute())  // если мы что-то выбрали
+    {
+        openFileWithSignal(OpenDialog1->Files->Strings[0]);
     }
 
 }
@@ -753,6 +766,12 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
             {
                 node3->SetText(IntToStr(ResCurveIndex->ItemIndex));
             }
+
+            node3=node2->ChildNodes->FindNode("uiDataKind");
+            if(node3)
+            {
+                node3->SetText(IntToStr(uiDataKind->ItemIndex));
+            }
         }
 
         node2=node->ChildNodes->FindNode("HallEffect");
@@ -902,18 +921,6 @@ void Gist(std::vector<long double> & in)
 
 }
 //------------------------------------------------------------------------------
-void __fastcall TForm1::Button10Click(TObject *Sender)
-{
-std::vector<long double> y;
-
-for(int i=0;i<400;i++)
-{
-y.push_back(rand()%100);
-}
-
-Gist(y);
-}
-//------------------------------------------------------------------------------
 // Сохранить всё.
 void __fastcall TForm1::N11Click(TObject *Sender)
 {
@@ -923,7 +930,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение всех данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"Com",true);
+            params->SaveAllData(SaveDialog1->FileName+"Com");
             paramsDirect->SaveAllData(SaveDialog1->FileName+"Dir");
             paramsReverse->SaveAllData(SaveDialog1->FileName+"Rev");
         }
@@ -936,7 +943,7 @@ void __fastcall TForm1::N11Click(TObject *Sender)
         SaveDialog1->Title="Сохранение объединенных данных:";
         if(SaveDialog1->Execute())
         {
-            params->SaveAllData(SaveDialog1->FileName+"Com",true);
+            params->SaveAllData(SaveDialog1->FileName+"Com");
         }
     }
 
@@ -1097,15 +1104,13 @@ void __fastcall TForm1::CurrentResChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
-void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
+void __fastcall TForm1::calculateTenzor()
 {
     MagneticFieldDependence ** par=ActiveParams();
     MagneticFieldDependence * p;
     if (*par==NULL)
     {
-        ShowMessage("Вероятно выбран не тот график.");   
+        ErrorLog->Lines->Add("Вероятно выбран не тот график.");   
         return; 
     }
     else
@@ -1119,9 +1124,23 @@ void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
         p->constructPlotFromTwoMassive(SXX,AVERAGED_DATA,Series6,clRed);
         p->constructPlotFromTwoMassive(SXY,AVERAGED_DATA,LineSeries1,clRed);
 
-        ErrorLog->Lines->Add(p->getSxx()->size());
-        ErrorLog->Lines->Add(p->getSxy()->size());
         UpdatePlots();
+    }
+}
+
+void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
+{
+    MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ErrorLog->Lines->Add("Вероятно выбран не тот график.");   
+        return; 
+    }
+    else
+    {
+        calculateTenzor();    
+        
         DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
         uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
         if(SaveDialog1->Execute())
@@ -1300,9 +1319,77 @@ int findMaximum(std::vector<long double> & diffY,int start)
     return i_max;
 }
 
+size_t searchSignalSlowdown(long double * y, size_t size, size_t startPosition, long double h)
+{
+    /*
+    Функция должна реагировать на замедление изменения сигнала.
+    Т.е. на малозаметный пик.
+    */
+    if(startPosition>=size)
+        return size;
+
+      size_t dsize=size-2;
+      size_t d2size=dsize-2;
+      // Посчитаем производную методом конечных разностей
+      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
+
+      // формула df/dx=(f(x+h)-f(x-h))/2/h;
+      std::vector<long double> dY(size);
+
+      for(int i =0;i<dsize;i++)
+      {
+        dY[i]=(y[i+2]-y[i])/2.0/h;
+      }
+
+      std::vector<long double> d2Y(size);
+
+      for(int i =0;i<d2size;i++)
+      {
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+      }
+
+      TStringList *tsl = new TStringList;
 
 
-size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition)
+      for(int i =0;i<d2size;i++)
+      {
+      tsl->Add(FloatToStr(dY[i])+"\t"+FloatToStr(d2Y[i]));      
+      }                          
+
+      tsl->SaveToFile("mobilitySpectrumLogDerivative.txt");
+
+      delete tsl;
+
+      for (int i = startPosition; i < dsize-1; ++i)
+        {
+            /*
+            Поиск такой:
+            1. ищем участок на котором первая производная отрицательная.
+            */
+            while (i<dsize-1 && (dY[i]>0)) ++i;
+
+            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]<0)) ++i; // первая производная отрицательная и уменьшается
+
+            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]>0)) ++i; // первая производная отрицательная и увеличивается
+
+            --i;
+            // Теперь проверим остальные условия - вторая производная должна изменить знак.
+            // Вероятно стоит расширить диапазон поиска до +-10 значений
+            if (i+10<dsize-1 && i-10>=0 && (d2Y[i-10]>0 && d2Y[i+10]<0) )
+            {
+                return i;
+            }
+            if( i<startPosition)
+            {
+            return size;
+            }
+        }
+        return size;
+
+}
+
+size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition, long double h)
 {
     if(startPosition>=size)
         return size;
@@ -1312,25 +1399,42 @@ size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition)
       // Посчитаем производную методом конечных разностей
       // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
 
+      // формула df/dx=(f(x+h)-f(x-h))/2/h;
+
       std::vector<long double> dY(size);
 
       for(int i =0;i<dsize;i++)
       {
-        dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+        dY[i]=(y[i+2]-y[i])/2.0/h;
       }
 
       std::vector<long double> d2Y(size);
 
       for(int i =0;i<d2size;i++)
       {
-        d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+        // формула f(x-h)-2f(x)+f(x+h)/h^2
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
       }
+
+      TStringList *tsl = new TStringList;
+
+
+      for(int i =0;i<d2size;i++)
+      {
+      tsl->Add(FloatToStr(dY[i])+"\t"+FloatToStr(d2Y[i]));      
+      }                          
+
+      tsl->SaveToFile("mobilitySpectrumDerivative.txt");
 
       /*
         Поиск пиков. Считаем производные первого и второго порядков.
         Самые ярко выраженные пики должны иметь такие признаки:
         1. Первая производная сначала растет и положительна.
-        2. После пика - убывает и отрицательна (хотя вроде должна постепенно приближаться к нулю, а не убывать)
+        2. После пика - убывает и отрицательна 
+
         3. Вторая производная до пика - положительна.
         4. После пика - отрицательна.
         5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
@@ -1342,14 +1446,14 @@ size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition)
             Поиск такой:
             1. ищем участок на котором первая производная положительна и растет.
             */
-            while (i<dsize-1 && (dY[i]<0 || dY[i]-dY[i+1]>0)) ++i;
+            while (i<dsize-1 && (dY[i]<0)) ++i;
             // ищем точку, с которой рост первой производной прекращается
             while (i<dsize-1 && (dY[i]>0)) ++i;
 
             --i;
-            // Теперь проверим остальные условия - вторая производная должна изменить знак.
+            // Теперь проверим остальные условия - вторая производная отрицательна
             // Вероятно стоит расширить диапазон поиска до +-10 значений
-            if (i+3<dsize-1 && i-3>=0 && (d2Y[i-3]>0 || d2Y[i-2]>0 || d2Y[i-1]>0 || d2Y[i]>0) && (d2Y[i+3]<0 || d2Y[i+2]<0 || d2Y[i+1]<0) )
+            if (d2Y[i]<0 )
             {
                 return i;
             }
@@ -1370,6 +1474,13 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
       Form1->ErrorLog->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
         return;
       }
+
+    Form1->MobSpecResults->Cells[1][3]="";
+    Form1->MobSpecResults->Cells[2][3]="";
+    Form1->MobSpecResults->Cells[1][1]="";
+    Form1->MobSpecResults->Cells[2][1]="";
+    Form1->MobSpecResults->Cells[1][2]="";
+    Form1->MobSpecResults->Cells[2][2]="";
 
       mobilitySpectrum c(B,sxx,sxy,B.size());
 
@@ -1404,32 +1515,42 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 
       tsl->SaveToFile("mobilitySpectrum.txt");
 
-      std::vector<long double> diffeY;
+      /*std::vector<long double> diffeY;
       for (int i = 1; i < size; ++i)
       {
           diffeY.push_back(fabs((eY[i]-eY[i-1])));
           Form1->Series4->AddXY(ex[i-1],diffeY[i-1],"",clGreen);
-      }
+      }*/
 
-      size_t index = searchSignificantPeak(eY,size,0); // электроны
+      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны
       if(index!=size)
       {
           Form1->MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
           Form1->MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
       }
 
-      index = searchSignificantPeak(hY,size,0); // тяжелые дырки
+      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
       if(index!=size)
       {
           Form1->MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
           Form1->MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
       }
 
-      index = searchSignificantPeak(hY, size, index+4); // легкие дырки
+      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
       if(index!=size)
       {
           Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
           Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
+      }
+      else
+      {
+        index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
+        index = searchSignalSlowdown(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
+        if(index!=size)
+      {
+          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
+          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
+      }
       }
 
     delete [] ex;
@@ -1501,21 +1622,21 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
 
      
 
-      size_t index = searchSignificantPeak(eY,size,0); // электроны
+      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны
       if(index!=size)
       {
           MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
           MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
       }
 
-      index = searchSignificantPeak(hY,size,0); // тяжелые дырки
+      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
       if(index!=size)
       {
           MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
           MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
       }
 
-      index = searchSignificantPeak(hY, size, index+4); // легкие дырки
+      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
       if(index!=size)
       {
           MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
@@ -1541,36 +1662,6 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::bMobilitySpectrumClick(TObject *Sender)
-{
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-
-        TSignal B(p->getAveragedB()->begin(),p->getAveragedB()->end());
-        TSignal sxx(p->getSxx()->begin(),p->getSxx()->end());
-        TSignal sxy(p->getSxy()->begin(),p->getSxy()->end());
-
-
-
-        TSignal nB;
-        TSignal nSxx;
-        TSignal nSxy;
-
-        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
-        thiningSignal(B, sxy, nB, nSxy,0, 2, 11);
-
-        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
-    }
-}
-//---------------------------------------------------------------------------
 
 void addPeak(TChartSeries *Sender,int ValueIndex)
 {
@@ -1686,28 +1777,6 @@ UpdatePlots();
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::bTestClick(TObject *Sender)
-{
-size_t size=24000;
-std::vector<long double> in;
-std::vector<long double> out;
-for(unsigned int i=0;i<size;++i)
-{
-in.push_back(rand());
-}
-medianFilter(in,out,11);
-ErrorLog->Lines->Add("Number for in"+IntToStr(in.size()));
-ErrorLog->Lines->Add("Number for out"+IntToStr(out.size()));
-for(unsigned int i=0;i<in.size();++i)
-{
-Series1->AddY(in[i]);
-}
-for(unsigned int i=0;i<out.size();++i)
-{
-Series2->AddY(out[i]);
-}
-}
-//---------------------------------------------------------------------------
 
 
 void __fastcall TForm1::uiFrenqChange(TObject *Sender)
@@ -1716,8 +1785,49 @@ uiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFil
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button3Click(TObject *Sender)
+
+void __fastcall TForm1::N19Click(TObject *Sender)
 {
+Form4->Visible=true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button4Click(TObject *Sender)
+{
+if(!testExtrapolateUnit()) ShowMessage("Не пройден тест по экстраполяции");
+if(!testCommonFunctions()) ShowMessage("Не пройден тест по общим функциям");
+TSignal inX;
+TSignal inY;
+inX.push_back(0);
+inY.push_back(1.92);
+	for (int i = 0; i < 3; ++i)
+	{
+		inX.push_back(inX.back()+0.02);
+        inY.push_back(inX.back()*inX.back());
+	}
+TSignal newX;
+newX.push_back(0);
+	for (int i = 0; i < 151; ++i)
+	{
+		newX.push_back(newX.back()+0.02);
+	}
+
+TSignal outY;
+
+LagrangeExtrapolation(inX,inY,newX,outY);
+
+for (int i=0;i<inX.size();++i)
+{
+SeriesRes1->AddXY(inX[i],inY[i],"",clRed);
+}
+
+for (int i=0;i<newX.size();++i)
+{
+if(fabs(outY[i])<1000)
+SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
+}
+
+/*
     typedef int __stdcall (*pointerToRunMultizoneFeat)
     (long double VesGxx,
     long double VesGxy,
@@ -1834,50 +1944,7 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
         ShowMessage("Хендл равен нулю о_О");
     }
 
-
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N19Click(TObject *Sender)
-{
-Form4->Visible=true;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button4Click(TObject *Sender)
-{
-if(!testExtrapolateUnit()) ShowMessage("Не пройден тест по экстраполяции");
-if(!testCommonFunctions()) ShowMessage("Не пройден тест по общим функциям");
-TSignal inX;
-TSignal inY;
-inX.push_back(0);
-inY.push_back(1.92);
-	for (int i = 0; i < 3; ++i)
-	{
-		inX.push_back(inX.back()+0.02);
-        inY.push_back(inX.back()*inX.back());
-	}
-TSignal newX;
-newX.push_back(0);
-	for (int i = 0; i < 151; ++i)
-	{
-		newX.push_back(newX.back()+0.02);
-	}
-
-TSignal outY;
-
-LagrangeExtrapolation(inX,inY,newX,outY);
-
-for (int i=0;i<inX.size();++i)
-{
-SeriesRes1->AddXY(inX[i],inY[i],"",clRed);
-}
-
-for (int i=0;i<newX.size();++i)
-{
-if(fabs(outY[i])<1000)
-SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
-}
+   */
 }
 //---------------------------------------------------------------------------
 
@@ -1898,6 +1965,8 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
     {
         p=*par;
 
+        StatusBar->Panels->Items[1]->Text="Идёт подгонка данных";
+
     long double VesGxx=StrToFloat(LabeledEdit1->Text);
     long double VesGxy=StrToFloat(LabeledEdit2->Text);
 
@@ -1906,14 +1975,26 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
     // Далее - концентрации в том же порядке.
     std::vector<long double> ExactBound; // сюда нужны пики из спектра
 
-    ExactBound.push_back(-StrToFloat(MobSpecResults->Cells[2][3])); // Подвижность электронов
-    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[2][2])); // Подвижность легких дырок
-    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[2][1])); // Подвижность тяжелых дырок
+    ExactBound.push_back(-p->getElectronMobility()->operator[](0)); // Подвижность электронов
+    ExactBound.push_back(p->getHoleMobility()->operator[](1)); // Подвижность легких дырок
+    ExactBound.push_back(p->getHoleMobility()->operator[](0)); // Подвижность тяжелых дырок
 
-    ExactBound.push_back(-StrToFloat(MobSpecResults->Cells[1][3])); // Концентрация электронов
-    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[1][2])); // Концентрация легких дырок
-    ExactBound.push_back(StrToFloat(MobSpecResults->Cells[1][1])); // Концентрация тяжелых дырок
+    ExactBound.push_back(-p->getElectronConcentration()->operator[](0)); // Концентрация электронов
+    ExactBound.push_back(p->getHoleConcentration()->operator[](1)); // Концентрация легких дырок
+    ExactBound.push_back(p->getHoleConcentration()->operator[](0)); // Концентрация тяжелых дырок
 
+
+    /* Необходимо проверить все ли границы установлены корректно.
+    Если подвижность пика равна минимальной исследуемой подвижности - пик не был найден.
+    В этом случае необходимо задать границы поиска исходя из другой априорной информации.*/
+    long double leftBoundMobility=0.01;
+
+    if (ExactBound[0]==leftBoundMobility ||
+        ExactBound[1]==leftBoundMobility ||
+        ExactBound[2]==leftBoundMobility)
+    {
+        /* code */
+    }
 
     // Нужно выяснить отчего зависит разброс.
     // Полагаю это какие-то коэффициенты
@@ -1986,9 +2067,49 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
         ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i],"",clBlue);
     }
 
-    FitResults->Cells[2][1]="Year!";
+    // Результаты идут в формате:
+    // По первому индексу:
+    // Подвижность электронов, подвижность легких дырок, подвижность тяжелых дырок
+    // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок
+    // По второму индексу: минимальные, средние, СКО, СКО %
+
+
+        // min
+        for(int i=0;i<2*numberOfCarrierTypes;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);
+            else
+          FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("middle");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("SKO");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("SKOPers");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);
+        }
+
 
     }
+     StatusBar->Panels->Items[1]->Text="Готова к работе.";
 }
 //---------------------------------------------------------------------------
 
@@ -2005,22 +2126,98 @@ void __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)
     else
     {
         p=*par;
+        p->calculateMobilitySpectrum();
 
-        TSignal B(p->getAveragedB()->begin(),p->getAveragedB()->end());
-        TSignal sxx(p->getSxx()->begin(),p->getSxx()->end());
-        TSignal sxy(p->getSxy()->begin(),p->getSxy()->end());
+        TSignal ex(p->getMobility()->begin(),p->getMobility()->end());
+        TSignal eY(p->getElectronConductivity()->begin(),p->getElectronConductivity()->end());
+        TSignal hx(p->getMobility()->begin(),p->getMobility()->end());
+        TSignal hY(p->getHoleConductivity()->begin(),p->getHoleConductivity()->end());
 
+        Form1->MobSpecResults->Cells[1][3]=FloatToStrF(p->getElectronConcentration()->operator[](0),ffExponent,5,2);
+        Form1->MobSpecResults->Cells[2][3]=FloatToStrF(p->getElectronMobility()->operator[](0),ffFixed,5,5);
+        Form1->MobSpecResults->Cells[1][1]=FloatToStrF(p->getHoleConcentration()->operator[](0),ffExponent,5,2);
+        Form1->MobSpecResults->Cells[2][1]=FloatToStrF(p->getHoleMobility()->operator[](0),ffFixed,5,5);
+        Form1->MobSpecResults->Cells[1][2]=FloatToStrF(p->getHoleConcentration()->operator[](1),ffExponent,5,2);
+        Form1->MobSpecResults->Cells[2][2]=FloatToStrF(p->getHoleMobility()->operator[](1),ffFixed,5,5);
+      
+        Form1->ChspElecComponent->Clear();
+        Form1->ChSpHoleComponent->Clear();
+        Form1->Series4->Clear();
 
-
-        TSignal nB;
-        TSignal nSxx;
-        TSignal nSxy;
-
-        thiningSignal(B, sxx, nB, nSxx,0, 2, 11);
-        thiningSignal(B, sxy, nB, nSxy,0, 2, 11);
-
-        calculateMobilitySpectrum(nB,nSxx,nSxy,nB.size());
+      for(int i =0;i<ex.size();++i)
+      {
+      Form1->ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
+      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],"",clRed);
+      }
     } 
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TForm1::N25Click(TObject *Sender)
+{
+bFilterRes->Click();
+calculateTenzor();
+btnMobilitySpectrum->Click();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N26Click(TObject *Sender)
+{
+N25->Click();
+btnMultiCarrierFit->Click();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::eMedianFilterSizeKeyPress(TObject *Sender,
+      char &Key)
+{
+    if(((int)Key<48 || (int)Key>57) && Key!=8)
+        Key=0;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::XMLsettingsBeforeOpen(TObject *Sender)
+{
+ AnsiString FilePath=ExtractFilePath(Application->ExeName);
+ XMLsettings->FileName=FilePath+"settings.xml";   
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button3Click(TObject *Sender)
+{
+/*
+Функция должна обеспечивать:
+1. Открытие файла.
+2. Фильтрацию, расчет тензоров, спектра и подгонки.
+3. Сохранение всех результатов.
+*/
+
+// открыть один файл и запустить обработку только для него.
+// открыть папку и обработать все файлы в ней - в целом вариант.
+
+// предусмотреть объединение сигналов
+// пока предполагаем что сигнал уже объединен - ведь на модели испытывать будем.
+
+for (int j = 0; j < 1; ++j) // По всем именам файлов
+{
+    //openFileWithSignal(filename);
+    for (int i = 0; i < 1; ++i) // Это будет страшный цикл по разным параметрам фильтрации
+    { // Но для начала буду менять только частоту среза
+        N26->Click(); // Выполняет Фильтрацию, расчет тензоров, спектра и подгонки.
+        N11->Click(); // Сохранить всё
+    }
+
+
+}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N21Click(TObject *Sender)
+{
+calculateTenzor();    
 }
 //---------------------------------------------------------------------------
 

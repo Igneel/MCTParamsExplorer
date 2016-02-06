@@ -1,4 +1,7 @@
 #include "MagneticFieldDependence.h"
+#include "multizoneFit.h"
+#include "mobilityspectrum.h"
+
 extern LCardADC *adc;
 
 
@@ -137,27 +140,45 @@ void MagneticFieldDependence::loadData(TStringList * tts)
     //testHall= new THallEffect(Hall.begin(),Hall.end());
 }
 
-void MagneticFieldDependence::SaveAllData(AnsiString FileName,bool isCombinedParams)
+void MagneticFieldDependence::SaveAllData(AnsiString FileName)
 {
 // ахтунг, это страшный костыль -
 // там где эта функция вызывается задаются имена файлов
 // Com Dir и Rev
 // по ним я и определяю тип сигнала.!!!!
 ParamsType pt;
+bool isCombinedParams=false;
 
-if(FileName[FileName.Length()]=='m')  pt=COMBINE;
+if(FileName[FileName.Length()]=='m')
+    {
+        pt=COMBINE;
+        isCombinedParams=true;
+    }
 if(FileName[FileName.Length()]=='v')  pt=REVERSE;
 if(FileName[FileName.Length()]=='r')  pt=DIRECT;
 
-saver->setParamsType(pt);
+    saver->setParamsType(pt);
     saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
     saver->SaveData(CURRENT_DATA,&B,&HallEffect,&MagnetoResistance,ALL_POINTS,FileName);
 
-    saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
-    saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,ALL_POINTS,FileName);
-
-    saver->SaveData(EXTRAPOLATED_DATA,&ExtrapolatedB,&ExtrapolatedHallEffect,&ExtrapolatedMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    if(FilteredB.size()!=0)
+    {
+        saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+        saver->SaveData(FILTERED_DATA,&FilteredB,&FilteredHallEffect,&FilteredMagnetoResistance,ALL_POINTS,FileName);
+    }
+    //saver->SaveData(EXTRAPOLATED_DATA,&ExtrapolatedB,&ExtrapolatedHallEffect,&ExtrapolatedMagnetoResistance,(isCombinedParams?POINTS_21:POINTS_11),FileName);
+    if(ExtrapolatedB.size()!=0)
     saver->SaveData(EXTRAPOLATED_DATA,&ExtrapolatedB,&ExtrapolatedHallEffect,&ExtrapolatedMagnetoResistance,ALL_POINTS,FileName);
+
+    if(sxx.size()!=0)
+    {
+        saver->SaveData(TENZOR_DATA,&AveragedB,&sxx,&sxy,(isCombinedParams?POINTS_21:POINTS_11),
+            FileName+"Res"+ filterParamsResistance->getFilterParams()+ "Hall"+ filterParamsHall->getFilterParams());
+        saver->SaveData(TENZOR_DATA,&AveragedB,&sxx,&sxy,ALL_POINTS,
+            FileName+"Res"+ filterParamsResistance->getFilterParams()+ "Hall"+ filterParamsHall->getFilterParams());
+
+        saver->SaveData(MOBILITY_DATA,&mobility,&holeConductivity,&electronConductivity,ALL_POINTS,FileName);
+    }
 
     if (pt==COMBINE)
     {
@@ -1218,7 +1239,41 @@ TSignal const * MagneticFieldDependence::getS_eff()
     return &s_eff;
 }
 //----------------------------------------------------------------------------------
-
+TSignal const * MagneticFieldDependence::getMobility()
+{
+    return &mobility;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getHoleConductivity()
+{
+    return &holeConductivity;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getElectronConductivity()
+{
+    return &electronConductivity;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getHoleConcentration()
+{
+    return &holeConcentration;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getHoleMobility()
+{
+    return &holeMobility;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getElectronConcentration()
+{
+    return &electronConcentration;
+}
+//----------------------------------------------------------------------------------
+TSignal const * MagneticFieldDependence::getElectronMobility()
+{
+    return &electronMobility;
+}
+//----------------------------------------------------------------------------------
 
 void MagneticFieldDependence::calculateEffectiveParamsFromSignals()
 {
@@ -1464,4 +1519,26 @@ void MagneticFieldDependence::setExtrapolateParams(int powPolinowHall,int powPol
 {
     PowPolinomRes=powPolinowHall;
     PowPolinomHall=powPolinomRes;
+}
+
+
+// Спектр подвижности
+bool MagneticFieldDependence::calculateMobilitySpectrum()
+{
+    TSignal nB;
+    TSignal nSxx;
+    TSignal nSxy;
+
+    thiningSignal(AveragedB, sxx, nB, nSxx,0, 2, 11);
+    thiningSignal(AveragedB, sxy, nB, nSxy,0, 2, 11);
+
+    mobilitySpectrum c(nB,nSxx,nSxy,nB.size());
+    c.getResults(mobility, holeConductivity, electronConductivity);
+    c.getExtremums(holeConcentration, holeMobility, electronConcentration, electronMobility);
+
+}
+// Многозонная подгонка
+bool MagneticFieldDependence::runMultiCarrierFit()
+{
+;
 }

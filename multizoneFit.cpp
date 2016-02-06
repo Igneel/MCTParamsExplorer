@@ -160,7 +160,7 @@ void MultiZoneFit::Research(long double VesGxx, long double VesGxy)
        Params_Old[k]=Data[k];
      ++k;
 }
- while (k>N_Data);        // делает шаг по всем параметрам, запоминает
+ while (!(k>N_Data));        // делает шаг по всем параметрам, запоминает
                         // лучшие за шаг
  Data=Params_Old; // переписываем лучшие в Data
 } //{of void}
@@ -252,7 +252,7 @@ void MultiZoneFit::Hook(long double VesGxx, long double VesGxy)
             FlagEnd=true;
           }
 
-} while (FlagEnd);
+} while (!FlagEnd);
 }
 
 ////////////////////////////////////////////////////////////////////////////
