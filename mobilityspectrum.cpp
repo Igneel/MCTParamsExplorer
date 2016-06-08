@@ -1,4 +1,6 @@
 #include "mobilityspectrum.h"
+#include <float.h>
+#include "commonFunctions.h"
 
 using namespace std;
 
@@ -750,13 +752,13 @@ void  mobilitySpectrum::MakeMatrA()
            Am[i][j]=Am[i][j]+Gxx_sp[k]*Cr_t[k][(i+j) >> 1];
  }
 
-
+//if su=0 then det(C)=0
 void  mobilitySpectrum::InverseMatrC(Dat2 & Ci,Dat2 & C,long double & Su,const int NP)
 {
     Dat3 at;
     long double sr;
 
-    SetLength(at,2*MaxPoints+1,2*MaxPoints+1);
+    SetLength(at,2*MaxPoints+1,2*MaxPoints+1); // SetLength(at,MaxPoints+1,2*MaxPoints+1);
     for (int i= 1 ; i<= NP; ++i )
         for (int j = 1 ; j<= NP; ++j )
             at[i][j]=Ci[i][j];
@@ -767,10 +769,11 @@ void  mobilitySpectrum::InverseMatrC(Dat2 & Ci,Dat2 & C,long double & Su,const i
             at[i][j]=0;
         at[i][i+NP]=1; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
+    int j;
     for (int k = 1 ;k <= NP; ++k )
     {
         Su = at[k][k];
-        int j = k;
+        j = k;
         for (int i= k+1 ; i<= NP; ++i)
         {
             sr = at[i][k];
@@ -905,7 +908,13 @@ void  mobilitySpectrum::MobilitySpectrumFunc(TLineSeries& LineSeries1, TLineSeri
     // интересно что это за числа ниже?
     // параметр 6e-4913 в tred2 не используется О_о
     Tred2(NumberOfPoints,Lv,Xv,Am,Qm,bulua);
-    Imtql2(NumberOfPoints,5.42e-80,Lv,Xv,Qm,bulua); // 5.42e-20
+
+    Imtql2(NumberOfPoints,LDBL_EPSILON,Lv,Xv,Qm,bulua); // 5.42e-20 // 5.42e-80 // LDBL_EPSILON == 1e-19
+
+    eigenValues=Lv;
+    eigenVectors=Qm;
+    // В Lv сохраняется собственные значения матрицы
+    // В Qm - собственные вектора матрицы.
     LineSeries1.clear();
     Series5.clear();
    Lmin = MSLeft;
@@ -1030,7 +1039,7 @@ size_t mobilitySpectrum::getResultSize()
 
 mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx, Data_spektr &Exy, int size)
 {
-    PointPerInt=50*50;
+    PointPerInt=50*50; // 50*50
     MaxPoints = size;
     if ( MaxPoints>1000 )
     MaxPoints = 11;
@@ -1063,7 +1072,7 @@ mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx
     // Ну т.е. их степени, типа 10^-2 и 10^1
     // И кстати, надо сделать функцию для их изменения.
     // Либо передавать их при вызове функции по расчету спектра.
-    MSLeft=-2;
+    MSLeft=-3;
     MSRight = 1;
 
     B_spektr.resize(MaxPoints+1);
@@ -1103,10 +1112,40 @@ mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx
       resultMobility.push_back(electronMobilitySpectrum.operator [](i).first);
     }
 
+    if(resultMobility.size()!=0)
+    {
+
+      
+
     size_t index = searchSignificantPeak(resultElectronConductivity, 0, resultMobility[1]-resultMobility[0]); // электроны
       if(index!=resultMobility.size())
       {
+        size_t index2 = searchSignificantPeak(resultElectronConductivity, index+40, resultMobility[1]-resultMobility[0]); // электроны
+        if (index2!=resultMobility.size())
+        {
+          extremumElectronIndex.push_back(index2);
+        }
+        else
+        {
           extremumElectronIndex.push_back(index);
+        }
+      }
+      else
+      {
+        index = searchSignalSlowdown(resultElectronConductivity, 0, resultMobility[1]-resultMobility[0]); // электроны
+        if(index!=resultMobility.size())
+        {
+          // Этот пик может быть зеркальным. Пока просто смотрим есть ли пик дальше - если есть, то ставим его.
+          size_t index2 = searchSignalSlowdown(resultElectronConductivity, index+40, resultMobility[1]-resultMobility[0]); // электроны
+          if(index2!=resultMobility.size())
+          {
+            extremumElectronIndex.push_back(index2);
+          }
+          else
+          {
+          extremumElectronIndex.push_back(index);
+          }
+        }
       }
 
       index = searchSignificantPeak(resultHoleConductivity, 0, resultMobility[1]-resultMobility[0]); // тяжелые дырки
@@ -1145,6 +1184,9 @@ mobilitySpectrum::mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx
       {
         extremumHoleIndex.push_back(0);
       }
+
+      
+      }
 }
 //-----------------------------------------------------------------------
 
@@ -1156,6 +1198,11 @@ long double mobilitySpectrum::calcConcentrationFromGp(long double G_p, long doub
 
 void mobilitySpectrum::getExtremums(TSignal & holeConcentration, TSignal & holeMobility, TSignal & electronConcentration, TSignal & electronMobility)
 {
+  holeConcentration.clear();
+  holeMobility.clear();
+  electronConcentration.clear();
+  electronMobility.clear();
+
   for (int i = 0; i < extremumHoleIndex.size(); ++i)
   {
     holeConcentration.push_back(calcConcentrationFromGp(resultHoleConductivity[extremumHoleIndex[i]],resultMobility[extremumHoleIndex[i]]));
@@ -1229,65 +1276,268 @@ size_t mobilitySpectrum::searchSignalSlowdown(TSignal &y, size_t startPosition, 
 
 size_t mobilitySpectrum::searchSignificantPeak(TSignal &y, size_t startPosition, long double h)
 {
-  size_t size=y.size();
+    size_t size=y.size();
     if(startPosition>=size)
         return size;
 
-      size_t dsize=size-2;
-      size_t d2size=dsize-2;
-      // Посчитаем производную методом конечных разностей
-      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
+    size_t dsize=size-2;
+    size_t d2size=dsize-2;
 
-      // формула df/dx=(f(x+h)-f(x-h))/2/h;
+    std::vector<long double> dY=calculateFirstDerivative(y,h);
 
-      std::vector<long double> dY(size);
+    std::vector<long double> d2Y=calculateSecondDerivative(y,h);
 
-      for(int i =0;i<dsize;i++)
-      {
-        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
-        dY[i]=(y[i+2]-y[i])/2.0/h;
-      }
+    /*
+      Поиск пиков. Считаем производные первого и второго порядков.
+      Самые ярко выраженные пики должны иметь такие признаки:
+      1. Первая производная сначала растет и положительна.
+      2. После пика - убывает и отрицательна 
 
-      std::vector<long double> d2Y(size);
+      3. Вторая производная до пика - положительна.
+      4. После пика - отрицательна.
+      5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
+    */
 
-      for(int i =0;i<d2size;i++)
-      {
-        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
-        // формула f(x-h)-2f(x)+f(x+h)/h^2
-        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
-        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
-      }
+    for (int i = startPosition; i < dsize-1; ++i)
+    {
+        /*
+        Поиск такой:
+        1. ищем участок на котором первая производная положительна и растет.
+        */
+        while (i<dsize-1 && (dY[i]<0)) ++i;
+        // ищем точку, с которой рост первой производной прекращается
+        while (i<dsize-1 && (dY[i]>0)) ++i;
 
-      /*
-        Поиск пиков. Считаем производные первого и второго порядков.
-        Самые ярко выраженные пики должны иметь такие признаки:
-        1. Первая производная сначала растет и положительна.
-        2. После пика - убывает и отрицательна 
-
-        3. Вторая производная до пика - положительна.
-        4. После пика - отрицательна.
-        5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
-      */
-
-        for (int i = startPosition; i < dsize-1; ++i)
+        --i;
+        // Теперь проверим остальные условия - вторая производная отрицательна
+        // Вероятно стоит расширить диапазон поиска до +-10 значений
+        if (d2Y[i]<0 )
         {
-            /*
-            Поиск такой:
-            1. ищем участок на котором первая производная положительна и растет.
-            */
-            while (i<dsize-1 && (dY[i]<0)) ++i;
-            // ищем точку, с которой рост первой производной прекращается
-            while (i<dsize-1 && (dY[i]>0)) ++i;
-
-            --i;
-            // Теперь проверим остальные условия - вторая производная отрицательна
-            // Вероятно стоит расширить диапазон поиска до +-10 значений
-            if (d2Y[i]<0 )
-            {
-                return i;
-            }
+            return i;
         }
-        return size;
+    }
+    return size;
+}
+
+
+
+size_t mobilitySpectrum::searchPeakLeftBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index)
+{
+  // Ищет границу пика слева, т.е. такую точку, после которой функция меняет направление изменения (начинает увеличиваться).
+  size_t i=1;
+  while(index-i<d2h.size() && d2h[index-i]>d2h[index-i+1])
+  {
+    ++i;
+  }
+  --i;
+  i=index-i;
+  return i;
+}
+size_t mobilitySpectrum::searchPeakRigthBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index)
+{
+  // Ищет границу пика справа. 
+  size_t j=1;
+  while(index+j<d2h.size() && d2h[index+j]<d2h[index+j+1])
+  {
+    ++j;
+  }
+  j=index+j;
+
+  if(j==index+1)
+  {
+  j=1;
+      while(index+j<d2h.size() && d2h[index+j]>d2h[index+j+1])
+    {
+      ++j;
+    }
+    while(index+j<d2h.size() && d2h[index+j]<d2h[index+j+1])
+    {
+      ++j;
+    }
+    j=index+j;
+  }
+
+  return j;
+}
+
+void mobilitySpectrum::constructPeakCriteria(TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j)
+{
+  long double peakHeigh = resCond[index]-(resCond[i]+resCond[j])/2.0;
+  long double peakWidth = resultMobility[j]-resultMobility[i];
+  long double symmetri=0;
+  long double peakVelocityR=0;
+  long double peakVelocity2R=0;
+  long double peakVelocityL=0;
+  long double peakVelocity2L=0;
+  if(index+(i+j)/4+1 < resultMobility.size() && index-(i+j)/4 >=0)
+  {
+    symmetri = resCond[i]-resCond[j];
+    peakVelocityR = fabs(resCond[index+(i+j)/4]-resCond[index+(i+j)/4+1]);
+    peakVelocity2R = peakVelocityR/(resultMobility[index+(i+j)/4]-resultMobility[index+(i+j)/4+1]);
+
+    peakVelocityL = fabs(resCond[index-(i+j)/4]-resCond[index-(i+j)/4+1]);
+    peakVelocity2L = peakVelocityL/(resultMobility[index-(i+j)/4]-resultMobility[index-(i+j)/4+1]);
+
+  }
+  if(index+(i+j)/4+1 >= resultMobility.size() && index > 10)
+  {
+    size_t t=resultMobility.size()-index-2;
+    peakVelocityR = fabs(resCond[index+t]-resCond[index+t+1]);
+    peakVelocity2R = peakVelocityR/(resultMobility[index+t]-resultMobility[index+t+1]);
+    peakVelocityL = fabs(resCond[index-t]-resCond[index-t+1]);
+    peakVelocity2L = peakVelocityL/(resultMobility[index-t]-resultMobility[index-t+1]);
+  }
+  tsl->Add(FloatToStr(peakHeigh)+"\t"+FloatToStr(peakWidth)+"\t"+IntToStr(j-i)+"\t"+FloatToStr(peakVelocityR)+"\t"+FloatToStr(peakVelocity2R));
+  tsl->Add(FloatToStr(symmetri)+"\t"+FloatToStr(peakVelocityL)+"\t"+FloatToStr(peakVelocity2L)); // симметричность пиков и скорость изменения слева от него
+
+
+}
+
+
+long double mobilitySpectrum::calculatePeakWeigth(std::string filename)
+{
+  // есть пик.
+  // в две стороны от него запускаем поиск точки перегиба
+  // как только нашли - это конец пика
+  // Вычисляем высоту пика относительно этой точки
+  // Ширину пика, относительно 0,606 высоты
+  TStringList *tsl = new TStringList;
+
+  long double hMobility = resultMobility[1]-resultMobility[0];
+
+  std::vector<long double> de=calculateFirstDerivative(resultElectronConductivity, hMobility); // электроны
+  std::vector<long double> dh=calculateFirstDerivative(resultHoleConductivity, hMobility); // тяжелые дырки
+
+  std::vector<long double> d2e=calculateSecondDerivative(resultElectronConductivity, hMobility); // электроны
+  std::vector<long double> d2h=calculateSecondDerivative(resultHoleConductivity, hMobility); // тяжелые дырки
+
+for (int k = 0; k < extremumHoleIndex.size(); ++k)
+{
+  size_t index=extremumHoleIndex[k];
+
+  int i=searchPeakLeftBorder(dh,d2h,index);
+
+  size_t j=searchPeakRigthBorder(dh,d2h,index);
+
+  constructPeakCriteria(tsl, resultMobility, resultHoleConductivity,index,i,j);
+
+  tsl->Add(FloatToStr(dh[i+1])+"\t"+FloatToStr(dh[index])+"\t"+FloatToStr(dh[j-1]));
+  tsl->Add(FloatToStr(dh[(i+index)/2])+"\t"+FloatToStr(dh[(j+index)/2]));
+
+  tsl->Add(FloatToStr(d2h[i+1])+"\t"+FloatToStr(d2h[index])+"\t"+FloatToStr(d2h[j-1]));
+  tsl->Add(FloatToStr(d2h[(i+index)/2])+"\t"+FloatToStr(d2h[(j+index)/2]));
+}
+
+for (int k = 0; k < extremumElectronIndex.size(); ++k)
+{
+  int index=extremumElectronIndex[k];
+
+  int i=searchPeakLeftBorder(de,d2e,index);
+
+  size_t j=searchPeakRigthBorder(de,d2e,index);
+  
+  constructPeakCriteria(tsl, resultMobility, resultElectronConductivity,index,i,j);
+
+  // значения первой и второй производной, по ним определяем тип пика.
+  // добавить вид пика
+  // смена знаков второй производной, отрицательная первая - замедление
+  tsl->Add(FloatToStr(de[i+1])+"\t"+FloatToStr(de[index])+"\t"+FloatToStr(de[j-1]));
+  tsl->Add(FloatToStr(de[(i+index)/2])+"\t"+FloatToStr(de[(j+index)/2]));
+  tsl->Add(FloatToStr(d2e[i+1])+"\t"+FloatToStr(d2e[index])+"\t"+FloatToStr(d2e[j-1]));
+  tsl->Add(FloatToStr(d2e[(i+index)/2])+"\t"+FloatToStr(d2e[(j+index)/2]));
+  }
+
+  tsl->Add(FloatToStr(resultElectronConductivity[0])+"\t"+FloatToStr(resultHoleConductivity[0])); // первые точки
+
+  // добавить минимальные значения спектров
+
+  // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
+
+  // расстояние между пиками?
+
+  tsl->Add(FloatToStr(resultElectronConductivity.back())+"\t"+FloatToStr(resultHoleConductivity.back())); // последние точки
+
+
+  /*
+  После всего этого - пробую сделать всё тоже самое, только для логарифмов нашего спектра.
+  */
+
+  TSignal log10resultElectronConductivity;
+  TSignal log10resultHoleConductivity;
+  TSignal log10resultMobility;
+
+  for (int i = 0; i < resultElectronConductivity.size(); ++i)
+  {
+    log10resultElectronConductivity.push_back(log10l(resultElectronConductivity[i]));
+    log10resultHoleConductivity.push_back(log10l(resultHoleConductivity[i]));
+    log10resultMobility.push_back(log10l(resultMobility[i]));
+  }
+
+  long double loghMobility = log10resultMobility[1]-log10resultMobility[0];
+
+  std::vector<long double> del=calculateFirstDerivative(log10resultElectronConductivity, loghMobility); // электроны
+  std::vector<long double> dhl=calculateFirstDerivative(log10resultHoleConductivity, loghMobility); // тяжелые дырки
+
+  std::vector<long double> d2el=calculateSecondDerivative(log10resultElectronConductivity, loghMobility); // электроны
+  std::vector<long double> d2hl=calculateSecondDerivative(log10resultHoleConductivity, loghMobility); // тяжелые дырки
+
+for (int k = 0; k < extremumHoleIndex.size(); ++k)
+{
+  size_t index=extremumHoleIndex[k];
+
+  int i=searchPeakLeftBorder(dhl,d2hl,index);
+
+  size_t j=searchPeakRigthBorder(dhl,d2hl,index);
+
+  constructPeakCriteria(tsl, log10resultMobility, log10resultHoleConductivity,index,i,j);
+
+  tsl->Add(FloatToStr(dhl[i+1])+"\t"+FloatToStr(dhl[index])+"\t"+FloatToStr(dhl[j-1]));
+  tsl->Add(FloatToStr(dhl[(i+index)/2])+"\t"+FloatToStr(dhl[(j+index)/2]));
+
+  tsl->Add(FloatToStr(d2hl[i+1])+"\t"+FloatToStr(d2hl[index])+"\t"+FloatToStr(d2hl[j-1]));
+  tsl->Add(FloatToStr(d2hl[(i+index)/2])+"\t"+FloatToStr(d2hl[(j+index)/2]));
+}
+
+for (int k = 0; k < extremumElectronIndex.size(); ++k)
+{
+  int index=extremumElectronIndex[k];
+
+  int i=searchPeakLeftBorder(del,d2el,index);
+
+  size_t j=searchPeakRigthBorder(del,d2el,index);
+  
+  constructPeakCriteria(tsl, log10resultMobility, log10resultElectronConductivity,index,i,j);
+
+  // значения первой и второй производной, по ним определяем тип пика.
+  // добавить вид пика
+  // смена знаков второй производной, отрицательная первая - замедление
+  tsl->Add(FloatToStr(del[i+1])+"\t"+FloatToStr(del[index])+"\t"+FloatToStr(del[j-1]));
+  tsl->Add(FloatToStr(del[(i+index)/2])+"\t"+FloatToStr(del[(j+index)/2]));
+  tsl->Add(FloatToStr(d2el[i+1])+"\t"+FloatToStr(d2el[index])+"\t"+FloatToStr(d2el[j-1]));
+  tsl->Add(FloatToStr(d2el[(i+index)/2])+"\t"+FloatToStr(d2el[(j+index)/2]));
+  }
+
+  tsl->Add(FloatToStr(log10resultElectronConductivity[0])+"\t"+FloatToStr(log10resultHoleConductivity[0])); // первые точки
+
+  // добавить минимальные значения спектров
+
+  // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
+
+  // расстояние между пиками?
+
+  tsl->Add(FloatToStr(log10resultElectronConductivity.back())+"\t"+FloatToStr(log10resultHoleConductivity.back())); // последние точки
+
+
+  /*for (int i = 0; i < d2e.size(); ++i)
+  {
+    tsl->Add(FloatToStr(resultMobility[i])+"\t"+FloatToStr(de[i])+"\t"+FloatToStr(dh[i])+"\t"+FloatToStr(d2e[i])+"\t"+FloatToStr(d2h[i]));
+  }*/
+
+  tsl->SaveToFile(filename.c_str());
+
+  delete tsl;
+  
+  return 1;
 }
 
 
@@ -1305,4 +1555,72 @@ void mobilitySpectrum::getResults(TSignal & mobility, TSignal & HoleConductivity
   mobility=resultMobility;
   HoleConductivity=resultHoleConductivity;
   ElectronConductivity=resultElectronConductivity;
+}
+
+std::vector<long double> mobilitySpectrum::getEigenValues()
+{
+  return eigenValues;
+}
+std::vector< std::vector<long double> > mobilitySpectrum::getEigenVectors()
+{
+  return eigenVectors;
+}
+
+void mobilitySpectrum::savePeakWeigth(std::string filename)
+{
+  calculatePeakWeigth(filename);
+}
+
+
+void mobilitySpectrum::saveEigenValues(std::string filename)
+{
+  TStringList *tsl = new TStringList();
+
+  for (int i = 0; i < eigenVectors.size(); ++i)
+  {
+    AnsiString t;
+    for (int j = 0; j < eigenVectors[i].size(); ++j)
+    {
+      t=t+FloatToStr(eigenVectors[i][j])+"\t";
+    }
+    tsl->Add(t);
+  }
+
+  tsl->Add("\n");
+
+  for (int i = 0; i < eigenValues.size(); ++i)
+  {
+    tsl->Add(FloatToStr(eigenValues[i]));
+  }
+
+  tsl->SaveToFile(filename.c_str());
+
+  delete tsl;
+}
+
+
+void mobilitySpectrum::saveResults(std::string filename)
+{
+  TStringList *tsl = new TStringList();
+
+  TSignal holeConcentration;
+  TSignal holeMobility;
+  TSignal electronConcentration;
+  TSignal electronMobility;
+
+  this->getExtremums(holeConcentration, holeMobility, electronConcentration, electronMobility);
+
+  for (int i = 0; i < holeMobility.size(); ++i)
+  {
+    tsl->Add(FloatToStr(holeConcentration[i])+"\t"+FloatToStr(holeMobility[i]));
+  }
+
+  for (int i = 0; i < electronMobility.size(); ++i)
+  {
+    tsl->Add(FloatToStr(electronConcentration[i])+"\t"+FloatToStr(electronMobility[i]));
+  }
+
+  tsl->SaveToFile(filename.c_str());
+
+  delete tsl;
 }

@@ -3,6 +3,7 @@
 
 #include "Unit1.h"
 #include "multizoneFit.h"
+#include <Windows.h>
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -115,8 +116,8 @@ void TForm1::UpdatePlots()
     p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
     p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
     */
-    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
-    p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);
+    //p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
+    //p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);
 
 
     // Обновление всех используемых графиков.
@@ -124,8 +125,8 @@ void TForm1::UpdatePlots()
         ErrorLog->Lines->Add("Холл. Текущие данные. Не удалось построить график.");
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))
         ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
-        ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
+    //if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
+    //    ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
 
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))
         ErrorLog->Lines->Add("Холл. Усреднённые данные. Не удалось построить график.");
@@ -137,8 +138,8 @@ void TForm1::UpdatePlots()
         ErrorLog->Lines->Add("Сопротивление. Текущие данные. Не удалось построить график.");
     if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
         ErrorLog->Lines->Add("Сопротивление. Фильтрованные данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
-        ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
+    //if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
+    //    ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
     }
 }
 
@@ -458,6 +459,7 @@ void __fastcall TForm1::openFileWithSignal(AnsiString filename)
         MagneticFieldDependence * p=InitParams();
         if (p)
         {
+            StatusBar->Panels->Items[2]->Text=filename;
             TStringList *Names=new TStringList();
             TStringList *Values=new TStringList();
 
@@ -465,6 +467,8 @@ void __fastcall TForm1::openFileWithSignal(AnsiString filename)
             UpdateSampleDescription(Names,Values);
             p->loadData(tts);
             UpdatePlots();
+            delete Names;
+            delete Values;
         }
         delete tts;
 }
@@ -1429,6 +1433,8 @@ size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition,
 
       tsl->SaveToFile("mobilitySpectrumDerivative.txt");
 
+      delete tsl;
+
       /*
         Поиск пиков. Считаем производные первого и второго порядков.
         Самые ярко выраженные пики должны иметь такие признаки:
@@ -1557,6 +1563,7 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
     delete [] eY;
     delete [] hx;
     delete [] hY;
+    delete tsl;
 
 }
 
@@ -1659,6 +1666,7 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
       delete [] eY;
       delete [] hx;
       delete [] hY;
+      delete tosaving;
 }
 //---------------------------------------------------------------------------
 
@@ -1670,8 +1678,8 @@ void addPeak(TChartSeries *Sender,int ValueIndex)
     long double Mu= Sender->XValues->Value[ValueIndex];
     long double Concentration=G_p/(Mu*electronCharge);
 
-    Form1->MobSpecResults->Cells[2][Form1->MobSpecResults->Selection.Top]= FloatToStr( Mu);
-    Form1->MobSpecResults->Cells[1][Form1->MobSpecResults->Selection.Top]= FloatToStr(Concentration);
+    Form1->MobSpecResults->Cells[2][Form1->MobSpecResults->Selection.Top]= FloatToStrF( Mu, ffFixed, 5, 5);
+    Form1->MobSpecResults->Cells[1][Form1->MobSpecResults->Selection.Top]= FloatToStrF(Concentration, ffExponent, 5, 2);
 
     TGridRect tgr=Form1->MobSpecResults->Selection;
     tgr.Top++;
@@ -1999,13 +2007,13 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
     // Нужно выяснить отчего зависит разброс.
     // Полагаю это какие-то коэффициенты
     std::vector<long double> coef;
-    
-    coef.push_back(0.5);
-    coef.push_back(0.5);
-    coef.push_back(0.5);
-    coef.push_back(0.5);
-    coef.push_back(0.5);
-    coef.push_back(0.5);
+
+    coef.push_back(0.8); // Подвижность электронов
+    coef.push_back(0.2); // Подвижность легких дырок
+    coef.push_back(0.1); // Подвижность тяжелых дырок
+    coef.push_back(0.9); // Концентрация электронов
+    coef.push_back(0.2); // Концентрация легких дырок
+    coef.push_back(0.1); // Концентрация тяжелых дырок
 
 
     std::vector<long double> LowBound; // сюда - границы для поиска
@@ -2044,27 +2052,48 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
     int GxxSize=nMagSpectr.size();
     int numberOfCarrierTypes=3;
 
-    MultiZoneFit * mzf=new MultiZoneFit();
+    MultiZoneFit * mzf=new MultiZoneFit(100,VesGxx, VesGxy);
 
 
-    int result=mzf->RunMultizoneFeat(VesGxx, VesGxy,
-                          LowBound,  UpBound,
+    int result=mzf->RunMultizoneFeat(LowBound,  UpBound,
                           nMagSpectr,  nGxxIn, nGxyIn,
                            outGxx,  outGxy,
                            outValues,
-                           GxxSize,
                            numberOfCarrierTypes);
+
+    ChSxx_theor->Clear();
+    ChSxy_theor->Clear();
+    ChSxxExper->Clear();
+    ChSxyExper->Clear();
+
+
+    long double koefSxx=1, koefSxy=1;
+
+    if (CheckBox3->Checked)
+    {
+        koefSxx=max_elem(outGxx);
+        koefSxy=max_elem(outGxy);
+
+        if (max_elem(nGxxIn)>koefSxx)
+        {
+            koefSxx=max_elem(nGxxIn);
+        }
+        if (max_elem(nGxyIn)>koefSxy)
+        {
+            koefSxy=max_elem(nGxyIn);
+        }
+    }
 
     for (int i = 0; i < outGxx.size(); ++i)
     {
-        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i],"",clRed);
-        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i],"",clRed);
+        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i]/koefSxx,"",clRed);
+        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i]/koefSxy,"",clRed);
     }
 
     for (int i = 0; i < nMagSpectr.size(); ++i)
     {
-        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i],"",clBlue);
-        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i],"",clBlue);
+        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i]/koefSxx,"",clBlue);
+        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i]/koefSxy,"",clBlue);
     }
 
     // Результаты идут в формате:
@@ -2073,10 +2102,23 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
     // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок
     // По второму индексу: минимальные, средние, СКО, СКО %
 
+    TStringList * tsl = new TStringList();
+
+        for (int j = 0; j < 4; ++j)
+        {
+
+        for(int i=0;i<2*numberOfCarrierTypes;++i)
+        {
+        tsl->Add(FloatToStr(outValues[i][j]));
+        }
+        }
+
+        tsl->SaveToFile(SaveDialog1->FileName+eBandWidthFRes->Text+eBandWidthFHall->Text+"MZFitRes.txt");
 
         // min
         for(int i=0;i<2*numberOfCarrierTypes;++i)
         {
+
             if(i<numberOfCarrierTypes)
                 FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);
             else
@@ -2106,10 +2148,13 @@ void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
             else
            FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);
         }
-
+        delete mzf;
+        delete tsl;
 
     }
      StatusBar->Panels->Items[1]->Text="Готова к работе.";
+
+
 }
 //---------------------------------------------------------------------------
 
@@ -2132,14 +2177,21 @@ void __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)
         TSignal eY(p->getElectronConductivity()->begin(),p->getElectronConductivity()->end());
         TSignal hx(p->getMobility()->begin(),p->getMobility()->end());
         TSignal hY(p->getHoleConductivity()->begin(),p->getHoleConductivity()->end());
-
+        if(p->getElectronConcentration()->size()>=1)
+        {
         Form1->MobSpecResults->Cells[1][3]=FloatToStrF(p->getElectronConcentration()->operator[](0),ffExponent,5,2);
         Form1->MobSpecResults->Cells[2][3]=FloatToStrF(p->getElectronMobility()->operator[](0),ffFixed,5,5);
+        }
+        if(p->getHoleConcentration()->size()>=1)
+        {
         Form1->MobSpecResults->Cells[1][1]=FloatToStrF(p->getHoleConcentration()->operator[](0),ffExponent,5,2);
         Form1->MobSpecResults->Cells[2][1]=FloatToStrF(p->getHoleMobility()->operator[](0),ffFixed,5,5);
+        }
+        if(p->getHoleConcentration()->size()>=2)
+        {
         Form1->MobSpecResults->Cells[1][2]=FloatToStrF(p->getHoleConcentration()->operator[](1),ffExponent,5,2);
         Form1->MobSpecResults->Cells[2][2]=FloatToStrF(p->getHoleMobility()->operator[](1),ffFixed,5,5);
-      
+        }
         Form1->ChspElecComponent->Clear();
         Form1->ChSpHoleComponent->Clear();
         Form1->Series4->Clear();
@@ -2186,6 +2238,42 @@ void __fastcall TForm1::XMLsettingsBeforeOpen(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+
+std::vector<std::string> getAllFileNamesWithinFolder(std::string folder)
+{
+    std::vector<std::string> names;
+    char search_path[200];
+    if (folder.length() <200)
+    {
+        sprintf(search_path, "%s/*.*", folder.c_str());
+        WIN32_FIND_DATA fd; 
+        HANDLE hFind = ::FindFirstFile(search_path, &fd); 
+        if(hFind != INVALID_HANDLE_VALUE) { 
+            do { 
+                // read all (real) files in current folder
+                // , delete '!' read other 2 default folder . and ..
+                if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
+                    names.push_back(fd.cFileName);
+                }
+            }while(::FindNextFile(hFind, &fd)); 
+            ::FindClose(hFind); 
+        } 
+        return names;
+    }
+    return names;
+}
+
+void filterFileNames(std::vector<std::string> & files, std::string rem)
+{
+    for (int i = 0; i < files.size(); ++i)
+    {
+        size_t n = files[i].find(rem);
+        if(n!= std::string::npos)
+            files[i]="";
+    }
+}
+
 void __fastcall TForm1::Button3Click(TObject *Sender)
 {
 /*
@@ -2195,22 +2283,96 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 3. Сохранение всех результатов.
 */
 
-// открыть один файл и запустить обработку только для него.
-// открыть папку и обработать все файлы в ней - в целом вариант.
-
-// предусмотреть объединение сигналов
-// пока предполагаем что сигнал уже объединен - ведь на модели испытывать будем.
-
-for (int j = 0; j < 1; ++j) // По всем именам файлов
+// открыть папку и обработать все файлы в ней
+if (OpenDialog1->Execute())
 {
-    //openFileWithSignal(filename);
-    for (int i = 0; i < 1; ++i) // Это будет страшный цикл по разным параметрам фильтрации
-    { // Но для начала буду менять только частоту среза
-        N26->Click(); // Выполняет Фильтрацию, расчет тензоров, спектра и подгонки.
-        N11->Click(); // Сохранить всё
+
+    std::string folder = ExtractFilePath(OpenDialog1->Files->Strings[0]).c_str();
+
+    std::vector<std::string> files=getAllFileNamesWithinFolder(folder);
+
+
+    // Нужно удалить из списка файлы, содержащие в имени "Description"
+
+    filterFileNames(files, "Description");
+
+    // предусмотреть объединение сигналов
+    // пока предполагаем что сигнал уже объединен - ведь на модели испытывать будем.
+
+    int temp=files.size();
+
+    for (int j = 0; j < files.size(); ++j) // По всем именам файлов
+    {
+        if (files[j]!="")
+        {
+        openFileWithSignal(files[j].c_str());
+
+
+        char folderPath[500];
+        if (files[j].length() <500)
+        {
+            sprintf(folderPath, "%s%s1", folder.c_str(), files[j].c_str());
+
+            if(CreateDirectory(folderPath,NULL)) // Создаём отдельную папку для сохранения данных по каждому файлу.
+            {
+                std::string name=folder+files[j]+"1\\1"; // Дабы сохранять в отдельную папку.
+                long double step=0.1;
+                for (long double BandWidthFHall=0.01, AttenuationFHall=0.1; BandWidthFHall < 10; BandWidthFHall+=step, AttenuationFHall+=step)
+                {
+                    if(step==0.1 && BandWidthFHall>1.0)
+                    {
+                        step=1.0;
+                    }
+                    eBandWidthFHall->Text=FloatToStr(BandWidthFHall);
+                    eAttenuationFHall->Text=FloatToStr(AttenuationFHall);
+
+                    AnsiString t=name.c_str()+FloatToStr(BandWidthFHall);
+                    //eLengthFilterRes->Text="300";
+                    long double step=0.1;
+                    for (long double BandWidthFRes=0.01, AttenuationFRes=0.1; BandWidthFRes < 10; BandWidthFRes+=step, AttenuationFRes+=step) // Это будет страшный цикл по разным параметрам фильтрации
+                    { // Но для начала буду менять только частоту среза
+                        if(step==0.1 && BandWidthFRes>1.0)
+                        {
+                            step=1.0;
+                        }
+                        AnsiString t2=t+FloatToStr(BandWidthFRes);
+                        SaveDialog1->FileName=t2;
+
+                        eBandWidthFRes->Text=FloatToStr(BandWidthFRes);
+                        eAttenuationFRes->Text=FloatToStr(AttenuationFRes);
+
+                        Application->ProcessMessages();
+
+                        if(CheckBox2->Checked==false)
+                        {
+                        N26->Click(); // Выполняет Фильтрацию, расчет тензоров, спектра и подгонки.
+                        }
+                        else
+                        {
+                        N25->Click();
+                        }
+
+                        if(params)
+                        {
+                            params->SaveAllData(SaveDialog1->FileName+"Com");
+                        }
+                        //N11->Click(); // Сохранить всё
+                    }
+
+
+                    
+                }
+
+
+                
+
+
+            }
+            else
+                ShowMessage(IntToStr(GetLastError()));
+        }
+        }
     }
-
-
 }
 }
 //---------------------------------------------------------------------------
@@ -2218,6 +2380,52 @@ for (int j = 0; j < 1; ++j) // По всем именам файлов
 void __fastcall TForm1::N21Click(TObject *Sender)
 {
 calculateTenzor();    
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::btnSaveCarrierParamsClick(TObject *Sender)
+{
+/*
+Что здесь должно сохраняться:
+1. Параметры носителей заряда.
+    минимальные
+    средние
+    СКО
+    СКО %
+2. Подогнанные компоненты тензора проводимости.
+*/
+;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Button5Click(TObject *Sender)
+{
+    const TSignal * bv=(*ActiveParams())->getB();
+    const TSignal * hallv=(*ActiveParams())->getHallEffect();
+    const TSignal *mv=(*ActiveParams())->getMagnetoResistance();
+    std::vector<long double> b=*bv;
+    std::vector<long double> hall=*hallv;
+    std::vector<long double> m=*mv;
+    long double h = fabs(b[1]-b[0]);
+    TSignal d1hall, d1m;
+    TSignal d2hall, d2m;
+
+    d1hall=calculateFirstDerivative(hall,h);
+    d2m=calculateSecondDerivative(m,h);
+    d1m=calculateFirstDerivative(m,h);
+    d2hall=calculateSecondDerivative(hall,h);
+
+    TStringList * tsl=new TStringList();
+
+    for (int i = 0; i < d2hall.size(); ++i)
+    {
+        tsl->Add(FloatToStr(d1hall[i])+"\t"+FloatToStr(d2hall[i])+"\t"+FloatToStr(d1m[i])+"\t"+FloatToStr(d2m[i]));
+    }
+
+    tsl->SaveToFile("derivativeOfSignals.txt");   
+
+    delete tsl;
 }
 //---------------------------------------------------------------------------
 

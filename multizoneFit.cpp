@@ -32,18 +32,18 @@ void MultiZoneFit::memoryAlloc()
     }
 }
 
-long double MultiZoneFit::func_hall8(Image & Data, Data_spektr & Magfield_spektr, Data_spektr &  Gxx,
-  Data_spektr &  Gxy, Data_spektr &  GxxExp, Data_spektr &  GxyExp,
- int NPoint, long double Ves1, long double Ves2)
+long double MultiZoneFit::func_hall8(const Image & Data, const Data_spektr & Magfield_spektr, Data_spektr &  Gxx,
+  Data_spektr &  Gxy, const Data_spektr &  GxxExp, const Data_spektr &  GxyExp,
+ const long double NPoint)
 {
   int myi;
   long double g,g1,cond1,cond2,cond3;
 for (myi=0; myi<NPoint; ++myi)
   {
 
-  cond1=Data[4]*Data[1]/(1+pow(Data[1]*Magfield_spektr[myi],2));
-  cond2=Data[5]*Data[2]/(1+pow(Data[2]*MagField_spektr[myi],2));
-  cond3=Data[6]*Data[3]/(1+pow(Data[3]*MagField_spektr[myi],2));
+  cond1=Data[4]*Data[1]/(1+powl(Data[1]*Magfield_spektr[myi],2));
+  cond2=Data[5]*Data[2]/(1+powl(Data[2]*MagField_spektr[myi],2));
+  cond3=Data[6]*Data[3]/(1+powl(Data[3]*MagField_spektr[myi],2));
   Gxx[myi]=ElectronCharge*(cond1+cond2+cond3);
   if (myi==0 )
    Gxy[0]=0;
@@ -55,30 +55,30 @@ for (myi=0; myi<NPoint; ++myi)
    g1=0;
   for (myi=0; myi<NPoint; ++myi)
   {
-     g+=pow(Gxx[myi]-GxxExp[myi],2)/(GxxExp[myi]+Gxx[myi]);
-
+     //g+=powl(Gxx[myi]-GxxExp[myi],2)/(GxxExp[myi]+Gxx[myi]);
+    g+=powl(Gxx[myi]-GxxExp[myi],4)/(GxxExp[myi]+Gxx[myi]);
    if (myi==0)
     {
       g1=0;
    }
        else
     {
-     g1+=pow(Gxy[myi]-GxyExp[myi],2)/(fabs(GxyExp[myi])+fabs(Gxy[myi]));
+     g1+=powl(Gxy[myi]-GxyExp[myi],2)/(fabs(GxyExp[myi])+fabs(Gxy[myi]));
     }
   }
 
-  return 100*(sqrt(g*Ves1)+sqrt(g1*Ves2))/static_cast<long double>(NPoint);
+  return 100.0*(sqrt(g*VesGxx)+sqrt(g1*VesGxy))/(NPoint);
 } /* of func */
 
 
 
-  void MultiZoneFit::BegRand(int N_Make, long double VesGxx, long double VesGxy)
+  void MultiZoneFit::BegRand(const int N_Make)
 {
     Image Params_Best;
     Params_Best.resize(SIZE);
     Data.resize(SIZE);
     Fbefore=1.e8;
-    for ( int ii=1 ; ii<= N_Make ;++ii)  // {до 100} { Number of steps }
+    for ( int ii=1 ; ii<= N_Make ;++ii)  // {до N_Make} { Number of steps }
     {
         for ( int j=1 ; j<= 100 ;++j)
         {   // присваеваем каждому параметру случайное значение
@@ -86,7 +86,7 @@ for (myi=0; myi<NPoint; ++myi)
             for ( int i=1 ; i<= N_Data ;++i)
               Data[i]=Min_Value[i]+(static_cast<long double >(rand())/RAND_MAX)*(Max_Value[i]-Min_Value[i]);
             // вычисляем значение целевой функции в данной точке
-            Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+            Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
              // случайно сгенерированных параметров
             if (Fnew<Fbefore)
             {      // запоминаем лучшие значения параметров
@@ -103,7 +103,7 @@ for (myi=0; myi<NPoint; ++myi)
     }
 
 
-}   // в итоге мы получаем лучшую из 100 тыс. точку,
+}   // в итоге мы получаем лучшую из 100*N_Make точку,
        // используя её в качестве базовой.
 
  void MultiZoneFit::InitVar()
@@ -130,13 +130,13 @@ void MultiZoneFit::CheckLimits()   // проверяет, не принял ли
     }
   }
 
-void MultiZoneFit::Research(long double VesGxx, long double VesGxy)
+void MultiZoneFit::Research()
 {
    int k=1;
         Image   Params_Old;
      int as0[7]={0}; // 1..6
 
- Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+ Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
  Params_Old=Data;
  do
  {
@@ -144,12 +144,12 @@ void MultiZoneFit::Research(long double VesGxx, long double VesGxy)
      Fold=Fnew;
      Data[k]=Params_Old[k]+as0[k]*D_Step[k];
      CheckLimits();
-     Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+     Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
      if ( Fnew>Fold )   // удачен ли сдвиг?
        {    // неудачен - шаг назад
          Data[k]=Params_Old[k]-as0[k]*D_Step[k];
          CheckLimits();
-         Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+         Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
        }
      if ( Fnew>Fold )   // удачен ли сдвиг?
        {    // если снова неудачен - оставляем старое значение
@@ -165,19 +165,19 @@ void MultiZoneFit::Research(long double VesGxx, long double VesGxy)
  Data=Params_Old; // переписываем лучшие в Data
 } //{of void}
 
-void MultiZoneFit::Hook(long double VesGxx, long double VesGxy)
+void MultiZoneFit::Hook()
 {
 
    for ( int i=1 ; i<= N_Data ;++i)
      D_StepOld[i]=Data[i]*0.1;
      Data0=Data;
-     Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+     Fnew=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
      FlagEnd=false;
      FlagDipl=false;
    do
    {
      if (!FlagDipl) InitVar();
-     Research(VesGxx,VesGxy); // исследование
+     Research(); // исследование
       if ( fabs(Fnew)<eps1)
         {
           FlagEnd=true;
@@ -205,7 +205,7 @@ void MultiZoneFit::Hook(long double VesGxx, long double VesGxy)
               D_Step[i]=0;
           }
          FlagDipl=true;
-         Research(VesGxx,VesGxy); // исследование
+         Research(); // исследование
          if ( Fnew<Fbefore ) // если значение функции уточнено
          {   // рисуем график
           // GraphikH;
@@ -224,7 +224,7 @@ void MultiZoneFit::Hook(long double VesGxx, long double VesGxy)
            FlagEnd=true;
          break;
          }
-
+            
        }
       // если изменения функции незначительные
       if ( FlagDipl && (fabs((Fnew-Fbefore))<=epsilon) )
@@ -259,12 +259,12 @@ void MultiZoneFit::Hook(long double VesGxx, long double VesGxy)
 ///////////////// НАЧАЛО "ХОЛЛ. МНОГОЗОННАЯ ПОДГОНКА" //////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-void MultiZoneFit::Optimiz_hall8(long double VesGxx, long double VesGxy)
+void MultiZoneFit::Optimiz_hall8()
 {
 //  srand(time(NULL));
   N_Data=6;
-  BegRand(1000,VesGxx,VesGxy);   // в данном случае c 1000 гараздо лучше ищет
-  Hook(VesGxx,VesGxy);
+  BegRand(1000);   // в данном случае c 1000 гораздо лучше ищет
+  Hook();
 }
 
 long long justRound(long double x)
@@ -279,24 +279,25 @@ long long justRound(long double x)
   }
 }
 
-void MultiZoneFit::btnFeatMultiClick(long double & VesGxx, long double & VesGxy)
+void MultiZoneFit::btnFeatMultiClick()
 {
   long double funcMin=10e8;
+  Form1->ProgressBar1->Max=repeatQuantity;
 
-  for (int  l=1 ; l<= 100 ; ++l)
+  for (int  l=1 ; l<= repeatQuantity ; ++l)
   {
     Form1->ProgressBar1->Position=l;
     Application->ProcessMessages();
 
-    Optimiz_hall8(VesGxx,VesGxy);
+    Optimiz_hall8();
     for (int i=1 ; i<= 6 ; ++i)
     d1[i][l]=Data[i];
-    d1[7][l]=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy);
+    d1[7][l]=func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint);
 
     if(  d1[7][l]<funcMin )
     {
       funcMin=d1[7][l];
-      VesGxx= justRound(funcMin);
+      VesGxx= justRound(funcMin); // Вот тут меняется параметр веса!
     }
   }
  //Gistogram(d1,SerArr,7,100);
@@ -353,7 +354,7 @@ long double max,min;
 
 // расчет среднего и СКО
 // вот сюда указатель на массив надо давать.
-void MultiZoneFit::Statistic(DataValue & mass, std::vector<long double> & ResulitsForStatistic, int m,int n)
+void MultiZoneFit::Statistic(const DataValue & mass, std::vector<long double> & ResulitsForStatistic, int m,int n)
 {
 	long double Xsr, S;
     for (int ll=1 ; ll<= m ; ++ll)
@@ -364,7 +365,7 @@ void MultiZoneFit::Statistic(DataValue & mass, std::vector<long double> & Resuli
         Xsr=Xsr+mass[ll][l];
         Xsr=Xsr/static_cast<long double>(n);
         for (int  l=1 ; l<= n ; ++l)
-        S+=pow(mass[ll][l]-Xsr,2);
+        S+=powl(mass[ll][l]-Xsr,2);
         S=sqrt(S/(n-1));// ООООООООООООООООООООООО____________Ооооо
 
         ResulitsForStatistic[ll]= Xsr;
@@ -416,23 +417,21 @@ mmoFeatFunctionValue.Lines.Add(FloatToStr(func_hall8));
      СКО и СКО в %
 
 }*/
-
+/*
 long double MultiZoneFit::someTestFunc(long double VesGxx)
 {
     VesGxx=VesGxx+1;
     return VesGxx;
-}
+}*/
 
 // Возможно стоит сделать инициализатор, дабы не отжирать тонну памяти?
 
 // Возвращаем по традиции количество точек?
 // Веса, нижняя и верхняя границы, Спектр, две компоненты тензора
-int MultiZoneFit::RunMultizoneFeat (long double VesGxx, long double VesGxy,
-  std::vector<long double> LowBound, std::vector<long double> UpBound,
-  InDataSpectr MagSpectr, InDataSpectr GxxIn, InDataSpectr GxyIn,
+int MultiZoneFit::RunMultizoneFeat (const std::vector<long double> LowBound,const  std::vector<long double> UpBound,
+  const InDataSpectr MagSpectr,const  InDataSpectr GxxIn,const  InDataSpectr GxyIn,
   MyData_spektr & outGxx, MyData_spektr & outGxy,
   TStatistic & outValues,
-  int GxxSize,
   int numberOfCarrierTypes)
 {
 memoryAlloc();
@@ -441,7 +440,6 @@ memoryAlloc();
   ResulitsForStatistic.resize(3*(2*numberOfCarrierTypes+1)+1);
   // Это надо получить из управляющей программы:
   NPoint=MagSpectr.size();
-  NPoint=GxxSize; // Это тоже потом будем передавать.
 
   // Эти переменные объявлены в optim1 и их тоже надо получить.
     Max_Value.resize(numberOfCarrierTypes*2+1);
@@ -463,10 +461,10 @@ memoryAlloc();
   }  
 
   // После того как все данные получены начинаем выполнение.
-  btnFeatMultiClick(VesGxx,VesGxy);
+  btnFeatMultiClick();
 
   // программа отработала
-  // Так, где лежат результаты?     
+  // Так, где лежат результаты?
 
   for (int i=0 ; i<= NPoint-1 ; ++i)
   {
@@ -486,7 +484,7 @@ memoryAlloc();
     outValues[i].push_back(ResulitsForStatistic[i+2*SizeForStatistic+1]);
   }
 
-  outValues[7].push_back(func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint,VesGxx,VesGxy)); // минимальное значение функции
+  outValues[7].push_back(func_hall8(Data,MagField_spektr,Gxx,Gxy,GxxExp,GxyExp,NPoint)); // минимальное значение функции
 
   return 0;
 

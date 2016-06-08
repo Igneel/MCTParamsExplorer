@@ -250,6 +250,9 @@ __published:	// IDE-managed Components
     TMenuItem *N25;
     TMenuItem *N26;
     TButton *Button3;
+    TButton *Button5;
+    TCheckBox *CheckBox2;
+    TCheckBox *CheckBox3;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -301,6 +304,8 @@ __published:	// IDE-managed Components
     void __fastcall openFileWithSignal(AnsiString filename);
     void __fastcall calculateTenzor();
     void __fastcall N21Click(TObject *Sender);
+    void __fastcall btnSaveCarrierParamsClick(TObject *Sender);
+    void __fastcall Button5Click(TObject *Sender);
     
 
 private:	// User declarations

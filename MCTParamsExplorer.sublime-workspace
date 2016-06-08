@@ -4,8 +4,336 @@
 		"selected_items":
 		[
 			[
+				"ux",
+				"uxs"
+			],
+			[
+				"re",
+				"relativeError"
+			],
+			[
+				"d",
+				"deltaSigmaXX"
+			],
+			[
+				"f",
+				"for	For Loop"
+			],
+			[
+				"li",
+				"linktoStreets"
+			],
+			[
+				"bv",
+				"bv"
+			],
+			[
+				"T",
+				"TSignal"
+			],
+			[
+				"m",
+				"maybeToList"
+			],
+			[
+				"s",
+				"sub"
+			],
+			[
+				"if",
+				"ife	Conditional if..else"
+			],
+			[
+				"l",
+				"lines"
+			],
+			[
+				"st",
+				"street"
+			],
+			[
+				"FID",
+				"FID2"
+			],
+			[
+				"FI",
+				"FID2"
+			],
+			[
+				"for",
+				"fore	Loop"
+			],
+			[
+				"P",
+				"PointPerInt"
+			],
+			[
+				"gi",
+				"nGxxIn"
+			],
+			[
+				"k",
+				"koefSxx"
+			],
+			[
+				"oG",
+				"outGxy"
+			],
+			[
+				"max",
+				"max_elem"
+			],
+			[
+				"Che",
+				"Checked"
+			],
+			[
+				"ti",
+				"timeToString"
+			],
+			[
+				"L",
+				"LogEntry"
+			],
+			[
+				"my",
+				"myToInt"
+			],
+			[
+				"myTo",
+				"myToZ"
+			],
+			[
+				"Z",
+				"Zero"
+			],
+			[
+				"E",
+				"Error"
+			],
+			[
+				"ch",
+				"changeh"
+			],
+			[
+				"even",
+				"evenOnly"
+			],
+			[
+				"e",
+				"enumFromThenTo"
+			],
+			[
+				"em",
+				"enumFromThenTo"
+			],
+			[
+				"to",
+				"toInteger"
+			],
+			[
+				"ext",
+				"extrapolateData"
+			],
+			[
+				"ex",
+				"extrapolateData"
+			],
+			[
+				"Mag",
+				"MagneticFieldDependence"
+			],
+			[
+				"perms",
+				"perms4"
+			],
+			[
+				"perm",
+				"perms4"
+			],
+			[
+				"reM",
+				"resultMobility"
+			],
+			[
+				"cons",
+				"constructPeakCriteria"
+			],
+			[
+				"d2e",
+				"d2e"
+			],
+			[
+				"ser",
+				"searchPeakRigthBorder"
+			],
+			[
+				"mo",
+				"mobilitySpectrum"
+			],
+			[
+				"pevl",
+				"peakVelocity2L"
+			],
+			[
+				"pe",
+				"peakVelocityL"
+			],
+			[
+				"c",
+				"cubes"
+			],
+			[
+				"g",
+				"groupElems"
+			],
+			[
+				"su",
+				"sum3"
+			],
+			[
+				"N",
+				"Names"
+			],
+			[
+				"do",
+				"doesEnrageMork"
+			],
+			[
+				"go",
+				"doesEnrageGork"
+			],
+			[
+				"K",
+				"KnownToGork"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"resul",
+				"resultMobility"
+			],
+			[
+				"in",
+				"index2"
+			],
+			[
+				"ru",
+				"resultMobility"
+			],
+			[
+				"resu",
+				"resultMobility"
+			],
+			[
+				"j",
+				"j"
+			],
+			[
 				"d2",
-				"d2Y"
+				"d2h"
+			],
+			[
+				"cal",
+				"calculateFirstDerivative"
+			],
+			[
+				"TS",
+				"TStringList"
+			],
+			[
+				"ca",
+				"calculateFirstDerivative"
+			],
+			[
+				"t",
+				"take"
+			],
+			[
+				"p",
+				"path"
+			],
+			[
+				"y",
+				"ys"
+			],
+			[
+				"x",
+				"xs"
+			],
+			[
+				"ele",
+				"electronMobility"
+			],
+			[
+				"F",
+				"FloatToStr"
+			],
+			[
+				"h",
+				"holeConcentration"
+			],
+			[
+				"ho",
+				"holeMobility"
+			],
+			[
+				"i",
+				"integration"
+			],
+			[
+				"ei",
+				"eigenValues"
+			],
+			[
+				"eiV",
+				"eigenVectors"
+			],
+			[
+				"Fil",
+				"Files"
+			],
+			[
+				"Add",
+				"Add"
+			],
+			[
+				"M",
+				"MultiZoneFit"
+			],
+			[
+				"Re",
+				"repeatQuantity"
+			],
+			[
+				"Ves",
+				"VesGxy"
+			],
+			[
+				"O",
+				"OpenDialog1"
+			],
+			[
+				"size",
+				"size_t"
+			],
+			[
+				"fil",
+				"filterParamsResistance"
+			],
+			[
+				"A",
+				"AttenuationFrequency"
+			],
+			[
+				"B",
+				"BandwidthFrequency"
+			],
+			[
+				"Ave",
+				"AveragedB"
 			],
 			[
 				"dy",
@@ -14,10 +342,6 @@
 			[
 				"ChS",
 				"ChSxy_theor"
-			],
-			[
-				"in",
-				"index"
 			],
 			[
 				"start",
@@ -44,20 +368,8 @@
 				"UpBound"
 			],
 			[
-				"E",
-				"ExactBound"
-			],
-			[
 				"new",
 				"newBRes"
-			],
-			[
-				"k",
-				"k"
-			],
-			[
-				"ex",
-				"extrapolateData"
 			],
 			[
 				"koe",
@@ -80,20 +392,12 @@
 				"ShowMessage"
 			],
 			[
-				"N",
-				"NumberOfDecimalPlaces"
-			],
-			[
 				"r",
 				"roundM"
 			],
 			[
 				"n",
 				"NumberOfDecimalPlaces"
-			],
-			[
-				"do",
-				"double"
 			],
 			[
 				"ma",
@@ -120,24 +424,12 @@
 				"wordlist"
 			],
 			[
-				"size",
-				"size"
-			],
-			[
 				"fo",
 				"for	For Loop"
 			],
 			[
 				"v",
 				"vector	std::vector"
-			],
-			[
-				"f",
-				"fibh"
-			],
-			[
-				"re",
-				"return"
 			],
 			[
 				"out",
@@ -156,16 +448,8 @@
 				"ValueIndex"
 			],
 			[
-				"A",
-				"AveragedBHall"
-			],
-			[
 				"tem",
 				"tempInB"
-			],
-			[
-				"Add",
-				"AddXY"
 			],
 			[
 				"Ser",
@@ -208,10 +492,6 @@
 				"svgName"
 			],
 			[
-				"Ave",
-				"AveragedMagnetoResistance"
-			],
-			[
 				"Avera",
 				"AveragedBMagnetoResistance"
 			],
@@ -234,286 +514,6 @@
 			[
 				"temo",
 				"tempOutB"
-			],
-			[
-				"Av",
-				"AveragedBHall"
-			],
-			[
-				"ri",
-				"right"
-			],
-			[
-				"be",
-				"beginend	$1.begin(), $1.end()"
-			],
-			[
-				"R",
-				"Res"
-			],
-			[
-				"H",
-				"Hall"
-			],
-			[
-				"B",
-				"BHall"
-			],
-			[
-				"Re",
-				"ResSize"
-			],
-			[
-				"get",
-				"getPointerB"
-			],
-			[
-				"pu",
-				"push_back"
-			],
-			[
-				"p",
-				"push_back"
-			],
-			[
-				"j",
-				"j"
-			],
-			[
-				"Ma",
-				"MagnetoResistance"
-			],
-			[
-				"M",
-				"MagnetoResistance"
-			],
-			[
-				"D",
-				"Dependence"
-			],
-			[
-				"el",
-				"indexOfElemClosestToValue"
-			],
-			[
-				"g",
-				"getYbyX"
-			],
-			[
-				"y",
-				"y0"
-			],
-			[
-				"si",
-				"size_t"
-			],
-			[
-				"ind",
-				"indexOfElemClosestToValue"
-			],
-			[
-				"i",
-				"ind"
-			],
-			[
-				"s",
-				"setX"
-			],
-			[
-				"Depe",
-				"DependenceH"
-			],
-			[
-				"mi",
-				"min_elem"
-			],
-			[
-				"m",
-				"max_abs_elem"
-			],
-			[
-				"FilteredB",
-				"FilteredBHall"
-			],
-			[
-				"F",
-				"FilteredB"
-			],
-			[
-				"P",
-				"PowPolinomRes"
-			],
-			[
-				"PoW",
-				"PowPolinomRes"
-			],
-			[
-				"Pow",
-				"PowPolinomHall"
-			],
-			[
-				"b",
-				"back"
-			],
-			[
-				"pow",
-				"powPolinowHall"
-			],
-			[
-				"po",
-				"polinomPowForHallEffect"
-			],
-			[
-				"e",
-				"extrapolateData"
-			],
-			[
-				"Filtered",
-				"FilteredMagnetoResistance"
-			],
-			[
-				"Si",
-				"SignalToExtrapolate"
-			],
-			[
-				"newg",
-				"negativeNewB"
-			],
-			[
-				"inB",
-				"inBHall"
-			],
-			[
-				"TSi",
-				"TSignalIt"
-			],
-			[
-				"h",
-				"HallEffect"
-			],
-			[
-				"T",
-				"TSignal"
-			],
-			[
-				"sig",
-				"signal"
-			],
-			[
-				"I",
-				"iterator"
-			],
-			[
-				"min",
-				"min-i"
-			],
-			[
-				"le",
-				"length"
-			],
-			[
-				"Me",
-				"Memo2"
-			],
-			[
-				"за",
-				"зависимостей"
-			],
-			[
-				"cha",
-				"chanInfo"
-			],
-			[
-				"de",
-				"delete"
-			],
-			[
-				"Is",
-				"isWriting"
-			],
-			[
-				"Po",
-				"pointToX"
-			],
-			[
-				"t",
-				"true"
-			],
-			[
-				"con",
-				"concatDependence"
-			],
-			[
-				"Cl",
-				"clearFilteredParams"
-			],
-			[
-				"Fil",
-				"FileName"
-			],
-			[
-				"sh",
-				"shiftValue"
-			],
-			[
-				"sw",
-				"switch"
-			],
-			[
-				"Da",
-				"DataKind"
-			],
-			[
-				"Fb",
-				"FilteredB"
-			],
-			[
-				"Fih",
-				"FilteredHallEffect"
-			],
-			[
-				"Fib",
-				"FilteredBHall"
-			],
-			[
-				"l",
-				"length"
-			],
-			[
-				"FilteredBr",
-				"FilteredBMagnetoResistance"
-			],
-			[
-				"for",
-				"for	For Loop"
-			],
-			[
-				"di",
-				"dist"
-			],
-			[
-				"inde",
-				"indexes"
-			],
-			[
-				"ou",
-				"outDependence"
-			],
-			[
-				"O",
-				"OldLength"
-			],
-			[
-				"MeD",
-				"MyDataType"
-			],
-			[
-				"cu",
-				"CURRENT_DATA"
-			],
-			[
-				"tos",
-				"tempOutSignal"
 			]
 		]
 	},
@@ -567,138 +567,139 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer"
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Lib"
 	],
 	"file_history":
 	[
-		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/рус/Белый конус Алаида.txt",
-		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/рус/1.pl",
-		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/eng/1.pl",
-		"/E/Дела/Институт СГГА/Студенчество/7 семестр/Криптографическая ЗИ/Вероятность букв/1.pl",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MobilityTestSpectrum.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrum.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrumDerivative.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/LCard.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/mobilitySpectrumLogDerivative.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilitySpectrumDerivative.txt",
-		"/E/Дела/Для души и тела/Катя.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SettingsSaver.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveSettings.ini",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/settings.xml",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/MCT/Optim1.pas",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/multizoneFit.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/multizoneFit.h",
-		"/E/Дела/Информационная безопасность/Материалы/Новый текстовый документ.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/settings.txt",
-		"/E/Дела/Информационная безопасность/Планы.txt",
-		"/E/Дела/Информационная безопасность/Сервисы для проверки навыков тестирования на прони.txt",
-		"/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
-		"/E/Дела/Институт СГГА/ФГОС/Вот жеж я попал.txt",
-		"/G/Downloads/2_Rabochaya_programma_distsipliny2.htm",
-		"/G/Downloads/2_Rabochaya_programma_distsipliny.htm",
-		"/G/Downloads/secretfile.rar",
-		"/C/Users/Jonathan/Desktop/settings.xml",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Copy of 1T_77_tenzor_ideal_11Znacheniy.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.cpp",
+		"/E/Дела/Информационная безопасность/Иб лекции.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/errorsEstimate.hs",
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Dependence.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/DataSaver.cpp",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/tenzor/filt200_20_01_1,5.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2DirSampleN070605T77I401FiltDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2ComSampleN070605T77I400AvDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/3ComSampleN070605T77I400FiltDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.2.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/nofilt.2.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_20_01_1,5.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/tenzor/nofilt.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл90/tenzor/nofilt.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_2,5_3,5.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_2,5_3,5.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/tenzor/filt200_20_01_1,5.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/nofilt.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.3.hmr",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/tenzor/filt200_20_01_1,5.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/tenzor/filt200_20_01_02.1.hs",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/ftestSampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/ftestSampleN031202T77I500CurrDataAllP.txt",
-		"/G/Downloads/john179j5w/john179j5/run/in.txt",
-		"/G/Установки/john179j5/run/test.txt",
-		"/C/Users/Jonathan/Desktop/admin.php",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_03_04SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_06_09SampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_06_09SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_03_04SampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031126/холл77/2ComSampleN031126T77I305CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500FiltData21P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_1.5_2.5_1000SampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/2ComSampleN070605T77I401CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_1.5_2.5_1000SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_07_09SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/filt200_17_07_09SampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofiltSampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Расчетный тензор.4знака.txt",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Расчетный тензор.4знака.hs",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Новая папка/nofilt.2.hs",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/Новая папка/nofilt_mobilitySpectrum.txt",
-		"/E/Дела/Институт физики полупроводников/КРТ_программа Дениса/Тестовые данные для спектра подвижности/MobilityTestSpectrum.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/3ComSampleN050701T77I400AvDataAllP.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/FORENSIC/read.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/Из найденного.txt",
-		"/E/Дела/Для души и тела/Катенька2.txt",
-		"/I/Видеоуроки/OffSec Lectures/offL.txt",
-		"/G/temp/7zO4079.tmp/description.txt",
-		"/G/temp/7zO1AEE.tmp/description.txt",
-		"/G/temp/7zOBFEC.tmp/description.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/ipmap.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/help.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/CTF/PHDays/PHDaysDoc/FORENSIC/jhc_rc2/readme",
-		"/E/Дела/Для души и тела/НГ 2016.txt",
-		"/G/Downloads/wordlist/unscramble.hs",
-		"/G/Downloads/wordlist/wordlist.txt",
-		"/E/Дела/Информационная безопасность/Qctf.txt",
+		"/E/Дела/Competitive programming/CaesarBruter.hs",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/31T77_U_k2.txt1/MobSpec/3AllMobSpecRes.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/31T77_U_k2.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_mzr1 10-5.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_id.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_mzr2 10-5.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/unify.hs",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/1T77_U_k5.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/2/3AllMobSpecRes.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/2/3AllMZFitRes.txt",
+		"/H/Об.Сигналы3/unifyFit.hs",
+		"/H/Нормальный шум/Об.сигналы/31T_77_Us_Uy_vseZnachenia_k_1.txt",
+		"/H/Нормальный шум/Сигналы/1T_77_Us_Uy_vseZnachenia_k_1.txt",
+		"/H/Нормальный шум/Сигналы/2/2T_77_Us_Uy_vseZnachenia_k_1.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Us_Uy_mzr10-4.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/31T_77_Us_Uy_ideal_vseZnachenia4zn.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/31T_77_Us_Uy_ideal_vseZnachenia3zn.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/31T_77_Us_Uy_ideal_vseZnachenia.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/1T_77_params_.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/[(6.76288369700651,1.57611291832277e-4,0.39,123.22",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilityspectrum.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilityspectrum.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
+		"/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/part2.tex",
+		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/part1.tex",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Сигналы/1T_77_Us_Uy_ideal_vseZnachenia.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/1T_77_tenzor_ideal_vseZnachenia.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Сигналы/1T_77_Us_Uy_vseZnachenia_k_5_sko_p_xx-6,48745230959025E-5_sko_p_xy-0,000456302047461574.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/31Description.txt",
+		"/I/SteamLibrary/steamapps/common/Arx Fatalis/steam_appid.txt",
+		"/I/SteamLibrary/steamapps/common/Arx Fatalis/readme.txt",
+		"/E/Дела/Курсера/Infomation Security/2 - 1 - Introducing Computer Security (617).srt",
+		"/E/Дела/Курсера/Infomation Security/2 - 2 - What is software security (748).vtt",
+		"/E/Дела/Курсера/Infomation Security/subtitles.vtt",
+		"/E/Дела/Курсера/Криптография/1 - 1 - Course Overview (11 min).srt",
+		"/G/Downloads/FreeWordExcelpasswordrecoverywizard/ReadMe.txt",
+		"/G/Downloads/encryption",
+		"/G/Downloads/my_very_very_secret_password.doc",
+		"/G/Downloads/Новая папка (3)/john179j5w/john179j5/run/pa.txt",
+		"/G/temp/7zO16C.tmp/[5]DocumentSummaryInformation",
+		"/G/temp/7zOC5D9.tmp/WordDocument",
+		"/G/temp/7zO65B7.tmp/encryption",
+		"/C/Users/Jonathan/AppData/Roaming/StardewValley/Saves/Al_121079142/Al_121079142",
 		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/help.txt",
-		"/E/Дела/Информационная безопасность/QCTF/space_adventure_log.txt",
+		"/E/Архивы/Дача/Бассейн.txt",
+		"/E/Дела/Информационная безопасность/Материалы/как надо было проходить челендж по sql инъекциям.txt",
 		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/read.txt",
-		"/E/Дела/Институт СГГА/По работе/Информационная безопасность/Что надо.txt",
-		"/E/Дела/Информационная безопасность/QCTF/Qmessage1.txt",
-		"/C/Users/Jonathan/Desktop/qcft1.txt",
-		"/I/VideoTanya/1.txt",
-		"/E/Alex/Алтай-Вест/Стадия П/Новый текстовый документ.txt",
-		"/E/Alex/Алтай-Вест/Стадия Р/Новый текстовый документ.txt",
-		"/E/Alex/Алтай-Вест/Новый текстовый документ.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall90K_12nov/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Холл77_20окт/-iDescription.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Холл77_20окт/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/СопротивлениеИХолл_90К_6окт/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Е77_ФП_13oct/2Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T90_hall_13oct/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/Е77_ФП_13oct/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/2Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/2_O_o_Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/1Description.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/90К_Холл_16oct/1bDescription.txt",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/SaveUnit.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/ExtrapolateUnit.h",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1RevSampleN031202T77I500CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt10SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/2ComSampleN031202T77I500AvDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/tenzor/nofilt10.2SampleN031202T77I500CurrData11P.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/031202/холл77/1DirSampleN031202T77I500CurrDataAllP.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/6185.txt",
+		"/E/Дела/Информационная безопасность/Материалы/SQLinjection.txt",
+		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/log",
+		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/target.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/95.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/97.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/mainPage.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/dataparser.py",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/obtainedData.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/3ComSampleN070605T77I400CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_1.5_2.5_1000SampleN070605T77I401CurrDataAllP.txt",
+		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/session.sqlite",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7550.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7443.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/11.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/3.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/2.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/1.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/10607.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7945.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/linksToDom.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/103.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/linkstoStreets.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/27.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/8787.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/pages/1.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/189.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/153.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/baseDownloader.py",
+		"/G/Downloads/rott.enc.php",
+		"/G/Downloads/b1.txt",
+		"/E/Дела/Информационная безопасность/Софт/john179/run/inp.txt",
+		"/C/Users/Jonathan/Desktop/picture.gif",
+		"/G/Downloads/source.c",
+		"/G/Downloads/xor.asm",
+		"/G/Downloads/скачанные файлы (1)",
+		"/G/Downloads/handle.c",
+		"/E/Дела/Информационная безопасность/Qctf.txt",
+		"/G/Downloads/spisokctf_tasks/spisokctf_tasks/README.txt",
+		"/E/Дела/Информационная безопасность/Сервисы для проверки навыков тестирования на прони.txt",
+		"/E/Дела/Информационная безопасность/Планы.txt",
+		"/G/Downloads/terror/recovery.zip",
+		"/G/Downloads/alphabet/alphabet/B/nums.txt",
+		"/G/Downloads/alphabet/alphabet/A/nums.txt",
+		"/G/Downloads/alphabet/alphabet/E/nums.txt",
+		"/G/Downloads/alphabet/alphabet/H/nums.txt",
+		"/G/Downloads/alphabet/alphabet/I/nums.txt",
+		"/G/Downloads/alphabet/alphabet/L/nums.txt",
+		"/G/Downloads/alphabet/alphabet/T/nums.txt",
+		"/G/Downloads/alphabet/alphabet/W/nums.txt",
+		"/G/Downloads/triangulum/Copy of diary.txt",
+		"/G/Downloads/conversation/alarm.wav",
+		"/G/Downloads/Copy of malevich_v2.0.txt",
+		"/G/Downloads/malevich_v2.0.png",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/3ComSampleN050701T77I400CurrDataAllP.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/4fComSampleN070605T89I400FiltDataAllP.txt",
+		"/G/Downloads/[Mu soft] Hizashi no Naka no Riaru english, decensored version/Walkthrough guide and Dot guide for 100%/walkthrough.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/derivativeOfSignals.txt",
+		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/derivativeOfSignals.txt",
+		"/G/Downloads/[Mu soft] Hizashi no Naka no Riaru english, decensored version/Walkthrough guide and Dot guide for 100%/Dots for 100%.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/dissertation.tex",
+		"/H/Об.сигналы/31Description.txt",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/1description.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Распознавание капчи.txt",
+		"/E/Дела/Competitive programming/m.hs",
+		"/E/Дела/Информационная безопасность/bee-box_v1.6/README.txt",
+		"/E/Дела/Папки 3/Файлы/Свехнеобходимое/Вечность/Тоня и Настя.txt",
+		"/I/About_Time_2013/ANY!/Content002.cer",
+		"/G/Downloads/vulnerabilities.txt",
+		"/G/temp/7zODF89.tmp/INSTALL.txt",
 		"/E/Дела/Информационная безопасность/CtfPractise.txt",
-		"/E/Дела/Информационная безопасность/флаги от Касперского",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/ФП_90К_6окт/ФП_90К/1bDescription.txt"
+		"/E/Дела/Информационная безопасность/Мы существуем!.txt",
+		"/E/Дела/Информационная безопасность/1.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Новый текстовый документ.txt",
+		"/G/Downloads/sibsutis-ctf/tasks/your_brain.lol",
+		"/G/Downloads/sibsutis-ctf/tasks/crypto100.txt"
 	],
 	"find":
 	{
@@ -717,141 +718,204 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"calculate",
-			"node",
-			"get",
-			"mu",
-			"calculateMobilitySpectrum",
-			"FloatToStr",
-			"FloatToStrEx",
-			"while",
-			"do",
-			"until",
-			"hook",
-			"mobility",
-			"settings",
-			"btnFeatMultiClick",
-			"RunMultizoneFeat",
-			"подвижно",
-			"calculateMobilitySpectrum",
-			"  ",
-			" .",
-			"\\([1-9]\\)",
-			"()",
-			"([1-9].[1-9])",
-			"pass",
-			"prote",
-			"pass",
-			",",
-			" ",
-			"featData(",
-			"calculateTenzor",
-			"BHallToExtrapolate",
-			"extra",
-			"averageData",
-			"extrapolateData(",
-			"extra",
-			"featData",
-			"clearCur",
-			"setDepe",
-			"update",
-			"featData",
-			"getPointerB",
-			"getPointerBM",
-			"filterD",
-			"filter",
-			"extrapolate",
-			" ",
-			".21",
-			".{3}.{3}.{3}",
-			"featData",
-			"calculateTenzor",
-			"  ",
-			",",
-			".",
-			",",
-			"декаб",
-			"test",
-			"\"",
-			"e2 ",
-			"e2",
-			".",
-			"extrapolateData",
-			"extrapo",
-			"roundM",
-			"FloatToStrF",
-			"Round",
-			"ORIGINAL_DATA",
-			"Round",
-			"isRoundNeed",
-			"isRoundNe",
-			"saveB",
-			"DataSaver",
-			"Saver",
-			"SaveAll",
-			"ORIGINAL_DATA",
-			"DataKind",
-			"SaveAllData",
-			" ",
-			"\\t",
-			"\"",
-			"\",",
-			" ",
-			"эксплойт",
-			"запуск",
-			"экспло",
-			"экс",
-			"pass",
-			" ",
-			"\\n\\n",
-			"      ",
-			"\\t",
+			"\\,",
+			"[-]*[,0-9]{6,6}",
+			"[-]*[,0-9]{5,5}",
+			"[-]*[,0-9]{7,7}",
+			"[-]*[,0-9]{12,12}",
+			"2,3157230532",
+			"[-]*[0-9,]{12,12}",
+			"\\)\\,",
+			"99",
+			"\\)\\,",
 			"\\n",
-			"\\n\\n",
-			"[^\\x00-\\x7F]",
+			"J",
+			"`",
+			"`&Delta",
+			";",
+			"U[y]",
+			"U[x]",
+			"измеряемые ",
+			"\\+\\-",
+			"г[.]+",
+			"Новосибирск",
+			"<a[-&a-zA-Z0-9=\"_.?/ ]*>",
+			"<a[a-zA-Z0-9 ]*>",
+			"Почтовый индекс [ \\S]*",
+			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
+			"<font color=#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
+			"<font color=#FFCC00\\' size=\\'4\\' face=\\'Arial\\'> [ ()&\\S]*&",
+			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
+			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]* </font>",
+			"dom.php",
+			"fout",
+			"<a href=\"k_city.php>[& \\s\\S]*<>",
+			"top: 280px\" >[ \\s\\S]*</td></tr></table>",
+			"<top: 280px\" >[# \\s\\S]*</table>",
+			"<table class=\"simple\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">[\\s\\S]*</table>[\\s]<table width=\"100%\">",
+			"top: 280",
+			"безопасности",
+			"  ",
+			"теме",
+			"проведение",
+			"по",
+			"практического занятия",
+			"лекции",
+			",",
+			"464C",
+			"666C",
+			"66.6C",
+			"66*6C*61",
+			"666C",
+			"flag",
+			"get",
+			"deriva",
+			"diff",
+			"666c6167",
 			" ",
-			"playlist",
-			"save",
-			"file",
-			"extrem",
-			"string",
-			"averageData",
-			"featData(Data",
-			"featData(",
-			"calculateTenz",
-			"enable",
-			"command",
-			"SNP!AM9",
-			"-i",
-			"list",
-			"quality",
-			"Н!AP10",
-			"clean",
-			"setEn",
-			"#beg-4",
-			"вызов",
-			"input",
-			"choose",
-			"recursiveSort",
-			"doAlgAnim",
-			".directive",
-			"out of order",
-			"out of ",
-			"featData",
-			"filterDataH",
-			"featData",
-			"filterdataH",
-			"GetEqualNumberOfPoints",
-			"filterData",
-			"featData",
-			"average"
+			"lol",
+			"lool",
+			"loool",
+			"looool",
+			"loooool",
+			"looooool",
+			"loooooool",
+			"looooooool",
+			" ",
+			"looooooool",
+			"loooooool",
+			"looooool",
+			"loooool",
+			"looool",
+			"loool",
+			"lool",
+			"lol",
+			"[m]+",
+			".",
+			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
+			"\\t",
+			"БУРДЕНКО",
+			"Улица",
+			"Римского",
+			".",
+			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
+			"0Крыша",
+			"9Крыша",
+			"8Крыша",
+			"7Крыша",
+			"6Крыша",
+			"5Крыша",
+			"4Крыша",
+			"3Крыша",
+			"2Крыша",
+			"1Крыша",
+			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
+			".",
+			"[0-9]+\\.[0-9]+",
+			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
+			"flag",
+			"Процент",
+			"Номер",
+			"[",
+			"]",
+			"<tr><td>[0-9,/а-яА-ЯёЁ]*</td>",
+			"table",
+			"ПАРТСЪЕЗДА",
+			"1905 ГОДА",
+			"ГСК Колесо",
+			"1985",
+			"\">",
+			"</a><br/>",
+			"'",
+			"'+(.)+'",
+			"'+(.+)+'",
+			"^ +(.*)",
+			"'*'",
+			"<a href=\"",
+			"><",
+			"BAS",
+			"getCo",
+			"\\t",
+			" ",
+			"*",
+			"\\t",
+			" ",
+			"updatePlo",
+			"openFileWithSi",
+			"2806",
+			"ShowMessage",
+			"допи",
+			"calculateTenzor"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"\\n",
+			"\\)\\n",
+			", ",
+			"i",
+			"",
+			"delta",
+			"_",
+			"uy",
+			"ux",
+			"",
+			"практическое занятие",
+			"лекция",
+			"\\n",
+			"--*ptr; ",
+			"++*ptr; ",
+			"--ptr; ",
+			"++ptr; ",
+			"putchar(*ptr); ",
+			"*ptr=getchar(); ",
+			"while (*ptr) { ",
+			"} ",
+			"\\n",
+			"}",
+			"while (*ptr) { ",
+			"*ptr=getchar();",
+			"putchar(*ptr); ",
+			"++ptr; ",
+			"--ptr; ",
+			"++*ptr; ",
+			"--*ptr;",
+			"m",
+			"",
+			",",
+			"",
+			",",
+			"",
+			"0\\tКрыша",
+			"9\\tКрыша",
+			"8\\tКрыша",
+			"7\\tКрыша",
+			"6\\tКрыша",
+			"5\\tКрыша",
+			"4\\tКрыша",
+			"3\\tКрыша",
+			"2\\tКрыша",
+			"1\\tКрыша",
+			"",
+			",",
+			"[0-9]+\\,[0-9]+",
+			"",
+			"\\t",
+			"",
+			">\\n<",
+			">\\r<",
+			"T",
+			"P",
+			"*",
+			" ",
+			"-",
+			".",
+			"",
+			"int",
+			"double",
 			" ",
 			".",
 			"",
@@ -996,7 +1060,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 265.0,
+	"side_bar_width": 364.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

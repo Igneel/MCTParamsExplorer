@@ -18,16 +18,16 @@ typedef std::vector<long double> MyData_spektr;
 class MultiZoneFit
 {
 public:
-    MultiZoneFit() {
+    MultiZoneFit(long double RepeatQuantity, long double nVesGxx, long double nVesGxy) {
     epsilon=2e-6;
     eps1=0.15;
 
      MaxPoints=100;
     PointPerInt=50;
     MaxParameters=8;    // Максимальное число параметров
-   MaxRepeat=100;      // Максимальное число повторов
+   MaxRepeat=RepeatQuantity;// Максимальное число повторов
     ElectronCharge=1.60217656535E-19;// Кл
-
+    PP=NP=0;
     SIZE=8; // Очень очень очень странный размер.
       // Параметров-то шесть.
       // Нужно проверить используются где-нибудь индексы больше.
@@ -37,36 +37,41 @@ public:
         a[i]=1.1;
       }
 
+      Fold=Fnew=Fbefore=0;
+
       Nstep=SIZE;
+      repeatQuantity=RepeatQuantity;
+
+      VesGxx=nVesGxx;
+      VesGxy=nVesGxy;
 
     }
-    int RunMultizoneFeat (long double VesGxx, long double VesGxy,
-      std::vector<long double> LowBound, std::vector<long double> UpBound,
-      InDataSpectr MagSpectr, InDataSpectr GxxIn, InDataSpectr GxyIn,
-      MyData_spektr &outGxx, MyData_spektr &outGxy,
-      TStatistic &outValues,
-      int GxxSize,
-      int numberOfCarrierTypes);
+    int RunMultizoneFeat (const std::vector<long double> LowBound,const  std::vector<long double> UpBound,
+  const InDataSpectr MagSpectr,const  InDataSpectr GxxIn,const  InDataSpectr GxyIn,
+  MyData_spektr & outGxx, MyData_spektr & outGxy,
+  TStatistic & outValues,
+  int numberOfCarrierTypes);
 
 private:
-    void BegRand(int N_make, long double VesGxx, long double VesGxy);
-    void Hook(long double VesGxx, long double VesGxy);
+
+    void BegRand(const int N_make);
+    void Hook();
 
     void memoryAlloc();
      void InitVar();
 
      void CheckLimits();
-     void Research(long double VesGxx, long double VesGxy);
+     void Research();
 
-     void Optimiz_hall8(long double VesGxx, long double VesGxy);
-     void btnFeatMultiClick(long double & VesGxx, long double & VesGxy);
-     void Statistic(DataValue & mass, std::vector<long double> & ResulitsForStatistic, int m,int n);
-    long double someTestFunc(long double VesGxx);
+     void Optimiz_hall8();
+     void btnFeatMultiClick();
+     void Statistic(const DataValue & mass, std::vector<long double> & ResulitsForStatistic, int m,int n);
+    //long double someTestFunc(long double VesGxx);
 
 
-    long double func_hall8(Image & Data, Data_spektr & Magfield_spektr, Data_spektr &  Gxx,
-      Data_spektr &  Gxy, Data_spektr &  GxxExp, Data_spektr &  GxyExp,
-     int NPoint, long double Ves1, long double Ves2);
+    long double func_hall8(const Image & Data, const Data_spektr & Magfield_spektr, Data_spektr &  Gxx,
+  Data_spektr &  Gxy, const Data_spektr &  GxxExp, const Data_spektr &  GxyExp,
+ const long double NPoint);
 
 
     long double epsilon;
@@ -106,6 +111,10 @@ private:
 
     DataValue d1;
 
+    size_t repeatQuantity; // количество повторений в основном цикле
+
+    long double VesGxx;
+    long double VesGxy;
 
 };
 

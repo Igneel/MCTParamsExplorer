@@ -3,7 +3,10 @@
 
 #include <math.h>
 #include <vector>
+#include <vcl.h>
 #include "UsedTypes.h"
+#include "mobilityspectrum.h"
+
 
 using namespace std;
 
@@ -19,6 +22,8 @@ private:
     typedef vector <long double> Dat1 ;
     typedef vector <vector <long double> > Dat2 ;
     typedef vector <vector <long double> > Dat3 ;
+
+    enum PeakType { MostSignificant, Significant, Slowdown};
 
     typedef vector< pair<long double, long double> > TLineSeries;
 
@@ -49,6 +54,9 @@ private:
 
     std::vector<size_t> extremumHoleIndex;
     std::vector<size_t> extremumElectronIndex;
+
+    std::vector<PeakType> holePeakType;
+    std::vector<PeakType> electronPeakType;
 
     int  MaxPoints;
 
@@ -88,11 +96,23 @@ private:
     void  InverseMatrC(Dat2 & Ci,Dat2 & C,long double & Su,const int NP);
     long double S_s(const long double Mi);
 
+    std::vector<long double> eigenValues;
+    std::vector< std::vector<long double> > eigenVectors;
+
+
+    size_t searchPeakRigthBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index);
+    size_t searchPeakLeftBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index);
+    void constructPeakCriteria(TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j);
+
 public:
 
     size_t getResultSize();
 
-    
+    void saveEigenValues(std::string filename);
+    void saveResults(std::string filename);
+    void savePeakWeigth(std::string filename);
+
+    long double calculatePeakWeigth(std::string filename);
     void  MobilitySpectrumFunc(TLineSeries &LineSeries1, TLineSeries &Series5);
 
     long double getResultEY(const int i);
@@ -102,6 +122,9 @@ public:
     long double getResultHY(const int i);
 
     long double getResultHX(const int i);
+
+    std::vector<long double> getEigenValues();
+    std::vector< std::vector<long double> > getEigenVectors();
 
     mobilitySpectrum(Data_spektr &MagneticFieldP, Data_spektr &Exx,
                      Data_spektr &Exy,const int size);

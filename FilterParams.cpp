@@ -30,6 +30,6 @@ void FilterParams::setFilterParams(MyDataType samplingFrequecy,MyDataType bandwi
 
 String FilterParams::getFilterParams()
 {
-    return "FLen"+FloatToStr(filterLength)+"SF"+FloatToStr(SamplingFrequecy)+"BF"+
+    return "L"+FloatToStr(filterLength)+"SF"+FloatToStr(SamplingFrequecy)+"BF"+
     FloatToStr(BandwidthFrequency)+"AF"+FloatToStr(AttenuationFrequency);
 }

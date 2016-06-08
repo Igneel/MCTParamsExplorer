@@ -14,6 +14,7 @@
 #include "ExtrapolateUnit.h"
 #include "commonFunctions.h"
 #include "Dependence.h"
+#include "mobilityspectrum.h"
 //#include "Signal.h"
 //#include "MagneticField.h"
 //#include "hallEffect.h"
@@ -293,6 +294,9 @@ TSignal & Res);
     TSignal holeMobility;
     TSignal electronConcentration;
     TSignal electronMobility;
+
+
+    mobilitySpectrum * MobilitySpectrumObj;
 };
 
 

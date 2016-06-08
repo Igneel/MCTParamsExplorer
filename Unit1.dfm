@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 532
-  Top = 254
+  Left = 360
+  Top = 234
   Width = 963
   Height = 722
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = Resistance
+    ActivePage = DensAndMobDetermination
     MultiLine = True
-    TabIndex = 1
+    TabIndex = 5
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -1811,12 +1811,17 @@ object Form1: TForm1
         DefaultColWidth = 100
         DefaultRowHeight = 20
         RowCount = 4
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goRowSelect]
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goRowSelect]
         TabOrder = 3
         ColWidths = (
           100
           80
           75)
+        RowHeights = (
+          20
+          20
+          20
+          20)
       end
       object btnMobilitySpectrum: TButton
         Left = 4
@@ -1869,6 +1874,7 @@ object Form1: TForm1
         Height = 25
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1087#1072#1088#1072#1084#1077#1090#1088#1099
         TabOrder = 8
+        OnClick = btnSaveCarrierParamsClick
       end
       object FitResults: TStringGrid
         Left = 0
@@ -1892,6 +1898,14 @@ object Form1: TForm1
         Smooth = True
         Step = 100
         TabOrder = 10
+      end
+      object CheckBox3: TCheckBox
+        Left = 208
+        Top = 320
+        Width = 97
+        Height = 17
+        Caption = #1054#1090#1085'. '#1075#1088#1072#1092#1080#1082#1080
+        TabOrder = 11
       end
     end
   end
@@ -2125,6 +2139,23 @@ object Form1: TForm1
     Caption = #1040#1074#1090#1086#1084#1072#1090#1080#1095#1077#1089#1082#1072#1103' '#1086#1073#1088#1072#1073#1086#1090#1082#1072
     TabOrder = 10
     OnClick = Button3Click
+  end
+  object Button5: TButton
+    Left = 864
+    Top = 544
+    Width = 75
+    Height = 25
+    Caption = 'Button5'
+    TabOrder = 11
+    OnClick = Button5Click
+  end
+  object CheckBox2: TCheckBox
+    Left = 771
+    Top = 546
+    Width = 92
+    Height = 20
+    Caption = #1041#1077#1079' '#1087#1086#1076#1075#1086#1085#1082#1080
+    TabOrder = 12
   end
   object MainMenu1: TMainMenu
     Left = 896

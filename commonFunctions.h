@@ -233,8 +233,65 @@ bool testCommonFunctions()
     }
     return true;
 }
+//-------------------------------------------------------------------
+template <class T>
+std::vector<T> calculateSecondDerivative(std::vector<T> & y, T h)
+{
+  std::vector<T> d2Y(y.size()-2);
 
+      for(int i =0;i<y.size()-2;i++)
+      {
+        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+        // формула f(x-h)-2f(x)+f(x+h)/h^2
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
+      }
+  return d2Y;
+}
 
+//-------------------------------------------------------------------
+template <class T>
+std::vector<T> calculateFirstDerivative(std::vector<T> & y, T h)
+{
+  std::vector<T> dY(y.size()-2);
+  // Посчитаем производную методом конечных разностей
+  // формула df/dx=(f(x+h)-f(x-h))/2/h;
+  for(int i =0;i<y.size()-2;i++)
+      {
+        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+        dY[i]=(y[i+2]-y[i])/2.0/h;
+      }
+  return dY;
+}
+
+//-------------------------------------------------------------------
+TSignal calculateSecondDerivative(TSignal & y, MyDataType h)
+{
+  TSignal d2Y(y.size()-2);
+
+      for(int i =0;i<y.size()-2;i++)
+      {
+        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
+        // формула f(x-h)-2f(x)+f(x+h)/h^2
+        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
+        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
+      }
+  return d2Y;
+}
+
+//-------------------------------------------------------------------
+TSignal calculateFirstDerivative(TSignal & y, MyDataType h)
+{
+  TSignal dY(y.size()-2);
+  // Посчитаем производную методом конечных разностей
+  // формула df/dx=(f(x+h)-f(x-h))/2/h;
+  for(int i =0;i<y.size()-2;i++)
+      {
+        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
+        dY[i]=(y[i+2]-y[i])/2.0/h;
+      }
+  return dY;
+}
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
