@@ -15,10 +15,6 @@
 #include "commonFunctions.h"
 #include "Dependence.h"
 #include "mobilityspectrum.h"
-//#include "Signal.h"
-//#include "MagneticField.h"
-//#include "hallEffect.h"
-
 
 /*
 На данный момент:
@@ -190,10 +186,8 @@ private:
 	channelsInfo chanInfo;
 
 	
-    //bool ChangeChannels;
 	//-------Построение графиков--------------------------------------- 
 	void plotData();
-
 		
 
 	//------Фильтрация результатов-------------------------------------
@@ -224,8 +218,6 @@ TSignal & Res);
 	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.
 	void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry);
 	
-	void cutData(DataKind dataKind); // оставляет только положительные значения магнитного поля
-
 	void clearCurrentParams();
 	void clearFilteredParams();
 
@@ -240,11 +232,6 @@ TSignal & Res);
 	// после всяческих преобразований (вырезка, увеличение и т.п.).
 
     DataSet currentData;
-    //Signal * testB;
-    //Signal * testHall;
-
-
-
 
 	TSignal B;
 	TSignal BHall;
@@ -294,7 +281,6 @@ TSignal & Res);
     TSignal holeMobility;
     TSignal electronConcentration;
     TSignal electronMobility;
-
 
     mobilitySpectrum * MobilitySpectrumObj;
 };

@@ -814,11 +814,12 @@ bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int poli
     TSignal newHallEffect;
     TSignal newMagnetoResistance;
 
-    // Допустим нам всегда надо доводить поле до 2.2 Тл
+    // Допустим нам всегда надо доводить поле до rightFieldBoundary
+    long double rightFieldBoundary = 2.5; // Тл
     // Тогда нам надо расчитать кол-во точек, исходя из среднего шага.
-    if (2.5>(BToExtrapolate->back()-h))
+    if (rightFieldBoundary>(BToExtrapolate->back()-h))
     {
-        NumberOfPoints=(2.5-(BToExtrapolate->back()-h))/h+1;
+        NumberOfPoints=(rightFieldBoundary-(BToExtrapolate->back()-h))/h+1;
     }
     
 
@@ -915,11 +916,11 @@ bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int poli
 
 
 
-    // Допустим нам всегда надо доводить поле до 2.5 Тл
+    // Допустим нам всегда надо доводить поле до rightFieldBoundary Тл
     // Тогда нам надо расчитать кол-во точек, исходя из среднего шага.
-    if (2.5>fabs(BToExtrapolate->front()+h))
+    if (rightFieldBoundary>fabs(BToExtrapolate->front()+h))
     {
-        NumberOfPoints=(2.5+(BToExtrapolate->front()+h))/h+1;
+        NumberOfPoints=(rightFieldBoundary+(BToExtrapolate->front()+h))/h+1;
     }
 
     newB.push_back(BToExtrapolate->front()+h); // заполняем магнитное поле.
@@ -989,11 +990,7 @@ bool MagneticFieldDependence::extrapolateData( DataKind dataKind, const int poli
 
 return returnValue;   
 }
-/*
-bool extrapolateDataHelper()
-{
-}
-*/
+
 //-------------------------------------------------------------------------------
 void MagneticFieldDependence::multiplyB(DataKind dataKind)
 {
@@ -1490,7 +1487,6 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind)
 void MagneticFieldDependence::calculateTenzor(DataKind dataKind)
 {
     featData(dataKind);
-    //cutData(AVERAGED_DATA);
     calculateEffectiveParamsFromSignals();
     calculateTenzorFromEffectiveParams();
 }
@@ -1499,6 +1495,9 @@ void MagneticFieldDependence::calculateTenzor(DataKind dataKind)
 void  MagneticFieldDependence::cutData(DataKind dataKind)
 {
     // А если тут ничего не происходит... зачем я её делал?))))
+    // оставляет только положительные значения магнитного поля
+    // Хм, надо будет разобраться надо ли оно нам. По идее - её нужно бы использовать для обработки
+    // сигналов положительных и отрицательных.
    ;
 }
 
@@ -1571,7 +1570,6 @@ void MagneticFieldDependence::setExtrapolateParams(int powPolinowHall,int powPol
     PowPolinomRes=powPolinowHall;
     PowPolinomHall=powPolinomRes;
 }
-
 
 // Спектр подвижности
 bool MagneticFieldDependence::calculateMobilitySpectrum()

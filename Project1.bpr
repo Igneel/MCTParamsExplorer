@@ -4,7 +4,7 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="Project1.exe"/>
-    <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj FeatUnit.obj 
+    <OBJFILES value="Project1.obj Unit1.obj Unit2.obj ExtrapolateUnit.obj 
       FilteringUnit.obj LCard.obj MagneticFieldDependence.obj FilterParams.obj 
       DataSaver.obj SettingsSaver.obj commonFunctions.obj Unit3.obj 
       mobilityspectrum.obj SignalShiftForm.obj Dependence.obj multizoneFit.obj"/>
@@ -62,7 +62,7 @@
       <FILE FILENAME="Unit1.cpp" FORMNAME="Form1" UNITNAME="Unit1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Unit2.cpp" FORMNAME="SaveForm" UNITNAME="Unit2" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="ExtrapolateUnit.cpp" FORMNAME="" UNITNAME="ExtrapolateUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="FeatUnit.cpp" FORMNAME="" UNITNAME="FeatUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FitUnit.cpp" FORMNAME="" UNITNAME="FitUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="FilteringUnit.cpp" FORMNAME="" UNITNAME="FilteringUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="LCard.cpp" FORMNAME="" UNITNAME="LCard" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="MagneticFieldDependence.cpp" FORMNAME="" UNITNAME="MagneticFieldDependence" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>

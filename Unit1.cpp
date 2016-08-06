@@ -14,6 +14,7 @@ TForm1 *Form1;
 TODO
 возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
 фукнция удаления определенного интервала точек
+я так скоро приду к тому, чтобы хранить значения парами - и путаться они не будут заодно.
 
 Надо бы предусмотреть отдельный поток для вывода.
 И вызывать его по таймеру.
@@ -112,13 +113,15 @@ void TForm1::UpdatePlots()
     if(*par)
     {
     MagneticFieldDependence * p=*par;
-    /*p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
+    /*
+    Отладка
+    p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
     p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
     p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
+    
+    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
+    p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);
     */
-    //p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
-    //p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);
-
 
     // Обновление всех используемых графиков.
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))
@@ -246,7 +249,6 @@ void __fastcall TForm1::FormCreate(TObject *)
             }
     }
 }
-
 
     MobSpecResults->Cells[0][1]="Тяжелые дырки";
     MobSpecResults->Cells[0][2]="Легкие дырки";
@@ -1570,16 +1572,6 @@ void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-/*
-Это потом нужно будет перенести в создание формы.
-
-*/
-
-MobSpecResults->Cells[0][1]="Тяжелые дырки";
-MobSpecResults->Cells[0][2]="Легкие дырки";
-MobSpecResults->Cells[0][3]="Электроны";
-MobSpecResults->Cells[1][0]="Концентрация";
-MobSpecResults->Cells[2][0]="Подвижность";
 //-------------------------------------------------------------
 
 long double B[]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
@@ -1650,9 +1642,6 @@ mobilitySpectrum c(B2,sxx2,sxy2,testSize);
           MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
       }
       
-
-
-        
       TStringList *tosaving=new TStringList;
 
       for (int i =0;i<size;i++)
@@ -1760,19 +1749,8 @@ if(out1->XValues->Count()!=0)
 else
 UpdatePlots();
 
-
-     /*
-p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue);
-    p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack);
-
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue);
-    p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack);
-          */
 }
 //---------------------------------------------------------------------------
-
 
 void __fastcall TForm1::N16Click(TObject *Sender)
 {
@@ -1785,14 +1763,11 @@ UpdatePlots();
 }
 //---------------------------------------------------------------------------
 
-
-
 void __fastcall TForm1::uiFrenqChange(TObject *Sender)
 {
 uiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFilterSize->Text)); 
 }
 //---------------------------------------------------------------------------
-
 
 void __fastcall TForm1::N19Click(TObject *Sender)
 {
@@ -1834,131 +1809,8 @@ for (int i=0;i<newX.size();++i)
 if(fabs(outY[i])<1000)
 SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
 }
-
-/*
-    typedef int __stdcall (*pointerToRunMultizoneFeat)
-    (long double VesGxx,
-    long double VesGxy,
-    long double * LowBound,
-    long double * UpBound,
-    long double * MagSpectr,
-    long double * GxxIn,
-    long double * GxyIn,
-
-    long double *outGxx,
-    long double *outGxy,
-
-    long double ** outValues,
-    int GxxSize,
-    int numberOfCarrierTypes);
-
-    
-
-    HANDLE hLibHandle=NULL;
-    hLibHandle = LoadLibrary("lib\\MultizoneFeat.dll");
-    
-    if (hLibHandle)
-    {
-        long double B[11]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
-        long double sxx[11]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
-        long double sxy[11]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
-
-        long double lowBound[6]={-7.179, 0.239315, 0.011994, -3.4E16, 2.2539E19, 4.938E21};
-        long double upBound[6]={-2.39315, 0.718, 0.036, -1.14E16, 6.7617E19, 1.481E22};
-
-        int sizeBuf=11;
-        int numberOfCarrierTypes=3;
-
-        long double * outGxx= new long double [sizeBuf];
-        long double * outGxy= new long double [sizeBuf];
-        long double ** outValues= new long double*[2*numberOfCarrierTypes+2];
-
-        for (int i = 0; i < 2*numberOfCarrierTypes+2; ++i)
-        {
-            outValues[i]=new long double [4];
-        }
-        
-        for (int i = 0; i < sizeBuf; ++i)
-        {
-            outGxx[i]=0;
-            outGxy[i]=0;
-        }
-
-        for (int i = 0; i < 2*numberOfCarrierTypes+2; ++i)
-        {
-            outValues[i][0]=0;
-            outValues[i][1]=0;
-            outValues[i][2]=0;
-            outValues[i][3]=0;
-        }
-
-        pointerToRunMultizoneFeat RunMultizoneFeat = (pointerToRunMultizoneFeat)GetProcAddress(hLibHandle,"RunMultizoneFeat");
-        if (!RunMultizoneFeat)
-        {
-            ErrorLog->Lines->Add("Не могу импортировать функцию.");
-            return;
-        }
-        ErrorLog->Lines->Add(sizeof(long double));
-        (*RunMultizoneFeat)(1,1,lowBound,upBound,B,sxx,sxy,
-        outGxx,outGxy,outValues,sizeBuf,numberOfCarrierTypes);
-
-        ErrorLog->Lines->Add("Preparing is finished");
-        for(int i=0;i<11;++i)
-        {
-         //  Series6->AddXY(B[i],outGxx[i],"",clRed);
-         //  LineSeries1->AddXY(B[i],outGxy[i],"",clRed);
-        }
-        ErrorLog->Lines->Add("minValues");
-        for(int i=0;i<2*numberOfCarrierTypes;++i)
-        {
-          ErrorLog->Lines->Add(FloatToStr(outValues[i][0]));
-        }
-        ErrorLog->Lines->Add("middle");
-        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-        {
-           ErrorLog->Lines->Add(FloatToStr(outValues[i][1]));
-        }
-        ErrorLog->Lines->Add("SKO");
-        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-        {
-           ErrorLog->Lines->Add(FloatToStr(outValues[i][2]));
-        }
-        ErrorLog->Lines->Add("SKOPers");
-        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-        {
-           ErrorLog->Lines->Add(FloatToStr(outValues[i][3]));
-        }  
-
-        
-         
-
-        delete[] outGxx;
-        delete[] outGxy;
-        for (int i = 0; i < 2*numberOfCarrierTypes+2; ++i)
-        {
-            delete[] outValues[i];
-        }
-        delete[] outValues;
-
-         
-        if ( hLibHandle )
-        {
-        FreeLibrary( hLibHandle );
-        hLibHandle=NULL;
-        }
-    }
-    else
-    {
-        ShowMessage("Хендл равен нулю о_О");
-    }
-
-   */
 }
 //---------------------------------------------------------------------------
-
-
-
-
 
 void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
 {
@@ -2205,9 +2057,6 @@ void __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
-
 void __fastcall TForm1::N25Click(TObject *Sender)
 {
 bFilterRes->Click();
@@ -2237,8 +2086,6 @@ void __fastcall TForm1::XMLsettingsBeforeOpen(TObject *Sender)
  XMLsettings->FileName=FilePath+"settings.xml";   
 }
 //---------------------------------------------------------------------------
-
-
 
 std::vector<std::string> getAllFileNamesWithinFolder(std::string folder)
 {
@@ -2290,7 +2137,6 @@ if (OpenDialog1->Execute())
     std::string folder = ExtractFilePath(OpenDialog1->Files->Strings[0]).c_str();
 
     std::vector<std::string> files=getAllFileNamesWithinFolder(folder);
-
 
     // Нужно удалить из списка файлы, содержащие в имени "Description"
 
@@ -2359,13 +2205,7 @@ if (OpenDialog1->Execute())
                         //N11->Click(); // Сохранить всё
                     }
 
-
-                    
                 }
-
-
-                
-
 
             }
             else
