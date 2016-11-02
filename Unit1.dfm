@@ -124,9 +124,9 @@ object Form1: TForm1
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = DensAndMobDetermination
+    ActivePage = Resistance
     MultiLine = True
-    TabIndex = 5
+    TabIndex = 1
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -2156,6 +2156,15 @@ object Form1: TForm1
     Height = 20
     Caption = #1041#1077#1079' '#1087#1086#1076#1075#1086#1085#1082#1080
     TabOrder = 12
+  end
+  object SmartCalc: TButton
+    Left = 848
+    Top = 592
+    Width = 75
+    Height = 25
+    Caption = 'SmartCalc'
+    TabOrder = 13
+    OnClick = SmartCalcClick
   end
   object MainMenu1: TMainMenu
     Left = 896

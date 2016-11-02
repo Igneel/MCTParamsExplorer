@@ -152,6 +152,7 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 	// Ёкстрапол€ци€ результатов
 
     void setExtrapolateParams(int powPolinowHall,int powPolinomRes);
+    void getExtrapolateParams(int & powPolinomHall,int & powPolinomRes);
 
 	//bool extrapolateData(const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
 	bool extrapolateData( DataKind dataKind, const int polinomPowForMagnetoResistance, const int polinomPowForHallEffect);
@@ -176,6 +177,15 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
     // —охранение результатов------------------------------------------
 	DataSaver * saver;
+
+
+
+
+	mobilitySpectrum * MobilitySpectrumObj;
+
+
+
+	
 
 private:
 
@@ -218,6 +228,8 @@ TSignal & Res);
 	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.
 	void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry);
 	
+	void cutData(DataKind dataKind); // оставл€ет только положительные значени€ магнитного пол€
+
 	void clearCurrentParams();
 	void clearFilteredParams();
 
@@ -282,7 +294,7 @@ TSignal & Res);
     TSignal electronConcentration;
     TSignal electronMobility;
 
-    mobilitySpectrum * MobilitySpectrumObj;
+    
 };
 
 

@@ -253,6 +253,7 @@ __published:	// IDE-managed Components
     TButton *Button5;
     TCheckBox *CheckBox2;
     TCheckBox *CheckBox3;
+    TButton *SmartCalc;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -306,6 +307,7 @@ __published:	// IDE-managed Components
     void __fastcall N21Click(TObject *Sender);
     void __fastcall btnSaveCarrierParamsClick(TObject *Sender);
     void __fastcall Button5Click(TObject *Sender);
+    void __fastcall SmartCalcClick(TObject *Sender);
     
 
 private:	// User declarations

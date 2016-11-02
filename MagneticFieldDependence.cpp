@@ -1597,3 +1597,10 @@ bool MagneticFieldDependence::runMultiCarrierFit()
     return true;
 ;
 }
+
+
+void MagneticFieldDependence::getExtrapolateParams(int & powPolinomH,int & powPolinomR)
+{
+    powPolinomH=PowPolinomHall;
+    powPolinomR=PowPolinomRes;
+}

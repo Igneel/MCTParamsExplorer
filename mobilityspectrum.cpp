@@ -1360,7 +1360,7 @@ size_t mobilitySpectrum::searchPeakRigthBorder(std::vector<long double> dh,std::
   return j;
 }
 
-void mobilitySpectrum::constructPeakCriteria(TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j)
+void mobilitySpectrum::constructPeakCriteria(PeaksCriteria & peaksCriteria, TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j)
 {
   long double peakHeigh = resCond[index]-(resCond[i]+resCond[j])/2.0;
   long double peakWidth = resultMobility[j]-resultMobility[i];
@@ -1387,15 +1387,55 @@ void mobilitySpectrum::constructPeakCriteria(TStringList * tsl, const std::vecto
     peakVelocityL = fabs(resCond[index-t]-resCond[index-t+1]);
     peakVelocity2L = peakVelocityL/(resultMobility[index-t]-resultMobility[index-t+1]);
   }
+
+  peaksCriteria.peakHeigh=peakHeigh;
+  peaksCriteria.peakWidth=peakWidth;
+  peaksCriteria.peakWidthOrd=j-i;
+  peaksCriteria.peakVelocityR=peakVelocityR;
+  peaksCriteria.peakVelocity2R=peakVelocity2R;
+  peaksCriteria.symmetri=symmetri;// симметричность пиков
+  peaksCriteria.peakVelocityL=peakVelocityL; // модуль скорости изменения слева от пика
+  peaksCriteria.peakVelocity2L=peakVelocity2L; // скорость изменения слева от пика
+
   tsl->Add(FloatToStr(peakHeigh)+"\t"+FloatToStr(peakWidth)+"\t"+IntToStr(j-i)+"\t"+FloatToStr(peakVelocityR)+"\t"+FloatToStr(peakVelocity2R));
   tsl->Add(FloatToStr(symmetri)+"\t"+FloatToStr(peakVelocityL)+"\t"+FloatToStr(peakVelocity2L)); // симметричность пиков и скорость изменения слева от него
-
 
 }
 
 
-long double mobilitySpectrum::calculatePeakWeigth(std::string filename)
+
+void mobilitySpectrum::calculatePeakWeigth(PeaksCriteria & peaksCriteria,TStringList * tsl, 
+  TSignal & resultMobility, TSignal & resultConductivity,
+  std::vector<long double> & d, std::vector<long double> & d2, size_t extremumIndex)
 {
+  size_t index=extremumIndex;
+  int i=searchPeakLeftBorder(d,d2,index);
+  size_t j=searchPeakRigthBorder(d,d2,index);
+  constructPeakCriteria(peaksCriteria,tsl, resultMobility, resultConductivity,index,i,j);
+
+  peaksCriteria.peakLeftBorderFirstDerivative=d[i+1];
+  peaksCriteria.peakFirstDerivative=d[index];
+  peaksCriteria.peakRightBorderFirstDerivative=d[j-1];
+  peaksCriteria.peakLeftMiddleFirstDerivative=d[(i+index)/2];
+  peaksCriteria.peakRightMiddleFirstDerivative=d[(j+index)/2];
+
+  peaksCriteria.peakLeftBorderSecondDerivative=d2[i+1];
+  peaksCriteria.peakSecondDerivative=d2[index];
+  peaksCriteria.peakRightBorderSecondDerivative=d2[j-1];
+  peaksCriteria.peakLeftMiddleSecondDerivative=d2[(i+index)/2];
+  peaksCriteria.peakRightMiddleSecondDerivative=d2[(j+index)/2];
+
+  tsl->Add(FloatToStr(d[i+1])+"\t"+FloatToStr(d[index])+"\t"+FloatToStr(d[j-1]));
+  tsl->Add(FloatToStr(d[(i+index)/2])+"\t"+FloatToStr(d[(j+index)/2]));
+
+  tsl->Add(FloatToStr(d2[i+1])+"\t"+FloatToStr(d2[index])+"\t"+FloatToStr(d2[j-1]));
+  tsl->Add(FloatToStr(d2[(i+index)/2])+"\t"+FloatToStr(d2[(j+index)/2]));
+}
+
+long double mobilitySpectrum::calculatePeaksWeigth()
+{
+  PeaksCriteria peaksCriteria;
+  vPC.clear();
   // есть пик.
   // в две стороны от него запускаем поиск точки перегиба
   // как только нашли - это конец пика
@@ -1403,7 +1443,7 @@ long double mobilitySpectrum::calculatePeakWeigth(std::string filename)
   // Ширину пика, относительно 0,606 высоты
   TStringList *tsl = new TStringList;
 
-  long double hMobility = resultMobility[1]-resultMobility[0];
+  long double hMobility = resultMobility[1]-resultMobility[0]; // шаг по подвижности
 
   std::vector<long double> de=calculateFirstDerivative(resultElectronConductivity, hMobility); // электроны
   std::vector<long double> dh=calculateFirstDerivative(resultHoleConductivity, hMobility); // тяжелые дырки
@@ -1413,39 +1453,18 @@ long double mobilitySpectrum::calculatePeakWeigth(std::string filename)
 
 for (int k = 0; k < extremumHoleIndex.size(); ++k)
 {
-  size_t index=extremumHoleIndex[k];
-
-  int i=searchPeakLeftBorder(dh,d2h,index);
-
-  size_t j=searchPeakRigthBorder(dh,d2h,index);
-
-  constructPeakCriteria(tsl, resultMobility, resultHoleConductivity,index,i,j);
-
-  tsl->Add(FloatToStr(dh[i+1])+"\t"+FloatToStr(dh[index])+"\t"+FloatToStr(dh[j-1]));
-  tsl->Add(FloatToStr(dh[(i+index)/2])+"\t"+FloatToStr(dh[(j+index)/2]));
-
-  tsl->Add(FloatToStr(d2h[i+1])+"\t"+FloatToStr(d2h[index])+"\t"+FloatToStr(d2h[j-1]));
-  tsl->Add(FloatToStr(d2h[(i+index)/2])+"\t"+FloatToStr(d2h[(j+index)/2]));
+  calculatePeakWeigth(peaksCriteria,tsl,resultMobility, resultHoleConductivity,dh,d2h,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
 }
 
 for (int k = 0; k < extremumElectronIndex.size(); ++k)
 {
-  int index=extremumElectronIndex[k];
-
-  int i=searchPeakLeftBorder(de,d2e,index);
-
-  size_t j=searchPeakRigthBorder(de,d2e,index);
-  
-  constructPeakCriteria(tsl, resultMobility, resultElectronConductivity,index,i,j);
-
-  // значения первой и второй производной, по ним определяем тип пика.
-  // добавить вид пика
-  // смена знаков второй производной, отрицательная первая - замедление
-  tsl->Add(FloatToStr(de[i+1])+"\t"+FloatToStr(de[index])+"\t"+FloatToStr(de[j-1]));
-  tsl->Add(FloatToStr(de[(i+index)/2])+"\t"+FloatToStr(de[(j+index)/2]));
-  tsl->Add(FloatToStr(d2e[i+1])+"\t"+FloatToStr(d2e[index])+"\t"+FloatToStr(d2e[j-1]));
-  tsl->Add(FloatToStr(d2e[(i+index)/2])+"\t"+FloatToStr(d2e[(j+index)/2]));
+  calculatePeakWeigth(peaksCriteria,tsl,resultMobility, resultElectronConductivity,de,d2e,extremumElectronIndex[k]);
+  vPC.push_back(peaksCriteria);
   }
+
+  additionalData.leftPointElectronConductivity=resultElectronConductivity[0];
+  additionalData.leftPointHoleConductivity=resultHoleConductivity[0];
 
   tsl->Add(FloatToStr(resultElectronConductivity[0])+"\t"+FloatToStr(resultHoleConductivity[0])); // первые точки
 
@@ -1454,6 +1473,9 @@ for (int k = 0; k < extremumElectronIndex.size(); ++k)
   // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
 
   // расстояние между пиками?
+
+  additionalData.rightPointElectronConductivity=resultElectronConductivity.back();
+  additionalData.rightPointHoleConductivity=resultHoleConductivity.back();
 
   tsl->Add(FloatToStr(resultElectronConductivity.back())+"\t"+FloatToStr(resultHoleConductivity.back())); // последние точки
 
@@ -1483,39 +1505,18 @@ for (int k = 0; k < extremumElectronIndex.size(); ++k)
 
 for (int k = 0; k < extremumHoleIndex.size(); ++k)
 {
-  size_t index=extremumHoleIndex[k];
-
-  int i=searchPeakLeftBorder(dhl,d2hl,index);
-
-  size_t j=searchPeakRigthBorder(dhl,d2hl,index);
-
-  constructPeakCriteria(tsl, log10resultMobility, log10resultHoleConductivity,index,i,j);
-
-  tsl->Add(FloatToStr(dhl[i+1])+"\t"+FloatToStr(dhl[index])+"\t"+FloatToStr(dhl[j-1]));
-  tsl->Add(FloatToStr(dhl[(i+index)/2])+"\t"+FloatToStr(dhl[(j+index)/2]));
-
-  tsl->Add(FloatToStr(d2hl[i+1])+"\t"+FloatToStr(d2hl[index])+"\t"+FloatToStr(d2hl[j-1]));
-  tsl->Add(FloatToStr(d2hl[(i+index)/2])+"\t"+FloatToStr(d2hl[(j+index)/2]));
+  calculatePeakWeigth(peaksCriteria,tsl,log10resultMobility, log10resultHoleConductivity,dhl,d2hl,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
 }
 
 for (int k = 0; k < extremumElectronIndex.size(); ++k)
 {
-  int index=extremumElectronIndex[k];
+  calculatePeakWeigth(peaksCriteria,tsl,log10resultMobility, log10resultElectronConductivity,del,d2el,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
+}
 
-  int i=searchPeakLeftBorder(del,d2el,index);
-
-  size_t j=searchPeakRigthBorder(del,d2el,index);
-  
-  constructPeakCriteria(tsl, log10resultMobility, log10resultElectronConductivity,index,i,j);
-
-  // значения первой и второй производной, по ним определяем тип пика.
-  // добавить вид пика
-  // смена знаков второй производной, отрицательная первая - замедление
-  tsl->Add(FloatToStr(del[i+1])+"\t"+FloatToStr(del[index])+"\t"+FloatToStr(del[j-1]));
-  tsl->Add(FloatToStr(del[(i+index)/2])+"\t"+FloatToStr(del[(j+index)/2]));
-  tsl->Add(FloatToStr(d2el[i+1])+"\t"+FloatToStr(d2el[index])+"\t"+FloatToStr(d2el[j-1]));
-  tsl->Add(FloatToStr(d2el[(i+index)/2])+"\t"+FloatToStr(d2el[(j+index)/2]));
-  }
+  additionalData.leftPointElectronConductivityLog=log10resultElectronConductivity[0];
+  additionalData.leftPointHoleConductivityLog=log10resultHoleConductivity[0];
 
   tsl->Add(FloatToStr(log10resultElectronConductivity[0])+"\t"+FloatToStr(log10resultHoleConductivity[0])); // первые точки
 
@@ -1524,6 +1525,149 @@ for (int k = 0; k < extremumElectronIndex.size(); ++k)
   // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
 
   // расстояние между пиками?
+
+  additionalData.rightPointElectronConductivityLog=log10resultElectronConductivity.back();
+  additionalData.rightPointHoleConductivityLog=log10resultHoleConductivity.back();
+
+  tsl->Add(FloatToStr(log10resultElectronConductivity.back())+"\t"+FloatToStr(log10resultHoleConductivity.back())); // последние точки
+  delete tsl;
+  return 1;
+}
+
+long double mobilitySpectrum::calculatePeaksWeigth(std::string filename)
+{
+
+  PeaksCriteria peaksCriteria;
+
+  vPC.clear();
+  // есть пик.
+  // в две стороны от него запускаем поиск точки перегиба
+  // как только нашли - это конец пика
+  // Вычисляем высоту пика относительно этой точки
+  // Ширину пика, относительно 0,606 высоты
+  TStringList *tsl = new TStringList;
+
+  long double hMobility = resultMobility[1]-resultMobility[0]; // шаг по подвижности
+
+  std::vector<long double> de=calculateFirstDerivative(resultElectronConductivity, hMobility); // электроны
+  std::vector<long double> dh=calculateFirstDerivative(resultHoleConductivity, hMobility); // тяжелые дырки
+
+  std::vector<long double> d2e=calculateSecondDerivative(resultElectronConductivity, hMobility); // электроны
+  std::vector<long double> d2h=calculateSecondDerivative(resultHoleConductivity, hMobility); // тяжелые дырки
+
+for (int k = 0; k < extremumHoleIndex.size(); ++k)
+{
+  calculatePeakWeigth(peaksCriteria,tsl,resultMobility, resultHoleConductivity,dh,d2h,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
+  /*
+  size_t index=extremumHoleIndex[k];
+  int i=searchPeakLeftBorder(dh,d2h,index);
+  size_t j=searchPeakRigthBorder(dh,d2h,index);
+  constructPeakCriteria(peaksCriteria,tsl, resultMobility, resultHoleConductivity,index,i,j);  
+  */
+}
+
+for (int k = 0; k < extremumElectronIndex.size(); ++k)
+{
+  calculatePeakWeigth(peaksCriteria,tsl,resultMobility, resultElectronConductivity,de,d2e,extremumElectronIndex[k]);
+  vPC.push_back(peaksCriteria);
+  /*
+  int index=extremumElectronIndex[k];
+
+  int i=searchPeakLeftBorder(de,d2e,index);
+
+  size_t j=searchPeakRigthBorder(de,d2e,index);
+  
+  constructPeakCriteria(peaksCriteria,tsl, resultMobility, resultElectronConductivity,index,i,j);
+
+  */
+  }
+
+  additionalData.leftPointElectronConductivity=resultElectronConductivity[0];
+  additionalData.leftPointHoleConductivity=resultHoleConductivity[0];
+
+  tsl->Add(FloatToStr(resultElectronConductivity[0])+"\t"+FloatToStr(resultHoleConductivity[0])); // первые точки
+
+  // добавить минимальные значения спектров
+
+  // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
+
+  // расстояние между пиками?
+
+  additionalData.rightPointElectronConductivity=resultElectronConductivity.back();
+  additionalData.rightPointHoleConductivity=resultHoleConductivity.back();
+
+  tsl->Add(FloatToStr(resultElectronConductivity.back())+"\t"+FloatToStr(resultHoleConductivity.back())); // последние точки
+
+
+  /*
+  После всего этого - пробую сделать всё тоже самое, только для логарифмов нашего спектра.
+  */
+
+  TSignal log10resultElectronConductivity;
+  TSignal log10resultHoleConductivity;
+  TSignal log10resultMobility;
+
+  for (int i = 0; i < resultElectronConductivity.size(); ++i)
+  {
+    log10resultElectronConductivity.push_back(log10l(resultElectronConductivity[i]));
+    log10resultHoleConductivity.push_back(log10l(resultHoleConductivity[i]));
+    log10resultMobility.push_back(log10l(resultMobility[i]));
+  }
+
+  long double loghMobility = log10resultMobility[1]-log10resultMobility[0];
+
+  std::vector<long double> del=calculateFirstDerivative(log10resultElectronConductivity, loghMobility); // электроны
+  std::vector<long double> dhl=calculateFirstDerivative(log10resultHoleConductivity, loghMobility); // тяжелые дырки
+
+  std::vector<long double> d2el=calculateSecondDerivative(log10resultElectronConductivity, loghMobility); // электроны
+  std::vector<long double> d2hl=calculateSecondDerivative(log10resultHoleConductivity, loghMobility); // тяжелые дырки
+
+for (int k = 0; k < extremumHoleIndex.size(); ++k)
+{
+  calculatePeakWeigth(peaksCriteria,tsl,log10resultMobility, log10resultHoleConductivity,dhl,d2hl,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
+  /*
+  size_t index=extremumHoleIndex[k];
+
+  int i=searchPeakLeftBorder(dhl,d2hl,index);
+
+  size_t j=searchPeakRigthBorder(dhl,d2hl,index);
+
+  constructPeakCriteria(peaksCriteria,tsl, log10resultMobility, log10resultHoleConductivity,index,i,j);
+
+  */
+}
+
+for (int k = 0; k < extremumElectronIndex.size(); ++k)
+{
+  calculatePeakWeigth(peaksCriteria,tsl,log10resultMobility, log10resultElectronConductivity,del,d2el,extremumHoleIndex[k]);
+  vPC.push_back(peaksCriteria);
+  /*
+  int index=extremumElectronIndex[k];
+
+  int i=searchPeakLeftBorder(del,d2el,index);
+
+  size_t j=searchPeakRigthBorder(del,d2el,index);
+  
+  constructPeakCriteria(peaksCriteria,tsl, log10resultMobility, log10resultElectronConductivity,index,i,j);
+
+  */
+  }
+
+  additionalData.leftPointElectronConductivityLog=log10resultElectronConductivity[0];
+  additionalData.leftPointHoleConductivityLog=log10resultHoleConductivity[0];
+
+  tsl->Add(FloatToStr(log10resultElectronConductivity[0])+"\t"+FloatToStr(log10resultHoleConductivity[0])); // первые точки
+
+  // добавить минимальные значения спектров
+
+  // добавить максимальную скорость изменения (хотя с этим могут быть проблемы)
+
+  // расстояние между пиками?
+
+  additionalData.rightPointElectronConductivityLog=log10resultElectronConductivity.back();
+  additionalData.rightPointHoleConductivityLog=log10resultHoleConductivity.back();
 
   tsl->Add(FloatToStr(log10resultElectronConductivity.back())+"\t"+FloatToStr(log10resultHoleConductivity.back())); // последние точки
 
@@ -1536,7 +1680,6 @@ for (int k = 0; k < extremumElectronIndex.size(); ++k)
   tsl->SaveToFile(filename.c_str());
 
   delete tsl;
-  
   return 1;
 }
 
@@ -1568,7 +1711,7 @@ std::vector< std::vector<long double> > mobilitySpectrum::getEigenVectors()
 
 void mobilitySpectrum::savePeakWeigth(std::string filename)
 {
-  calculatePeakWeigth(filename);
+  calculatePeaksWeigth(filename);
 }
 
 
@@ -1623,4 +1766,15 @@ void mobilitySpectrum::saveResults(std::string filename)
   tsl->SaveToFile(filename.c_str());
 
   delete tsl;
+}
+
+
+std::vector <PeaksCriteria> mobilitySpectrum::getPeaksCriteria()
+{
+  return vPC;
+}
+
+AdditionalData mobilitySpectrum::getAdditionalData()
+{
+  return additionalData;
 }

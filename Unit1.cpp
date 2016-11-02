@@ -3,6 +3,7 @@
 
 #include "Unit1.h"
 #include "multizoneFit.h"
+#include "smartCalculation.h"
 #include <Windows.h>
 
 //---------------------------------------------------------------------------
@@ -2238,7 +2239,6 @@ void __fastcall TForm1::btnSaveCarrierParamsClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
 void __fastcall TForm1::Button5Click(TObject *Sender)
 {
     const TSignal * bv=(*ActiveParams())->getB();
@@ -2268,4 +2268,26 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
     delete tsl;
 }
 //---------------------------------------------------------------------------
-
+void __fastcall TForm1::SmartCalcClick(TObject *Sender)
+{
+    
+    MagneticFieldDependence ** par=ActiveParams();
+    MagneticFieldDependence * p;
+    if (*par==NULL)
+    {
+        ShowMessage("Вероятно выбран не тот график.");
+        return;
+    }
+    else
+    {
+        p=*par;
+        smartCalculation sC(p);
+        sC.processData();
+        SaveDialog1->Title="Сохранить результаты адаптивного фильтра:";
+        if(SaveDialog1->Execute())
+        {
+            sC.saveResults(SaveDialog1->FileName.c_str());
+        }
+    }
+}
+//---------------------------------------------------------------------------

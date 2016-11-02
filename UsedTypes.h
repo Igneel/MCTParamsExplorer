@@ -13,6 +13,40 @@ typedef TSignal::const_iterator TSignalconstIt;
 typedef std::vector<TSignal> TwoDimensionalContainer;
 typedef std::vector<std::vector<MyDataType> > TMatrix;
 
+struct PeaksCriteria
+{
+  MyDataType peakHeigh;
+  MyDataType peakWidth;
+  MyDataType peakWidthOrd;
+  MyDataType peakVelocityR;
+  MyDataType peakVelocity2R;
+  MyDataType symmetri;
+  MyDataType peakVelocityL;
+  MyDataType peakVelocity2L;
+  MyDataType peakLeftBorderFirstDerivative;
+  MyDataType peakFirstDerivative;
+  MyDataType peakRightBorderFirstDerivative;
+  MyDataType peakLeftMiddleFirstDerivative;
+  MyDataType peakRightMiddleFirstDerivative;
+  MyDataType peakLeftBorderSecondDerivative;
+  MyDataType peakSecondDerivative;
+  MyDataType peakRightBorderSecondDerivative;
+  MyDataType peakLeftMiddleSecondDerivative;
+  MyDataType peakRightMiddleSecondDerivative;
+};
+
+struct AdditionalData
+{
+  MyDataType leftPointElectronConductivity;
+  MyDataType leftPointHoleConductivity;
+  MyDataType rightPointElectronConductivity;
+  MyDataType rightPointHoleConductivity;
+  MyDataType leftPointElectronConductivityLog;
+  MyDataType leftPointHoleConductivityLog;
+  MyDataType rightPointElectronConductivityLog;
+  MyDataType rightPointHoleConductivityLog;
+};
+
 /*
 Давайте поиграем в продумывание архитектуры
 Вот есть у нас завивимости:

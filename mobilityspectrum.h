@@ -102,9 +102,23 @@ private:
 
     size_t searchPeakRigthBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index);
     size_t searchPeakLeftBorder(std::vector<long double> dh,std::vector<long double> d2h, size_t index);
-    void constructPeakCriteria(TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j);
+    void mobilitySpectrum::constructPeakCriteria(PeaksCriteria & peaksCriteria, TStringList * tsl, const std::vector<long double> & resMob, const std::vector<long double> & resCond, int index, int i, int j);
+
+   void calculatePeakWeigth(PeaksCriteria & peaksCriteria,TStringList * tsl, 
+  TSignal & resultMobility, TSignal & resultConductivity,
+  std::vector<long double> & d, std::vector<long double> & d2, size_t extremumIndex);
+    std::vector<long double> de;
+    std::vector<long double> dh;
+    std::vector<long double> d2e;
+    std::vector<long double> d2h;
+
+    std::vector <PeaksCriteria> vPC;
+    AdditionalData additionalData;
 
 public:
+
+    std::vector <PeaksCriteria> getPeaksCriteria();
+    AdditionalData getAdditionalData();
 
     size_t getResultSize();
 
@@ -112,7 +126,8 @@ public:
     void saveResults(std::string filename);
     void savePeakWeigth(std::string filename);
 
-    long double calculatePeakWeigth(std::string filename);
+    long double calculatePeaksWeigth();
+    long double calculatePeaksWeigth(std::string filename);
     void  MobilitySpectrumFunc(TLineSeries &LineSeries1, TLineSeries &Series5);
 
     long double getResultEY(const int i);

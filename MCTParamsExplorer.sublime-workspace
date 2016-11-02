@@ -4,16 +4,132 @@
 		"selected_items":
 		[
 			[
-				"ux",
-				"uxs"
+				"e",
+				"expr1"
 			],
 			[
-				"re",
-				"relativeError"
+				"h",
+				"helper2"
+			],
+			[
+				"he",
+				"helper"
+			],
+			[
+				"l",
+				"lookup"
+			],
+			[
+				"al",
+				"alfabet"
 			],
 			[
 				"d",
-				"deltaSigmaXX"
+				"decrypt"
+			],
+			[
+				"t",
+				"text"
+			],
+			[
+				"r",
+				"replace"
+			],
+			[
+				"F",
+				"False"
+			],
+			[
+				"p",
+				"pokes1"
+			],
+			[
+				"n",
+				"name1"
+			],
+			[
+				"is",
+				"isVulnerable"
+			],
+			[
+				"c",
+				"calcDamage"
+			],
+			[
+				"ty",
+				"type2"
+			],
+			[
+				"na",
+				"name1"
+			],
+			[
+				"Int",
+				"Int"
+			],
+			[
+				"po",
+				"pokes2"
+			],
+			[
+				"S",
+				"String"
+			],
+			[
+				"i",
+				"isVulnerable"
+			],
+			[
+				"E",
+				"Electric"
+			],
+			[
+				"fi",
+				"findTree"
+			],
+			[
+				"re",
+				"removeListAll"
+			],
+			[
+				"ma",
+				"maxList"
+			],
+			[
+				"x",
+				"x"
+			],
+			[
+				"ca",
+				"calcSum"
+			],
+			[
+				"the",
+				"theDate"
+			],
+			[
+				"th",
+				"theDirection"
+			],
+			[
+				"authorCo",
+				"authorComments"
+			],
+			[
+				"test",
+				"testdata"
+			],
+			[
+				"m",
+				"make"
+			],
+			[
+				"de",
+				"decoded_text"
+			],
+			[
+				"ux",
+				"uxs"
 			],
 			[
 				"f",
@@ -32,20 +148,12 @@
 				"TSignal"
 			],
 			[
-				"m",
-				"maybeToList"
-			],
-			[
 				"s",
 				"sub"
 			],
 			[
 				"if",
 				"ife	Conditional if..else"
-			],
-			[
-				"l",
-				"lines"
 			],
 			[
 				"st",
@@ -108,20 +216,12 @@
 				"Zero"
 			],
 			[
-				"E",
-				"Error"
-			],
-			[
 				"ch",
 				"changeh"
 			],
 			[
 				"even",
 				"evenOnly"
-			],
-			[
-				"e",
-				"enumFromThenTo"
 			],
 			[
 				"em",
@@ -178,10 +278,6 @@
 			[
 				"pe",
 				"peakVelocityL"
-			],
-			[
-				"c",
-				"cubes"
 			],
 			[
 				"g",
@@ -244,44 +340,16 @@
 				"TStringList"
 			],
 			[
-				"ca",
-				"calculateFirstDerivative"
-			],
-			[
-				"t",
-				"take"
-			],
-			[
-				"p",
-				"path"
-			],
-			[
 				"y",
 				"ys"
-			],
-			[
-				"x",
-				"xs"
 			],
 			[
 				"ele",
 				"electronMobility"
 			],
 			[
-				"F",
-				"FloatToStr"
-			],
-			[
-				"h",
-				"holeConcentration"
-			],
-			[
 				"ho",
 				"holeMobility"
-			],
-			[
-				"i",
-				"integration"
 			],
 			[
 				"ei",
@@ -392,18 +460,6 @@
 				"ShowMessage"
 			],
 			[
-				"r",
-				"roundM"
-			],
-			[
-				"n",
-				"NumberOfDecimalPlaces"
-			],
-			[
-				"ma",
-				"material"
-			],
-			[
 				"so",
 				"sortedwordlist"
 			],
@@ -458,67 +514,79 @@
 			[
 				"whil",
 				"while1"
-			],
-			[
-				"beg",
-				"beg-4"
-			],
-			[
-				"doA",
-				"doAlgAnimation"
-			],
-			[
-				"end",
-				"endbru"
-			],
-			[
-				"ge",
-				"getDescription"
-			],
-			[
-				"Des",
-				"getDescription"
-			],
-			[
-				"me",
-				"methodDescription"
-			],
-			[
-				"pro",
-				"prototype"
-			],
-			[
-				"sv",
-				"svgName"
-			],
-			[
-				"Avera",
-				"AveragedBMagnetoResistance"
-			],
-			[
-				"getP",
-				"getPointerMagnetoResistance"
-			],
-			[
-				"inBRe",
-				"inBRes"
-			],
-			[
-				"tempIn",
-				"tempInBRes"
-			],
-			[
-				"tempOut",
-				"tempOutB"
-			],
-			[
-				"temo",
-				"tempOutB"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"contents": "multillidae\nwww.dvwa.co.uk\nahack.ru/contest\n\nwebsec.ca/kb/sql_injection\n\npentestmonkey.net\n",
+			"settings":
+			{
+				"buffer_size": 91,
+				"line_ending": "Windows",
+				"name": "multillidae"
+			}
+		},
+		{
+			"file": "/E/Дела/Информационная безопасность/Наша команда.txt",
+			"settings":
+			{
+				"buffer_size": 1632,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+			"settings":
+			{
+				"buffer_size": 70,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/Дела/Информационная безопасность/MCTF 2016/чатик.txt",
+			"settings":
+			{
+				"buffer_size": 34880,
+				"line_ending": "Windows",
+				"name": "Андрей Иванов, [23.09.16 14:35]"
+			}
+		},
+		{
+			"contents": " skullsecurity \n\n атаки на оракул дополнения\n\n : https://kochetkov.github.io\n\n ive: http://approof.ptsecurity.ru/",
+			"settings":
+			{
+				"buffer_size": 113,
+				"line_ending": "Windows",
+				"name": "skullsecurity"
+			}
+		},
+		{
+			"contents": "Б7-03\nОколохацкеры\nКубик\ncyberputin\nZS\nParanoicPirates\nTeam_Information_Offensive\nATOMIC\nAntichat\nUET\nHackInfinity\nBalalaikaCr3w\nBadUSB\nbicycle_overdrive\nd4rkc0de\n8bit\nSad_Boys\nBasic_tomato_spaghetti\nЗвезда\n0xPHTeam\nMrMugiwara\nMSTUCA.junior\n804k0\nRDNCCMTCRACK\nG-point\n#miet\nLights_Out\n1DEA\nShadow_Servants\nfs0c13ty\nUnmoor!\nKeywrrr96\nEVA\nN00B\ndcua\nj4f\nUndefined\nАЗОВ\nllchk\nInSecurity\nbdd\nFalcon\nit.paladins\nknOWLedge\nBruteforce\nKB-82\nMVV228\nThe_Shield\nTriplexyza\ndust\nProbelka\nКоманда_МосУ_МВД_России_имени_В.Я._Кикотя\nB1uez.m0nkeyz\n__XSS\nDragon116rus\nNNT\nE&L(Anime_Five)\nPaleMenI\nKombada\nAlmost_betterThen_feds\nZer0Day\nMagic-Hat\nh4rdF0rc3\ntest12345678\nD-SEC\nv1ct0ry.py\nIntelligentRussianSecurityTeam\nHoneypot\nHack'n'Play\nyonghwi\nE&L(Elite_Five)\nMV9rwGOf08\nDestructive_Voice\nDnO\nfellics\nHexistence\nKXTI\nFullhouse\nCorrupted_Reflection\ng30DuD3\nMSTUCA\nRedWAGH!\nThe_Black_Pearl\nDelogrand\nGalzuu-Galuu\nRASF_(Red_Army_Special_Forces)\nIBAS\nNewbies\nPetoohmens\nIt_Barnaul\nASIS\nwrongpath\nНу,_в_следующий_раз.\nEpicTeam\nB7\ntaurus\niISITDTU\nex3x\nLife\nkekheck\nBarklay\n0x21\nРГСУ\nPackOfPugs\nSkynet\nUnidubna\nAho-Corasick_Boy_Band\nmotherhackers\nked",
+			"settings":
+			{
+				"buffer_size": 1128,
+				"line_ending": "Windows",
+				"name": "Б7-03"
+			}
+		},
+		{
+			"file": "/E/Дела/Информационная безопасность/Материалы/Скачать ещё надо бы.txt",
+			"settings":
+			{
+				"buffer_size": 779,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
+			"settings":
+			{
+				"buffer_size": 9956,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/User/CBuilder6.sublime-build",
 	"command_palette":
@@ -567,143 +635,142 @@
 	},
 	"expanded_folders":
 	[
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Lib"
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer"
 	],
 	"file_history":
 	[
-		"/E/Дела/Информационная безопасность/Иб лекции.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/errorsEstimate.hs",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/E/Дела/Competitive programming/CaesarBruter.hs",
+		"/G/3.hs",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/AdwCleaner/AdwCleaner[C0].txt",
+		"/E/Дела/Информационная безопасность/hackyouctf/crypto100.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Методы и стандарты оценки защищенности компьютерных АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Особенности эксплуатации уязвимостей во встраиваемых информационных системах.txt",
+		"/E/Дела/Информационная безопасность/hackyouctf/hackyouctf/ppc100.py",
+		"/G/Downloads/index.php",
+		"/E/Дела/Информационная безопасность/hackyouctf/crypto100.py",
+		"/E/Дела/Информационная безопасность/hackyouctf/hackyouctf/ppc300.py",
+		"/E/Дела/Информационная безопасность/hackyouctf/web200/postrequest.txt",
+		"/E/Дела/Информационная безопасность/hackyouctf/ppc100.py",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Экспертиза носителей компьютерной информации.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Тестирование на проникновение АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Теория управления информационной безопасностью распределенных компьютерных систем.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Системы автоматического поиска и эксплуатации уязвимостей.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Сетевая безопасность АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Проектирование и анализ систем обеспечения информационной безопасности объектов информатизации.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Принципы построения и архитектура высокопроизводительных вычислительных систем оптотехники.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Поиск, анализ и эксплуатация уязвимостей программного обеспечения АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Обратная разработка и отладка программного обеспечения АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Обнаружение вторжений и мониторинг функционирования высокопроизводительных систем (включая системы обнаружения компьютерных атак).txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Методы и инструментальные средства проведения расследования компьютерных инцидентов.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Веб-безопасность АСУ.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Антиотладочные средства и методы их преодоления.txt",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Анализ алгоритмов шифрования на наличие уязвимостей.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Анна Зонова/Информатика/15вариант.txt",
+		"/G/Downloads/vkupu_zts",
+		"/E/Дела/Информационная безопасность/simpleChange.hs",
+		"/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+		"/G/text.zip",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/smartCalculation.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/smartCalculation.cpp",
 		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/31T77_U_k2.txt1/MobSpec/3AllMobSpecRes.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/31T77_U_k2.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_mzr1 10-5.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_id.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Tenzor_mzr2 10-5.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/unify.hs",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/Новая папка/1T77_U_k5.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/2/3AllMobSpecRes.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/2/3AllMZFitRes.txt",
-		"/H/Об.Сигналы3/unifyFit.hs",
-		"/H/Нормальный шум/Об.сигналы/31T_77_Us_Uy_vseZnachenia_k_1.txt",
-		"/H/Нормальный шум/Сигналы/1T_77_Us_Uy_vseZnachenia_k_1.txt",
-		"/H/Нормальный шум/Сигналы/2/2T_77_Us_Uy_vseZnachenia_k_1.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/T77_Us_Uy_mzr10-4.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/31T_77_Us_Uy_ideal_vseZnachenia4zn.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Разное округление/31T_77_Us_Uy_ideal_vseZnachenia3zn.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/31T_77_Us_Uy_ideal_vseZnachenia.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/1T_77_params_.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Оценка погрешностей/[(6.76288369700651,1.57611291832277e-4,0.39,123.22",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilityspectrum.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/mobilityspectrum.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/commonFunctions.h",
-		"/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/part2.tex",
-		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/part1.tex",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Сигналы/1T_77_Us_Uy_ideal_vseZnachenia.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/1T_77_tenzor_ideal_vseZnachenia.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Сигналы/1T_77_Us_Uy_vseZnachenia_k_5_sko_p_xx-6,48745230959025E-5_sko_p_xy-0,000456302047461574.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/31Description.txt",
-		"/I/SteamLibrary/steamapps/common/Arx Fatalis/steam_appid.txt",
-		"/I/SteamLibrary/steamapps/common/Arx Fatalis/readme.txt",
-		"/E/Дела/Курсера/Infomation Security/2 - 1 - Introducing Computer Security (617).srt",
-		"/E/Дела/Курсера/Infomation Security/2 - 2 - What is software security (748).vtt",
-		"/E/Дела/Курсера/Infomation Security/subtitles.vtt",
-		"/E/Дела/Курсера/Криптография/1 - 1 - Course Overview (11 min).srt",
-		"/G/Downloads/FreeWordExcelpasswordrecoverywizard/ReadMe.txt",
-		"/G/Downloads/encryption",
-		"/G/Downloads/my_very_very_secret_password.doc",
-		"/G/Downloads/Новая папка (3)/john179j5w/john179j5/run/pa.txt",
-		"/G/temp/7zO16C.tmp/[5]DocumentSummaryInformation",
-		"/G/temp/7zOC5D9.tmp/WordDocument",
-		"/G/temp/7zO65B7.tmp/encryption",
-		"/C/Users/Jonathan/AppData/Roaming/StardewValley/Saves/Al_121079142/Al_121079142",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/help.txt",
-		"/E/Архивы/Дача/Бассейн.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
+		"/E/Дела/Информационная безопасность/hackyouctf/crypto300/cry300_encrypt_78ceb64.py",
+		"/E/Дела/Информационная безопасность/hackyouctf/reverse200/ideone_AGBfRW.py",
+		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Measurement Sci&Tech/Ищем рецензентов.txt",
+		"/E/Дела/Работа/Upwork/helpWithHaskellnoComments.hs",
+		"/E/Дела/Информационная безопасность/hackyouctf/pwn100/main_bb1529f.c",
+		"/E/Дела/Информационная безопасность/hackyouctf/ppc200",
+		"/E/Дела/Информационная безопасность/hackyouctf/ppc300.py",
+		"/E/Дела/Информационная безопасность/hackyouctf/rev100_4e4ccaa.cpp",
+		"/E/Дела/Работа/Upwork/helpWithHaskell2submit.hs",
+		"/E/Дела/Работа/Upwork/helpWithHaskell.hs",
+		"/G/grub4dos-0.4.4/grub4dos-0.4.4/README_GRUB4DOS.txt",
+		"/G/Downloads/helpWithHaskell.hs",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Reverse/400 (1)/400/droid",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/rev/rev_500/TaskDescription.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/solve_400/model_mesh.ply",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/solve_400/install_meshlab.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/ppc 400.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 300/solve_300.py",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 300/ppc 300.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 200/solve_200.sh",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 200/ppc 200.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 100/solve_100.py",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 100/ppc 100.txt",
+		"/C/Python27/Scripts/uncompyle2",
+		"/G/text.txt",
+		"/G/Downloads/cry200_bc7a808.cpp",
+		"/G/Downloads/rev100_4e4ccaa.cpp",
+		"/G/Downloads/implementation.py",
+		"/G/ppc100.py",
+		"/G/Downloads/cry200_bc7a808 (1).cpp",
+		"/G/Downloads/A2/a2.cpp",
+		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/getDataFromPlanXml.py",
+		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/getDataFromPlanXml.py",
+		"/I/SteamLibrary/steamapps/common/Моды  на морровинд/Astarsis_face_replacer/ReadMes/AstarsisDEF_readme.txt",
+		"/I/SteamLibrary/steamapps/common/Morrowind/Morrowind.ini",
+		"/E/Дела/Информационная безопасность/Иб лекции.txt",
+		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/12.04.02-01-00-ИБ-ver7.plm.xml",
+		"/G/skietalaBreak.py",
+		"/G/Downloads/hackyouWeb100/crypto100",
+		"/G/Downloads/hackyouWeb100/noname[63].htm",
+		"/G/Downloads/main_bb1529f.c",
+		"/G/Downloads/cry300_encrypt_78ceb64.py",
+		"/G/Downloads/rev200_bot_7b541a1.pyc",
+		"/I/SteamLibrary/steamapps/common/Моды  на морровинд/Astarsis_face_replacer/ReadMe.htm",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Recon/recon300_1 (1)/recon300_1/password.txt",
+		"/I/Kit.Forensic-13.5/Kit.Forensic.v13.5.8557.x64/Serial/Serial.txt",
+		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/Для всех дисциплин.txt",
+		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/По каждой дисциплине.txt",
+		"/E/Дела/Институт СГГА/магистратура/Сборка 2/12.04.02-01-00-ИБ-ver7.plm.xml",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Задания",
+		"/E/Дела/Информационная безопасность/Наша команда.txt",
+		"/G/Downloads/hash.pl",
+		"/G/Downloads/bin",
+		"/G/Downloads/encrypted_text",
+		"/G/Downloads/repo/.git/logs/refs/heads/master",
+		"/G/Downloads/repo/.git/logs/HEAD",
+		"/G/Downloads/repo/.git/COMMIT_EDITMSG",
+		"/G/Схема Ван-дер-Пау для образцов произвольной формы",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Forensics/Forensics100 (1)/Forensics100/meta.xml",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Forensics/Forensics100 (1)/Forensics100/settings.xml",
+		"/G/temp/Temp1_crypto400.zip/crypto400/b.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Crypto/Crypto100/1.hs",
+		"/E/Дополнения/Установочные/Кряки виндов/KMSAuto Net 2014 1.2.8 Portable/KMSAuto Net 2014 v1.2.8 Portable RU/readme_ru.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Stegano/Stegano400/Stegano400/cover.txt",
+		"/G/Downloads/index.php.old",
+		"/E/Дела/Институт СГГА/Аспирантура/Полина/readme",
+		"/G/Downloads/readme.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Полина/RP/word/settings.xml",
 		"/E/Дела/Информационная безопасность/Материалы/как надо было проходить челендж по sql инъекциям.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Информационная безопасность Positive tech/Web/XSSlab/read.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/6185.txt",
-		"/E/Дела/Информационная безопасность/Материалы/SQLinjection.txt",
-		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/log",
-		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/target.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/95.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/97.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/mainPage.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/dataparser.py",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/obtainedData.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/3ComSampleN070605T77I400CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/070605/hall77K_12nov/tenzor/filt200_1.5_2.5_1000SampleN070605T77I401CurrDataAllP.txt",
-		"/C/Users/Jonathan/.sqlmap/output/sql.training.hackerdom.ru/session.sqlite",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7550.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7443.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/11.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/3.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/2.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/1.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/10607.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/7945.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/linksToDom.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/103.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/linkstoStreets.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/27.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/Domz/8787.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/pages/1.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/189.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/houses/153.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Парсер сайта/Парсер другого сайта/baseDownloader.py",
-		"/G/Downloads/rott.enc.php",
-		"/G/Downloads/b1.txt",
-		"/E/Дела/Информационная безопасность/Софт/john179/run/inp.txt",
-		"/C/Users/Jonathan/Desktop/picture.gif",
-		"/G/Downloads/source.c",
-		"/G/Downloads/xor.asm",
-		"/G/Downloads/скачанные файлы (1)",
-		"/G/Downloads/handle.c",
-		"/E/Дела/Информационная безопасность/Qctf.txt",
-		"/G/Downloads/spisokctf_tasks/spisokctf_tasks/README.txt",
-		"/E/Дела/Информационная безопасность/Сервисы для проверки навыков тестирования на прони.txt",
-		"/E/Дела/Информационная безопасность/Планы.txt",
-		"/G/Downloads/terror/recovery.zip",
-		"/G/Downloads/alphabet/alphabet/B/nums.txt",
-		"/G/Downloads/alphabet/alphabet/A/nums.txt",
-		"/G/Downloads/alphabet/alphabet/E/nums.txt",
-		"/G/Downloads/alphabet/alphabet/H/nums.txt",
-		"/G/Downloads/alphabet/alphabet/I/nums.txt",
-		"/G/Downloads/alphabet/alphabet/L/nums.txt",
-		"/G/Downloads/alphabet/alphabet/T/nums.txt",
-		"/G/Downloads/alphabet/alphabet/W/nums.txt",
-		"/G/Downloads/triangulum/Copy of diary.txt",
-		"/G/Downloads/conversation/alarm.wav",
-		"/G/Downloads/Copy of malevich_v2.0.txt",
-		"/G/Downloads/malevich_v2.0.png",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/3ComSampleN050701T77I400CurrDataAllP.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/4fComSampleN070605T89I400FiltDataAllP.txt",
-		"/G/Downloads/[Mu soft] Hizashi no Naka no Riaru english, decensored version/Walkthrough guide and Dot guide for 100%/walkthrough.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/derivativeOfSignals.txt",
-		"/E/Дела/Институт физики полупроводников/Данные измерений_16_12_2014/Повторная обработка/050701/T77_hall_13oct/derivativeOfSignals.txt",
-		"/G/Downloads/[Mu soft] Hizashi no Naka no Riaru english, decensored version/Walkthrough guide and Dot guide for 100%/Dots for 100%.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Диссертация/Сама диссертация/Dissertation/dissertation.tex",
-		"/H/Об.сигналы/31Description.txt",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Глобальный эксперимент/Дмзр4.2е-4/Ид.сигналы/1description.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Распознавание капчи.txt",
-		"/E/Дела/Competitive programming/m.hs",
-		"/E/Дела/Информационная безопасность/bee-box_v1.6/README.txt",
-		"/E/Дела/Папки 3/Файлы/Свехнеобходимое/Вечность/Тоня и Настя.txt",
-		"/I/About_Time_2013/ANY!/Content002.cer",
-		"/G/Downloads/vulnerabilities.txt",
-		"/G/temp/7zODF89.tmp/INSTALL.txt",
-		"/E/Дела/Информационная безопасность/CtfPractise.txt",
-		"/E/Дела/Информационная безопасность/Мы существуем!.txt",
-		"/E/Дела/Информационная безопасность/1.txt",
-		"/E/Дела/Информационная безопасность/Материалы/Новый текстовый документ.txt",
-		"/G/Downloads/sibsutis-ctf/tasks/your_brain.lol",
-		"/G/Downloads/sibsutis-ctf/tasks/crypto100.txt"
+		"/E/Дела/Информационная безопасность/Private/write up for SQL from Hackerdom.txt",
+		"/E/Дела/Информационная безопасность/Анкета.txt",
+		"/G/Downloads/data.py",
+		"/G/2.hs",
+		"/E/Дела/Институт СГГА/магистратура/iii@gmail.com",
+		"/G/1.hs",
+		"/G/Downloads/ppc100/ppc100.py",
+		"/G/Downloads/recon 300/password.txt",
+		"/E/Дела/Информационная безопасность/Список достижений кружка Информационной безопасности.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о лице (органе) выдвигающем соискателя (коллектив).txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о премиях, призах и наградах соискателя.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о работах соискателя.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Резюме о достижениях.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Научно-популярное описание представленных соискате.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Значимость представленных соискателем (коллективом.txt",
+		"/E/Дела/Это сумасшествие/И мы сможем!.txt",
+		"/E/Дела/Информационная безопасность/MCTF 2016/scoreBoard.txt",
+		"/G/Downloads/PhParanoid_b7fa460590b3dc2a7662dc0bb633a7d8.phb",
+		"/J/admin400/admin400.vmx",
+		"/I/About_Time_2013/ANY!/DUPLICATE/Новый текстовый документ.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Описание исследований или разработок.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Резюме о достижениях",
+		"/G/Downloads/fhq2016-tasks-writeups/ppc/gact/WRITEUP.md"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -715,137 +782,137 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
-			"\\,",
-			"[-]*[,0-9]{6,6}",
-			"[-]*[,0-9]{5,5}",
-			"[-]*[,0-9]{7,7}",
-			"[-]*[,0-9]{12,12}",
-			"2,3157230532",
-			"[-]*[0-9,]{12,12}",
-			"\\)\\,",
-			"99",
-			"\\)\\,",
-			"\\n",
-			"J",
-			"`",
-			"`&Delta",
-			";",
-			"U[y]",
-			"U[x]",
-			"измеряемые ",
-			"\\+\\-",
-			"г[.]+",
-			"Новосибирск",
-			"<a[-&a-zA-Z0-9=\"_.?/ ]*>",
-			"<a[a-zA-Z0-9 ]*>",
-			"Почтовый индекс [ \\S]*",
-			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
-			"<font color=#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
-			"<font color=#FFCC00\\' size=\\'4\\' face=\\'Arial\\'> [ ()&\\S]*&",
-			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]*&",
-			"<font color='#FFCC00' size='4' face='Arial'> [ ()&\\S]* </font>",
-			"dom.php",
-			"fout",
-			"<a href=\"k_city.php>[& \\s\\S]*<>",
-			"top: 280px\" >[ \\s\\S]*</td></tr></table>",
-			"<top: 280px\" >[# \\s\\S]*</table>",
-			"<table class=\"simple\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">[\\s\\S]*</table>[\\s]<table width=\"100%\">",
-			"top: 280",
-			"безопасности",
-			"  ",
-			"теме",
-			"проведение",
-			"по",
-			"практического занятия",
-			"лекции",
+			"\\t",
+			"1",
+			"0",
+			"\\n\\n",
+			"(0.00 secs, 0 bytes)",
+			"it :: Integral a => a",
+			"Prelude> ",
+			", ",
 			",",
-			"464C",
-			"666C",
-			"66.6C",
-			"66*6C*61",
-			"666C",
-			"flag",
-			"get",
-			"deriva",
-			"diff",
-			"666c6167",
+			"\\n\\n",
+			"inc",
+			"--[A-Za-z0-9 -]+",
+			"then",
+			" Екатерина\nЕкатерина",
+			" Александр\nАлександр",
+			" ххх:\nххх:",
+			"Екатерина",
+			"0",
+			"10",
+			"(\\/\\w+)\\s*(.*)",
+			"(\\\\/\\\\w+)\\\\s*(.*)",
+			"iteration",
+			"Restricted area! Keep off!",
 			" ",
-			"lol",
-			"lool",
-			"loool",
-			"looool",
-			"loooool",
-			"looooool",
-			"loooooool",
-			"looooooool",
+			"\\t",
+			"\\t\\t",
+			"  ",
+			"9",
+			"8",
+			"6",
+			"5",
+			"4",
+			"2",
+			"3",
+			"7",
+			"\\t",
+			"1",
+			"Екатерина",
+			"Arc",
+			"Экз",
+			"Компетенции",
+			"Дисц",
+			"m",
+			"l",
+			"j",
+			"i",
+			"k",
+			"g",
+			"f",
+			"p",
+			"c",
+			"e",
+			"d",
+			"n",
+			"b",
+			"h",
+			"o",
+			"a",
+			"X",
+			"B",
+			"X",
+			"B",
 			" ",
-			"looooooool",
-			"loooooool",
-			"looooool",
-			"loooool",
-			"looool",
-			"loool",
-			"lool",
-			"lol",
-			"[m]+",
-			".",
-			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
+			"Действия",
+			" ",
+			"\\n\\n\\n",
 			"\\t",
-			"БУРДЕНКО",
-			"Улица",
-			"Римского",
-			".",
-			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
-			"0Крыша",
-			"9Крыша",
-			"8Крыша",
-			"7Крыша",
-			"6Крыша",
-			"5Крыша",
-			"4Крыша",
-			"3Крыша",
-			"2Крыша",
-			"1Крыша",
-			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
-			".",
-			"[0-9]+\\.[0-9]+",
-			"<strong>К сожалению, данные отсутствуют</strong></p>           	",
-			"flag",
-			"Процент",
-			"Номер",
-			"[",
-			"]",
-			"<tr><td>[0-9,/а-яА-ЯёЁ]*</td>",
-			"table",
-			"ПАРТСЪЕЗДА",
-			"1905 ГОДА",
-			"ГСК Колесо",
-			"1985",
-			"\">",
-			"</a><br/>",
-			"'",
-			"'+(.)+'",
-			"'+(.+)+'",
-			"^ +(.*)",
-			"'*'",
-			"<a href=\"",
-			"><",
-			"BAS",
-			"getCo",
+			"\\n\\n\\n",
 			"\\t",
+			"https://pp.vk.me[a-z0-9/_-]+.jpg",
+			"https://pp.vk.me/[a-z0-9/]+.jpg",
+			" ",
+			"255 255 255",
+			"00 00 00",
+			" ",
+			"FF",
+			"_",
+			"*",
 			" ",
 			"*",
-			"\\t",
 			" ",
-			"updatePlo",
-			"openFileWithSi",
-			"2806",
-			"ShowMessage",
-			"допи",
-			"calculateTenzor"
+			"_",
+			" ",
+			"FFFFFF",
+			"000000",
+			" ",
+			"qr",
+			"chocolate",
+			"lollipop",
+			"86",
+			"write",
+			"ctfti",
+			"for",
+			"foren",
+			"admin",
+			"recon",
+			"crypto",
+			"ppc",
+			"web",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[9,8]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[9,8,7]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[1,2,3]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[1,2,3]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[5,4,3]{1,1}[1,2,3]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[5,4,3]{1,1}[7,6,5]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[6,7]{1,1}[7,8]",
+			"[0,1,2,9]{1,1}[0-9]{1,1}[6,7]",
+			"77902321857485",
+			"\"",
+			",",
+			" ",
+			",",
+			"810",
+			"8105",
+			",",
+			"8105",
+			"1984",
+			",",
+			"\"",
+			",",
+			"0 points",
+			"2",
+			"0",
+			"1",
+			"FHQ{",
+			"funny",
+			"fhq",
+			"'"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -853,117 +920,134 @@
 		"regex": true,
 		"replace_history":
 		[
+			" ",
+			"True",
+			"False",
 			"\\n",
-			"\\)\\n",
+			"",
+			",",
+			"', '",
+			"\\n",
+			"",
+			"xxx:",
+			"Александр:",
+			"ххх:",
+			"lowB",
+			"upB",
+			"",
 			", ",
-			"i",
+			"\\n",
 			"",
-			"delta",
+			" ",
+			"9, ",
+			"8, ",
+			"6, ",
+			"5, ",
+			"4, ",
+			"2, ",
+			"3, ",
+			"7, ",
+			"",
+			"1, ",
+			"Некто",
+			"D",
+			"8",
+			"B",
+			"C",
+			"E",
+			"9",
+			"7",
+			"A",
+			"F",
+			"0",
+			"2",
+			"1",
+			"6",
+			"5",
+			"3",
+			"4",
+			"*",
+			"-",
+			"*",
+			", ",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			", ",
+			"255",
+			"00",
+			", ",
+			"255",
+			"X",
+			" ",
+			"X",
+			" ",
 			"_",
-			"uy",
-			"ux",
-			"",
-			"практическое занятие",
-			"лекция",
-			"\\n",
-			"--*ptr; ",
-			"++*ptr; ",
-			"--ptr; ",
-			"++ptr; ",
-			"putchar(*ptr); ",
-			"*ptr=getchar(); ",
-			"while (*ptr) { ",
-			"} ",
-			"\\n",
-			"}",
-			"while (*ptr) { ",
-			"*ptr=getchar();",
-			"putchar(*ptr); ",
-			"++ptr; ",
-			"--ptr; ",
-			"++*ptr; ",
-			"--*ptr;",
-			"m",
-			"",
-			",",
-			"",
-			",",
-			"",
-			"0\\tКрыша",
-			"9\\tКрыша",
-			"8\\tКрыша",
-			"7\\tКрыша",
-			"6\\tКрыша",
-			"5\\tКрыша",
-			"4\\tКрыша",
-			"3\\tКрыша",
-			"2\\tКрыша",
-			"1\\tКрыша",
-			"",
-			",",
-			"[0-9]+\\,[0-9]+",
-			"",
-			"\\t",
-			"",
-			">\\n<",
-			">\\r<",
-			"T",
-			"P",
+			" ",
+			"_",
 			"*",
 			" ",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"0",
+			"1",
+			"2",
+			"",
+			"Э",
+			"Ф",
+			"П",
+			"Ц",
+			"Р",
+			"Ш",
+			"Х",
+			"Щ",
+			"Б",
+			"Ы",
+			"Г",
+			"Я",
+			"Ь",
+			"Ч",
+			"С",
+			"А",
+			"К",
+			"Ж",
+			"З",
+			"Й",
+			"Н",
+			"Т",
+			"Л",
+			"Е",
+			"И",
+			"О",
+			"М",
+			"Д",
+			"В",
+			"О",
+			"У",
 			"-",
 			".",
-			"",
-			"int",
-			"double",
-			" ",
-			".",
-			"",
-			"\\t",
-			"*\\n",
-			".{3}.{3}.{3}\\n",
-			"\\t",
-			".",
-			",",
-			"\\t",
-			"",
-			"e2",
-			"\\ne2",
-			"e2\\n",
-			",",
-			"\\t",
-			"",
 			"\\n",
-			"\\r",
-			"",
-			"\\t",
-			"\\n",
-			"\\n\\n",
-			" ",
-			"\\n\\t\\n",
-			"",
-			"PGT!C9",
-			"SNP!C9",
-			"\\n{\\n}",
-			"{\\n}",
-			"for (myi=0; myi<NPoint; ++myi)",
-			"=",
-			"}",
-			"{",
-			"*/",
-			"/*",
-			"int",
-			"long double",
-			"	",
-			".",
-			"	",
-			"++i",
-			"	",
-			"THallEffect",
-			"TSignal",
-			"roundM",
-			",",
-			"\\r"
+			"Ш",
+			"В",
+			"Л",
+			"К",
+			"Р",
+			"Т",
+			"Н",
+			"С",
+			"Е",
+			"А",
+			"И",
+			"О",
+			"С",
+			"Д"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -974,14 +1058,240 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 91,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								91,
+								91
+							]
+						],
+						"settings":
+						{
+							"auto_name": "multillidae",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/E/Дела/Информационная безопасность/Наша команда.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1632,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1243,
+								1542
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 300.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 70,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								48,
+								48
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/E/Дела/Информационная безопасность/MCTF 2016/чатик.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34880,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6207,
+								6212
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Андрей Иванов, [23.09.16 14:35]",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5730.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								113,
+								113
+							]
+						],
+						"settings":
+						{
+							"auto_name": "skullsecurity",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Б7-03",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/E/Дела/Информационная безопасность/Материалы/Скачать ещё надо бы.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 779,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								779,
+								779
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9956,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 32.0
 	},
 	"input":
 	{
@@ -1025,7 +1335,7 @@
 	"project": "MCTParamsExplorer.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1060,7 +1370,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 364.0,
+	"side_bar_width": 50.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
