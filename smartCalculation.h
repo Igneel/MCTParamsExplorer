@@ -10,6 +10,8 @@
 Класс для работы адаптации фильтра
 */
 
+
+
 enum parameterType
 {
 	ELECTRON_MOBILITY=0,
@@ -26,13 +28,16 @@ struct Results
 	FilterParams fpRes;
 	int polinomPowHall;
 	int polinomPowMagnetoresistance;
-	TSignal holeConcentration;
-    TSignal holeMobility;
-    TSignal electronConcentration;
-    TSignal electronMobility;
+	long double electronConcentration;
+	long double electronMobility;
+	long double heavyHoleConcentration;
+	long double heavyHoleMobility;
+	long double lightHoleConcentration;
+	long double lightHoleMobility;
 	long double targetFuncValue;
 	std::vector <PeaksCriteria> vPC;
     AdditionalData additionalData;
+    parameterType pt;
 };
 
 
@@ -46,13 +51,27 @@ public:
 
 
 private:
+
+	enum vPCType
+	{
+		HHOLE=0,
+		LHOLE=1,
+		ELECTRON=2,
+		LOGHHOLE=3,
+		LOGLHOLE=4,
+		LOGELECTRON=5
+	};
+
 	size_t numberOfParameters;
 	size_t numberOfStoredBestResults;
 	long double targetFunction (Results & r, parameterType pt);
 	bool isBetterResults(Results & r1, Results & r2); // возвращает true если r1 лучше чем r2
 	bool processResults();
+	bool smartCalculation::isGoodExtremum(Results & r, parameterType pt);
 
 	std::deque < std::deque<Results> > results;
+
+	std::vector < Results > allSpectras;
 	MagneticFieldDependence * MFDData;
 
 

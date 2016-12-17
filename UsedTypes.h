@@ -45,6 +45,8 @@ struct AdditionalData
   MyDataType leftPointHoleConductivityLog;
   MyDataType rightPointElectronConductivityLog;
   MyDataType rightPointHoleConductivityLog;
+  MyDataType leftPointMobility;
+  MyDataType rightPointMobility;
 };
 
 /*

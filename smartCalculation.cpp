@@ -7,26 +7,26 @@ smartCalculation::smartCalculation(MagneticFieldDependence * base)
 	Всё делается на основе данных, которые хранятся и рассчитываются в классе MagneticFieldDependence.
 	*/
 	numberOfParameters=6;
-	numberOfStoredBestResults=3;
+	numberOfStoredBestResults=25;
 	MFDData=base;
 	results.resize(numberOfParameters);
 }
 
 smartCalculation::~smartCalculation()
 {
-
+	;
 }
 
 bool isBetterResult(Results & r1, Results & r2)
 // возвращает true если r1 лучше чем r2
 {
-	return r1.targetFuncValue<r2.targetFuncValue;
+	return fabs(r1.targetFuncValue)<fabs(r2.targetFuncValue);
 }
 
 bool smartCalculation::isBetterResults(Results & r1, Results & r2)
 // возвращает true если r1 лучше чем r2
 {
-	return r1.targetFuncValue<r2.targetFuncValue;
+	return isBetterResult(r1, r2);
 }
 
 //bool compareResult (int i,int j) { return (i<j); }
@@ -39,23 +39,57 @@ bool smartCalculation::processResults()
 	nr.fpHall=*(MFDData->getFilterParamsHall());
 	nr.fpRes=*(MFDData->getFilterParamsResistance());
 	MFDData->getExtrapolateParams(nr.polinomPowHall,nr.polinomPowMagnetoresistance);
-	nr.holeConcentration=*(MFDData->getHoleConcentration());
-    nr.holeMobility=*(MFDData->getHoleMobility());
-    nr.electronConcentration=*(MFDData->getElectronConcentration());
-    nr.electronMobility=*(MFDData->getElectronMobility());
+
+	if(MFDData->getElectronConcentration()->size()>=1)
+	{
+		nr.electronConcentration=MFDData->getElectronConcentration()->operator[](0);
+		nr.electronMobility=MFDData->getElectronMobility()->operator[](0);
+	}
+	else
+	{
+		nr.electronConcentration=0;
+		nr.electronMobility=0;
+	}
+
+	if(MFDData->getHoleConcentration()->size()>=1)
+	{
+		nr.heavyHoleConcentration=MFDData->getHoleConcentration()->operator[](0);
+		nr.heavyHoleMobility=MFDData->getHoleMobility()->operator[](0);
+	}
+	else
+	{
+		nr.heavyHoleConcentration=0;
+		nr.heavyHoleMobility=0;
+	}
+
+	if(MFDData->getHoleConcentration()->size()>=2)
+	{
+		nr.lightHoleConcentration=MFDData->getHoleConcentration()->operator[](1);
+		nr.lightHoleMobility=MFDData->getHoleMobility()->operator[](1);
+	}
+	else
+	{
+		nr.lightHoleConcentration=0;
+		nr.lightHoleMobility=0;
+	}
+
     nr.vPC=MFDData->MobilitySpectrumObj->getPeaksCriteria();
     nr.additionalData=MFDData->MobilitySpectrumObj->getAdditionalData();
+
+	nr.targetFuncValue=10000;
+    allSpectras.push_back(nr);
 
 	// Рассчитать целевые функции для всех видов носителей заряда
 	for (int i = 0; i < numberOfParameters; ++i)
 	{
 		nr.targetFuncValue= targetFunction(nr,i);
+		nr.pt=i;
 
 		if (results[i].size()==0)
 		{
 			/* (если пусто - добавить так) */
 			results[i].push_back(nr);
-			sort(results[i].begin(), results[i].end(), isBetterResult); // Тут нужно определить свою функцию для сортировки!
+			sort(results[i].begin(), results[i].end(), isBetterResult);
 		}
 		else
 		{
@@ -64,7 +98,7 @@ bool smartCalculation::processResults()
 			{
 				// Если целевая функция лучше - сохранить
 				results[i].push_back(nr);
-				sort(results[i].begin(), results[i].end(), isBetterResult); // Тут нужно определить свою функцию для сортировки!
+				sort(results[i].begin(), results[i].end(), isBetterResult);
 			}
 
 			// Хранить будем numberOfStoredBestResults лучших значений целевой функции для каждого параметра
@@ -141,6 +175,8 @@ std::string convertToString(AdditionalData & ad)
 	strs << "leftPointHoleConductivityLog " << ad.leftPointHoleConductivityLog << "\n";
 	strs << "rightPointElectronConductivityLog " << ad.rightPointElectronConductivityLog << "\n";
 	strs << "rightPointHoleConductivityLog " << ad.rightPointHoleConductivityLog << "\n";
+	strs << "leftPointMobility " << ad.leftPointMobility << "\n";
+	strs << "rightPointMobility " << ad.rightPointMobility << "\n";
 
 	return strs.str();
 }
@@ -182,28 +218,90 @@ bool smartCalculation::saveResults(std::string filename)
 			strs << "fpRes " << res->fpRes.getFilterParams().c_str() << "\n";
 			strs << "polinomPowHall " << res->polinomPowHall << "\n";
 			strs << "polinomPowMagnetoresistance " << res->polinomPowMagnetoresistance << "\n";
-			for (std::vector<long double >::iterator i = res->holeConcentration.begin(),
-				 j = res->holeMobility.begin(),
-				 k = res->electronConcentration.begin(),
-				 l = res->electronMobility.begin(); 
-				 i != res->holeConcentration.end(),
-				 j != res->holeMobility.end(),
-				 k != res->electronConcentration.end(),
-				 l != res->electronMobility.end()
-				 ; ++i,++j,++k,++l)
-			{
-				strs << j<< "\t" << i  << "\t" << l << "\t" << k << "\n";
-			}
 
-			strs << "targetFuncValue" << res->targetFuncValue << "\n";
+			strs << "electronConcentration " << res->electronConcentration << "\n";
+			strs << "electronMobility " << res->electronMobility << "\n";
+			strs << "heavyHoleConcentration " << res->heavyHoleConcentration << "\n";
+			strs << "heavyHoleMobility " << res->heavyHoleMobility << "\n";
+			strs << "lightHoleConcentration " << res->lightHoleConcentration << "\n";
+			strs << "lightHoleMobility " << res->lightHoleMobility << "\n";
+
+			strs << "targetFuncValue " << res->targetFuncValue << "\n";
+			strs << res->pt << "\n";
 			strs << "vPC\n";
 			for (std::vector<PeaksCriteria>::iterator i = res->vPC.begin(); i != res->vPC.end(); ++i)
 			{
 				strs << convertToString(*i) << "\n";
 			}
 
-			strs << "additionalData " << convertToString(res->additionalData);
+			strs << "additionalData " << convertToString(res->additionalData)<<endl;
 		}
+		strs << "end of first parameterType\n";
+	}
+
+	//---------------------------------------------------------
+	// Расчет статистики по параметрам из спектра. Из которых мы будем исключать промахи и определять интервалы для многозонной подгонки.
+	TSignal x;
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		if (allSpectras[i].electronMobility<90 && allSpectras[i].electronMobility > 0.1)
+		{
+			x.push_back(allSpectras[i].electronMobility);
+		}
+	}
+	strs << "standard Deviation for electronMobility is " << standardDeviation(x) << "\n";
+	strs << "mean Value for electronMobility is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		if (allSpectras[i].electronMobility<90 && allSpectras[i].electronMobility > 0.1)
+		{
+			x.push_back(allSpectras[i].electronConcentration);
+		}
+	}
+	strs << "standard Deviation for electronConcentration is " << standardDeviation(x) << "\n";
+	strs << "mean Value for electronConcentration is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		x.push_back(allSpectras[i].lightHoleMobility);
+	}
+	strs << "standard Deviation for lightHoleMobility is " << standardDeviation(x) << "\n";
+	strs << "mean Value for lightHoleMobility is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		x.push_back(allSpectras[i].lightHoleConcentration);
+	}
+	strs << "standard Deviation for lightHoleConcentration is " << standardDeviation(x) << "\n";
+	strs << "mean Value for lightHoleConcentration is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		x.push_back(allSpectras[i].heavyHoleMobility);
+	}
+	strs << "standard Deviation for heavyHoleMobility is " << standardDeviation(x) << "\n";
+	strs << "mean Value for heavyHoleMobility is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		x.push_back(allSpectras[i].heavyHoleConcentration);
+	}
+	strs << "standard Deviation for heavyHoleConcentration is " << standardDeviation(x) << "\n";
+	strs << "mean Value for heavyHoleConcentration is " << calculateMeanValue(x) << "\n";
+	x.clear();
+
+	for (int i = 0; i < allSpectras.size(); ++i)
+	{
+		strs << allSpectras[i].electronMobility << '\t' << allSpectras[i].electronConcentration << '\t' 
+		<< allSpectras[i].lightHoleMobility << '\t' << allSpectras[i].lightHoleConcentration << '\t'
+		<< allSpectras[i].heavyHoleMobility << '\t' << allSpectras[i].heavyHoleConcentration << '\n';
 	}
 
 	TStringList * tsl= new TStringList();
@@ -215,12 +313,73 @@ bool smartCalculation::saveResults(std::string filename)
 	return true;
 }
 
+bool smartCalculation::isGoodExtremum(Results & r, parameterType pt)
+{
+	return true;
+}
+
 long double smartCalculation::targetFunction (Results & r, parameterType pt)
 {
+	/*
+	Надо определять тип носителя.
+	*/
+
+	
+
+	/*
+	hhole
+	lhole
+	electron
+	loghhole
+	loglhole
+	logelectron
+
+	r.vPC[i].peakHeigh;
+	r.vPC[i].peakWidth;
+	r.vPC[i].peakWidthOrd;
+	r.vPC[i].peakVelocityR;
+	r.vPC[i].peakVelocity2R;
+	r.vPC[i].symmetri;
+	r.vPC[i].peakVelocityL;
+	r.vPC[i].peakVelocity2L;
+	r.vPC[i].peakLeftBorderFirstDerivative;
+	r.vPC[i].peakFirstDerivative;
+	r.vPC[i].peakRightBorderFirstDerivative;
+	r.vPC[i].peakLeftMiddleFirstDerivative;
+	r.vPC[i].peakRightMiddleFirstDerivative;
+	r.vPC[i].peakLeftBorderSecondDerivative;
+	r.vPC[i].peakSecondDerivative;
+	r.vPC[i].peakRightBorderSecondDerivative;
+	r.vPC[i].peakLeftMiddleSecondDerivative;
+	r.vPC[i].peakRightMiddleSecondDerivative;
+
+	r.additionalData.leftPointElectronConductivity;
+	r.additionalData.leftPointHoleConductivity;
+	r.additionalData.rightPointElectronConductivity;
+	r.additionalData.rightPointHoleConductivity;
+	r.additionalData.leftPointElectronConductivityLog;
+	r.additionalData.leftPointHoleConductivityLog;
+	r.additionalData.rightPointElectronConductivityLog;
+	r.additionalData.rightPointHoleConductivityLog;
+
+	*/
+	const int VERYBIGTARGETFUNC=10000;
 	switch (pt)
 	{
 		case ELECTRON_MOBILITY:
-
+			if (fabs(r.additionalData.rightPointMobility-r.electronMobility)<1.0 || fabs(r.additionalData.leftPointMobility-r.electronMobility)<1.0)
+			{
+				return VERYBIGTARGETFUNC;
+			}
+			if (isGoodExtremum(r,pt))
+			{
+				//return r.vPC[ELECTRON].peakHeigh*r.additionalData.rightPointElectronConductivity/r.additionalData.rightPointHoleConductivity;
+				return r.vPC[HHOLE].peakHeigh*r.vPC[HHOLE].peakWidth+2.94999999812644*r.vPC[ELECTRON].peakWidth*r.vPC[ELECTRON].peakWidth;
+			}
+			else
+			{
+				return r.vPC[ELECTRON].peakWidth- r.vPC[ELECTRON].peakLeftMiddleFirstDerivative;
+			}
 		/*
 		ярко выраженный экстремум:
 		высота экстремума электронов * величины проводимости электронов на границе вычисляемого спектра подвижности 100 м^2/(В∙с) / величины проводимости дырок на границе вычисляемого спектра подвижности 100 м^2/(В∙с)
@@ -228,30 +387,58 @@ long double smartCalculation::targetFunction (Results & r, parameterType pt)
 		слабо выраженный:
 		ширина пика электронов - величина первой производной для середины боковой стороны экстремума, соответствующего электронам
 		*/
-			return 1;
-			break;
 		case ELECTRON_DENSITY:
+			if (fabs(r.additionalData.rightPointMobility-r.electronMobility)<1.0 || fabs(r.additionalData.leftPointMobility-r.electronMobility)<1.0)
+			{
+				return VERYBIGTARGETFUNC;
+			}
+			if (isGoodExtremum(r,pt))
+			{
+				return 1;
+			}
+			else
+			{
+				return r.vPC[ELECTRON].peakHeigh*r.additionalData.rightPointElectronConductivity/r.additionalData.rightPointHoleConductivity/r.vPC[ELECTRON].peakWidth;
+			}
 		/*
 		слабо выраженный:
 		высота экстремума электронов * величины проводимости электронов на границе вычисляемого спектра подвижности 100 м^2/(В∙с) / величины проводимости дырок на границе вычисляемого спектра подвижности 100 м^2/(В∙с) /ширина экстремума электронов
 		*/
-			return 1;
-			break;
 		case LIGHT_HOLE_MOBILITY:
+			if (isGoodExtremum(r,pt))
+			{
+				r.vPC[LHOLE].peakWidth*r.vPC[HHOLE].peakWidth/r.vPC[ELECTRON].peakWidth/r.vPC[ELECTRON].peakWidth;
+			}
+			else
+			{
+				return 1;
+			}
 		/*
 		ярко выраженный экстремум:
 		ширина пика легких дырок* ширина пика тяжелых дырок / квадрат ширины пика электронов
 		*/
-			return 1;
-			break;
 		case LIGHT_HOLE_DENSITY:
+			if (isGoodExtremum(r,pt))
+			{
+				return r.additionalData.rightPointElectronConductivity/r.additionalData.rightPointHoleConductivity;
+			}
+			else
+			{
+				return 1;
+			}
 		/*
 		ярко выраженный экстремум:
 		величины проводимости электронов на границе вычисляемого спектра подвижности 100 м^2/(В∙с) / величины проводимости дырок на границе вычисляемого спектра подвижности 100 м^2/(В∙с)
 		*/
-			return 1;
-			break;
 		case HEAVY_HOLE_MOBILITY:
+			if (isGoodExtremum(r,pt))
+			{
+				return r.vPC[LHOLE].peakWidth/r.vPC[ELECTRON].peakWidth;
+			}
+			else
+			{
+				return r.additionalData.rightPointElectronConductivity;
+			}
 		/*
 		ярко выраженный экстремум:
 		ширина пика легких дырок / ширина пика электронов
@@ -259,15 +446,19 @@ long double smartCalculation::targetFunction (Results & r, parameterType pt)
 		слабо выраженный:
 		величины проводимости электронов на границе вычисляемого спектра подвижности 100 м^2/(В∙с)
 		*/
-			return 1;
-			break;
 		case HEAVY_HOLE_DENSITY:
+			if (isGoodExtremum(r,pt))
+			{
+				return r.vPC[LHOLE].peakWidth/r.vPC[ELECTRON].peakWidth;
+			}
+			else
+			{
+				return 1;
+			}
 		/*
 		ярко выраженный экстремум:
 		ширина пика легких дырок / ширина пика электронов
 		*/
-			return 1;
-			break;
 	}
 
 	return 0;

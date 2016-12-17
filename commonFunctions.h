@@ -295,5 +295,34 @@ TSignal calculateFirstDerivative(TSignal & y, MyDataType h)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
+long double calculateMeanValue(const TSignal & x)
+{
+    long double res=0;
+    for (int i = 0; i < x.size(); ++i)
+    {
+        res+=x[i];
+    }
+    return res/x.size();
+}
+
+long double calculateDispersion(const TSignal & x)
+{
+    long double res=0;
+    long double mean=calculateMeanValue(x);
+    for (int i = 0; i < x.size(); ++i)
+    {
+        res+=pow(x[0]-mean,2);
+    }
+    return res;
+}
+
+
+long double standardDeviation(const TSignal & x)
+{
+    return sqrt(calculateDispersion(x)/x.size());
+}
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 #endif

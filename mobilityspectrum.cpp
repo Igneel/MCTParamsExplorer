@@ -1474,6 +1474,9 @@ for (int k = 0; k < extremumElectronIndex.size(); ++k)
 
   // расстояние между пиками?
 
+  additionalData.leftPointMobility=resultMobility[0];
+  additionalData.rightPointMobility=resultMobility.back();
+
   additionalData.rightPointElectronConductivity=resultElectronConductivity.back();
   additionalData.rightPointHoleConductivity=resultHoleConductivity.back();
 

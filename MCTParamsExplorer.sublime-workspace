@@ -4,12 +4,212 @@
 		"selected_items":
 		[
 			[
-				"e",
-				"expr1"
+				"n",
+				"nMagSpectr"
+			],
+			[
+				"Mu",
+				"runMultiCarrierFit"
+			],
+			[
+				"ho",
+				"holeConcentration"
+			],
+			[
+				"ele",
+				"electronConcentration"
+			],
+			[
+				"El",
+				"electronMobility"
+			],
+			[
+				"ca",
+				"calculateMeanValue"
 			],
 			[
 				"h",
-				"helper2"
+				"heavyHoleConcentration"
+			],
+			[
+				"li",
+				"lightHoleConcentration"
+			],
+			[
+				"Con",
+				"electronConcentration"
+			],
+			[
+				"cal",
+				"calculateDispersion"
+			],
+			[
+				"pu",
+				"push_back"
+			],
+			[
+				"for",
+				"for	For Loop"
+			],
+			[
+				"my",
+				"mysend"
+			],
+			[
+				"in",
+				"increaseKey"
+			],
+			[
+				"o",
+				"otherwise"
+			],
+			[
+				"I",
+				"I0"
+			],
+			[
+				"v",
+				"vPC"
+			],
+			[
+				"ri",
+				"rightPointHoleConductivity"
+			],
+			[
+				"rit",
+				"rightPointElectronConductivity"
+			],
+			[
+				"A",
+				"AttenuationFRes"
+			],
+			[
+				"fp",
+				"fpRes"
+			],
+			[
+				"ad",
+				"additionalData"
+			],
+			[
+				"re",
+				"results"
+			],
+			[
+				"st",
+				"strs"
+			],
+			[
+				"t",
+				"true"
+			],
+			[
+				"resul",
+				"resultHoleConductivity"
+			],
+			[
+				"P",
+				"PeaksCriteria"
+			],
+			[
+				"s",
+				"struct	struct"
+			],
+			[
+				"pro",
+				"processResults"
+			],
+			[
+				"po",
+				"polinomPowMagnetoresistance"
+			],
+			[
+				"Fi",
+				"filterLength"
+			],
+			[
+				"B",
+				"BandwidthFrequency"
+			],
+			[
+				"Ba",
+				"BandWidthFHall"
+			],
+			[
+				"Ge",
+				"getFilterParamsHall"
+			],
+			[
+				"get",
+				"getFilterParamsResistance"
+			],
+			[
+				"MD",
+				"MFDData"
+			],
+			[
+				"ta",
+				"targetFunction"
+			],
+			[
+				"tar",
+				"targetFuncValue"
+			],
+			[
+				"Pow",
+				"PowPolinomRes"
+			],
+			[
+				"pw",
+				"powPolinomR"
+			],
+			[
+				"pow",
+				"PowPolinomHall"
+			],
+			[
+				"M",
+				"MFDData"
+			],
+			[
+				"num",
+				"numberOfStoredBestResults"
+			],
+			[
+				"nub",
+				"numberOfParameters"
+			],
+			[
+				"fo",
+				"forv	Vector For Loop"
+			],
+			[
+				"de",
+				"deque"
+			],
+			[
+				"c",
+				"counter"
+			],
+			[
+				"i",
+				"insertSort"
+			],
+			[
+				"a",
+				"adjuster"
+			],
+			[
+				"L",
+				"length"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"e",
+				"extract"
 			],
 			[
 				"he",
@@ -28,10 +228,6 @@
 				"decrypt"
 			],
 			[
-				"t",
-				"text"
-			],
-			[
 				"r",
 				"replace"
 			],
@@ -44,16 +240,8 @@
 				"pokes1"
 			],
 			[
-				"n",
-				"name1"
-			],
-			[
 				"is",
 				"isVulnerable"
-			],
-			[
-				"c",
-				"calcDamage"
 			],
 			[
 				"ty",
@@ -68,16 +256,8 @@
 				"Int"
 			],
 			[
-				"po",
-				"pokes2"
-			],
-			[
 				"S",
 				"String"
-			],
-			[
-				"i",
-				"isVulnerable"
 			],
 			[
 				"E",
@@ -88,20 +268,12 @@
 				"findTree"
 			],
 			[
-				"re",
-				"removeListAll"
-			],
-			[
 				"ma",
 				"maxList"
 			],
 			[
 				"x",
 				"x"
-			],
-			[
-				"ca",
-				"calcSum"
 			],
 			[
 				"the",
@@ -124,20 +296,12 @@
 				"make"
 			],
 			[
-				"de",
-				"decoded_text"
-			],
-			[
 				"ux",
 				"uxs"
 			],
 			[
 				"f",
 				"for	For Loop"
-			],
-			[
-				"li",
-				"linktoStreets"
 			],
 			[
 				"bv",
@@ -148,16 +312,8 @@
 				"TSignal"
 			],
 			[
-				"s",
-				"sub"
-			],
-			[
 				"if",
 				"ife	Conditional if..else"
-			],
-			[
-				"st",
-				"street"
 			],
 			[
 				"FID",
@@ -166,14 +322,6 @@
 			[
 				"FI",
 				"FID2"
-			],
-			[
-				"for",
-				"fore	Loop"
-			],
-			[
-				"P",
-				"PointPerInt"
 			],
 			[
 				"gi",
@@ -198,14 +346,6 @@
 			[
 				"ti",
 				"timeToString"
-			],
-			[
-				"L",
-				"LogEntry"
-			],
-			[
-				"my",
-				"myToInt"
 			],
 			[
 				"myTo",
@@ -308,14 +448,6 @@
 				"string"
 			],
 			[
-				"resul",
-				"resultMobility"
-			],
-			[
-				"in",
-				"index2"
-			],
-			[
 				"ru",
 				"resultMobility"
 			],
@@ -332,24 +464,12 @@
 				"d2h"
 			],
 			[
-				"cal",
-				"calculateFirstDerivative"
-			],
-			[
 				"TS",
 				"TStringList"
 			],
 			[
 				"y",
 				"ys"
-			],
-			[
-				"ele",
-				"electronMobility"
-			],
-			[
-				"ho",
-				"holeMobility"
 			],
 			[
 				"ei",
@@ -366,10 +486,6 @@
 			[
 				"Add",
 				"Add"
-			],
-			[
-				"M",
-				"MultiZoneFit"
 			],
 			[
 				"Re",
@@ -392,190 +508,139 @@
 				"filterParamsResistance"
 			],
 			[
-				"A",
-				"AttenuationFrequency"
-			],
-			[
-				"B",
-				"BandwidthFrequency"
-			],
-			[
 				"Ave",
 				"AveragedB"
 			],
 			[
 				"dy",
 				"d2Y"
-			],
-			[
-				"ChS",
-				"ChSxy_theor"
-			],
-			[
-				"start",
-				"startPosition"
-			],
-			[
-				"siz",
-				"size_t"
-			],
-			[
-				"noe",
-				"node4"
-			],
-			[
-				"no",
-				"node3"
-			],
-			[
-				"Ex",
-				"ExactBound"
-			],
-			[
-				"Up",
-				"UpBound"
-			],
-			[
-				"new",
-				"newBRes"
-			],
-			[
-				"koe",
-				"koefHallEffect"
-			],
-			[
-				"BRe",
-				"BResToExtrapolate"
-			],
-			[
-				"Bh",
-				"BHallToExtrapolate"
-			],
-			[
-				"BHal",
-				"BHallToExtrapolate"
-			],
-			[
-				"Sh",
-				"ShowMessage"
-			],
-			[
-				"so",
-				"sortedwordlist"
-			],
-			[
-				"w",
-				"word"
-			],
-			[
-				"u",
-				"unscrambler"
-			],
-			[
-				"wo",
-				"word"
-			],
-			[
-				"wr",
-				"wordlist"
-			],
-			[
-				"fo",
-				"for	For Loop"
-			],
-			[
-				"v",
-				"vector	std::vector"
-			],
-			[
-				"out",
-				"outB"
-			],
-			[
-				"Se",
-				"Series1"
-			],
-			[
-				"V",
-				"ValueIndex"
-			],
-			[
-				"va",
-				"ValueIndex"
-			],
-			[
-				"tem",
-				"tempInB"
-			],
-			[
-				"Ser",
-				"Series4"
-			],
-			[
-				"whil",
-				"while1"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "multillidae\nwww.dvwa.co.uk\nahack.ru/contest\n\nwebsec.ca/kb/sql_injection\n\npentestmonkey.net\n",
+			"file": "smartCalculation.cpp",
 			"settings":
 			{
-				"buffer_size": 91,
-				"line_ending": "Windows",
-				"name": "multillidae"
-			}
-		},
-		{
-			"file": "/E/Дела/Информационная безопасность/Наша команда.txt",
-			"settings":
-			{
-				"buffer_size": 1632,
+				"buffer_size": 15271,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+			"file": "/H/Нормальный шум/Адаптивный фильтр/adfiltres14.txt",
 			"settings":
 			{
-				"buffer_size": 70,
+				"buffer_size": 629526,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/E/Дела/Информационная безопасность/MCTF 2016/чатик.txt",
+			"file": "commonFunctions.h",
 			"settings":
 			{
-				"buffer_size": 34880,
-				"line_ending": "Windows",
-				"name": "Андрей Иванов, [23.09.16 14:35]"
+				"buffer_size": 8562,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": " skullsecurity \n\n атаки на оракул дополнения\n\n : https://kochetkov.github.io\n\n ive: http://approof.ptsecurity.ru/",
+			"file": "smartCalculation.h",
 			"settings":
 			{
-				"buffer_size": 113,
-				"line_ending": "Windows",
-				"name": "skullsecurity"
+				"buffer_size": 1535,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Б7-03\nОколохацкеры\nКубик\ncyberputin\nZS\nParanoicPirates\nTeam_Information_Offensive\nATOMIC\nAntichat\nUET\nHackInfinity\nBalalaikaCr3w\nBadUSB\nbicycle_overdrive\nd4rkc0de\n8bit\nSad_Boys\nBasic_tomato_spaghetti\nЗвезда\n0xPHTeam\nMrMugiwara\nMSTUCA.junior\n804k0\nRDNCCMTCRACK\nG-point\n#miet\nLights_Out\n1DEA\nShadow_Servants\nfs0c13ty\nUnmoor!\nKeywrrr96\nEVA\nN00B\ndcua\nj4f\nUndefined\nАЗОВ\nllchk\nInSecurity\nbdd\nFalcon\nit.paladins\nknOWLedge\nBruteforce\nKB-82\nMVV228\nThe_Shield\nTriplexyza\ndust\nProbelka\nКоманда_МосУ_МВД_России_имени_В.Я._Кикотя\nB1uez.m0nkeyz\n__XSS\nDragon116rus\nNNT\nE&L(Anime_Five)\nPaleMenI\nKombada\nAlmost_betterThen_feds\nZer0Day\nMagic-Hat\nh4rdF0rc3\ntest12345678\nD-SEC\nv1ct0ry.py\nIntelligentRussianSecurityTeam\nHoneypot\nHack'n'Play\nyonghwi\nE&L(Elite_Five)\nMV9rwGOf08\nDestructive_Voice\nDnO\nfellics\nHexistence\nKXTI\nFullhouse\nCorrupted_Reflection\ng30DuD3\nMSTUCA\nRedWAGH!\nThe_Black_Pearl\nDelogrand\nGalzuu-Galuu\nRASF_(Red_Army_Special_Forces)\nIBAS\nNewbies\nPetoohmens\nIt_Barnaul\nASIS\nwrongpath\nНу,_в_следующий_раз.\nEpicTeam\nB7\ntaurus\niISITDTU\nex3x\nLife\nkekheck\nBarklay\n0x21\nРГСУ\nPackOfPugs\nSkynet\nUnidubna\nAho-Corasick_Boy_Band\nmotherhackers\nked",
+			"file": "/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 04 декабря 2016/DifEffEnVidPortrGauss.m",
 			"settings":
 			{
-				"buffer_size": 1128,
+				"buffer_size": 16622,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "//---------------------------------------------------------------------------\n#pragma hdrstop\n\n#include \"Unit1.h\"\n#include \"multizoneFit.h\"\n#include \"smartCalculation.h\"\n#include <Windows.h>\n\n//---------------------------------------------------------------------------\n#pragma package(smart_init)\n#pragma resource \"*.dfm\"\nTForm1 *Form1;\n\n/*\nTODO\nвозможность записи \"поверх\" - т.е. удалять предыдущие значения и писать поверх новые\nфукнция удаления определенного интервала точек\nя так скоро приду к тому, чтобы хранить значения парами - и путаться они не будут заодно.\n\nНадо бы предусмотреть отдельный поток для вывода.\nИ вызывать его по таймеру.\n\nСделать работу с прогой более комфортной.\nАвтоматическое переключение\nзаписываемого графика (положительное поле, отрицательное поле).\n\nВозможно их стоит просто объединить. Но это очень спорный вопрос.\nИбо как тогда определять надо ли перезаписывать данные или дописывать их.\n\nЕщё момент - прога изредка вылетает с ексепшенами, неплохо было бы реализовать\nавтоматическое сохранение измеряемого сигнала (скажем каждые Т точек).\n\nПора внедрять фильтр как класс.\n\nНужно добавить усреднение по току.\n\n\n*/\n\n// Внимание, понадобится добавить что-нибудь,\n// не забудь внести это в заголовочный файл:)\n\n\nLCardADC *adc=0;\nMagneticFieldDependence *params=0;\nMagneticFieldDependence *paramsDirect=0;\nMagneticFieldDependence *paramsReverse=0;\nchannelsInfo cI;\n\n\nMagneticFieldDependence * TForm1::InitParams()\n{\n    MagneticFieldDependence ** p=ActiveParams();\n\n    DeleteActiveParams();\n    \n    *p=new MagneticFieldDependence(uiCurrent->Text,uiTemperature->Text,uiInventoryNumber->Text,\n        uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);\n        /*\n        Предупреждение Initializing Params Type with const int - не актуально,\n        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.\n        */\n        (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.\n        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);\n        (*ActiveParams())->setChannelsInfo(cI);\n        (*p)->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,\n     eAttenuationFRes->Text, eLengthFilterRes->Text);\n    (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,\n     eAttenuationFHall->Text, eLengthFilterHall->Text);\n    (*p)->setExtrapolateParams(PowPolinomHall->Text.ToInt(),PowPolinomRes->Text.ToInt());\n    return *p;\n}\n\nMagneticFieldDependence ** TForm1::ActiveParams()\n{\n    MagneticFieldDependence ** p=NULL;\n    switch (ResCurveIndex->ItemIndex)\n    {\n    case 0:\n        p=&paramsDirect;\n        \n    break;\n    case 1:\n        p=&paramsReverse;\n    break;\n    case 2:\n        p=&params;\n    \n    break;\n    default:\n    break;\n    }\n    return p;\n}\n\nvoid TForm1::DeleteActiveParams()\n{\n    MagneticFieldDependence ** p=ActiveParams();\n    if (*p)\n    {\n        delete *p;\n        *p=NULL;\n    }\n}\n\n\n\nvoid TForm1::UpdatePlots()\n{\n    StatusBar->Panels->Items[1]->Text=\"Обновление графиков.\";\n    Form1->Update();\n    MagneticFieldDependence ** par=ActiveParams();\n\n    if(*par)\n    {\n    MagneticFieldDependence * p=*par;\n    /*\n    Отладка\n    p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);\n    p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);\n    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);\n    \n    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);\n    p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);\n    */\n\n    // Обновление всех используемых графиков.\n    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))\n        ErrorLog->Lines->Add(\"Холл. Текущие данные. Не удалось построить график.\");\n    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))\n        ErrorLog->Lines->Add(\"Холл. Фильтрованные данные. Не удалось построить график.\");\n    //if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))\n    //    ErrorLog->Lines->Add(\"Холл. Экстраполированные данные. Не удалось построить график.\");\n\n    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))\n        ErrorLog->Lines->Add(\"Холл. Усреднённые данные. Не удалось построить график.\");\n\n    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,AVERAGED_DATA,SeriesFFTRes,clGreen))\n        ErrorLog->Lines->Add(\"Сопротивление. Усреднённые данные. Не удалось построить график.\");\n\n    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed))\n        ErrorLog->Lines->Add(\"Сопротивление. Текущие данные. Не удалось построить график.\");\n    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))\n        ErrorLog->Lines->Add(\"Сопротивление. Фильтрованные данные. Не удалось построить график.\");\n    //if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))\n    //    ErrorLog->Lines->Add(\"Сопротивление. Экстраполированные данные. Не удалось построить график.\");\n    }\n}\n\n//---------------------------------------------------------------------------\n//---------------------------------------------------------------------------\n__fastcall TForm1::TForm1(TComponent* Owner)\n    : TForm(Owner)\n{\n}\n\n\nvoid __fastcall TForm1::FormCreate(TObject *)\n{\n\n    // загрузка настроек.\n    _di_IXMLNode node = XMLsettings->ChildNodes->FindNode(\"Settings\");\n    if(node)\n    {\n    _di_IXMLNode node2=node->ChildNodes->FindNode(\"Resistance\");\n        if(node2)\n        {\n            _di_IXMLNode node3=node2->ChildNodes->FindNode(\"FilterParams\");\n            if(node3)\n            {\n                _di_IXMLNode node4=node3->ChildNodes->FindNode(\"Length\");\n                if(node4)\n                {\n                    eLengthFilterRes->Text = node4->GetText();\n                }\n\n                node4=node3->ChildNodes->FindNode(\"eSamplingFRes\");\n                if(node4)\n                {\n                     eSamplingFRes->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"eBandWidthFRes\");\n                if(node4)\n                {\n                     eBandWidthFRes->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"eAttenuationFRes\");\n                if(node4)\n                {\n                     eAttenuationFRes->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"PolinomPow\");\n                if(node4)\n                {\n                     PowPolinomRes->Text=node4->GetText();\n                }\n            }\n\n            node3=node2->ChildNodes->FindNode(\"CurveNumber\");\n            if(node3)\n            {\n                ResCurveIndex->ItemIndex = StrToInt(node3->GetText());\n            }\n\n            node3=node2->ChildNodes->FindNode(\"uiDataKind\");\n            if(node3)\n            {\n                uiDataKind->ItemIndex=StrToInt(node3->GetText());\n            }\n\n            \n        }\n        node2=node->ChildNodes->FindNode(\"HallEffect\");\n        if(node2)\n        {\n        _di_IXMLNode node3=node2->ChildNodes->FindNode(\"FilterParams\");\n            if(node3)\n            {\n                _di_IXMLNode node4=node3->ChildNodes->FindNode(\"Length\");\n                if(node4)\n                {\n                     eLengthFilterHall->Text=node4->GetText();\n                }\n\n                node4=node3->ChildNodes->FindNode(\"eSamplingFHall\");\n                if(node4)\n                {\n                     eSamplingFHall->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"eBandWidthFHall\");\n                if(node4)\n                {\n                     eBandWidthFHall->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"eAttenuationFHall\");\n                if(node4)\n                {\n                     eAttenuationFHall->Text=node4->GetText();\n                }\n                node4=node3->ChildNodes->FindNode(\"PolinomPow\");\n                if(node4)\n                {\n                     PowPolinomHall->Text=node4->GetText();\n                }\n            }\n            node3=node2->ChildNodes->FindNode(\"CurveNumber\");\n            if(node3)\n            {\n                HallCurveIndex->ItemIndex = StrToInt(node3->GetText());\n            }\n    }\n}\n\n    MobSpecResults->Cells[0][1]=\"Тяжелые дырки\";\n    MobSpecResults->Cells[0][2]=\"Легкие дырки\";\n    MobSpecResults->Cells[0][3]=\"Электроны\";\n    MobSpecResults->Cells[1][0]=\"Концентрация\";\n    MobSpecResults->Cells[2][0]=\"Подвижность\";\n\n    FitResults->Cells[1][0]=\"Mu e\";\n    FitResults->Cells[4][0]=\"N e\";\n    FitResults->Cells[2][0]=\"Mu lh\";\n    FitResults->Cells[5][0]=\"P lh\";\n    FitResults->Cells[3][0]=\"Mu hh\";\n    FitResults->Cells[6][0]=\"P hh\";\n    FitResults->Cells[0][1]=\"Минимальные значения\";\n    FitResults->Cells[0][2]=\"Средние значения\";\n    FitResults->Cells[0][3]=\"СКО\";\n    FitResults->Cells[0][4]=\"СКО, %%\";\n    \n\n    cI.clear();\n    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));\n    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));\n    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));\n\n    ErrorLog->Lines->Add(cI.size());\n    // загружаем драйвер\n    adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),\n    LabelChan1,LabelChan2,LabelChan3,cI);\n    if(!adc->IsInitSuccessfull())\n    {\n    delete adc;\n    adc=NULL;\n    }\n    uiFrenq->OnChange(NULL);\n    bApplyADCSettings->Click();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N3Click(TObject *Sender)// выход из программы\n{\n    Form1->Close(); \n}\n//----много кода, выключает/включает графические элементы, во время работы АЦП-\n//---------------------------------------\nvoid __fastcall TForm1::uiControlClick(TObject *Sender)\n{\nif(adc)\n{\n    if (!adc->isWritingEnabled())\n    {\n        MagneticFieldDependence * p=InitParams();\n\n        if(p!=NULL)\n        {\n            p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,\n            eAttenuationFRes->Text, eLengthFilterRes->Text);\n            p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,\n            eAttenuationFHall->Text, eLengthFilterHall->Text);\n        } \n\n        if(adc->StartWriting())\n        {\n\n            bClearPlotHall->Click();\n            bClearPlotsRes->Click();\n\n            uiFrenq->Enabled = false;\n            uiBlockSize->Enabled=false;\n            uiCurrent->Enabled=0;\n            \n            ResCurveIndex->Enabled=0;\n            HallCurveIndex->Enabled=0;\n            GainKoefFaradey->Enabled=0;\n\n            //-- кнопки-----------------------------------------------\n            \n            bFilterRes->Enabled=0;\n\n            uiFFTHall->Enabled=0;\n\n            uiFFTFaradey->Enabled=0;\n            \n            uiFFTFoygt->Enabled=0;\n            CurrentFaradey->Enabled=0;\n            CurrentFoygt->Enabled=0;\n            FaradeyCurveIndex->Enabled=0;\n            FoygtCurveIndex->Enabled=0;\n            GainKoefFoygt->Enabled=0;\n\n            uiControl->Caption = AnsiString(\"Остановить запись\");\n            uiResControl->Caption = AnsiString(\"Остановить запись\");\n            uiHallControl->Caption = AnsiString(\"Остановить запись\");\n            uiFaradeyControl->Caption = AnsiString(\"Остановить запись\");\n            uiFoygtControl->Caption = AnsiString(\"Остановить запись\");\n            StatusBar->Panels->Items[1]->Text=\"Идёт запись данных\";\n        }\n        else\n        {\n        DeleteActiveParams();\n        }\n    }\n    else\n    {\n        GainKoefFaradey->Enabled=1;\n        uiCurrent->Enabled=1;\n        ResCurveIndex->Enabled=1;\n        HallCurveIndex->Enabled=1;\n\n        uiFrenq->Enabled =true;\n\n        uiBlockSize->Enabled=true;\n\n        \n        bFilterRes->Enabled=1;\n\n        uiFFTHall->Enabled=1;\n        uiFFTFaradey->Enabled=1;\n        uiFFTFoygt->Enabled=1;\n\n        CurrentFaradey->Enabled=1;\n        CurrentFoygt->Enabled=1;\n\n        FaradeyCurveIndex->Enabled=1;\n        FoygtCurveIndex->Enabled=1;\n        GainKoefFoygt->Enabled=1;\n\n        adc->StopWriting();\n        adc->StopMeasurement();\n\n        (*ActiveParams())->getSplittedDataFromADC();\n        ErrorLog->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));\n        UpdatePlots();\n\n        adc->StartMeasurement();\n        uiControl->Caption = AnsiString(\"Начать запись\");\n        uiResControl->Caption = AnsiString(\"Начать запись\");\n        uiHallControl->Caption = AnsiString(\"Начать запись\");\n        uiFaradeyControl->Caption = AnsiString(\"Начать запись\");\n        uiFoygtControl->Caption = AnsiString(\"Начать запись\");\n        \n        StatusBar->Panels->Items[1]->Text=\"Готова к работе.\";        \n      }\n}\n}\n\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)\n{  \n    Series1->Clear();\n    Series2->Clear();\n    Series3->Clear();\n    SeriesRes1->Clear();\n    ErrorLog->Clear();\n}\n//---------------------------------------------------------------------------\n//----------------------------------------------------------------------------\nvoid __fastcall TForm1::bFilterResClick(TObject *Sender)\n{\n\n//eAttenuationFRes->Text=FloatToStr(StrToFloat(eBandWidthFRes->Text)+5.5/ StrToFloat( eLengthFilterRes->Text)* StrToFloat( eSamplingFRes->Text)*0.5);\n\nMagneticFieldDependence ** par=ActiveParams();\n\nif (*par==NULL)\n{\n    ShowMessage(\"Вероятно выбран не тот график.\");\n}\nelse\n{\n\n    MagneticFieldDependence * p=*par;\n    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,\n     eAttenuationFRes->Text, eLengthFilterRes->Text);\n    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,\n     eAttenuationFHall->Text, eLengthFilterHall->Text);\n    StatusBar->Panels->Items[1]->Text=\"Фильтрация данных.\";\n    Form1->Update();\n    p->filterData();\n    StatusBar->Panels->Items[1]->Text=\"Экстраполяция данных.\";\n    Form1->Update();\n    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());\n    UpdatePlots();\n    StatusBar->Panels->Items[1]->Text=\"Готова к работе.\";\n}\n}\n//---------------------------------------------------------------------------\n\nvoid TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)\n{\n    for(int i=0;i<Values->Count;++i)\n    {\n        uiCurrent->Text=Values->Strings[2];\n        uiTemperature->Text=Values->Strings[1];\n        uiInventoryNumber->Text=Values->Strings[0];\n        uiSampleLength->Text=Values->Strings[3];\n        uiSampleWidth->Text=Values->Strings[4];\n        uiSampleThickness->Text=Values->Strings[5];    \n    }\n}\n\n\n//-------------------Открытие файла------------------------------------------\n\nvoid __fastcall TForm1::openFileWithSignal(AnsiString filename)\n{\n        TStringList *tts=new TStringList();  // сюда будем загружать из файла\n        tts->LoadFromFile(filename);// загрузили\n\n        MagneticFieldDependence * p=InitParams();\n        if (p)\n        {\n            StatusBar->Panels->Items[2]->Text=filename;\n            TStringList *Names=new TStringList();\n            TStringList *Values=new TStringList();\n\n            p->loadSampleDescription(Names,Values,OpenDialog1->Files->Strings[0]);\n            UpdateSampleDescription(Names,Values);\n            p->loadData(tts);\n            UpdatePlots();\n            delete Names;\n            delete Values;\n        }\n        delete tts;\n}\n\nvoid __fastcall TForm1::N4Click(TObject *Sender)\n{ \n    if(OpenDialog1->Execute())  // если мы что-то выбрали\n    {\n        openFileWithSignal(OpenDialog1->Files->Strings[0]);\n    }\n\n}\n\n // выбор активного графика\n // используется при сохранении файла в Unit2\n\nTLineSeries * __fastcall TForm1::GetSelectedSeries(int index)\n{\n\n// заполняет массив указателями на все графики.\n    TLineSeries * SaveSeries;\n\n    AllSeries[0]=PtrToInt(Series1);\n    AllSeries[1]=PtrToInt(Series2);\n    AllSeries[2]=PtrToInt(Series3);\n    AllSeries[3]=PtrToInt(Series4);\n    AllSeries[4]=PtrToInt(0);\n    AllSeries[5]=PtrToInt(SeriesRes1);\n    AllSeries[6]=PtrToInt(SeriesRes2);\n    AllSeries[7]=PtrToInt(SeriesFFTRes);\n    AllSeries[8]=PtrToInt(out1);\n    AllSeries[9]=PtrToInt(SeriesHall1);\n    AllSeries[10]=PtrToInt(SeriesHall2);\n    AllSeries[11]=PtrToInt(SeriesFFTHall);\n    AllSeries[12]=PtrToInt(out2);\n    AllSeries[13]=PtrToInt(SeriesFaradey1);\n    AllSeries[14]=PtrToInt(SeriesFaradey2);\n    AllSeries[15]=PtrToInt(SeriesFFTFaradey);\n    AllSeries[16]=PtrToInt(out3);\n    AllSeries[17]=PtrToInt(SeriesFoygt1);\n    AllSeries[18]=PtrToInt(SeriesFoygt2);\n    AllSeries[19]=PtrToInt(SeriesFFTFoygt);\n    AllSeries[20]=PtrToInt(out4);\n\n    SaveSeries=static_cast<TLineSeries *>IntToPtr(AllSeries[index]);\n\n    return SaveSeries;\n}\n\nvoid __fastcall TForm1::N5Click(TObject *Sender)  // сохранение\n{\n\n    GetSelectedSeries(0);\n    \n    if(!SaveForm)\n    {\n    // включает отображение формы сохранения данных.\n    Application->CreateForm(__classid(TSaveForm), &SaveForm);\n    SaveForm->Visible=true;\n    }\n    else\n    SaveForm->BringToFront();\n\n}\n\n\nvoid __fastcall TForm1::bClearPlotsResClick(TObject *Sender)\n{\n    SeriesRes1->Clear();\n    SeriesRes2->Clear();\n    SeriesFFTRes->Clear();\n    out1->Clear();\n}\n//---------------------------------------------------------------------------\nvoid __fastcall TForm1::bClearPlotHallClick(TObject *Sender)\n{\n    SeriesHall1->Clear();  \n    SeriesHall2->Clear();\n    SeriesFFTHall->Clear();\n    out2->Clear();\n}\n//---------------------------------------------------------------------------\nvoid __fastcall TForm1::Button7Click(TObject *Sender)\n{\n    SeriesFaradey1->Clear();\n    SeriesFaradey2->Clear();\n    SeriesFFTFaradey->Clear();\n    out3->Clear();\n}\n//---------------------------------------------------------------------------\nvoid __fastcall TForm1::Button8Click(TObject *Sender)\n{\n    SeriesFoygt1->Clear();\n    SeriesFoygt2->Clear();\n    SeriesFFTFoygt->Clear();\n    out4->Clear();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::Edit1KeyPress(TObject *Sender, char &Key)\n{\n    if(Key=='.')\n        Key=',';\n    if(((int)Key<48 || (int)Key>57) && Key!=8 && Key!=',' && Key!='-')\n        Key=0;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::ImpulsKillerClick(TObject *Sender)\n{\n    double x,y;\n    x=Interval1->Text.ToDouble();\n    y=Interval2->Text.ToDouble();\n    KillImpulps(SeriesRes1,x,y);\n\n}\n\n//---------------------------------------------------------------------------\nvoid fillspace(double *xm,double *ym, int l,int r)\n{\n\n    if(abs(r-l)==1)\n    {\n    xm[l+1]=(xm[l]+xm[r])/2;\n    ym[l+1]=(ym[l]+ym[r])/2;\n    return;\n    }\n    xm[(l+r)/2]=(xm[l]+xm[r])/2;\n    ym[(l+r)/2]=(ym[l]+ym[r])/2;\n    fillspace(xm,ym,l,(l+r)/2);\n    fillspace(xm,ym,(l+r)/2,r);\n}\n//---------------------------------------------------------------------------\n// убирает точки соответствующие всплескам\nvoid KillImpulps(TLineSeries * a,double x, double y)\n{\n\n    int length=a->XValues->Count();\n    if(length==0)\n    {\n    ShowMessage(\"Пустой график!!!\");\n    return;\n    }\n    double *xm=new double [length];\n    double *ym=new double [length];\n\n    for(int i=0;i<length;i++)\n     {\n            xm[i]=a->XValues->Value[i];\n            ym[i]=a->YValues->Value[i];\n     }\n    // границы интервала\n    //x=Interval1->Text.ToDouble();\n    //y=Interval2->Text.ToDouble();\n    double dx=fabs(xm[0]-x);// начинаем поиск ближайшей точки\n    int i;\n    double k=0;\n    for(i=0;i<length;i++)\n    {\n            k=fabs(xm[i]-x);\n            if(k>dx)  // как только пошли на увеличение - выходим из цикла\n            {\n                 break;\n            }\n            dx=k;\n    }\n    int i1=i; // записываем первый индекс\n    dx=fabs(xm[i]-y);// ищем второй\n    for(;i<length;i++)\n    {\n            k=fabs(xm[i]-y);\n            if(k>dx)\n            {\n                    break;\n            }\n            dx=k;\n    }\n    int i2=i;\n    //int left=i1;\n    //int right=i2;\n\n    fillspace(xm,ym,i1,i2);\n\n     a->Clear();\n     for(int i=0;i<length;i++)\n     {\n            a->AddXY(xm[i],ym[i],\"\",clRed);\n                    }\n    delete [] xm;\n    delete [] ym;\n}\n// в зависимости от активной вкладки вызывается нужна процедура очистки.\nvoid __fastcall TForm1::N9Click(TObject *Sender)\n{\n    int a=PC->ActivePageIndex;\n    switch (a)\n    {\n    case 1:\n    bClearPlotsResClick(Sender);\n    case 2:\n    bClearPlotHallClick(Sender);\n    case 3:\n    Button7Click(Sender);\n    case 4:\n    Button8Click(Sender);\n    }\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::Button13Click(TObject *Sender)\n{\n    int len=SeriesRes1->XValues->Count();\n\n    if(len==0) return;\n\n    double *x= new double [len];\n    for(int i=0;i<len;i++)\n    x[i]=SeriesRes1->XValues->Value[i];\n\n    double *y= new double [len];\n    for(int i=0;i<len;i++)\n    y[i]=SeriesRes1->YValues->Value[i];\n\n    double *yf= new double [len];\n    for(int i=0;i<len;i++)\n    yf[i]=SeriesFFTRes->YValues->Value[i];\n\n    for(int i=0;i<len;i++)\n    {\n    y[i]=fabs(fabs(y[i])-fabs(yf[i]));\n    SeriesRes2->AddXY(x[i],y[i],\"\",clBlack);\n    }\n\n    double M=0,sko=0;\n\n    for(int i=0;i<len;i++)\n    {\n    M+=y[i]/len;\n    }\n    for(int i=0;i<len;i++)\n    {\n    sko+=pow(y[i]-M,2);\n    }\n    sko/=len;\n    sko=sqrt(sko);\n\n    ErrorLog->Lines->Add(\"M=\" + FloatToStr(M) + \"\\n\");\n    ErrorLog->Lines->Add(\"sko=\" + FloatToStr(sko) + \"\\n\");\n\n    delete[] x;\n    delete[] y;\n    delete[] yf;\n\n}\n//---------------------------------------------------------------------------\n\n\nvoid __fastcall TForm1::FormDestroy(TObject *Sender)\n{\n\n  _di_IXMLNode node = XMLsettings->ChildNodes->FindNode(\"Settings\");\n    if(node)\n    {\n    _di_IXMLNode node2=node->ChildNodes->FindNode(\"Resistance\");\n        if(node2)\n        {\n            _di_IXMLNode node3=node2->ChildNodes->FindNode(\"FilterParams\");\n            if(node3)\n            {\n                _di_IXMLNode node4=node3->ChildNodes->FindNode(\"Length\");\n                if(node4)\n                {\n                     node4->SetText(eLengthFilterRes->Text);\n                }\n\n                node4=node3->ChildNodes->FindNode(\"eSamplingFRes\");\n                if(node4)\n                {\n                     node4->SetText(eSamplingFRes->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"eBandWidthFRes\");\n                if(node4)\n                {\n                     node4->SetText(eBandWidthFRes->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"eAttenuationFRes\");\n                if(node4)\n                {\n                     node4->SetText(eAttenuationFRes->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"PolinomPow\");\n                if(node4)\n                {\n                     node4->SetText(PowPolinomRes->Text);\n                }\n            }\n            node3=node2->ChildNodes->FindNode(\"CurveNumber\");\n            if(node3)\n            {\n                node3->SetText(IntToStr(ResCurveIndex->ItemIndex));\n            }\n\n            node3=node2->ChildNodes->FindNode(\"uiDataKind\");\n            if(node3)\n            {\n                node3->SetText(IntToStr(uiDataKind->ItemIndex));\n            }\n        }\n\n        node2=node->ChildNodes->FindNode(\"HallEffect\");\n        if(node2)\n        {\n        _di_IXMLNode node3=node2->ChildNodes->FindNode(\"FilterParams\");\n            if(node3)\n            {\n                _di_IXMLNode node4=node3->ChildNodes->FindNode(\"Length\");\n                if(node4)\n                {\n                     node4->SetText(eLengthFilterHall->Text);\n                }\n\n                node4=node3->ChildNodes->FindNode(\"eSamplingFHall\");\n                if(node4)\n                {\n                     node4->SetText(eSamplingFHall->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"eBandWidthFHall\");\n                if(node4)\n                {\n                     node4->SetText(eBandWidthFHall->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"eAttenuationFHall\");\n                if(node4)\n                {\n                     node4->SetText(eAttenuationFHall->Text);\n                }\n                node4=node3->ChildNodes->FindNode(\"PolinomPow\");\n                if(node4)\n                {\n                     node4->SetText(PowPolinomHall->Text);\n                }\n            }\n\n            node3=node2->ChildNodes->FindNode(\"CurveNumber\");\n            if(node3)\n            {\n                node3->SetText(IntToStr(HallCurveIndex->ItemIndex));\n            }\n        }\n    }\n\n\n\n\nif(adc)\n    adc->StopMeasurement();\n\n    \n    if(adc)\n        delete adc;\n    if(params)\n        delete params;   \n\n    if (paramsDirect)\n    {\n        delete paramsDirect;\n    }\n    if (paramsReverse)\n    {\n        delete paramsReverse;\n    }\n}\n//---------------------------------------------------------------------------\n\n\ntemplate <class T>\nvoid Rounding(T *pos, T* endPos)\n{\n    int S=1;\n    for(;pos!=endPos;++pos)\n    {\n        int n=(int)(*pos*S)%10;\n        if(n<5)\n            *pos=floorl(*pos*S)/S;\n        else\n            *pos=ceill(*pos*S)/S;\n    }\n}\n\n//--------------------------------------------------------------------------\n// расчет среднего квадратичного отклонения\n//--------------------------------------------------------------------------\ntemplate <class T>\nT Sko (std::vector<T> const &x0,std::vector<T> const &x)\n{\n    int l=x0.size();\n    T z=0;\n    for(int i=0;i<l;i++)\n    z+= pow(fabs((fabs(x[i])-fabs(x0[i]))),2);\n    z/=(T)l;\n    return sqrt(z);\n}\n\n//---------------------------------------------------\n// расчет математического ожидания\n//-------------------------------------------------\n\ntemplate <class T>\n T Mo (std::vector<T> const &x)\n {\n    int l=x.size();\n     T M=0;\n     for(int i=0;i<l;i++)\n     M+=x[i];\n     return M/l;\n }\n// построение амплитудной гистограммы\nvoid Gist(std::vector<long double> & in)\n{\n    Form1->Series5->Clear();\n    Rounding(in.begin(),in.end());\n    int max = max_elem(in);\n    int min = min_elem(in);\n\n    int size=max-min+1;\n    std::vector<long double>::iterator pos;\n    std::vector<long double> gist(size);\n    for(pos=gist.begin(); pos!=gist.end();++pos)\n    {\n        *pos=0;\n    }\n\n    for(pos=in.begin(); pos!=in.end();++pos)\n    {\n        gist[*pos]++;\n\n    }\n    for(int i=0; i<size;++i)\n    {\n        Form1->Series5->AddXY(i,gist[i],\"\",clWhite);\n    }\n\n    long double m=Mo(in);\n\n    std::vector<long double> zeros(size);\n    for(pos=zeros.begin(); pos!=zeros.end();++pos)\n    {\n        *pos=m;\n    }\n    long double sko=Sko(zeros,in);\n\n    Form1->ErrorLog->Lines->Add(\"Мат ожидание: \"+FloatToStr(m));\n    Form1->ErrorLog->Lines->Add(\"СКО: \"+FloatToStr(sko));\n\n}\n//------------------------------------------------------------------------------\n// Сохранить всё.\nvoid __fastcall TForm1::N11Click(TObject *Sender)\n{\n    CurrentResChange(NULL);\n    if(params && paramsDirect && paramsReverse)\n    {\n        SaveDialog1->Title=\"Сохранение всех данных:\";\n        if(SaveDialog1->Execute())\n        {\n            params->SaveAllData(SaveDialog1->FileName+\"Com\");\n            paramsDirect->SaveAllData(SaveDialog1->FileName+\"Dir\");\n            paramsReverse->SaveAllData(SaveDialog1->FileName+\"Rev\");\n        }\n    }\n\n    else\n    {\n    if(params)\n    {\n        SaveDialog1->Title=\"Сохранение объединенных данных:\";\n        if(SaveDialog1->Execute())\n        {\n            params->SaveAllData(SaveDialog1->FileName+\"Com\");\n        }\n    }\n\n    if(paramsDirect)\n    {\n        SaveDialog1->Title=\"Сохранение данных для положительного магнитного поля:\";\n        if(SaveDialog1->Execute())\n        {\n            paramsDirect->SaveAllData(SaveDialog1->FileName+\"Dir\");\n        }\n    }\n\n    if(paramsReverse)\n    {\n        SaveDialog1->Title=\"Сохранение данных для отрицательного магнитного поля:\";\n        if(SaveDialog1->Execute())\n        {\n            paramsReverse->SaveAllData(SaveDialog1->FileName+\"Rev\");\n        }\n    }\n    }\n\n\n}\n//---------------------------------------------------------------------------\n\n\n// применение настроек АЦП\nvoid __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)\n{\nif(adc)\n{\n    cI.clear();\n    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));\n    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));\n    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));\n\n    adc->StopMeasurement();\n    adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);\n    if(CheckBox1->Checked) adc->EnableMedianFilter();\n    else adc->DisableMedianFilter();\n    adc->DisableTestingMode();\n\n    adc->setMedianFilterLength(eMedianFilterSize->Text.ToInt());\n\n    adc->setMagnetoResistanceSeries(SeriesRes1);\n    adc->setHallSeries(SeriesHall1);\n    adc->setBSeries(Series1);\n    adc->StartMeasurement();\n}\n}\n//---------------------------------------------------------------------------\nvoid TForm1::concatDependence()\n{\n    if(!(paramsDirect && paramsReverse))\n    {\n    ShowMessage(\"Для объединения нужно измерить две зависимости\");\n    return;\n    }\n\n    ResCurveIndex->ItemIndex=2;    \n    MagneticFieldDependence * p=InitParams();\n    if(p)\n\n    {\n        params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,\n         eAttenuationFRes->Text, eLengthFilterRes->Text);\n        params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,\n         eAttenuationFHall->Text, eLengthFilterHall->Text);\n    }\n\n    TSignal B; // создаем буфер для новых зависимостей.\n    TSignal Hall;\n    TSignal Resistance;\n\n    TSignal B2; // создаем буфер для новых зависимостей.\n    TSignal Hall2;\n    TSignal Resistance2;\n\n    StatusBar->Panels->Items[1]->Text=\"Объединение зависимостей.\";\n    Form1->Update();\n    // вбрасываем в обратном порядке зависимости для отрицательного магнитного поля.\n    for (TSignal::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)\n    {\n        B.push_back(*i);    \n    }\n\n    for (TSignal::const_reverse_iterator i = paramsReverse->getHallEffect()->rbegin(); i != paramsReverse->getHallEffect()->rend(); ++i)\n    {\n        Hall.push_back(*i);    \n    }\n\n    for (TSignal::const_reverse_iterator i = paramsReverse->getMagnetoResistance()->rbegin(); i != paramsReverse->getMagnetoResistance()->rend(); ++i)\n    {\n        Resistance.push_back(*i);    \n    }\n    // вбрасываем в прямом порядке зависимости для положительного поля.\n    for (TSignal::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)\n    {\n        B.push_back(*i);   \n        B2.push_back(*i);  \n    }\n\n    for (TSignal::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)\n    {\n        Hall.push_back(*i);  \n        Hall2.push_back(*i);   \n    }\n\n    for (TSignal::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)\n    {\n        Resistance.push_back(*i);  \n        Resistance2.push_back(*i);   \n    }\n\n    TSignal outB;\n    TSignal outHall;\n    TSignal outResistance;\n\n    size_t minimalLength=paramsReverse->getB()->size()>paramsDirect->getB()->size()?\n    paramsDirect->getB()->size() : paramsReverse->getB()->size();\n\n    StatusBar->Panels->Items[1]->Text=\"Прореживание зависимостей.\";\n    Form1->Update();\n    // что-то похоже что эта функция работает немного не так как надо...\n    //thiningSignal(B, Hall, outB, outHall, -2, 0, 2*minimalLength);\n    //thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);\n    // и у меня есть некоторое подозрение почему оно так.\n    // возможно более правильным будет сначала определить сигнал с наименьшим количество точек (прямой или обратный)\n    // потом проредить оба сигнала отдельно и после этого объединить их.\n    thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);\n    thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);\n\n    Form1->ErrorLog->Lines->Add(FloatToStr( B.size()));\n    \n    StatusBar->Panels->Items[1]->Text=\"Установка новых параметров.\";\n    Form1->Update();\n    params->setDependence(outB.begin(),outB.end(),outHall.begin(),outResistance.begin());\n\n    UpdatePlots();\n    StatusBar->Panels->Items[1]->Text=\"Готова к работе.\";\n}\n\n\nvoid __fastcall TForm1::bUniteDependenceClick(TObject *Sender)\n{\n    concatDependence();\n}\n//---------------------------------------------------------------------------\nvoid __fastcall TForm1::CurrentResChange(TObject *Sender)\n{\n    if((*ActiveParams()))\n    {\n    (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,\n        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);\n    (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);\n    }\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::calculateTenzor()\n{\n    MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ErrorLog->Lines->Add(\"Вероятно выбран не тот график.\");   \n        return; \n    }\n    else\n    {\n        (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,\n        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);\n        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);\n        p=*par;\n        p->calculateTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);\n\n        p->constructPlotFromTwoMassive(SXX,AVERAGED_DATA,Series6,clRed);\n        p->constructPlotFromTwoMassive(SXY,AVERAGED_DATA,LineSeries1,clRed);\n\n        UpdatePlots();\n    }\n}\n\nvoid __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)\n{\n    MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ErrorLog->Lines->Add(\"Вероятно выбран не тот график.\");   \n        return; \n    }\n    else\n    {\n        calculateTenzor();    \n        \n        DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,\n        uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);\n        if(SaveDialog1->Execute())\n        {\n        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),\n        p->getSxy(), p->getSxx(), ALL_POINTS,SaveDialog1->FileName);\n\n        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),\n        p->getSxy(), p->getSxx(), POINTS_11,SaveDialog1->FileName);\n        }\n        delete tenzorSaver;\n    }  \n\n    \n\n\n}\n//---------------------------------------------------------------------------\n\n\n\nvoid __fastcall TForm1::eLengthFilterResChange(TObject *Sender)\n{\neLengthFilterHall->Text=eLengthFilterRes->Text;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::eLengthFilterHallChange(TObject *Sender)\n{\neLengthFilterRes->Text=eLengthFilterHall->Text;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::HallCurveIndexClick(TObject *Sender)\n{\nResCurveIndex->ItemIndex=HallCurveIndex->ItemIndex;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::ResCurveIndexClick(TObject *Sender)\n{\nHallCurveIndex->ItemIndex=ResCurveIndex->ItemIndex;    \n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::bResShiftCurveClick(TObject *Sender)\n{\nif(*ActiveParams())\n{\n/*\n        Предупреждение Initializing Params Type with const int - не актуально,\n        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.\n        */\n(*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,\nStrToFloat(uiShiftValue->Text),StrToFloat(uiLeftBound->Text),StrToFloat(uiRightBound->Text));\nUpdatePlots();\n}\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::bShiftHallCurveClick(TObject *Sender)\n{\nif(*ActiveParams())\n{\n(*ActiveParams())->shiftCurve(uiHallDataKind->ItemIndex,HALL_EFFECT,\nStrToFloat(uiHallShiftValue->Text),StrToFloat(uiHallLeftBound->Text),StrToFloat(uiHallRightBound->Text));\nUpdatePlots();\n}\nelse\n{\n    ShowMessage(\"Выбранный график пуст\");\n}\n}\n//---------------------------------------------------------------------------\n\n\n\nvoid __fastcall TForm1::ComboBox5Change(TObject *Sender)\n{\nswitch(ComboBox5->ItemIndex)\n{\ncase 0:\nLabel31->Caption=\"1й канал(Сопротивление):\"; // 1й канал\nbreak;\ncase 1:\nLabel33->Caption=\"2й канал(Сопротивление):\";; // 2й канал\nbreak;\ncase 2:\nLabel32->Caption=\"3й канал(Сопротивление):\";; // 3й канал\nbreak;\ndefault:\nbreak;\n}\nswitch(ComboBox6->ItemIndex)\n{\ncase 0:\nLabel31->Caption=\"1й канал(Поле):\"; // 1й канал\nbreak;\ncase 1:\nLabel33->Caption=\"2й канал(Поле):\";; // 2й канал\nbreak;\ncase 2:\nLabel32->Caption=\"3й канал(Поле):\";; // 3й канал\nbreak;\ndefault:\nbreak;\n}\nswitch(ComboBox4->ItemIndex)\n{\ncase 0:\nLabel31->Caption=\"1й канал(Холл):\"; // 1й канал\nbreak;\ncase 1:\nLabel33->Caption=\"2й канал(Холл):\";; // 2й канал\nbreak;\ncase 2:\nLabel32->Caption=\"3й канал(Холл):\";; // 3й канал\nbreak;\ndefault:\nbreak;\n}\n}\n//---------------------------------------------------------------------------\n\n\n\n\n\nvoid __fastcall TForm1::Button2Click(TObject *Sender)\n{\nMagneticFieldDependence ** par=ActiveParams();\n\nif (*par==NULL)\n{\n    ShowMessage(\"Вероятно выбран не тот график.\");\n}\nelse\n{\n    MagneticFieldDependence * p=*par;\n    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,\n     eAttenuationFRes->Text, eLengthFilterRes->Text);\n    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,\n     eAttenuationFHall->Text, eLengthFilterHall->Text);\n    p->blockfilterData();\n    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());\n\n    UpdatePlots();\n}\n}\n//---------------------------------------------------------------------------\n\nint findMaximum(std::vector<long double> & diffY,int start)\n{\n    const long double min=10E-16;\n    long double max;\n    int i_max=diffY.size();\n    max=min;\n    for (int i = start; i < diffY.size(); ++i)\n    {\n        if(diffY[i]>max)\n        {\n            max=diffY[i];\n            i_max=i;\n        }\n    }\n\n    if (i_max==start && start>0 && diffY[i_max-1]>max)\n    {\n        i_max=-1;\n    }\n\n    //while (i<diffY.size()-2 && diffY[i+1]>=diffY[i]) ++i;\n    //--i;\n    //int i2=start;\n   // while(i<diffY.size()-2 && diffY[])\n    return i_max;\n}\n\nsize_t searchSignalSlowdown(long double * y, size_t size, size_t startPosition, long double h)\n{\n    /*\n    Функция должна реагировать на замедление изменения сигнала.\n    Т.е. на малозаметный пик.\n    */\n    if(startPosition>=size)\n        return size;\n\n      size_t dsize=size-2;\n      size_t d2size=dsize-2;\n      // Посчитаем производную методом конечных разностей\n      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))\n\n      // формула df/dx=(f(x+h)-f(x-h))/2/h;\n      std::vector<long double> dY(size);\n\n      for(int i =0;i<dsize;i++)\n      {\n        dY[i]=(y[i+2]-y[i])/2.0/h;\n      }\n\n      std::vector<long double> d2Y(size);\n\n      for(int i =0;i<d2size;i++)\n      {\n        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;\n        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;\n      }\n\n      TStringList *tsl = new TStringList;\n\n\n      for(int i =0;i<d2size;i++)\n      {\n      tsl->Add(FloatToStr(dY[i])+\"\\t\"+FloatToStr(d2Y[i]));      \n      }                          \n\n      tsl->SaveToFile(\"mobilitySpectrumLogDerivative.txt\");\n\n      delete tsl;\n\n      for (int i = startPosition; i < dsize-1; ++i)\n        {\n            /*\n            Поиск такой:\n            1. ищем участок на котором первая производная отрицательная.\n            */\n            while (i<dsize-1 && (dY[i]>0)) ++i;\n\n            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]<0)) ++i; // первая производная отрицательная и уменьшается\n\n            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]>0)) ++i; // первая производная отрицательная и увеличивается\n\n            --i;\n            // Теперь проверим остальные условия - вторая производная должна изменить знак.\n            // Вероятно стоит расширить диапазон поиска до +-10 значений\n            if (i+10<dsize-1 && i-10>=0 && (d2Y[i-10]>0 && d2Y[i+10]<0) )\n            {\n                return i;\n            }\n            if( i<startPosition)\n            {\n            return size;\n            }\n        }\n        return size;\n\n}\n\nsize_t searchSignificantPeak(long double * y, size_t size, size_t startPosition, long double h)\n{\n    if(startPosition>=size)\n        return size;\n\n      size_t dsize=size-2;\n      size_t d2size=dsize-2;\n      // Посчитаем производную методом конечных разностей\n      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))\n\n      // формула df/dx=(f(x+h)-f(x-h))/2/h;\n\n      std::vector<long double> dY(size);\n\n      for(int i =0;i<dsize;i++)\n      {\n        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);\n        dY[i]=(y[i+2]-y[i])/2.0/h;\n      }\n\n      std::vector<long double> d2Y(size);\n\n      for(int i =0;i<d2size;i++)\n      {\n        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);\n        // формула f(x-h)-2f(x)+f(x+h)/h^2\n        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;\n        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;\n      }\n\n      TStringList *tsl = new TStringList;\n\n\n      for(int i =0;i<d2size;i++)\n      {\n      tsl->Add(FloatToStr(dY[i])+\"\\t\"+FloatToStr(d2Y[i]));      \n      }                          \n\n      tsl->SaveToFile(\"mobilitySpectrumDerivative.txt\");\n\n      delete tsl;\n\n      /*\n        Поиск пиков. Считаем производные первого и второго порядков.\n        Самые ярко выраженные пики должны иметь такие признаки:\n        1. Первая производная сначала растет и положительна.\n        2. После пика - убывает и отрицательна \n\n        3. Вторая производная до пика - положительна.\n        4. После пика - отрицательна.\n        5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.\n      */\n\n        for (int i = startPosition; i < dsize-1; ++i)\n        {\n            /*\n            Поиск такой:\n            1. ищем участок на котором первая производная положительна и растет.\n            */\n            while (i<dsize-1 && (dY[i]<0)) ++i;\n            // ищем точку, с которой рост первой производной прекращается\n            while (i<dsize-1 && (dY[i]>0)) ++i;\n\n            --i;\n            // Теперь проверим остальные условия - вторая производная отрицательна\n            // Вероятно стоит расширить диапазон поиска до +-10 значений\n            if (d2Y[i]<0 )\n            {\n                return i;\n            }\n        }\n        return size;\n}\n\nlong double calcConcentrationFromGp(long double G_p, long double Mu)\n{\n    long double electronCharge=1.602e-19;\n    return G_p/(Mu*electronCharge);\n}\n\nvoid calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)\n{\n      if(length==0)\n      {\n      Form1->ErrorLog->Lines->Add(\"Длина в расчете спектра подвижности равна нулю. Не могу считать.\");\n        return;\n      }\n\n    Form1->MobSpecResults->Cells[1][3]=\"\";\n    Form1->MobSpecResults->Cells[2][3]=\"\";\n    Form1->MobSpecResults->Cells[1][1]=\"\";\n    Form1->MobSpecResults->Cells[2][1]=\"\";\n    Form1->MobSpecResults->Cells[1][2]=\"\";\n    Form1->MobSpecResults->Cells[2][2]=\"\";\n\n      mobilitySpectrum c(B,sxx,sxy,B.size());\n\n      int size=c.getResultSize();\n\n      long double * ex=new long double [size];\n      long double * eY=new long double [size];\n      long double * hx=new long double [size];\n      long double * hY=new long double [size];\n\n      Form1->ChspElecComponent->Clear();\n      Form1->ChSpHoleComponent->Clear();\n      Form1->Series4->Clear();\n\n      //Form1->Chart1->LeftAxis->Logarithmic=true;\n      //Form1->Chart1->BottomAxis->Logarithmic=true;\n\n      TStringList *tsl = new TStringList;\n\n\n      for(int i =0;i<size;i++)\n      {\n\n      ex[i]=c.getResultEX(i);\n      eY[i]=c.getResultEY(i);\n      hx[i]=c.getResultHX(i);\n      hY[i]=c.getResultHY(i);\n      tsl->Add(FloatToStr(ex[i])+\"\\t\"+FloatToStr(eY[i])+\"\\t\"+FloatToStr(hY[i]));\n      Form1->ChspElecComponent->AddXY(ex[i],eY[i],\"\",clBlue);\n      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],\"\",clRed);\n      }\n\n      tsl->SaveToFile(\"mobilitySpectrum.txt\");\n\n      /*std::vector<long double> diffeY;\n      for (int i = 1; i < size; ++i)\n      {\n          diffeY.push_back(fabs((eY[i]-eY[i-1])));\n          Form1->Series4->AddXY(ex[i-1],diffeY[i-1],\"\",clGreen);\n      }*/\n\n      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны\n      if(index!=size)\n      {\n          Form1->MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация\n          Form1->MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность\n      }\n\n      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки\n      if(index!=size)\n      {\n          Form1->MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация\n          Form1->MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность\n      }\n\n      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки\n      if(index!=size)\n      {\n          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация\n          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность\n      }\n      else\n      {\n        index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки\n        index = searchSignalSlowdown(hY, size, index+4, hx[1]-hx[0]); // легкие дырки\n        if(index!=size)\n      {\n          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация\n          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность\n      }\n      }\n\n    delete [] ex;\n    delete [] eY;\n    delete [] hx;\n    delete [] hY;\n    delete tsl;\n\n}\n\n\nvoid __fastcall TForm1::Button1Click(TObject *Sender)\n{\n//-------------------------------------------------------------\n\nlong double B[]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};\nlong double sxx[]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};\nlong double sxy[]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};\n\nint testSize=11;\nvector <long double> B2;\nvector <long double> sxx2;\nvector <long double> sxy2;\nfor(int i=0;i<testSize;++i)\n{\nB2.push_back(B[i]);\nsxx2.push_back(sxx[i]);\nsxy2.push_back(sxy[i]);\n}\nmobilitySpectrum c(B2,sxx2,sxy2,testSize);\n\n    int size=c.getResultSize();\n      long double * ex=new long double [size];\n      long double * eY=new long double [size];\n      long double * hx=new long double [size];\n      long double * hY=new long double [size];\n      \n      //ChspElecComponent->Clear();\n      Series1->Clear();\n      Series2->Clear();\n      Series3->Clear();\n      Series4->Clear();\n      Series5->Clear();\n      Chart1->LeftAxis->Logarithmic=true;\n      Chart1->BottomAxis->Logarithmic=true;\n\n      \n      for(int i =0;i<size;i++)\n      {\n\n      ex[i]=c.getResultEX(i);\n      eY[i]=c.getResultEY(i);\n      hx[i]=c.getResultHX(i);\n      hY[i]=c.getResultHY(i);\n\n      Series1->AddXY(ex[i],eY[i],\"\",clBlue);\n      //ChspElecComponent->AddXY(ex[i],eY[i],\"\",clBlue);\n      Series2->AddXY(hx[i],hY[i],\"\",clRed);\n      }\n\n     \n\n      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны\n      if(index!=size)\n      {\n          MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация\n          MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность\n      }\n\n      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки\n      if(index!=size)\n      {\n          MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация\n          MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность\n      }\n\n      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки\n      if(index!=size)\n      {\n          MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация\n          MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность\n      }\n      \n      TStringList *tosaving=new TStringList;\n\n      for (int i =0;i<size;i++)\n      {\n      tosaving->Add(FloatToStr(ex[i])+\"\\t\"+FloatToStr(eY[i])+\"\\t\"+FloatToStr(hY[i]));\n      }\n      \n      tosaving->SaveToFile(\"MobilityTestSpectrum.txt\");\n\n      delete [] ex;\n      delete [] eY;\n      delete [] hx;\n      delete [] hY;\n      delete tosaving;\n}\n//---------------------------------------------------------------------------\n\n\nvoid addPeak(TChartSeries *Sender,int ValueIndex)\n{\n    long double electronCharge=1.602e-19;\n    long double G_p=Sender->YValues->Value[ValueIndex];\n    long double Mu= Sender->XValues->Value[ValueIndex];\n    long double Concentration=G_p/(Mu*electronCharge);\n\n    Form1->MobSpecResults->Cells[2][Form1->MobSpecResults->Selection.Top]= FloatToStrF( Mu, ffFixed, 5, 5);\n    Form1->MobSpecResults->Cells[1][Form1->MobSpecResults->Selection.Top]= FloatToStrF(Concentration, ffExponent, 5, 2);\n\n    TGridRect tgr=Form1->MobSpecResults->Selection;\n    tgr.Top++;\n    tgr.Bottom++;\n    if(tgr.Top>3)\n    {\n        tgr.Top=1;\n        tgr.Bottom=1;\n    }\n    Form1->MobSpecResults->Selection =tgr;\n}\n\nvoid __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,\n      TMouseButton Button, TShiftState Shift, int X, int Y)\n{   \n    addPeak(Sender, ValueIndex);    \n}\n//---------------------------------------------------------------------------\n\n\n\n\n\nvoid __fastcall TForm1::N12Click(TObject *Sender)\n{\n    MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n        p->rearrangeSignal();\n        UpdatePlots();\n    }\n\n\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N13Click(TObject *Sender)\n{\nMagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        //ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n    }\n    \nif(PC->ActivePageIndex==1) // Сопротивление\n{\n    p->multiplySignal(MAGNETORESISTANCE,-1);\n}\n\nif(PC->ActivePageIndex==2) // Холл\n{\n    p->multiplySignal(HALL_EFFECT,-1);\n}\n    UpdatePlots();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N17Click(TObject *Sender)\n{\n\nif(out1->XValues->Count()!=0)\n{ out1->Clear();\n  out2->Clear();\n}\nelse\nUpdatePlots();\n\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N16Click(TObject *Sender)\n{\nif(SeriesHall2->XValues->Count()!=0)\n{ SeriesHall2->Clear();\n  SeriesRes2->Clear();\n}\nelse\nUpdatePlots();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::uiFrenqChange(TObject *Sender)\n{\nuiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFilterSize->Text)); \n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N19Click(TObject *Sender)\n{\nForm4->Visible=true;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::Button4Click(TObject *Sender)\n{\nif(!testExtrapolateUnit()) ShowMessage(\"Не пройден тест по экстраполяции\");\nif(!testCommonFunctions()) ShowMessage(\"Не пройден тест по общим функциям\");\nTSignal inX;\nTSignal inY;\ninX.push_back(0);\ninY.push_back(1.92);\n	for (int i = 0; i < 3; ++i)\n	{\n		inX.push_back(inX.back()+0.02);\n        inY.push_back(inX.back()*inX.back());\n	}\nTSignal newX;\nnewX.push_back(0);\n	for (int i = 0; i < 151; ++i)\n	{\n		newX.push_back(newX.back()+0.02);\n	}\n\nTSignal outY;\n\nLagrangeExtrapolation(inX,inY,newX,outY);\n\nfor (int i=0;i<inX.size();++i)\n{\nSeriesRes1->AddXY(inX[i],inY[i],\"\",clRed);\n}\n\nfor (int i=0;i<newX.size();++i)\n{\nif(fabs(outY[i])<1000)\nSeriesRes2->AddXY(newX[i],outY[i],\"\",clGreen);\n}\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)\n{\n MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n\n        StatusBar->Panels->Items[1]->Text=\"Идёт подгонка данных\";\n\n    long double VesGxx=StrToFloat(LabeledEdit1->Text);\n    long double VesGxy=StrToFloat(LabeledEdit2->Text);\n\n    InDataSpectr nMagSpectr;\n    InDataSpectr nGxxIn;\n    InDataSpectr nGxyIn;\n\n    // Сюда сохраняются выходные значения.\n    MyData_spektr outGxx;\n    MyData_spektr outGxy;\n    TStatistic outValues;\n\n    int GxxSize=nMagSpectr.size();\n    int numberOfCarrierTypes=3;\n\n    MultiZoneFit * mzf=new MultiZoneFit(100,VesGxx, VesGxy);\n\n\n    int result=mzf->RunMultizoneFeat(LowBound,  UpBound,\n                          nMagSpectr,  nGxxIn, nGxyIn,\n                           outGxx,  outGxy,\n                           outValues,\n                           numberOfCarrierTypes);\n\n    p->runMultiCarrierFit()\n\n    ChSxx_theor->Clear();\n    ChSxy_theor->Clear();\n    ChSxxExper->Clear();\n    ChSxyExper->Clear();\n\n\n    long double koefSxx=1, koefSxy=1;\n\n    if (CheckBox3->Checked)\n    {\n        koefSxx=max_elem(outGxx);\n        koefSxy=max_elem(outGxy);\n\n        if (max_elem(nGxxIn)>koefSxx)\n        {\n            koefSxx=max_elem(nGxxIn);\n        }\n        if (max_elem(nGxyIn)>koefSxy)\n        {\n            koefSxy=max_elem(nGxyIn);\n        }\n    }\n\n    for (int i = 0; i < outGxx.size(); ++i)\n    {\n        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i]/koefSxx,\"\",clRed);\n        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i]/koefSxy,\"\",clRed);\n    }\n\n    for (int i = 0; i < nMagSpectr.size(); ++i)\n    {\n        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i]/koefSxx,\"\",clBlue);\n        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i]/koefSxy,\"\",clBlue);\n    }\n\n    // Результаты идут в формате:\n    // По первому индексу:\n    // Подвижность электронов, подвижность легких дырок, подвижность тяжелых дырок\n    // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок\n    // По второму индексу: минимальные, средние, СКО, СКО %\n\n    TStringList * tsl = new TStringList();\n\n        for (int j = 0; j < 4; ++j)\n        {\n\n        for(int i=0;i<2*numberOfCarrierTypes;++i)\n        {\n        tsl->Add(FloatToStr(outValues[i][j]));\n        }\n        }\n\n        tsl->SaveToFile(SaveDialog1->FileName+eBandWidthFRes->Text+eBandWidthFHall->Text+\"MZFitRes.txt\");\n\n        // min\n        for(int i=0;i<2*numberOfCarrierTypes;++i)\n        {\n\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);\n            else\n          FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"middle\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"SKO\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"SKOPers\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);\n        }\n        delete mzf;\n        delete tsl;\n\n    }\n     StatusBar->Panels->Items[1]->Text=\"Готова к работе.\";\n\n/*\n\n MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n\n        StatusBar->Panels->Items[1]->Text=\"Идёт подгонка данных\";\n\n    long double VesGxx=StrToFloat(LabeledEdit1->Text);\n    long double VesGxy=StrToFloat(LabeledEdit2->Text);\n\n    // важный вопрос - в каком порядке нужно помещать сюда данные.\n    // Порядок такой: подвижность электронов, легких дырок и тяжелых дырок.\n    // Далее - концентрации в том же порядке.\n    std::vector<long double> ExactBound; // сюда нужны пики из спектра\n\n    ExactBound.push_back(-p->getElectronMobility()->operator[](0)); // Подвижность электронов\n    ExactBound.push_back(p->getHoleMobility()->operator[](1)); // Подвижность легких дырок\n    ExactBound.push_back(p->getHoleMobility()->operator[](0)); // Подвижность тяжелых дырок\n\n    ExactBound.push_back(-p->getElectronConcentration()->operator[](0)); // Концентрация электронов\n    ExactBound.push_back(p->getHoleConcentration()->operator[](1)); // Концентрация легких дырок\n    ExactBound.push_back(p->getHoleConcentration()->operator[](0)); // Концентрация тяжелых дырок\n\n\n    /* Необходимо проверить все ли границы установлены корректно.\n    Если подвижность пика равна минимальной исследуемой подвижности - пик не был найден.\n    В этом случае необходимо задать границы поиска исходя из другой априорной информации.*/\n /*   long double leftBoundMobility=0.01;\n\n    if (ExactBound[0]==leftBoundMobility ||\n        ExactBound[1]==leftBoundMobility ||\n        ExactBound[2]==leftBoundMobility)\n    {\n      \n    }\n\n    // Нужно выяснить отчего зависит разброс.\n    // Полагаю это какие-то коэффициенты\n    std::vector<long double> coef;\n\n    coef.push_back(0.8); // Подвижность электронов\n    coef.push_back(0.2); // Подвижность легких дырок\n    coef.push_back(0.1); // Подвижность тяжелых дырок\n    coef.push_back(0.9); // Концентрация электронов\n    coef.push_back(0.2); // Концентрация легких дырок\n    coef.push_back(0.1); // Концентрация тяжелых дырок\n\n\n    std::vector<long double> LowBound; // сюда - границы для поиска\n    std::vector<long double> UpBound;\n\n    for (int i = 0; i < ExactBound.size(); ++i)\n    {\n        LowBound.push_back(ExactBound[i]-ExactBound[i]*coef[i]);\n        UpBound.push_back(ExactBound[i]+ExactBound[i]*coef[i]);\n    }\n\n    // Получаем сам спектр и компоненты тензора\n    InDataSpectr MagSpectr(p->getAveragedB()->begin(),p->getAveragedB()->end());\n    InDataSpectr GxxIn(p->getSxx()->begin(),p->getSxx()->end());\n    InDataSpectr GxyIn(p->getSxy()->begin(),p->getSxy()->end());\n\n    InDataSpectr nMagSpectr;\n    InDataSpectr nGxxIn;\n    InDataSpectr nGxyIn;\n\n\n\n    thiningSignal(MagSpectr, GxxIn, nMagSpectr, nGxxIn,0, 2, 11);\n    thiningSignal(MagSpectr, GxyIn, nMagSpectr, nGxyIn,0, 2, 11);\n\n    //ChSxxExper\n    //ChSxyExper\n    // ChSxx_theor\n    // ChSxy_theor\n\n    // Сюда сохраняются выходные значения.\n    MyData_spektr outGxx;\n    MyData_spektr outGxy;\n    TStatistic outValues;\n\n    int GxxSize=nMagSpectr.size();\n    int numberOfCarrierTypes=3;\n\n    MultiZoneFit * mzf=new MultiZoneFit(100,VesGxx, VesGxy);\n\n\n    int result=mzf->RunMultizoneFeat(LowBound,  UpBound,\n                          nMagSpectr,  nGxxIn, nGxyIn,\n                           outGxx,  outGxy,\n                           outValues,\n                           numberOfCarrierTypes);\n\n    ChSxx_theor->Clear();\n    ChSxy_theor->Clear();\n    ChSxxExper->Clear();\n    ChSxyExper->Clear();\n\n\n    long double koefSxx=1, koefSxy=1;\n\n    if (CheckBox3->Checked)\n    {\n        koefSxx=max_elem(outGxx);\n        koefSxy=max_elem(outGxy);\n\n        if (max_elem(nGxxIn)>koefSxx)\n        {\n            koefSxx=max_elem(nGxxIn);\n        }\n        if (max_elem(nGxyIn)>koefSxy)\n        {\n            koefSxy=max_elem(nGxyIn);\n        }\n    }\n\n    for (int i = 0; i < outGxx.size(); ++i)\n    {\n        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i]/koefSxx,\"\",clRed);\n        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i]/koefSxy,\"\",clRed);\n    }\n\n    for (int i = 0; i < nMagSpectr.size(); ++i)\n    {\n        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i]/koefSxx,\"\",clBlue);\n        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i]/koefSxy,\"\",clBlue);\n    }\n\n    // Результаты идут в формате:\n    // По первому индексу:\n    // Подвижность электронов, подвижность легких дырок, подвижность тяжелых дырок\n    // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок\n    // По второму индексу: минимальные, средние, СКО, СКО %\n\n    TStringList * tsl = new TStringList();\n\n        for (int j = 0; j < 4; ++j)\n        {\n\n        for(int i=0;i<2*numberOfCarrierTypes;++i)\n        {\n        tsl->Add(FloatToStr(outValues[i][j]));\n        }\n        }\n\n        tsl->SaveToFile(SaveDialog1->FileName+eBandWidthFRes->Text+eBandWidthFHall->Text+\"MZFitRes.txt\");\n\n        // min\n        for(int i=0;i<2*numberOfCarrierTypes;++i)\n        {\n\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);\n            else\n          FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"middle\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"SKO\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffExponent,5,2);\n        }\n        //ErrorLog->Lines->Add(\"SKOPers\");\n        for(int i=0;i<2*numberOfCarrierTypes+1;++i)\n        {\n            if(i<numberOfCarrierTypes)\n                FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffFixed,6,6);\n            else\n           FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);\n        }\n        delete mzf;\n        delete tsl;\n\n    }\n     StatusBar->Panels->Items[1]->Text=\"Готова к работе.\";\n\n*/\n\n}\n//---------------------------------------------------------------------------\n\n\nvoid __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)\n{\n    MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n        p->calculateMobilitySpectrum();\n\n        TSignal ex(p->getMobility()->begin(),p->getMobility()->end());\n        TSignal eY(p->getElectronConductivity()->begin(),p->getElectronConductivity()->end());\n        TSignal hx(p->getMobility()->begin(),p->getMobility()->end());\n        TSignal hY(p->getHoleConductivity()->begin(),p->getHoleConductivity()->end());\n        if(p->getElectronConcentration()->size()>=1)\n        {\n        Form1->MobSpecResults->Cells[1][3]=FloatToStrF(p->getElectronConcentration()->operator[](0),ffExponent,5,2);\n        Form1->MobSpecResults->Cells[2][3]=FloatToStrF(p->getElectronMobility()->operator[](0),ffFixed,5,5);\n        }\n        if(p->getHoleConcentration()->size()>=1)\n        {\n        Form1->MobSpecResults->Cells[1][1]=FloatToStrF(p->getHoleConcentration()->operator[](0),ffExponent,5,2);\n        Form1->MobSpecResults->Cells[2][1]=FloatToStrF(p->getHoleMobility()->operator[](0),ffFixed,5,5);\n        }\n        if(p->getHoleConcentration()->size()>=2)\n        {\n        Form1->MobSpecResults->Cells[1][2]=FloatToStrF(p->getHoleConcentration()->operator[](1),ffExponent,5,2);\n        Form1->MobSpecResults->Cells[2][2]=FloatToStrF(p->getHoleMobility()->operator[](1),ffFixed,5,5);\n        }\n        Form1->ChspElecComponent->Clear();\n        Form1->ChSpHoleComponent->Clear();\n        Form1->Series4->Clear();\n\n      for(int i =0;i<ex.size();++i)\n      {\n      Form1->ChspElecComponent->AddXY(ex[i],eY[i],\"\",clBlue);\n      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],\"\",clRed);\n      }\n    } \n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N25Click(TObject *Sender)\n{\nbFilterRes->Click();\ncalculateTenzor();\nbtnMobilitySpectrum->Click();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N26Click(TObject *Sender)\n{\nN25->Click();\nbtnMultiCarrierFit->Click();\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::eMedianFilterSizeKeyPress(TObject *Sender,\n      char &Key)\n{\n    if(((int)Key<48 || (int)Key>57) && Key!=8)\n        Key=0;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::XMLsettingsBeforeOpen(TObject *Sender)\n{\n AnsiString FilePath=ExtractFilePath(Application->ExeName);\n XMLsettings->FileName=FilePath+\"settings.xml\";   \n}\n//---------------------------------------------------------------------------\n\nstd::vector<std::string> getAllFileNamesWithinFolder(std::string folder)\n{\n    std::vector<std::string> names;\n    char search_path[200];\n    if (folder.length() <200)\n    {\n        sprintf(search_path, \"%s/*.*\", folder.c_str());\n        WIN32_FIND_DATA fd; \n        HANDLE hFind = ::FindFirstFile(search_path, &fd); \n        if(hFind != INVALID_HANDLE_VALUE) { \n            do { \n                // read all (real) files in current folder\n                // , delete '!' read other 2 default folder . and ..\n                if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {\n                    names.push_back(fd.cFileName);\n                }\n            }while(::FindNextFile(hFind, &fd)); \n            ::FindClose(hFind); \n        } \n        return names;\n    }\n    return names;\n}\n\nvoid filterFileNames(std::vector<std::string> & files, std::string rem)\n{\n    for (int i = 0; i < files.size(); ++i)\n    {\n        size_t n = files[i].find(rem);\n        if(n!= std::string::npos)\n            files[i]=\"\";\n    }\n}\n\nvoid __fastcall TForm1::Button3Click(TObject *Sender)\n{\n/*\nФункция должна обеспечивать:\n1. Открытие файла.\n2. Фильтрацию, расчет тензоров, спектра и подгонки.\n3. Сохранение всех результатов.\n*/\n\n// открыть папку и обработать все файлы в ней\nif (OpenDialog1->Execute())\n{\n\n    std::string folder = ExtractFilePath(OpenDialog1->Files->Strings[0]).c_str();\n\n    std::vector<std::string> files=getAllFileNamesWithinFolder(folder);\n\n    // Нужно удалить из списка файлы, содержащие в имени \"Description\"\n\n    filterFileNames(files, \"Description\");\n\n    // предусмотреть объединение сигналов\n    // пока предполагаем что сигнал уже объединен - ведь на модели испытывать будем.\n\n    int temp=files.size();\n\n    for (int j = 0; j < files.size(); ++j) // По всем именам файлов\n    {\n        if (files[j]!=\"\")\n        {\n        openFileWithSignal(files[j].c_str());\n\n\n        char folderPath[500];\n        if (files[j].length() <500)\n        {\n            sprintf(folderPath, \"%s%s1\", folder.c_str(), files[j].c_str());\n\n            if(CreateDirectory(folderPath,NULL)) // Создаём отдельную папку для сохранения данных по каждому файлу.\n            {\n                std::string name=folder+files[j]+\"1\\\\1\"; // Дабы сохранять в отдельную папку.\n                long double step=0.1;\n                for (long double BandWidthFHall=0.01, AttenuationFHall=0.1; BandWidthFHall < 10; BandWidthFHall+=step, AttenuationFHall+=step)\n                {\n                    if(step==0.1 && BandWidthFHall>1.0)\n                    {\n                        step=1.0;\n                    }\n                    eBandWidthFHall->Text=FloatToStr(BandWidthFHall);\n                    eAttenuationFHall->Text=FloatToStr(AttenuationFHall);\n\n                    AnsiString t=name.c_str()+FloatToStr(BandWidthFHall);\n                    //eLengthFilterRes->Text=\"300\";\n                    long double step=0.1;\n                    for (long double BandWidthFRes=0.01, AttenuationFRes=0.1; BandWidthFRes < 10; BandWidthFRes+=step, AttenuationFRes+=step) // Это будет страшный цикл по разным параметрам фильтрации\n                    { // Но для начала буду менять только частоту среза\n                        if(step==0.1 && BandWidthFRes>1.0)\n                        {\n                            step=1.0;\n                        }\n                        AnsiString t2=t+FloatToStr(BandWidthFRes);\n                        SaveDialog1->FileName=t2;\n\n                        eBandWidthFRes->Text=FloatToStr(BandWidthFRes);\n                        eAttenuationFRes->Text=FloatToStr(AttenuationFRes);\n\n                        Application->ProcessMessages();\n\n                        if(CheckBox2->Checked==false)\n                        {\n                        N26->Click(); // Выполняет Фильтрацию, расчет тензоров, спектра и подгонки.\n                        }\n                        else\n                        {\n                        N25->Click();\n                        }\n\n                        if(params)\n                        {\n                            params->SaveAllData(SaveDialog1->FileName+\"Com\");\n                        }\n                        //N11->Click(); // Сохранить всё\n                    }\n\n                }\n\n            }\n            else\n                ShowMessage(IntToStr(GetLastError()));\n        }\n        }\n    }\n}\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::N21Click(TObject *Sender)\n{\ncalculateTenzor();    \n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::btnSaveCarrierParamsClick(TObject *Sender)\n{\n/*\nЧто здесь должно сохраняться:\n1. Параметры носителей заряда.\n    минимальные\n    средние\n    СКО\n    СКО %\n2. Подогнанные компоненты тензора проводимости.\n*/\n;\n}\n//---------------------------------------------------------------------------\n\nvoid __fastcall TForm1::Button5Click(TObject *Sender)\n{\n    const TSignal * bv=(*ActiveParams())->getB();\n    const TSignal * hallv=(*ActiveParams())->getHallEffect();\n    const TSignal *mv=(*ActiveParams())->getMagnetoResistance();\n    std::vector<long double> b=*bv;\n    std::vector<long double> hall=*hallv;\n    std::vector<long double> m=*mv;\n    long double h = fabs(b[1]-b[0]);\n    TSignal d1hall, d1m;\n    TSignal d2hall, d2m;\n\n    d1hall=calculateFirstDerivative(hall,h);\n    d2m=calculateSecondDerivative(m,h);\n    d1m=calculateFirstDerivative(m,h);\n    d2hall=calculateSecondDerivative(hall,h);\n\n    TStringList * tsl=new TStringList();\n\n    for (int i = 0; i < d2hall.size(); ++i)\n    {\n        tsl->Add(FloatToStr(d1hall[i])+\"\\t\"+FloatToStr(d2hall[i])+\"\\t\"+FloatToStr(d1m[i])+\"\\t\"+FloatToStr(d2m[i]));\n    }\n\n    tsl->SaveToFile(\"derivativeOfSignals.txt\");   \n\n    delete tsl;\n}\n//---------------------------------------------------------------------------\nvoid __fastcall TForm1::SmartCalcClick(TObject *Sender)\n{\n    \n    MagneticFieldDependence ** par=ActiveParams();\n    MagneticFieldDependence * p;\n    if (*par==NULL)\n    {\n        ShowMessage(\"Вероятно выбран не тот график.\");\n        return;\n    }\n    else\n    {\n        p=*par;\n        smartCalculation sC(p);\n        sC.processData();\n        SaveDialog1->Title=\"Сохранить результаты адаптивного фильтра:\";\n        if(SaveDialog1->Execute())\n        {\n            sC.saveResults(SaveDialog1->FileName.c_str());\n        }\n    }\n}\n//---------------------------------------------------------------------------\n",
+			"file": "Unit1.cpp",
+			"file_size": 77302,
+			"file_write_time": 131254009871845703,
+			"settings":
+			{
+				"buffer_size": 72348,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\n\nНу что ж, вот мы решили взломать WiFi и перед нами встал вопрос - а как это сделать?\nПеред тем как на него ответить, нужно разобраться как WiFi работает и какие при этом технологии защиты используются.\n\nWiFi - это беспроводная технология передачи данных. Все данные передаются с помощью электромагнитных волн на частоте 2.4 ГГц, либо 5ГГц (это новый стандарт).\n\nстандарты передачи данных в этой области разрабатываются и принимаются IEEE (Институт инженеров электротехники и электроники).\nНапример стандарт на WiFi, который наиболее распространен сейчас это IEEE 802.11n, самый новый стандарт - это IEEE 802.11ac                        \nВ них оговорены технические подробности и реализация передачи данных на физическом уровне.\n\nЧтобы ломать WiFi надо знать частоту и канал на котором он работает, кроме того какая технология защиты используется и какие дополнительные меры защиты были предприняты хозяином WiFi\n\nпри передаче данных через WiFi мы используем определенную частоту.\nЕсли кто-нибудь рядом с нами будет передавать данные на той же самой частоте - он создаст помехи и WiFi будет плохо работать.\nПри том, что для того чтобы не возникало такой ситуации, что все роутеры вдруг передают данные на одной и той же частоте, и в итоге мешают друг другу и придумали каналы. Т.е. каждый роутер может работать на одном из каналов, показанных на рисунке.\n\nШирина канала связана с физическими особенностями передачи данных (частотная модуляция).\nВ итоге в разрешенный диапазон умещаются три канала 1, 6  и 11.\nНо этого мало - у нас могут быть десятки WiFi сетей в одном и том же месте. И им надо как-то работать и не мешать друг другу. Поэтому сделали больше каналов.\n\nИтак, идем дальше.\nС физическими параметрами мы разобрались.\n\n\n\n\nУ нас есть роутер и ноутбук с WiFi-адаптером.\nПонятное дело, что передача ведется с помощью антенн в роутере и адаптере.\nПоднимаемся на один уровень выше, с физического уровня на канальный.\nКанальный уровень занимается доставкой \"кадров\". Кадры - это фрагменты данных, передаваемые по сети.\nНа канальном уровне для адресации устройств используются так называемые MAC-адреса (Media Access Control). Каждое сетевое устройство имеет MAC-адрес, выданный ему производителем. MAC адрес выглядит вот так: 00-00-00-00-00-00-00-E0\nМожет записываться либо через тире, либо через двоеточия 00:00:00:00:00:00:00:E0\n\nДля проведения атаки нам нужно будет узнать MAC адрес роутера.\n\n\n\n\n\n\n\n",
+			"settings":
+			{
+				"buffer_size": 2408,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "I will compare structure's member by member.\n\n int main()\n {\n    main();\n }\n\n\n int* ptr = (int*)0;\n *ptr = 1;\n\n\n void func()\n{\nchar *pointer = NULL;\nfor( int i = 0; i < 10; i++ ) {\n     pointer = new char[100];\n}\ndelete [] pointer;\n}\n\nint main ()\n{\nwhile(true)\n   func();\n}\n\nbool hasLoop( std::list & L) {\n   auto slowIterator = L.begin();\n   auto fastIterator = L.begin();\n   auto endIt=L.end();\n   while( slowIterator!=endit && fastIterator!=endit)\n   {\n      if ( ++fastIterator == slowIterator  ||  ++fastIterator == slowIterator )\n      {\n          return true;\n      }\n    ++slowIterator;\n   }\nreturn false;\n}\n\nint fib(int num)\n{\n    if (num==1 || num == 2)\n        return 1;\n    else\n        return fib(num-1)+fib(num-2);\n}\n\nstring rev(string s)\n{\n    if (s.empty()) return \"\";\n    else return s.back() +rev(s.substr(0,s.size()-1));\n}\n\n\nlambda-functions, Higher-order functions (for example std::transform, std::remove_if, std::accumulate)\n\n\n\nI will use the megre sort. It is better to sort data by 2Gb parts and save the sorted data in separate files. When we sort all the parts of data we will open all files and megre them simultaneously in one file.\n\nThe other case will be suitable if we have small integers. We could make an array representing all possible integer variables and fill it with zeros. Then we reading data from file and increment the corresponding values in array (using data as index to array).\nAfter this we just need to write into new file data from array with the necessary number of repetitions. Except the zero values.\n\n\nThe multiplexing options are select, poll, pselect, epoll (recommended for Linux), kqueue (for BSD).\nThe most efficient is epoll and kqueue, because unlike the older system calls (like select and poll), which operate in O(n) time, epoll operates in O(1) time.\nThe suitable libraries are libevent and boost.asio.\n\n\n\nThe compiler will disable optimization, so the resulting code will remain the same. It is easier to investigate program and find bug's.\n\n\nPosition-independent code can be executed at any memory address without modification. It usually used is shared libraries.\n\nLoop splitting\nLoop unrolling\nAutomatic parallelization\nCommon subexpression elimination\nConstant folding and propagation\nDead store elimination\nInduction variable recognition and elimination\nReordering computations\ntail call optimization (for recursion)\nBounds-checking elimination\n\n\n1500\n\n19.12.2016\n\nNovosibirsk\n\nalexxtri",
+			"settings":
+			{
+				"buffer_size": 2455,
 				"line_ending": "Windows",
-				"name": "Б7-03"
+				"name": "I will compare structure's member by member."
+			}
+		},
+		{
+			"file": "UsedTypes.h",
+			"settings":
+			{
+				"buffer_size": 2718,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "mobilityspectrum.cpp",
+			"settings":
+			{
+				"buffer_size": 51699,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "mobilityspectrum.h",
+			"settings":
+			{
+				"buffer_size": 5640,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MagneticFieldDependence.cpp",
+			"settings":
+			{
+				"buffer_size": 59505,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MagneticFieldDependence.h",
+			"settings":
+			{
+				"buffer_size": 9234,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "http://solveme.kr\nhttps://ringzer0team.com\nhttp://challengeland.co\nhttp://pwnable.kr/\nhttp://mirror.otp22.com/chal\nhttps://chall.stypr.com/\nhttp://www.mod-x.co.uk/disavowed/\nhttp://www.mod-x.co.uk/omegaproject/0.php\nhttp://www.mod-x.co.uk/\nhttp://codeshell.kr\nhttps://www.hackthis.co.uk\nhttp://www.mathchall.com/en\nhttp://damienoreilly.org/ctf\nhttp://chall.tasteless.eu\nhttp://2013.hackitoergosum.org/\nhttp://www.overthewire.org/wargames/\nhttp://www.hacking-challenges.de/\nhttp://canyouhack.it\nhttp://www.wixxerd.com\nhttp://yoire.com\nhttp://suninatas.com\nhttps://redtiger.labs.overthewire.org/\nhttp://reversing.kr\nhttp://hacking.allowed.org\nhttp://halls-of-valhalla.org/\nhttp://securityoverride.org\nhttp://www.wargame.kr\nhttp://www.right-answer.net/\nhttp://hack-me.org/\nhttp://www.enigmagroup.org\nhttp://www.microcontest.com\nhttp://webhacking.kr\nhttp://gekko.csokavar.hu\nhttp://sabrefilms.co.uk/revolutionelite\nhttps://w3challs.com/\nhttp://www.spoj.com\nhttps://www.root-me.org/\nhttp://www.securitytraps.pl/\nhttp://hackbbs.org\nhttp://www.astalavista.com\nhttp://listbrain.awardspace.biz\nhttp://www.cstutoringcenter.com\nhttp://www.javaist.com/rosecode\nhttp://www.osix.net\nhttp://www.black-zero.com/\nhttp://www.hacker.org\nhttp://hax.tor.hu\nhttp://sys.warchall.net\nhttp://3564020356.org\nhttps://www.mibs-challenges.de/\n\n\n\nIFS=$'-' (python -c \"print('\\x00\\x0a\\x00\\xff')\"; cat - ) | ./input $(python -c \"print('A-'*64+'\\x00-'+'\\x20\\x0a\\x0d-'+'A-'*33)\")\n\n(>&2 python -c \"print('\\x00\\x0a\\x00\\xff')\") (python -c \"print('\\x00\\x0a\\x00\\xff')\"; cat - ) | ./input $(python -c \"print('A-'*64+'\\x00-'+'\\x20\\x0a\\x0d-'+'A-'*33)\")\n\n\nAAAAAAAAAA\n\nBBBBBBBBBB",
+			"settings":
+			{
+				"buffer_size": 1635,
+				"line_ending": "Windows",
+				"name": "http://solveme.kr"
 			}
 		},
 		{
 			"file": "/E/Дела/Информационная безопасность/Материалы/Скачать ещё надо бы.txt",
 			"settings":
 			{
-				"buffer_size": 779,
+				"buffer_size": 1145,
 				"line_ending": "Windows"
 			}
 		},
@@ -588,7 +653,7 @@
 			}
 		}
 	],
-	"build_system": "Packages/User/CBuilder6.sublime-build",
+	"build_system": "",
 	"command_palette":
 	{
 		"height": 242.0,
@@ -639,138 +704,138 @@
 	],
 	"file_history":
 	[
-		"/G/3.hs",
-		"/C/Windows/System32/drivers/etc/hosts",
-		"/C/AdwCleaner/AdwCleaner[C0].txt",
-		"/E/Дела/Информационная безопасность/hackyouctf/crypto100.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Методы и стандарты оценки защищенности компьютерных АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Особенности эксплуатации уязвимостей во встраиваемых информационных системах.txt",
-		"/E/Дела/Информационная безопасность/hackyouctf/hackyouctf/ppc100.py",
-		"/G/Downloads/index.php",
-		"/E/Дела/Информационная безопасность/hackyouctf/crypto100.py",
-		"/E/Дела/Информационная безопасность/hackyouctf/hackyouctf/ppc300.py",
-		"/E/Дела/Информационная безопасность/hackyouctf/web200/postrequest.txt",
-		"/E/Дела/Информационная безопасность/hackyouctf/ppc100.py",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Экспертиза носителей компьютерной информации.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Тестирование на проникновение АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Теория управления информационной безопасностью распределенных компьютерных систем.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Системы автоматического поиска и эксплуатации уязвимостей.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Сетевая безопасность АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Проектирование и анализ систем обеспечения информационной безопасности объектов информатизации.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Принципы построения и архитектура высокопроизводительных вычислительных систем оптотехники.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Поиск, анализ и эксплуатация уязвимостей программного обеспечения АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Обратная разработка и отладка программного обеспечения АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Обнаружение вторжений и мониторинг функционирования высокопроизводительных систем (включая системы обнаружения компьютерных атак).txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Методы и инструментальные средства проведения расследования компьютерных инцидентов.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Веб-безопасность АСУ.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Антиотладочные средства и методы их преодоления.txt",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/shortContent/Анализ алгоритмов шифрования на наличие уязвимостей.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Анна Зонова/Информатика/15вариант.txt",
-		"/G/Downloads/vkupu_zts",
-		"/E/Дела/Информационная безопасность/simpleChange.hs",
-		"/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
-		"/G/text.zip",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/smartCalculation.h",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/smartCalculation.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
-		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.cpp",
-		"/E/Дела/Информационная безопасность/hackyouctf/crypto300/cry300_encrypt_78ceb64.py",
-		"/E/Дела/Информационная безопасность/hackyouctf/reverse200/ideone_AGBfRW.py",
-		"/E/Дела/Институт физики полупроводников/Текущая работа над статьями/Measurement Sci&Tech/Ищем рецензентов.txt",
-		"/E/Дела/Работа/Upwork/helpWithHaskellnoComments.hs",
-		"/E/Дела/Информационная безопасность/hackyouctf/pwn100/main_bb1529f.c",
-		"/E/Дела/Информационная безопасность/hackyouctf/ppc200",
-		"/E/Дела/Информационная безопасность/hackyouctf/ppc300.py",
-		"/E/Дела/Информационная безопасность/hackyouctf/rev100_4e4ccaa.cpp",
-		"/E/Дела/Работа/Upwork/helpWithHaskell2submit.hs",
-		"/E/Дела/Работа/Upwork/helpWithHaskell.hs",
-		"/G/grub4dos-0.4.4/grub4dos-0.4.4/README_GRUB4DOS.txt",
-		"/G/Downloads/helpWithHaskell.hs",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Reverse/400 (1)/400/droid",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/rev/rev_500/TaskDescription.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/solve_400/model_mesh.ply",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/solve_400/install_meshlab.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 400/ppc 400.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 300/solve_300.py",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 300/ppc 300.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 200/solve_200.sh",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 200/ppc 200.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 100/solve_100.py",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/PPC/PPC 100/ppc 100.txt",
-		"/C/Python27/Scripts/uncompyle2",
-		"/G/text.txt",
-		"/G/Downloads/cry200_bc7a808.cpp",
-		"/G/Downloads/rev100_4e4ccaa.cpp",
-		"/G/Downloads/implementation.py",
-		"/G/ppc100.py",
-		"/G/Downloads/cry200_bc7a808 (1).cpp",
-		"/G/Downloads/A2/a2.cpp",
-		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/getDataFromPlanXml.py",
-		"/E/Дела/Институт СГГА/магистратура/ismagic-magic/AnnotationGenerator/getDataFromPlanXml.py",
-		"/I/SteamLibrary/steamapps/common/Моды  на морровинд/Astarsis_face_replacer/ReadMes/AstarsisDEF_readme.txt",
-		"/I/SteamLibrary/steamapps/common/Morrowind/Morrowind.ini",
-		"/E/Дела/Информационная безопасность/Иб лекции.txt",
-		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/12.04.02-01-00-ИБ-ver7.plm.xml",
-		"/G/skietalaBreak.py",
-		"/G/Downloads/hackyouWeb100/crypto100",
-		"/G/Downloads/hackyouWeb100/noname[63].htm",
-		"/G/Downloads/main_bb1529f.c",
-		"/G/Downloads/cry300_encrypt_78ceb64.py",
-		"/G/Downloads/rev200_bot_7b541a1.pyc",
-		"/I/SteamLibrary/steamapps/common/Моды  на морровинд/Astarsis_face_replacer/ReadMe.htm",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Recon/recon300_1 (1)/recon300_1/password.txt",
-		"/I/Kit.Forensic-13.5/Kit.Forensic.v13.5.8557.x64/Serial/Serial.txt",
-		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/Для всех дисциплин.txt",
-		"/E/Дела/Институт СГГА/магистратура/AnnotationGenerator/По каждой дисциплине.txt",
-		"/E/Дела/Институт СГГА/магистратура/Сборка 2/12.04.02-01-00-ИБ-ver7.plm.xml",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Задания",
+		"/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 16 декабря 2016/readMe.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 07 декабря 2016/readMe.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 05 декабря 2016/readMe.txt",
+		"/G/Downloads/test/TEST#3/Что удалось узнать.txt",
+		"/G/Downloads/test/TEST#3/script1.js",
+		"/G/temp/7zO9C20.tmp/readMe.txt",
+		"/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 24 ноября 2016/readMe.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres7.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres4.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres5.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres6.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres8.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres9.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres10.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres11.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres12.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres13.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres14.txt",
+		"/E/Дела/Работа/Махина Катя/Новый текстовый документ.txt",
+		"/I/ida_pro_6.8/install_pass.txt",
+		"/E/Дела/Работа/Махина Катя/for ida6.8 ЧТХ Гена/ARS.asm",
+		"/E/Дела/Работа/Махина Катя/for ida6.8 ЧТХ Гена/R7P.asm",
+		"/E/Дела/Работа/Махина Катя/Copy of ЧТХ Гена/ARS.asm",
+		"/H/Нормальный шум/1T_77_params_.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres3.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres2.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/adfiltres",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/FilterParams.h",
+		"/E/Дела/Информационная безопасность/ructfe 2016/howto.txt",
 		"/E/Дела/Информационная безопасность/Наша команда.txt",
-		"/G/Downloads/hash.pl",
-		"/G/Downloads/bin",
-		"/G/Downloads/encrypted_text",
-		"/G/Downloads/repo/.git/logs/refs/heads/master",
-		"/G/Downloads/repo/.git/logs/HEAD",
-		"/G/Downloads/repo/.git/COMMIT_EDITMSG",
-		"/G/Схема Ван-дер-Пау для образцов произвольной формы",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Forensics/Forensics100 (1)/Forensics100/meta.xml",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Forensics/Forensics100 (1)/Forensics100/settings.xml",
-		"/G/temp/Temp1_crypto400.zip/crypto400/b.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Crypto/Crypto100/1.hs",
-		"/E/Дополнения/Установочные/Кряки виндов/KMSAuto Net 2014 1.2.8 Portable/KMSAuto Net 2014 v1.2.8 Portable RU/readme_ru.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/Tasks/Stegano/Stegano400/Stegano400/cover.txt",
-		"/G/Downloads/index.php.old",
-		"/E/Дела/Институт СГГА/Аспирантура/Полина/readme",
-		"/G/Downloads/readme.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/Полина/RP/word/settings.xml",
-		"/E/Дела/Информационная безопасность/Материалы/как надо было проходить челендж по sql инъекциям.txt",
-		"/E/Дела/Информационная безопасность/Private/write up for SQL from Hackerdom.txt",
-		"/E/Дела/Информационная безопасность/Анкета.txt",
-		"/G/Downloads/data.py",
-		"/G/2.hs",
-		"/E/Дела/Институт СГГА/магистратура/iii@gmail.com",
-		"/G/1.hs",
-		"/G/Downloads/ppc100/ppc100.py",
-		"/G/Downloads/recon 300/password.txt",
-		"/E/Дела/Информационная безопасность/Список достижений кружка Информационной безопасности.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о лице (органе) выдвигающем соискателя (коллектив).txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о премиях, призах и наградах соискателя.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Сведения о работах соискателя.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Резюме о достижениях.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Научно-популярное описание представленных соискате.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Значимость представленных соискателем (коллективом.txt",
-		"/E/Дела/Это сумасшествие/И мы сможем!.txt",
-		"/E/Дела/Информационная безопасность/MCTF 2016/scoreBoard.txt",
-		"/G/Downloads/PhParanoid_b7fa460590b3dc2a7662dc0bb633a7d8.phb",
-		"/J/admin400/admin400.vmx",
-		"/I/About_Time_2013/ANY!/DUPLICATE/Новый текстовый документ.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Описание исследований или разработок.txt",
-		"/E/Дела/Институт СГГА/Аспирантура/На премию президента РФ 2016/Резюме о достижениях",
-		"/G/Downloads/fhq2016-tasks-writeups/ppc/gact/WRITEUP.md"
+		"/E/Дела/Работа/Махина Катя/ЧТХ Гена/ARS.asm",
+		"/G/rsa_private.key",
+		"/G/Downloads/crypt.txt",
+		"/G/recvuntil.py",
+		"/G/somesc.py",
+		"/G/revfev.py",
+		"/G/_userfullProgramms/john179j5/run/pa.txt",
+		"/E/Дела/Это сумасшествие/fact.cpp",
+		"/E/Дела/Информационная безопасность/MCTF 2016/чатик.txt",
+		"/G/ppc300.py",
+		"/G/ppc100.py",
+		"/E/Дела/Информационная безопасность/QCTF 2016/Новый текстовый документ.txt",
+		"/E/Дела/Информационная безопасность/Juniors CTF 2016/Reverse Fever.py",
+		"/E/Дела/Информационная безопасность/hackyouctf 2016/ppc100.py",
+		"/E/Дела/Информационная безопасность/hackyouctf 2016/ppc300.py",
+		"/G/Downloads/stan_files/sdcard/Android/obb/.nomedia",
+		"/G/Downloads/stan_files/sdcard/backups/system/.confd",
+		"/G/Downloads/stan_files/sdcard/dianxin/notify/.cache/846b/network/journal",
+		"/G/Downloads/stan_files/sdcard/dianxin/notify/.cache/846b/network/e127f6f92d629b67733e313409c9b7e7.0",
+		"/E/Дела/Работа/Upwork/exam.txt",
+		"/G/Downloads/ThroughTime/in.txt",
+		"/G/text.txt",
+		"/G/b64.py",
+		"/G/Downloads/stan_files/sdcard/.userReturn",
+		"/G/Schoolppc100.py",
+		"/E/Дела/Информационная безопасность/MCTF 2016/Solutions/Writeups from Orgs/rev/rev_500/TaskDescription.txt",
+		"/G/Downloads/image_with_flag_defect.jpg.hamming",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/try1.py",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/try2.py",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/task_RE.pyc_dis",
+		"/G/Downloads/car.asm",
+		"/G/Downloads/Google/Chrome Cleanup Tool/chrome_cleanup_tool.log",
+		"/G/Downloads/site (1)/9.encoded",
+		"/G/Downloads/site (1)/index.encoded",
+		"/G/Downloads/task_for_dipper.xls",
+		"/E/Дополнения/Установочные/Взлом/IDA/FIRST-plugin-ida-master/README.rst",
+		"/D/masm32/bin/assmbl.bat",
+		"/D/python35/Scripts/first-plugin-ida-script.py",
+		"/C/Users/Jonathan/AppData/Roaming/Skype/My Skype Received Files/php1.php",
+		"/C/Users/Jonathan/AppData/Roaming/Skype/My Skype Received Files/Test.java",
+		"/E/Дела/Работа/Тетя таня. Итальянский.txt",
+		"/E/Дела/Институт СГГА/Студенчество/3 семестр/СЗИ и ВТ и ПР/Ещё стопка прог/CekKorn.m",
+		"/E/Дела/Работа/Грицкевич очередное задание/readMe.txt",
+		"/G/Downloads/ChisK.m",
+		"/E/Дела/Институт СГГА/Студенчество/3 семестр/СЗИ и ВТ и ПР/Ещё стопка прог/Chisl.m",
+		"/E/Дела/Институт СГГА/Студенчество/3 семестр/СЗИ и ВТ и ПР/Ещё стопка прог/Korn.m",
+		"/E/Дела/Институт СГГА/Студенчество/3 семестр/СЗИ и ВТ и ПР/Ещё стопка прог/Vika/ChisK.m",
+		"/E/Дела/Институт СГГА/Студенчество/3 семестр/СЗИ и ВТ и ПР/Ещё стопка прог/Alina/TrapS.m",
+		"/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 23 ноября 2016/readMe.txt",
+		"/C/Users/Jonathan/AppData/Roaming/Skype/My Skype Received Files/c1.c",
+		"/E/Дела/Информационная безопасность/ructfe 2016/config",
+		"/C/Program Files/OpenVPN/doc/INSTALL-win32.txt",
+		"/E/Дела/Работа/Upwork/helpWithHaskell.hs",
+		"/E/Дела/Работа/Upwork/helpWithHaskell2submit.hs",
+		"/E/Дела/Работа/Upwork/helpWithHaskell3.hs",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/serialized",
+		"/E/Дела/Работа/Upwork/haskellExamP2.hs",
+		"/E/Дела/Информационная безопасность/hackyouctf 2016/hackyou.ctf.su (hack you spb)/Stegano/Omnomnom, nonmono/Ответ.txt",
+		"/E/Дела/Информационная безопасность/hackyouctf 2016/hackyou.ctf.su (hack you spb)/Reverse/Serious Business/ReadMe.txt",
+		"/G/Downloads/rev100_4e4ccaa (1).cpp",
+		"/E/Дела/Работа/Махина Катя/ЧТХ Гена/SMBL.ARS",
+		"/C/Program Files/OpenVPN/config/README.txt",
+		"/G/Downloads/qr_codi_blyat_33.txt",
+		"/E/Дела/Информационная безопасность/SchoolCTF2016/info",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/lists.c",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/goodguys.h",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/faultline.h",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/e88.h",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/capes.h",
+		"/G/Downloads/task_c7c33ed0aff287ad9c146a65078177f6f5731adb (1)/abb.h",
+		"/C/Python27/Lib/pickle.py",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/strange.txt",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/data.pkl",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/test.exe",
+		"/G/Downloads/xor_672479b7c88231427986810fa861d5ae99791daa.c",
+		"/G/Downloads/LesterHill_47664d4116c6a77c8b454fee657663f167afb903/create_picture.py",
+		"/G/Downloads/LesterHill_47664d4116c6a77c8b454fee657663f167afb903/encryption.py",
+		"/G/EmptySpaces_8577786656ae4b091511e9caf4fe44e747726e5f.txt",
+		"/G/Downloads/licensekey_00defe1c12027e109e324f073624fc6a609ae35f/classes.dex",
+		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/task_RE.pyc",
+		"/G/Downloads/config.config",
+		"/G/Downloads/config",
+		"/H/Нормальный шум/Адаптивный фильтр/7.txt",
+		"/G/cmder/netcat-1.11/exploit",
+		"/H/Нормальный шум/Адаптивный фильтр/5.txt",
+		"/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+		"/E/Дела/Информационная безопасность/hackyouctf/ppc100.py",
+		"/E/Дела/Информационная безопасность/hackyouctf/ppc300.py",
+		"/C/Users/Jonathan/Downloads/Telegram Desktop/passwd",
+		"/H/Нормальный шум/Адаптивный фильтр/4.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/3.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/1.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/3ComPeakWeigth.txt",
+		"/H/Нормальный шум/Адаптивный фильтр/3ComMobSpecRes.txt",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/Unit1.cpp",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/MagneticFieldDependence.h",
+		"/E/Дела/Институт физики полупроводников/Lcard/MCTParamsExplorer/UsedTypes.h"
 	],
 	"find":
 	{
-		"height": 36.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -782,9 +847,91 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"не хватает",
+			"уйти",
+			"любви",
+			"мразь",
+			"ммм",
+			";",
+			"5.",
+			"5.8560",
+			"electronMobility",
+			"electronMo",
+			"rightPointMoility",
+			"electronMobility",
+			"targetFunc",
+			"Mobility",
+			"targ",
+			"fp",
+			"\"",
+			"href=\"",
+			"href=\"/site[a-bA-z0-9.://]+\"",
+			"href=\"[a-bA-z0-9.://]+\"",
+			" ",
+			"h, ",
+			" ",
+			"\\n",
+			"db",
+			"+",
+			"                                                                            ",
+			"load",
+			" ",
+			"2",
+			"0",
+			"1",
+			"N",
+			" ",
+			" ",
+			"[N]+",
+			"?",
+			"!",
+			".",
+			"[a-zA-Z0-9—,‘’]+",
+			"[a-zA-Z]+",
+			"p0",
+			"q",
+			"x",
+			"k",
+			"s",
+			"m",
+			"t",
+			"   ",
+			"\\r\\n",
+			" ",
+			"\\n",
+			",",
+			"\\n",
+			" ",
+			"000[0-9abdcef]{4}",
+			"\\n",
+			" ",
+			"000[0-9abcdef]{4}",
+			"\\n",
+			" ",
+			"000[0-9abcdef]{4}",
+			"\\n",
+			" ",
+			"000[0-9abcdef]{4}",
+			"calculatePeaksWeigth",
+			"mobilitySpectrum::mobilitySpectrum",
+			"mobility",
+			"getFilterP",
+			"getPeak",
+			"getPeaks",
+			"crite",
+			"calculatePeakWeigth",
+			"save",
+			"fit",
+			"fitres",
+			"mobilitySpectrumDerivative",
+			"deriva",
+			"mobilitySpectrum",
+			"setFilterPa",
+			"getFilterPar",
+			"TMatrix",
 			"\\t",
 			"1",
 			"0",
@@ -830,89 +977,7 @@
 			"m",
 			"l",
 			"j",
-			"i",
-			"k",
-			"g",
-			"f",
-			"p",
-			"c",
-			"e",
-			"d",
-			"n",
-			"b",
-			"h",
-			"o",
-			"a",
-			"X",
-			"B",
-			"X",
-			"B",
-			" ",
-			"Действия",
-			" ",
-			"\\n\\n\\n",
-			"\\t",
-			"\\n\\n\\n",
-			"\\t",
-			"https://pp.vk.me[a-z0-9/_-]+.jpg",
-			"https://pp.vk.me/[a-z0-9/]+.jpg",
-			" ",
-			"255 255 255",
-			"00 00 00",
-			" ",
-			"FF",
-			"_",
-			"*",
-			" ",
-			"*",
-			" ",
-			"_",
-			" ",
-			"FFFFFF",
-			"000000",
-			" ",
-			"qr",
-			"chocolate",
-			"lollipop",
-			"86",
-			"write",
-			"ctfti",
-			"for",
-			"foren",
-			"admin",
-			"recon",
-			"crypto",
-			"ppc",
-			"web",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[9,8]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[9,8,7]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[0-9]{1,1}[1,2,3]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[7,6,5]{1,1}[1,2,3]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[5,4,3]{1,1}[1,2,3]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[5,4,3]{1,1}[7,6,5]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[6,7]{1,1}[7,8]",
-			"[0,1,2,9]{1,1}[0-9]{1,1}[6,7]",
-			"77902321857485",
-			"\"",
-			",",
-			" ",
-			",",
-			"810",
-			"8105",
-			",",
-			"8105",
-			"1984",
-			",",
-			"\"",
-			",",
-			"0 points",
-			"2",
-			"0",
-			"1",
-			"FHQ{",
-			"funny",
-			"fhq",
-			"'"
+			"i"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -920,6 +985,31 @@
 		"regex": true,
 		"replace_history":
 		[
+			";\\n",
+			"",
+			" ",
+			"",
+			" ",
+			"",
+			"0",
+			"1",
+			"2",
+			"",
+			"0",
+			"1",
+			"N",
+			"I",
+			"O",
+			"A",
+			"T",
+			"E",
+			"M",
+			"E",
+			"\\n",
+			"   ",
+			"\\n",
+			" ",
+			"",
 			" ",
 			"True",
 			"False",
@@ -1022,32 +1112,7 @@
 			"Й",
 			"Н",
 			"Т",
-			"Л",
-			"Е",
-			"И",
-			"О",
-			"М",
-			"Д",
-			"В",
-			"О",
-			"У",
-			"-",
-			".",
-			"\\n",
-			"Ш",
-			"В",
-			"Л",
-			"К",
-			"Р",
-			"Т",
-			"Н",
-			"С",
-			"Е",
-			"А",
-			"И",
-			"О",
-			"С",
-			"Д"
+			"Л"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1058,52 +1123,53 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 14,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "smartCalculation.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 91,
+						"buffer_size": 15271,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								91,
-								91
+								10688,
+								10688
 							]
 						],
 						"settings":
 						{
-							"auto_name": "multillidae",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4997.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/E/Дела/Информационная безопасность/Наша команда.txt",
+					"file": "/H/Нормальный шум/Адаптивный фильтр/adfiltres14.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1632,
+						"buffer_size": 629526,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1243,
-								1542
+								629526,
+								629526
 							]
 						],
 						"settings":
@@ -1111,116 +1177,150 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
+						"translation.y": 392970.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/E/Дела/Информационная безопасность/Материалы/Летняя стажировка в Positive Tech/я посмотрел.txt",
+					"file": "commonFunctions.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 70,
+						"buffer_size": 8562,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								48,
-								48
+								8286,
+								8286
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5358.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "smartCalculation.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1535,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								526,
+								542
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/E/Дела/Институт СГГА/Аспирантура/Шойдин/Версия от 04 декабря 2016/DifEffEnVidPortrGauss.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1180,
+								1150
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Objective-C/Objective-C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 399.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Unit1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 72348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								53781,
+								53781
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 34485.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/E/Дела/Информационная безопасность/MCTF 2016/чатик.txt",
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 34880,
+						"buffer_size": 2408,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6207,
-								6212
+								1668,
+								1668
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Андрей Иванов, [23.09.16 14:35]",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 5730.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 113,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								113,
-								113
-							]
-						],
-						"settings":
-						{
-							"auto_name": "skullsecurity",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1128,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								88,
-								88
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Б7-03",
+							"auto_name": "",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -1231,20 +1331,224 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "/E/Дела/Информационная безопасность/Материалы/Скачать ещё надо бы.txt",
+					"buffer": 7,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 779,
+						"buffer_size": 2455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								779,
-								779
+								613,
+								613
+							]
+						],
+						"settings":
+						{
+							"auto_name": "I will compare structure's member by member.",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 741.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "UsedTypes.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1467,
+								1485
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 114.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "mobilityspectrum.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 51699,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								41609,
+								41609
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 27208.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "mobilityspectrum.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1305,
+								1319
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 513.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "MagneticFieldDependence.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 59505,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								59314,
+								59314
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 30229.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "MagneticFieldDependence.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5489,
+								5507
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2793.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1635,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								593,
+								593
+							]
+						],
+						"settings":
+						{
+							"auto_name": "http://solveme.kr",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/E/Дела/Информационная безопасность/Материалы/Скачать ещё надо бы.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								939,
+								939
 							]
 						],
 						"settings":
@@ -1255,11 +1559,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 15,
 					"file": "/C/Users/Jonathan/Desktop/Вдруг гляну.txt",
 					"semi_transient": false,
 					"settings":
@@ -1283,7 +1587,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1291,7 +1595,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 32.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -1335,7 +1639,7 @@
 	"project": "MCTParamsExplorer.sublime-project",
 	"replace":
 	{
-		"height": 66.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1370,7 +1674,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 50.0,
+	"side_bar_width": 129.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

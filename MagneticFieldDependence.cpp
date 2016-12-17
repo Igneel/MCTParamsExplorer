@@ -1592,11 +1592,198 @@ bool MagneticFieldDependence::calculateMobilitySpectrum()
     return true;
 }
 // Многозонная подгонка
-bool MagneticFieldDependence::runMultiCarrierFit()
+bool MagneticFieldDependence::runMultiCarrierFit(long double VesGxx, long double VesGxy)
 {
+
+    // важный вопрос - в каком порядке нужно помещать сюда данные.
+    // Порядок такой: подвижность электронов, легких дырок и тяжелых дырок.
+    // Далее - концентрации в том же порядке.
+    std::vector<long double> ExactBound; // сюда нужны пики из спектра
+
+    ExactBound.push_back(-electronMobility[0]); // Подвижность электронов
+    ExactBound.push_back(holeMobility[1]); // Подвижность легких дырок
+    ExactBound.push_back(holeMobility[0]); // Подвижность тяжелых дырок
+
+    ExactBound.push_back(-electronConcentration[0]); // Концентрация электронов
+    ExactBound.push_back(holeConcentration[1]); // Концентрация легких дырок
+    ExactBound.push_back(holeConcentration[0]); // Концентрация тяжелых дырок
+
+
+    /* Необходимо проверить все ли границы установлены корректно.
+    Если подвижность пика равна минимальной исследуемой подвижности - пик не был найден.
+    В этом случае необходимо задать границы поиска исходя из другой априорной информации.*/
+
+    /*
+    В теории на данный момент спектры не имеющие пика не допускаются к расчету.
+    */
+    long double leftBoundMobility=0.001;
+
+    if (ExactBound[0]==leftBoundMobility ||
+        ExactBound[1]==leftBoundMobility ||
+        ExactBound[2]==leftBoundMobility)
+    {
+        /* code */
+    }
+
+    // Нужно выяснить отчего зависит разброс.
+    // Полагаю это какие-то коэффициенты
+    std::vector<long double> coef;
+
+    coef.push_back(0.8); // Подвижность электронов
+    coef.push_back(0.2); // Подвижность легких дырок
+    coef.push_back(0.1); // Подвижность тяжелых дырок
+    coef.push_back(0.9); // Концентрация электронов
+    coef.push_back(0.2); // Концентрация легких дырок
+    coef.push_back(0.1); // Концентрация тяжелых дырок
+
+
+    std::vector<long double> LowBound; // сюда - границы для поиска
+    std::vector<long double> UpBound;
+
+    for (int i = 0; i < ExactBound.size(); ++i)
+    {
+        LowBound.push_back(ExactBound[i]-ExactBound[i]*coef[i]);
+        UpBound.push_back(ExactBound[i]+ExactBound[i]*coef[i]);
+    }
+
+    // Получаем сам спектр и компоненты тензора
+    InDataSpectr MagSpectr(AveragedB.begin(),AveragedB.end());
+    InDataSpectr GxxIn(sxx.begin(),sxx.end());
+    InDataSpectr GxyIn(sxy.begin(),sxy.end());
+
+    
+
+
+    thiningSignal(MagSpectr, GxxIn, nMagSpectr, nGxxIn,0, 2, 11);
+    thiningSignal(MagSpectr, GxyIn, nMagSpectr, nGxyIn,0, 2, 11);
+
+    
+
+    int GxxSize=nMagSpectr.size();
+    int numberOfCarrierTypes=3;
+
+    MultiZoneFit * mzf=new MultiZoneFit(100,VesGxx, VesGxy);
+
+
+    int result=mzf->RunMultizoneFeat(LowBound,  UpBound,
+                          nMagSpectr,  nGxxIn, nGxyIn,
+                           outGxx,  outGxy,
+                           outValues,
+                           numberOfCarrierTypes);
+
+   
+
+/*
+
+    Это постройка графиков. Здесь не нужна.
+
+     ChSxx_theor->Clear();
+    ChSxy_theor->Clear();
+    ChSxxExper->Clear();
+    ChSxyExper->Clear();
+    long double koefSxx=1, koefSxy=1;
+
+    if (CheckBox3->Checked)
+    {
+        koefSxx=max_elem(outGxx);
+        koefSxy=max_elem(outGxy);
+
+        if (max_elem(nGxxIn)>koefSxx)
+        {
+            koefSxx=max_elem(nGxxIn);
+        }
+        if (max_elem(nGxyIn)>koefSxy)
+        {
+            koefSxy=max_elem(nGxyIn);
+        }
+    }
+
+    for (int i = 0; i < outGxx.size(); ++i)
+    {
+        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i]/koefSxx,"",clRed);
+        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i]/koefSxy,"",clRed);
+    }
+
+    for (int i = 0; i < nMagSpectr.size(); ++i)
+    {
+        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i]/koefSxx,"",clBlue);
+        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i]/koefSxy,"",clBlue);
+    }
+*/
+    // Результаты идут в формате:
+    // По первому индексу:
+    // Подвижность электронов, подвижность легких дырок, подвижность тяжелых дырок
+    // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок
+    // По второму индексу: минимальные, средние, СКО, СКО %
+
+    /*
+    Сохранение и вывод результатов на форму. Тоже здесь не нужно.
+    TStringList * tsl = new TStringList();
+
+        for (int j = 0; j < 4; ++j)
+        {
+
+        for(int i=0;i<2*numberOfCarrierTypes;++i)
+        {
+        tsl->Add(FloatToStr(outValues[i][j]));
+        }
+        }
+
+        tsl->SaveToFile(SaveDialog1->FileName+eBandWidthFRes->Text+eBandWidthFHall->Text+"MZFitRes.txt");
+
+        // min
+        for(int i=0;i<2*numberOfCarrierTypes;++i)
+        {
+
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);
+            else
+          FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("middle");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("SKO");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffExponent,5,2);
+        }
+        //ErrorLog->Lines->Add("SKOPers");
+        for(int i=0;i<2*numberOfCarrierTypes+1;++i)
+        {
+            if(i<numberOfCarrierTypes)
+                FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffFixed,6,6);
+            else
+           FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);
+        }
+        delete mzf;
+        delete tsl;
+
+    }
+    */
+
     return true;
-;
 }
+
+void MagneticFieldDependence::getMultiCarrierFitResults(InDataSpectr & nMagSpectr, InDataSpectr & nGxxIn, InDataSpectr & GxyIn, 
+    MyData_spektr & outGxx, MyData_spektr &  outGxy, TStatistic & outValues)
+{
+    nMagSpectr=this->nMagSpectr;
+    nGxxIn=this->nGxxIn;
+    GxyIn=this->GxyIn;
+    outGxx=this->outGxx;
+    outGxy=this->outGxy;
+    outValues=this->outValues;
+}
+
 
 
 void MagneticFieldDependence::getExtrapolateParams(int & powPolinomH,int & powPolinomR)

@@ -171,21 +171,16 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
     // —пектр подвижности
     bool calculateMobilitySpectrum();
     // ћногозонна€ подгонка
-    bool runMultiCarrierFit();
+    bool runMultiCarrierFit(long double VesGxx, long double VesGxy);
+    void getMultiCarrierFitResults(InDataSpectr & nMagSpectr, InDataSpectr & nGxxIn, InDataSpectr & GxyIn, 
+    MyData_spektr & outGxx, MyData_spektr &  outGxy, TStatistic & outValues);
 
 
 
     // —охранение результатов------------------------------------------
 	DataSaver * saver;
 
-
-
-
 	mobilitySpectrum * MobilitySpectrumObj;
-
-
-
-	
 
 private:
 
@@ -226,7 +221,7 @@ TSignal & Res);
 	void calculateEffectiveParamsFromSignals();
 	void calculateTenzorFromEffectiveParams();
 	void featData(DataKind dataKind); // усреднение зависимостей, вызывать эту.
-	void MagneticFieldDependence::averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry);
+	void averageData(TSignal & inY, TSignal &outY, FeatType featType, int centerOfSimmetry);
 	
 	void cutData(DataKind dataKind); // оставл€ет только положительные значени€ магнитного пол€
 
@@ -294,7 +289,13 @@ TSignal & Res);
     TSignal electronConcentration;
     TSignal electronMobility;
 
-    
+    // —юда сохран€ютс€ выходные значени€ подгонки, смотри функцию getMultiCarrierFitResults
+    InDataSpectr nMagSpectr;
+    InDataSpectr nGxxIn;
+    InDataSpectr nGxyIn;
+    MyData_spektr outGxx;
+    MyData_spektr outGxy;
+    TStatistic outValues;
 };
 
 
