@@ -170,9 +170,11 @@ TSignal * MagneticFieldDependence::getPointerSxy(DataKind dataKind);
 
     // Спектр подвижности
     bool calculateMobilitySpectrum();
+    bool runSmartCalcutation();
     // Многозонная подгонка
     bool runMultiCarrierFit(long double VesGxx, long double VesGxy);
-    void getMultiCarrierFitResults(InDataSpectr & nMagSpectr, InDataSpectr & nGxxIn, InDataSpectr & GxyIn, 
+    bool runSmartMultiCarrierFit(long double VesGxx, long double VesGxy);
+    void getMultiCarrierFitResults(InDataSpectr & nMagSpectr, InDataSpectr & nGxxIn, InDataSpectr & GxyIn,
     MyData_spektr & outGxx, MyData_spektr &  outGxy, TStatistic & outValues);
 
 
@@ -288,6 +290,11 @@ TSignal & Res);
     TSignal holeMobility;
     TSignal electronConcentration;
     TSignal electronMobility;
+
+
+    // Статистика спектра подвижности, необходимая для расчета многозонной подгонки:
+    std::vector<long double> upBound;
+    std::vector<long double> lowBound;
 
     // Сюда сохраняются выходные значения подгонки, смотри функцию getMultiCarrierFitResults
     InDataSpectr nMagSpectr;

@@ -1,5 +1,8 @@
 #include "smartCalculation.h"
 #include <sstream>
+#include <vcl.h>
+#include "Unit1.h"
+
 
 smartCalculation::smartCalculation(MagneticFieldDependence * base)
 {
@@ -114,6 +117,7 @@ bool smartCalculation::processResults()
 
 bool smartCalculation::processData()
 {
+	
 	/*
 	Итак, тут обработка данных ведется.
 	*/
@@ -126,8 +130,12 @@ bool smartCalculation::processData()
 	MFDData->getExtrapolateParams(polinomPowHall,polinomPowMagnetoresistance);
 
 	long double step=0.1;
+	Form1->ProgressBar1->Max=20*20;
+	size_t iteration=0;
 	for (long double BandWidthFHall=0.01, AttenuationFHall=0.1; BandWidthFHall < 10; BandWidthFHall+=step, AttenuationFHall+=step)
 	{
+		
+
 		if(step==0.1 && BandWidthFHall>1.0)
 		{
 			step=1.0;
@@ -135,6 +143,9 @@ bool smartCalculation::processData()
 		long double step=0.1;
 		for (long double BandWidthFRes=0.01, AttenuationFRes=0.1; BandWidthFRes < 10; BandWidthFRes+=step, AttenuationFRes+=step)
 		{
+			Form1->ProgressBar1->Position=iteration++;
+    		Application->ProcessMessages();
+
 			if(step==0.1 && BandWidthFRes>1.0)
 			{
 				step=1.0;
@@ -252,6 +263,11 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for electronMobility is " << standardDeviation(x) << "\n";
 	strs << "mean Value for electronMobility is " << calculateMeanValue(x) << "\n";
+
+	long double koefForDeviation=1;
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
+
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -263,6 +279,9 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for electronConcentration is " << standardDeviation(x) << "\n";
 	strs << "mean Value for electronConcentration is " << calculateMeanValue(x) << "\n";
+
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -271,6 +290,10 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for lightHoleMobility is " << standardDeviation(x) << "\n";
 	strs << "mean Value for lightHoleMobility is " << calculateMeanValue(x) << "\n";
+
+	koefForDeviation=3;
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -279,6 +302,9 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for lightHoleConcentration is " << standardDeviation(x) << "\n";
 	strs << "mean Value for lightHoleConcentration is " << calculateMeanValue(x) << "\n";
+
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -287,6 +313,9 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for heavyHoleMobility is " << standardDeviation(x) << "\n";
 	strs << "mean Value for heavyHoleMobility is " << calculateMeanValue(x) << "\n";
+
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -295,6 +324,9 @@ bool smartCalculation::saveResults(std::string filename)
 	}
 	strs << "standard Deviation for heavyHoleConcentration is " << standardDeviation(x) << "\n";
 	strs << "mean Value for heavyHoleConcentration is " << calculateMeanValue(x) << "\n";
+
+	upBound.push_back(calculateMeanValue(x)+koefForDeviation*standardDeviation(x));
+	lowBound.push_back(calculateMeanValue(x)-koefForDeviation*standardDeviation(x));
 	x.clear();
 
 	for (int i = 0; i < allSpectras.size(); ++i)
@@ -309,6 +341,32 @@ bool smartCalculation::saveResults(std::string filename)
 	tsl->SaveToFile(filename.c_str());
 
 	delete tsl;
+
+
+	// Нужно изменить порядок границ на те, которые используются при подгонке.
+	long double upTemp, lowTemp;
+	
+	std::vector<long double> newUpBound;
+	std::vector<long double> newLowBound;
+
+	newUpBound.resize(upBound.size());
+	newLowBound.resize(upBound.size());
+
+	 newUpBound[0]=upBound[0];
+	newLowBound[0]=lowBound[0];
+	 newUpBound[1]=upBound[2];
+	newLowBound[1]=lowBound[2];
+	 newUpBound[2]=upBound[4];
+	newLowBound[2]=lowBound[4];
+	 newUpBound[3]=upBound[1];
+	newLowBound[3]=lowBound[1];
+	 newUpBound[4]=upBound[3];
+	newLowBound[4]=lowBound[3];
+	 newUpBound[5]=upBound[5];
+	newLowBound[5]=lowBound[5];
+
+	upBound=newUpBound;
+	lowBound=newLowBound;
 
 	return true;
 }
@@ -462,4 +520,15 @@ long double smartCalculation::targetFunction (Results & r, parameterType pt)
 	}
 
 	return 0;
+}
+
+
+std::vector<long double> smartCalculation::getUpBound()
+{
+	return upBound;
+}
+
+std::vector<long double> smartCalculation::getLowBound()
+{
+	return lowBound;
 }

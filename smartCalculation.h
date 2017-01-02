@@ -49,6 +49,9 @@ public:
 	bool processData();
 	bool saveResults(std::string filename);
 
+	std::vector<long double> getUpBound();
+	std::vector<long double> getLowBound();
+
 
 private:
 
@@ -74,6 +77,9 @@ private:
 	std::vector < Results > allSpectras;
 	MagneticFieldDependence * MFDData;
 
+
+	std::vector<long double> upBound;
+	std::vector<long double> lowBound;
 
 
 };

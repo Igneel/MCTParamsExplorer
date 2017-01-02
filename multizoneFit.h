@@ -4,16 +4,11 @@
 #include <vector>
 #include "math.h"
 #include "stdlib.h"
+#include "UsedTypes.h"
 
 typedef std::vector<long double> Data_spektr;
 typedef std::vector< std::vector <long double> > DataValue;
 typedef std::vector<long double> Image;
-
-
-typedef std::vector<std::vector<long double> > TStatistic;
-typedef std::vector<long double> InDataSpectr;
-typedef std::vector<long double> MyData_spektr;
-
 
 class MultiZoneFit
 {
@@ -66,7 +61,6 @@ private:
      void Optimiz_hall8();
      void btnFeatMultiClick();
      void Statistic(const DataValue & mass, std::vector<long double> & ResulitsForStatistic, int m,int n);
-    //long double someTestFunc(long double VesGxx);
 
 
     long double func_hall8(const Image & Data, const Data_spektr & Magfield_spektr, Data_spektr &  Gxx,
@@ -101,7 +95,6 @@ private:
     int PP,NP;
 
     bool FlagEnd,FlagDipl;
-    //long double eps1,epsilon;
 
     long double Fold,Fnew,Fbefore;
 

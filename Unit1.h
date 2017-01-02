@@ -254,6 +254,7 @@ __published:	// IDE-managed Components
     TCheckBox *CheckBox2;
     TCheckBox *CheckBox3;
     TButton *SmartCalc;
+        TButton *Button6;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);
@@ -308,6 +309,7 @@ __published:	// IDE-managed Components
     void __fastcall btnSaveCarrierParamsClick(TObject *Sender);
     void __fastcall Button5Click(TObject *Sender);
     void __fastcall SmartCalcClick(TObject *Sender);
+        void __fastcall Button6Click(TObject *Sender);
     
 
 private:	// User declarations
@@ -322,6 +324,7 @@ public:		// User declarations
 
     void saveSettings();
     void loadSettings();
+    void TForm1::getAndDisplayMultiCarrierFitResults(MagneticFieldDependence * p);
 
 };
 //---------------------------------------------------------------------------

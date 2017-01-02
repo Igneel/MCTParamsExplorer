@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 360
-  Top = 234
-  Width = 963
-  Height = 722
+  Left = 225
+  Top = 0
+  Width = 981
+  Height = 723
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
   Color = clBtnFace
   Constraints.MinHeight = 630
@@ -1911,8 +1911,8 @@ object Form1: TForm1
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 645
-    Width = 947
+    Top = 646
+    Width = 965
     Height = 19
     Panels = <
       item
@@ -2039,14 +2039,14 @@ object Form1: TForm1
   object Button1: TButton
     Left = 656
     Top = 216
-    Width = 225
+    Width = 177
     Height = 25
     Caption = #1058#1077#1089#1090#1086#1074#1099#1081' '#1089#1087#1077#1082#1090#1088' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
     TabOrder = 4
     OnClick = Button1Click
   end
   object bMobilitySpectrum: TButton
-    Left = 792
+    Left = 760
     Top = 176
     Width = 97
     Height = 25
@@ -2159,12 +2159,21 @@ object Form1: TForm1
   end
   object SmartCalc: TButton
     Left = 848
-    Top = 592
+    Top = 216
     Width = 75
     Height = 25
     Caption = 'SmartCalc'
     TabOrder = 13
     OnClick = SmartCalcClick
+  end
+  object Button6: TButton
+    Left = 864
+    Top = 176
+    Width = 89
+    Height = 25
+    Caption = 'ReallySmartCalc'
+    TabOrder = 14
+    OnClick = Button6Click
   end
   object MainMenu1: TMainMenu
     Left = 896

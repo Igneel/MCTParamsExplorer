@@ -13,6 +13,10 @@ typedef TSignal::const_iterator TSignalconstIt;
 typedef std::vector<TSignal> TwoDimensionalContainer;
 typedef std::vector<std::vector<MyDataType> > TMatrix;
 
+typedef std::vector<long double> InDataSpectr;
+typedef std::vector<std::vector<long double> > TStatistic;
+typedef std::vector<long double> MyData_spektr;
+
 struct PeaksCriteria
 {
   MyDataType peakHeigh;

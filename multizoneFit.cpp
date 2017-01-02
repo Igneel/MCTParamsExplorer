@@ -297,7 +297,7 @@ void MultiZoneFit::btnFeatMultiClick()
     if(  d1[7][l]<funcMin )
     {
       funcMin=d1[7][l];
-      VesGxx= justRound(funcMin); // Вот тут меняется параметр веса!
+      //VesGxx= justRound(funcMin); // Вот тут меняется параметр веса!
     }
   }
  //Gistogram(d1,SerArr,7,100);
@@ -366,11 +366,42 @@ void MultiZoneFit::Statistic(const DataValue & mass, std::vector<long double> & 
         Xsr=Xsr/static_cast<long double>(n);
         for (int  l=1 ; l<= n ; ++l)
         S+=powl(mass[ll][l]-Xsr,2);
-        S=sqrt(S/(n-1));// ООООООООООООООООООООООО____________Ооооо
+        S=sqrt(S/(n-1));// 
+
+
 
         ResulitsForStatistic[ll]= Xsr;
         ResulitsForStatistic[ll+m]= S;
         ResulitsForStatistic[ll+2*m]= (S/fabs(Xsr))*100.0;
+    }
+
+  
+  for (int ll=1 ; ll<= m ; ++ll)
+    {
+      long double Xmiddle=0, s=0;
+      long double count=0;
+      for (int  l=1 ; l<= n ; ++l)
+        if(fabs(mass[ll][l])<=fabs(ResulitsForStatistic[ll]+ResulitsForStatistic[ll+m])
+           && fabs(mass[ll][l])>=fabs(ResulitsForStatistic[ll]-ResulitsForStatistic[ll+m]))
+        {
+          Xmiddle+=mass[ll][l];
+          count++;
+        }
+      
+      Xmiddle=Xmiddle/static_cast<long double>(count);
+        
+      for (int  l=1 ; l<= n ; ++l)
+        if(fabs(mass[ll][l])<=fabs(ResulitsForStatistic[ll]+ResulitsForStatistic[ll+m])
+           && fabs(mass[ll][l])>=fabs(ResulitsForStatistic[ll]-ResulitsForStatistic[ll+m]))
+        {
+          s+=powl(mass[ll][l]-Xmiddle,2);
+        }
+      
+      s=sqrt(s/(count-1));
+
+      ResulitsForStatistic[ll]= Xmiddle;
+      ResulitsForStatistic[ll+m]= s;
+      ResulitsForStatistic[ll+2*m]= (s/fabs(Xmiddle))*100.0;
     }
 }
 
