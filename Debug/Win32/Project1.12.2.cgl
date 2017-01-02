@@ -1,0 +1,142 @@
+Functions called:
+ delete[] (17 times)
+ delete (140 times)
+ memmove (154 times)
+ exp (7 times)
+ pow (35 times)
+ new[] (17 times)
+ SysReallocMem (4150 times)
+ SysFreeMem (31316 times)
+ SysGetMem (31316 times)
+ realloc (1 times)
+ memcpy (1 times)
+ free (29 times)
+ new (149 times)
+ calloc (10 times)
+ malloc (19 times)
+Resource types used:
+ object array (17 allocs, 5 max)
+ object (149 allocs, 40 max)
+ memory block (31346 allocs, 7337 max)
+Modules used:
+ 001C0000 09/10/2013 04:55:00 C:\Program Files (x86)\Embarcadero\RAD
+ Studio\12.0\bin\vclimg190.bpl
+ 00400000 04/08/2015 16:20:00 E:\Дела\Институт физики
+ полупроводников\La-7\MctErrorEstimating\Debug\Win32\Project1.12.2.exe
+ 01190000 01/30/2002 23:38:36 C:\PROGRA~2\Borland\CBUILD~1\Bin\BORLNDMM.DLL
+ 06A60000 07/14/2009 07:15:12 C:\Windows\system32\dfscli.dll
+ 0CD00000 01/30/2002 23:38:38 C:\PROGRA~2\Borland\CBUILD~1\Bin\CG32.DLL
+ 0FBD0000 07/05/2012 03:14:36 C:\Windows\system32\browcli.dll
+ 22C60000 11/20/2010 18:20:30 C:\Windows\system32\NetworkExplorer.dll
+ 32E00000 09/10/2013 04:55:00 C:\Program Files (x86)\Embarcadero\RAD
+ Studio\12.0\bin\CC32140MT.DLL
+ 42200000 09/10/2013 04:55:00 C:\Program Files (x86)\Embarcadero\RAD
+ Studio\12.0\bin\Tee9190.bpl
+ 50050000 09/10/2013 04:55:00 C:\Program Files (x86)\Embarcadero\RAD
+ Studio\12.0\bin\rtl190.bpl
+ 50430000 09/10/2013 04:55:00 C:\Program Files (x86)\Embarcadero\RAD
+ Studio\12.0\bin\vcl190.bpl
+ 509D0000 07/14/2009 07:15:10 C:\Windows\System32\DAVHLPR.dll
+ 509E0000 07/02/2015 02:30:22 C:\Windows\System32\davclnt.dll
+ 50A50000 11/20/2010 18:21:28 C:\Windows\System32\StructuredQuery.dll
+ 50BB0000 07/14/2009 07:15:16 C:\Windows\system32\EhStorShell.dll
+ 50BF0000 11/20/2010 18:20:48 C:\Windows\System32\ntlanman.dll
+ 53450000 07/14/2009 07:15:14 C:\Windows\System32\drprov.dll
+ 543C0000 06/16/2011 10:33:20 C:\Windows\system32\xmllite.dll
+ 59210000 07/14/2009 07:16:14 C:\Windows\system32\SAMLIB.dll
+ 5DA50000 07/17/2015 01:10:40 C:\Windows\system32\ieframe.DLL
+ 5F310000 08/17/2014 21:44:48 C:\Windows\system32\msls31.dll
+ 5F6A0000 08/17/2014 21:37:20
+ C:\Windows\system32\api-ms-win-downlevel-shlwapi-l2-1-0.dll
+ 5F6B0000 08/17/2014 21:37:20
+ C:\Windows\system32\api-ms-win-downlevel-shell32-l1-1-0.dll
+ 5F6C0000 02/03/2015 09:12:44 C:\Windows\system32\WindowsCodecs.dll
+ 5FAE0000 07/26/2013 07:56:00 C:\Windows\system32\SHDOCVW.dll
+ 60C70000 07/14/2009 07:15:14 C:\Windows\system32\DUI70.dll
+ 61400000 07/14/2009 07:15:14 C:\Windows\system32\DUser.dll
+ 6DD80000 08/15/2014 13:10:36 C:\Program Files (x86)\Yandex\Punto
+ Switcher\pshook.dll
+ 6E4F0000 07/14/2009 07:16:14 C:\Windows\system32\oledlg.dll
+ 6F880000 07/14/2009 07:15:14 C:\Windows\system32\dwmapi.dll
+ 70A20000 11/20/2010 18:18:26 C:\Windows\system32\cscapi.dll
+ 70A30000 07/14/2009 07:11:26 C:\Windows\system32\uxtheme.dll
+ 71580000 07/14/2009 07:16:16 C:\Windows\system32\slc.dll
+ 71630000 07/17/2014 07:40:04 C:\Windows\system32\WINSTA.dll
+ 716F0000 11/20/2010 18:18:04 C:\Windows\system32\apphelp.dll
+ 71B00000 07/14/2009 07:16:22 C:\Windows\system32\wsock32.dll
+ 71C80000 11/20/2010 18:16:52 C:\Windows\system32\winspool.drv
+ 72650000 07/14/2009 07:17:56 C:\Windows\SysWOW64\bcryptprimitives.dll
+ 72690000 07/14/2009 07:11:22 C:\Windows\System32\bcrypt.dll
+ 72E30000 11/20/2010 18:21:38 C:\Windows\system32\winmm.dll
+ 73180000 07/14/2009 07:15:12 C:\Windows\system32\dhcpcsvc.DLL
+ 731A0000 07/14/2009 07:16:14 C:\Windows\system32\rasadhlp.dll
+ 731B0000 10/09/2012 23:40:32 C:\Windows\system32\dhcpcsvc6.DLL
+ 73200000 11/20/2010 18:21:06 C:\Windows\system32\samcli.dll
+ 732D0000 07/14/2009 07:16:16 C:\Windows\system32\SHFolder.dll
+ 732E0000 03/03/2011 11:38:02 C:\Windows\system32\DNSAPI.dll
+ 733A0000 11/20/2010 18:20:58 C:\Windows\system32\PROPSYS.dll
+ 734C0000 04/24/2015 23:54:14
+ C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.
+7601.18837_none_41e855142bd5705d\comctl32.dll
+ 73770000 09/08/2013 08:04:00 C:\Windows\system32\mswsock.dll
+ 738E0000 11/20/2010 18:21:04 C:\Windows\system32\RpcRtRemote.dll
+ 738F0000 07/14/2009 07:17:56 C:\Windows\system32\rsaenh.dll
+ 73950000 02/03/2015 09:12:16 C:\Windows\system32\CRYPTSP.dll
+ 739C0000 07/14/2009 07:16:18 C:\Windows\system32\version.dll
+ 73B50000 07/14/2009 07:16:12 C:\Windows\system32\ntmarta.dll
+ 73BB0000 07/14/2009 07:15:42 C:\Windows\system32\mpr.dll
+ 73C60000 11/20/2010 18:21:38 C:\Windows\system32\wkscli.dll
+ 73C70000 11/20/2010 18:21:28 C:\Windows\system32\srvcli.dll
+ 73C90000 11/20/2010 18:20:30 C:\Windows\system32\netutils.dll
+ 73EC0000 11/20/2010 18:19:24 C:\Windows\SysWOW64\IPHLPAPI.DLL
+ 74180000 07/14/2009 07:16:20 C:\Windows\SysWOW64\WINNSI.DLL
+ 74190000 11/20/2010 18:21:40 C:\Windows\system32\wtsapi32.dll
+ 741A0000 07/15/2015 23:55:02 C:\Windows\System32\Secur32.dll
+ 74430000 08/27/2011 10:26:28 C:\Windows\system32\oleacc.dll
+ 74990000 01/04/2012 14:58:42 C:\Windows\system32\ntshrui.dll
+ 74A00000 07/14/2009 07:15:38 C:\Windows\system32\LINKINFO.dll
+ 75770000 07/15/2015 23:54:44 C:\Windows\syswow64\CRYPTBASE.dll
+ 75780000 07/15/2015 23:53:38 C:\Windows\syswow64\SspiCli.dll
+ 75900000 08/17/2014 21:37:20
+ C:\Windows\syswow64\api-ms-win-downlevel-shlwapi-l1-1-0.dll
+ 75910000 10/19/2013 07:37:00 C:\Windows\syswow64\IMAGEHLP.DLL
+ 75940000 07/17/2015 01:45:22 C:\Windows\syswow64\iertutil.dll
+ 75B80000 11/20/2010 18:19:46 C:\Windows\syswow64\MSASN1.dll
+ 75B90000 11/20/2010 18:08:58 C:\Windows\syswow64\USER32.dll
+ 75C90000 11/20/2010 18:21:20 C:\Windows\syswow64\SHLWAPI.dll
+ 75CF0000 07/30/2015 23:55:58 C:\Windows\syswow64\LPK.dll
+ 75D00000 07/04/2015 23:48:38 C:\Windows\syswow64\ole32.dll
+ 75E60000 11/20/2010 18:21:40 C:\Windows\syswow64\WS2_32.dll
+ 75EA0000 05/24/2011 16:40:06 C:\Windows\syswow64\DEVOBJ.dll
+ 75EC0000 06/17/2015 23:37:04 C:\Windows\syswow64\GDI32.dll
+ 75F50000 07/14/2009 07:15:04 C:\Windows\syswow64\CLBCatQ.DLL
+ 75FE0000 10/18/2014 07:33:20 C:\Windows\syswow64\oleaut32.dll
+ 76070000 08/17/2014 21:37:20
+ C:\Windows\syswow64\api-ms-win-downlevel-version-l1-1-0.dll
+ 76080000 02/03/2015 09:12:50 C:\Windows\syswow64\WINTRUST.dll
+ 760B0000 11/20/2010 18:08:52 C:\Windows\system32\IMM32.DLL
+ 76110000 05/24/2011 16:39:40 C:\Windows\syswow64\CFGMGR32.dll
+ 76330000 01/17/2015 08:30:44 C:\Windows\syswow64\MSCTF.dll
+ 76400000 07/15/2015 23:53:38 C:\Windows\syswow64\RPCRT4.dll
+ 764F0000 11/20/2010 18:21:38 C:\Windows\syswow64\WLDAP32.dll
+ 76540000 07/10/2015 23:34:08 C:\Windows\syswow64\SHELL32.dll
+ 77190000 08/29/2013 07:48:18 C:\Windows\syswow64\ADVAPI32.dll
+ 77230000 11/20/2010 18:18:24 C:\Windows\syswow64\comdlg32.dll
+ 772B0000 08/17/2014 21:37:20
+ C:\Windows\syswow64\api-ms-win-downlevel-user32-l1-1-0.dll
+ 772C0000 07/14/2009 07:09:02 C:\Windows\syswow64\normaliz.DLL
+ 772D0000 08/17/2014 21:37:20
+ C:\Windows\syswow64\api-ms-win-downlevel-normaliz-l1-1-0.dll
+ 772E0000 04/25/2014 08:06:18 C:\Windows\syswow64\USP10.dll
+ 77380000 02/03/2015 09:12:16 C:\Windows\syswow64\CRYPT32.dll
+ 774B0000 07/15/2015 23:53:36 C:\Windows\syswow64\kernel32.dll
+ 775C0000 07/14/2009 07:16:14 C:\Windows\syswow64\profapi.dll
+ 775E0000 11/20/2010 18:21:16 C:\Windows\syswow64\SETUPAPI.dll
+ 77780000 08/17/2014 21:37:20
+ C:\Windows\syswow64\api-ms-win-downlevel-advapi32-l1-1-0.dll
+ 77790000 12/16/2011 13:53:00 C:\Windows\syswow64\msvcrt.dll
+ 77990000 07/14/2009 07:16:14 C:\Windows\SysWOW64\sechost.dll
+ 779B0000 07/15/2015 23:53:38 C:\Windows\syswow64\KERNELBASE.dll
+ 77DD0000 07/14/2009 07:16:12 C:\Windows\syswow64\NSI.dll
+ 77E00000 07/15/2015 23:56:26 C:\Windows\SysWOW64\ntdll.dll
+==========================================

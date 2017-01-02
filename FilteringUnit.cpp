@@ -1,92 +1,41 @@
 //---------------------------------------------------------------------------
+
+
+#pragma hdrstop
+
 #include "FilteringUnit.h"
 
-FilterLowBand::FilterLowBand(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+// функция трамплин для фильтра.  ----------------------------------------------
+double Tr_Filter(TLineSeries *inS,TLineSeries *outS,int length,double Fdisk, double Fpropysk,double Fzatyh)
 {
-    N=0;
-    calculateImpulseResponse(length, Fdisk, Fpropysk, Fzatyh);
+if(!inS->YValues->Count)   // если пустой - ошибка, убегаем.
+{
+ShowMessage("Пустой массив!");
+return 0;
+}
+int size=inS->YValues->Count;  // получаем размер
+TSignal in(size);
+TSignal out(size);
+//double *in=new double[size];  // выделяем память
+for(int i=0;i<size;i++)       // копируем
+in[i]=inS->YValues->Value[i];
+//double *out=new double[size]; // выделяем память для выходных значений
+double k=Filter(in,out,length,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
+ k*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;// вычисляем сдвиг фаз
+
+//----------------------------------------------
+outS->Clear(); // чистим график, перед выводом
+
+for(int i=0;i<size;i++) // выводим
+{
+outS->AddXY(inS->XValues->Value[i]-k,out[i],"",clBlue);
 }
 
-FilterLowBand::~FilterLowBand()
-{
-    ;
+return k;
 }
-
-void FilterLowBand::calculateImpulseResponse(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
-{
-    if (N!=length || Fd!=Fdisk || Fs!=Fpropysk || Fx != Fzatyh)
-    {
-        N = length; //Длина фильтра
-        Fd = Fdisk; //Частота дискретизации входных данных 
-        Fs = Fpropysk; //Частота конца полосы пропускания  
-        Fx = Fzatyh; //Частота начала полосы затухания
-         
-
-        H.resize(N);
-        H_id.resize(N);
-        W.resize(N);
-        //Расчет импульсной характеристики фильтра
-        long double Fc = (Fs + Fx) / (2.0 * Fd);
-        long double Wc = 2*M_PI*Fc;
-        for (unsigned int i=0;i<N;++i)
-        {
-            if (i==N/2) H_id[i] = 2*Fc;
-            else H_id[i] =2*Fc*sinl(Wc*(i-N/2))/(Wc*(i-N/2));
-            // весовая функция Блекмена
-            if (N>1)
-            W[i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( N-1.0)) + 0.08 * cosl((4.0*M_PI*i) /( N-1.0));
-            else
-            W[i]=1;
-            H[i] = H_id[i] * W[i];
-        }
-        //Нормировка импульсной характеристики
-        long double SUM=0.0;
-        for (unsigned int i=0; i<N; ++i) SUM +=H[i];
-        for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
-    }
-}
-
-void FilterLowBand::setFilterParams(unsigned int length,long double Fdisk, long double Fpropysk, long double Fzatyh)
-{
-    calculateImpulseResponse(length, Fdisk, Fpropysk, Fzatyh);
-}
-
-double FilterLowBand::FilterData (const std::vector<long double> &in, std::vector<long double> & out)
-{
-    //Фильтрация входных данных
-    unsigned int dataSize=in.size();
-    out.resize(dataSize);
-    for (unsigned int i=0; i<dataSize; ++i)
-    {
-        out[i]=0.0;
-        for (unsigned int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
-            out[i]+= H[j]*in[i-j];
-    }
-    return (N-1.0)/2.0;
-}
-
-void FilterLowBand::FilterDataWithAutoShift(TSignal & inB,
-    TSignal & inY,TSignal & outB,
-    TSignal & outY)
-{
-    int lengthMassive=inY.size();
-    if(lengthMassive==0)
-    {
-    return ;
-    }
-    outY.resize(lengthMassive);
-
-    double k=FilterData(inY,outY); // вызываем фильтр
-    k*=(max_elem(inB)-min_elem(inB))/(double)lengthMassive;// вычисляем сдвиг фаз
-    // разность максимума и минимума на длину массива
-    outB.resize(lengthMassive);
-    for(int i=0;i<lengthMassive;i++) // выводим
-    {
-        outB[i]=inB[i]-k;
-    }
-}
-
-
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
@@ -101,10 +50,10 @@ long double Fd = Fdisk; //Частота дискретизации входных данных 2000
 std::vector<long double> H(N);  //Импульсная характеристика фильтра
 std::vector<long double> H_id(N); //Идеальная импульсная характеристика
 std::vector<long double> W(N);   //Весовая функция
-    
+
 //Расчет импульсной характеристики фильтра
 long double Fc = (Fpropysk + Fzatyh) / (2.0 * Fd);
-long double Wc = 2.0*M_PI*Fc;
+long double Wc = 2*M_PI*Fc;
 /*
 Строго говоря ширина перехода для функции Блэкмана фиксирована и составляет 5.5/N
 
@@ -117,54 +66,35 @@ long double Wc = 2.0*M_PI*Fc;
 
 for (unsigned int i=0;i<N;++i)
 { // Идеальная импульсная характеристика фильтра нижних частот
-if (i==N/2) H_id[i] = 2.0*Fc;
-else H_id[i] =2.0*Fc*sinl(Wc*(i-N/2.0))/(Wc*(i-N/2.0));
+if (i==N/2) H_id[i] = 2*Fc;
+else H_id[i] =2*Fc*sinl(Wc*(i-N/2))/(Wc*(i-N/2));
 }
 
 for (unsigned int i=0;i<N;++i)
 {
+    //if (i==0) H_id[i] = 2*Fc;
+    //else H_id[i] =2*Fc*sinl(Wc*i)/(Wc*i);
     // весовая функция Блекмена
     if(N>1)
-        W [i] = 0.42 - 0.5 * cosl((2.0*M_PI*i) /( long double)N) + 0.08 * cosl((4.0*M_PI*i) /( long double)N);
+        W [i] = 0.42 - 0.5 * cosl((2*M_PI*i) /( long double)N) + 0.08 * cosl((4*M_PI*i) /( long double)N);
     else
-        W[i]=1.0;
+        W[i]=1;
     H [i] = H_id[i] * W[i];
 }
 
 //Нормировка импульсной характеристики
-long double SUM=0.0;
+long double SUM=0;
 for (unsigned int i=0; i<N; ++i) SUM +=H[i];
 for (unsigned int i=0; i<N; ++i) H[i]/=SUM; //сумма коэффициентов равна 1
 
-
 //Фильтрация входных данных
-int dataSize=in.size();
-for (int i=0; i<dataSize; ++i)
+unsigned int dataSize=in.size();
+for (unsigned int i=0; i<dataSize; ++i)
 {
 out[i]=0.0;
-/*
 for (unsigned int j=0; j<=(i>N-1?N-1:i); ++j)// та самая формула фильтра
 out[i]+= H[j]*in[i-j];
 }
-
-*/
-for (int j=0; j<N; ++j)// та самая формула фильтра
-    if(i-j>=0)
-        out[i]+= H[j]*in[i-j];
-
-
-
-
-}
-/*
-TStringList * tsl= new TStringList;
-for (int i=0; i<dataSize; ++i)
-{
-    tsl->Add(FloatToStr(out[i]));
-}
-tsl->SaveToFile("E:\\Дела\\Институт физики полупроводников\\Lcard\\MCTParamsExplorer\\filterOutPut.txt");
-*/
-
 
 return (N-1)/2.0;
 }
@@ -204,16 +134,9 @@ long double Fpropysk,long double Fzatyh)
 //----------------------------------------------
 //---------добавление для фильтрации магнитного поля
 // ахтунг
-//Filter(inB,outB,lengthFilter,Fdisk,Fpropysk,Fzatyh);
-// внимание - она пока работает не корректно ибо фильтр наполняется только за
-// его длину.
-/*double *in2=new double[size];  // выделяем память
-for(int i=0;i<size;i++)       // копируем
-in2[i]=inS->XValues->Value[i];
-double *out2=new double[size]; // выделяем память для выходных значений
-double k2=Filter(in2,out2,size,length,Fdisk,Fpropysk,Fzatyh); // вызываем фильтр
-k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;// вычисляем сдвиг фаз
-*/
+Filter(inB,outB,lengthFilter,Fdisk,Fpropysk,Fzatyh);
+
+
 
 //----------------------------------------------
     outB.resize(lengthMassive);
@@ -225,49 +148,74 @@ k2*=(inS->XValues->MaxValue-inS->XValues->MinValue)/(double)inS->XValues->Count;
 }
 
 
-MyDataType BlockLowBandFilter(TSignal & inB,
-TSignal & inY,TSignal & outB,
-TSignal & outY,
-size_t lengthFilter,MyDataType Fdisk,MyDataType Fpropysk,MyDataType Fzatyh,
-size_t blockSize)
+
+// Попытка фильтрации оптимальным методом.
+
+long double D(long double deltaP, long double deltaS)
 {
-if(blockSize<lengthFilter)
-        lengthFilter=blockSize-1;
+/*
+Нужна для расчета длины фильтра.
+*/
+	long double a1=5.309E-3;
+	long double a2=7.114E-2;
+	long double a3=-4.761E-1;
+	long double a4=-2.66E-3;
+	long double a5=-5.941E-1;
+	long double a6=-4.278E-1;
 
-        TSignal tempInB;
-        TSignal tempInS;
-        TSignal tempOutB;
-        TSignal tempOutS;
-        size_t timesToRepeat=inB.size()/blockSize;
-        for(unsigned int i=0; i <timesToRepeat;i++)
-        {
-                if(!outB.empty())
-                {
-                for(unsigned int j=0;j<lengthFilter;j++)
-                {
-                tempInB.push_back(outB.back());
-                tempInS.push_back(outY.back());
-                }
-                }  
-
-                for(unsigned int j=0+blockSize*i;j<(i+1)*blockSize;j++)
-                {
-                tempInB.push_back(inB[j]);
-                tempInS.push_back(inY[j]);
-                }
-                tempOutB.resize(tempInB.size());
-                tempOutS.resize(tempInB.size());
-                TrForMassiveFilter(tempInB,tempInS,tempOutB,tempOutS,lengthFilter,
-                Fdisk, Fpropysk, Fzatyh);
-                for(unsigned int j=0;j<tempOutB.size();j++)
-                {
-                outB.push_back(tempOutB[j]);
-                outY.push_back(tempOutS[j]);
-                }
-                tempOutB.clear();
-                tempOutS.clear();
-                tempInB.clear();
-                tempInS.clear();
-        }
-        return 0;
+return log10(deltaS*(a1*log10(deltaP)*log10(deltaP)+a2*
+	log10(deltaP)+a3)+a4*log10(deltaP)*log10(deltaP)+a5*log10(deltaP)+a6);
 }
+
+long double f(long double deltaP, long double deltaS)
+{
+/*
+Нужна для расчета длины фильтра.
+*/
+
+return 11.01217+0.51244*(log10(deltaP)-log10(deltaS));
+
+}
+
+int calcutaleFilterLength(long double deltaP, long double deltaS, long double deltaF)
+{
+/*
+Рассчитывает длину фильтра для метода оптимальных коэффициентов.
+Согласно формуле из Айфичера Джервиса для фильтра нижних частот, страница 410.
+
+deltaP - неравномерность в полосе пропускания.
+
+deltaS - неравномерность в полосе подавления.
+
+deltaF - ширина полосы пропускания, нормированная на частоту дискретизации.
+
+N=D(deltaP,deltaS)/deltaF-f(deltaP,deltaS)*deltaF+1;
+
+*/
+
+return D(deltaP,deltaS)/deltaF-f(deltaP,deltaS)*deltaF+1;
+}
+
+long double fapprox(long double x)
+{
+return x*x;
+}
+
+long double OptimFilter(long double deltaP, long double deltaS, long double FPropusk, long double Fpodavl, long double FDiskr)
+{
+long double FPropuskN=FPropusk/FDiskr;
+long double FPodavlN=Fpodavl/FDiskr;
+long double deltaF=FPodavlN-FPropuskN;
+
+int filterLength=calcutaleFilterLength(deltaP,deltaS,deltaF);
+
+double weigthP = 1;
+double weigthS = deltaS/deltaP;
+
+
+
+}
+
+//----------------------------------------------
+//----------------------------------------------
+#pragma package(smart_init)

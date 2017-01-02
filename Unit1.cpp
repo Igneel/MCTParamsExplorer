@@ -1,2253 +1,1031 @@
 //---------------------------------------------------------------------------
+
+#include <vcl.h>
 #pragma hdrstop
 
 #include "Unit1.h"
-#include "multizoneFit.h"
-#include "smartCalculation.h"
-#include <Windows.h>
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm1 *Form1;
+//---------------------------------------------------------------------------
 
+
+
+
+bool silentModeEnabled=false; // если флаг равен тру - то функции сохранения не спрашивают имя файла
+// флаг используется для крупных расчетов))
+
+bool isRoundNeeded = false; // ещё один флаг, показывает нужно ли округление при сохранении.
 /*
-TODO
-возможность записи "поверх" - т.е. удалять предыдущие значения и писать поверх новые
-фукнция удаления определенного интервала точек
-я так скоро приду к тому, чтобы хранить значения парами - и путаться они не будут заодно.
 
-Надо бы предусмотреть отдельный поток для вывода.
-И вызывать его по таймеру.
+TO DO:
 
-Сделать работу с прогой более комфортной.
-Автоматическое переключение
-записываемого графика (положительное поле, отрицательное поле).
+1. Перед фильтрацией прикрутить нормальное достроение графика в отрицательную область магнитного поля.+
+2. Попробовать использовать экстраполяцию ПОСЛЕ фильтрации.+
+	Ну и как-то не очень наверное
+	Нужно испробовать экстраполяцию по фильтрованным и нефильтрованным данным одновременно.
 
-Возможно их стоит просто объединить. Но это очень спорный вопрос.
-Ибо как тогда определять надо ли перезаписывать данные или дописывать их.
+3. Подбор длины фильтра относительно величины отклонения точки (0,0) от истинного значения.
+4. Коррекция смещения точки, проходящей через начало координат.
+5. Апгрейд функций сохранения и загрузки данных.
 
-Ещё момент - прога изредка вылетает с ексепшенами, неплохо было бы реализовать
-автоматическое сохранение измеряемого сигнала (скажем каждые Т точек).
 
-Пора внедрять фильтр как класс.
-
-Нужно добавить усреднение по току.
-
+На данный момент код, отвечающий за расчет параметров переписан с использованием классов.
 
 */
 
-// Внимание, понадобится добавить что-нибудь,
-// не забудь внести это в заголовочный файл:)
+ // */
+
+int NumberOfPoints=201;//11;  // количество точек
+const int NumberOfNumbersAfterPoint=4; // параметр округления.
+
+const int NumberOfCarrierTypes=3;
+long double h; // величина шага
 
 
-LCardADC *adc=0;
-MagneticFieldDependence *params=0;
-MagneticFieldDependence *paramsDirect=0;
-MagneticFieldDependence *paramsReverse=0;
-channelsInfo cI;
-
-
-MagneticFieldDependence * TForm1::InitParams()
-{
-    MagneticFieldDependence ** p=ActiveParams();
-
-    DeleteActiveParams();
-    
-    *p=new MagneticFieldDependence(uiCurrent->Text,uiTemperature->Text,uiInventoryNumber->Text,
-        uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
-        /*
-        Предупреждение Initializing Params Type with const int - не актуально,
-        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
-        */
-        (*p)->saver->setParamsType(ResCurveIndex->ItemIndex); // значения их совпадают.
-        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
-        (*ActiveParams())->setChannelsInfo(cI);
-        (*p)->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    (*p)->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
-    (*p)->setExtrapolateParams(PowPolinomHall->Text.ToInt(),PowPolinomRes->Text.ToInt());
-    return *p;
-}
-
-MagneticFieldDependence ** TForm1::ActiveParams()
-{
-    MagneticFieldDependence ** p=NULL;
-    switch (ResCurveIndex->ItemIndex)
-    {
-    case 0:
-        p=&paramsDirect;
-        
-    break;
-    case 1:
-        p=&paramsReverse;
-    break;
-    case 2:
-        p=&params;
-    
-    break;
-    default:
-    break;
-    }
-    return p;
-}
-
-void TForm1::DeleteActiveParams()
-{
-    MagneticFieldDependence ** p=ActiveParams();
-    if (*p)
-    {
-        delete *p;
-        *p=NULL;
-    }
-}
-
-
-
-void TForm1::UpdatePlots()
-{
-    StatusBar->Panels->Items[1]->Text="Обновление графиков.";
-    Form1->Update();
-    MagneticFieldDependence ** par=ActiveParams();
-
-    if(*par)
-    {
-    MagneticFieldDependence * p=*par;
-    /*
-    Отладка
-    p->constructPlotFromOneMassive(HALL_EFFECT,SeriesHall1,clBlue);
-    p->constructPlotFromOneMassive(MAGNETORESISTANCE,SeriesRes1,clBlue);
-    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
-    
-    p->constructPlotFromOneMassive(MAGNETIC_FIELD,Series1,clBlue);
-    p->constructPlotFromOneMassive(MAGNETIC_FIELD_F,Series2,clRed);
-    */
-
-    // Обновление всех используемых графиков.
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))
-        ErrorLog->Lines->Add("Холл. Текущие данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))
-        ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
-    //if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
-    //    ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
-
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))
-        ErrorLog->Lines->Add("Холл. Усреднённые данные. Не удалось построить график.");
-
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,AVERAGED_DATA,SeriesFFTRes,clGreen))
-        ErrorLog->Lines->Add("Сопротивление. Усреднённые данные. Не удалось построить график.");
-
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed))
-        ErrorLog->Lines->Add("Сопротивление. Текущие данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
-        ErrorLog->Lines->Add("Сопротивление. Фильтрованные данные. Не удалось построить график.");
-    //if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
-    //    ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
-    }
-}
-
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
-    : TForm(Owner)
+	: TForm(Owner)
 {
 }
 
-
-void __fastcall TForm1::FormCreate(TObject *)
-{
-
-    // загрузка настроек.
-    _di_IXMLNode node = XMLsettings->ChildNodes->FindNode("Settings");
-    if(node)
-    {
-    _di_IXMLNode node2=node->ChildNodes->FindNode("Resistance");
-        if(node2)
-        {
-            _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
-            if(node3)
-            {
-                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
-                if(node4)
-                {
-                    eLengthFilterRes->Text = node4->GetText();
-                }
-
-                node4=node3->ChildNodes->FindNode("eSamplingFRes");
-                if(node4)
-                {
-                     eSamplingFRes->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("eBandWidthFRes");
-                if(node4)
-                {
-                     eBandWidthFRes->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("eAttenuationFRes");
-                if(node4)
-                {
-                     eAttenuationFRes->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("PolinomPow");
-                if(node4)
-                {
-                     PowPolinomRes->Text=node4->GetText();
-                }
-            }
-
-            node3=node2->ChildNodes->FindNode("CurveNumber");
-            if(node3)
-            {
-                ResCurveIndex->ItemIndex = StrToInt(node3->GetText());
-            }
-
-            node3=node2->ChildNodes->FindNode("uiDataKind");
-            if(node3)
-            {
-                uiDataKind->ItemIndex=StrToInt(node3->GetText());
-            }
-
-            
-        }
-        node2=node->ChildNodes->FindNode("HallEffect");
-        if(node2)
-        {
-        _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
-            if(node3)
-            {
-                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
-                if(node4)
-                {
-                     eLengthFilterHall->Text=node4->GetText();
-                }
-
-                node4=node3->ChildNodes->FindNode("eSamplingFHall");
-                if(node4)
-                {
-                     eSamplingFHall->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("eBandWidthFHall");
-                if(node4)
-                {
-                     eBandWidthFHall->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("eAttenuationFHall");
-                if(node4)
-                {
-                     eAttenuationFHall->Text=node4->GetText();
-                }
-                node4=node3->ChildNodes->FindNode("PolinomPow");
-                if(node4)
-                {
-                     PowPolinomHall->Text=node4->GetText();
-                }
-            }
-            node3=node2->ChildNodes->FindNode("CurveNumber");
-            if(node3)
-            {
-                HallCurveIndex->ItemIndex = StrToInt(node3->GetText());
-            }
-    }
-}
-
-    MobSpecResults->Cells[0][1]="Тяжелые дырки";
-    MobSpecResults->Cells[0][2]="Легкие дырки";
-    MobSpecResults->Cells[0][3]="Электроны";
-    MobSpecResults->Cells[1][0]="Концентрация";
-    MobSpecResults->Cells[2][0]="Подвижность";
-
-    FitResults->Cells[1][0]="Mu e";
-    FitResults->Cells[4][0]="N e";
-    FitResults->Cells[2][0]="Mu lh";
-    FitResults->Cells[5][0]="P lh";
-    FitResults->Cells[3][0]="Mu hh";
-    FitResults->Cells[6][0]="P hh";
-    FitResults->Cells[0][1]="Минимальные значения";
-    FitResults->Cells[0][2]="Средние значения";
-    FitResults->Cells[0][3]="СКО";
-    FitResults->Cells[0][4]="СКО, %%";
-    
-
-    cI.clear();
-    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
-    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
-    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
-
-    ErrorLog->Lines->Add(cI.size());
-    // загружаем драйвер
-    adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),
-    LabelChan1,LabelChan2,LabelChan3,cI);
-    if(!adc->IsInitSuccessfull())
-    {
-    delete adc;
-    adc=NULL;
-    }
-    uiFrenq->OnChange(NULL);
-    bApplyADCSettings->Click();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N3Click(TObject *Sender)// выход из программы
-{
-    Form1->Close(); 
-}
-//----много кода, выключает/включает графические элементы, во время работы АЦП-
-//---------------------------------------
-void __fastcall TForm1::uiControlClick(TObject *Sender)
-{
-if(adc)
-{
-    if (!adc->isWritingEnabled())
-    {
-        MagneticFieldDependence * p=InitParams();
-
-        if(p!=NULL)
-        {
-            p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-            eAttenuationFRes->Text, eLengthFilterRes->Text);
-            p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-            eAttenuationFHall->Text, eLengthFilterHall->Text);
-        } 
-
-        if(adc->StartWriting())
-        {
-
-            bClearPlotHall->Click();
-            bClearPlotsRes->Click();
-
-            uiFrenq->Enabled = false;
-            uiBlockSize->Enabled=false;
-            uiCurrent->Enabled=0;
-            
-            ResCurveIndex->Enabled=0;
-            HallCurveIndex->Enabled=0;
-            GainKoefFaradey->Enabled=0;
-
-            //-- кнопки-----------------------------------------------
-            
-            bFilterRes->Enabled=0;
-
-            uiFFTHall->Enabled=0;
-
-            uiFFTFaradey->Enabled=0;
-            
-            uiFFTFoygt->Enabled=0;
-            CurrentFaradey->Enabled=0;
-            CurrentFoygt->Enabled=0;
-            FaradeyCurveIndex->Enabled=0;
-            FoygtCurveIndex->Enabled=0;
-            GainKoefFoygt->Enabled=0;
-
-            uiControl->Caption = AnsiString("Остановить запись");
-            uiResControl->Caption = AnsiString("Остановить запись");
-            uiHallControl->Caption = AnsiString("Остановить запись");
-            uiFaradeyControl->Caption = AnsiString("Остановить запись");
-            uiFoygtControl->Caption = AnsiString("Остановить запись");
-            StatusBar->Panels->Items[1]->Text="Идёт запись данных";
-        }
-        else
-        {
-        DeleteActiveParams();
-        }
-    }
-    else
-    {
-        GainKoefFaradey->Enabled=1;
-        uiCurrent->Enabled=1;
-        ResCurveIndex->Enabled=1;
-        HallCurveIndex->Enabled=1;
-
-        uiFrenq->Enabled =true;
-
-        uiBlockSize->Enabled=true;
-
-        
-        bFilterRes->Enabled=1;
-
-        uiFFTHall->Enabled=1;
-        uiFFTFaradey->Enabled=1;
-        uiFFTFoygt->Enabled=1;
-
-        CurrentFaradey->Enabled=1;
-        CurrentFoygt->Enabled=1;
-
-        FaradeyCurveIndex->Enabled=1;
-        FoygtCurveIndex->Enabled=1;
-        GainKoefFoygt->Enabled=1;
-
-        adc->StopWriting();
-        adc->StopMeasurement();
-
-        (*ActiveParams())->getSplittedDataFromADC();
-        ErrorLog->Lines->Add( IntToStr((*ActiveParams())->getB()->size()));
-        UpdatePlots();
-
-        adc->StartMeasurement();
-        uiControl->Caption = AnsiString("Начать запись");
-        uiResControl->Caption = AnsiString("Начать запись");
-        uiHallControl->Caption = AnsiString("Начать запись");
-        uiFaradeyControl->Caption = AnsiString("Начать запись");
-        uiFoygtControl->Caption = AnsiString("Начать запись");
-        
-        StatusBar->Panels->Items[1]->Text="Готова к работе.";        
-      }
-}
-}
-
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::bClearClick(TObject *Sender) // очищаем всё:)
-{  
-    Series1->Clear();
-    Series2->Clear();
-    Series3->Clear();
-    SeriesRes1->Clear();
-    ErrorLog->Clear();
-}
-//---------------------------------------------------------------------------
-//----------------------------------------------------------------------------
-void __fastcall TForm1::bFilterResClick(TObject *Sender)
-{
-
-//eAttenuationFRes->Text=FloatToStr(StrToFloat(eBandWidthFRes->Text)+5.5/ StrToFloat( eLengthFilterRes->Text)* StrToFloat( eSamplingFRes->Text)*0.5);
-
-MagneticFieldDependence ** par=ActiveParams();
-
-if (*par==NULL)
-{
-    ShowMessage("Вероятно выбран не тот график.");
-}
-else
-{
-
-    MagneticFieldDependence * p=*par;
-    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
-    StatusBar->Panels->Items[1]->Text="Фильтрация данных.";
-    Form1->Update();
-    p->filterData();
-    StatusBar->Panels->Items[1]->Text="Экстраполяция данных.";
-    Form1->Update();
-    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
-    UpdatePlots();
-    StatusBar->Panels->Items[1]->Text="Готова к работе.";
-}
-}
-//---------------------------------------------------------------------------
-
-void TForm1::UpdateSampleDescription(TStringList *Names,TStringList *Values)
-{
-    for(int i=0;i<Values->Count;++i)
-    {
-        uiCurrent->Text=Values->Strings[2];
-        uiTemperature->Text=Values->Strings[1];
-        uiInventoryNumber->Text=Values->Strings[0];
-        uiSampleLength->Text=Values->Strings[3];
-        uiSampleWidth->Text=Values->Strings[4];
-        uiSampleThickness->Text=Values->Strings[5];    
-    }
-}
-
-
-//-------------------Открытие файла------------------------------------------
-
-void __fastcall TForm1::openFileWithSignal(AnsiString filename)
-{
-        TStringList *tts=new TStringList();  // сюда будем загружать из файла
-        tts->LoadFromFile(filename);// загрузили
-
-        MagneticFieldDependence * p=InitParams();
-        if (p)
-        {
-            StatusBar->Panels->Items[2]->Text=filename;
-            TStringList *Names=new TStringList();
-            TStringList *Values=new TStringList();
-
-            p->loadSampleDescription(Names,Values,OpenDialog1->Files->Strings[0]);
-            UpdateSampleDescription(Names,Values);
-            p->loadData(tts);
-            UpdatePlots();
-            delete Names;
-            delete Values;
-        }
-        delete tts;
-}
-
-void __fastcall TForm1::N4Click(TObject *Sender)
-{ 
-    if(OpenDialog1->Execute())  // если мы что-то выбрали
-    {
-        openFileWithSignal(OpenDialog1->Files->Strings[0]);
-    }
-
-}
-
- // выбор активного графика
- // используется при сохранении файла в Unit2
-
-TLineSeries * __fastcall TForm1::GetSelectedSeries(int index)
-{
-
-// заполняет массив указателями на все графики.
-    TLineSeries * SaveSeries;
-
-    AllSeries[0]=PtrToInt(Series1);
-    AllSeries[1]=PtrToInt(Series2);
-    AllSeries[2]=PtrToInt(Series3);
-    AllSeries[3]=PtrToInt(Series4);
-    AllSeries[4]=PtrToInt(0);
-    AllSeries[5]=PtrToInt(SeriesRes1);
-    AllSeries[6]=PtrToInt(SeriesRes2);
-    AllSeries[7]=PtrToInt(SeriesFFTRes);
-    AllSeries[8]=PtrToInt(out1);
-    AllSeries[9]=PtrToInt(SeriesHall1);
-    AllSeries[10]=PtrToInt(SeriesHall2);
-    AllSeries[11]=PtrToInt(SeriesFFTHall);
-    AllSeries[12]=PtrToInt(out2);
-    AllSeries[13]=PtrToInt(SeriesFaradey1);
-    AllSeries[14]=PtrToInt(SeriesFaradey2);
-    AllSeries[15]=PtrToInt(SeriesFFTFaradey);
-    AllSeries[16]=PtrToInt(out3);
-    AllSeries[17]=PtrToInt(SeriesFoygt1);
-    AllSeries[18]=PtrToInt(SeriesFoygt2);
-    AllSeries[19]=PtrToInt(SeriesFFTFoygt);
-    AllSeries[20]=PtrToInt(out4);
-
-    SaveSeries=static_cast<TLineSeries *>IntToPtr(AllSeries[index]);
-
-    return SaveSeries;
-}
-
-void __fastcall TForm1::N5Click(TObject *Sender)  // сохранение
-{
-
-    GetSelectedSeries(0);
-    
-    if(!SaveForm)
-    {
-    // включает отображение формы сохранения данных.
-    Application->CreateForm(__classid(TSaveForm), &SaveForm);
-    SaveForm->Visible=true;
-    }
-    else
-    SaveForm->BringToFront();
-
-}
-
-
-void __fastcall TForm1::bClearPlotsResClick(TObject *Sender)
-{
-    SeriesRes1->Clear();
-    SeriesRes2->Clear();
-    SeriesFFTRes->Clear();
-    out1->Clear();
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::bClearPlotHallClick(TObject *Sender)
-{
-    SeriesHall1->Clear();  
-    SeriesHall2->Clear();
-    SeriesFFTHall->Clear();
-    out2->Clear();
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button7Click(TObject *Sender)
-{
-    SeriesFaradey1->Clear();
-    SeriesFaradey2->Clear();
-    SeriesFFTFaradey->Clear();
-    out3->Clear();
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button8Click(TObject *Sender)
-{
-    SeriesFoygt1->Clear();
-    SeriesFoygt2->Clear();
-    SeriesFFTFoygt->Clear();
-    out4->Clear();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Edit1KeyPress(TObject *Sender, char &Key)
-{
-    if(Key=='.')
-        Key=',';
-    if(((int)Key<48 || (int)Key>57) && Key!=8 && Key!=',' && Key!='-')
-        Key=0;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::ImpulsKillerClick(TObject *Sender)
-{
-    double x,y;
-    x=Interval1->Text.ToDouble();
-    y=Interval2->Text.ToDouble();
-    KillImpulps(SeriesRes1,x,y);
-
-}
-
-//---------------------------------------------------------------------------
-void fillspace(double *xm,double *ym, int l,int r)
-{
-
-    if(abs(r-l)==1)
-    {
-    xm[l+1]=(xm[l]+xm[r])/2;
-    ym[l+1]=(ym[l]+ym[r])/2;
-    return;
-    }
-    xm[(l+r)/2]=(xm[l]+xm[r])/2;
-    ym[(l+r)/2]=(ym[l]+ym[r])/2;
-    fillspace(xm,ym,l,(l+r)/2);
-    fillspace(xm,ym,(l+r)/2,r);
-}
-//---------------------------------------------------------------------------
-// убирает точки соответствующие всплескам
-void KillImpulps(TLineSeries * a,double x, double y)
-{
-
-    int length=a->XValues->Count();
-    if(length==0)
-    {
-    ShowMessage("Пустой график!!!");
-    return;
-    }
-    double *xm=new double [length];
-    double *ym=new double [length];
-
-    for(int i=0;i<length;i++)
-     {
-            xm[i]=a->XValues->Value[i];
-            ym[i]=a->YValues->Value[i];
-     }
-    // границы интервала
-    //x=Interval1->Text.ToDouble();
-    //y=Interval2->Text.ToDouble();
-    double dx=fabs(xm[0]-x);// начинаем поиск ближайшей точки
-    int i;
-    double k=0;
-    for(i=0;i<length;i++)
-    {
-            k=fabs(xm[i]-x);
-            if(k>dx)  // как только пошли на увеличение - выходим из цикла
-            {
-                 break;
-            }
-            dx=k;
-    }
-    int i1=i; // записываем первый индекс
-    dx=fabs(xm[i]-y);// ищем второй
-    for(;i<length;i++)
-    {
-            k=fabs(xm[i]-y);
-            if(k>dx)
-            {
-                    break;
-            }
-            dx=k;
-    }
-    int i2=i;
-    //int left=i1;
-    //int right=i2;
-
-    fillspace(xm,ym,i1,i2);
-
-     a->Clear();
-     for(int i=0;i<length;i++)
-     {
-            a->AddXY(xm[i],ym[i],"",clRed);
-                    }
-    delete [] xm;
-    delete [] ym;
-}
-// в зависимости от активной вкладки вызывается нужна процедура очистки.
-void __fastcall TForm1::N9Click(TObject *Sender)
-{
-    int a=PC->ActivePageIndex;
-    switch (a)
-    {
-    case 1:
-    bClearPlotsResClick(Sender);
-    case 2:
-    bClearPlotHallClick(Sender);
-    case 3:
-    Button7Click(Sender);
-    case 4:
-    Button8Click(Sender);
-    }
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button13Click(TObject *Sender)
-{
-    int len=SeriesRes1->XValues->Count();
-
-    if(len==0) return;
-
-    double *x= new double [len];
-    for(int i=0;i<len;i++)
-    x[i]=SeriesRes1->XValues->Value[i];
-
-    double *y= new double [len];
-    for(int i=0;i<len;i++)
-    y[i]=SeriesRes1->YValues->Value[i];
-
-    double *yf= new double [len];
-    for(int i=0;i<len;i++)
-    yf[i]=SeriesFFTRes->YValues->Value[i];
-
-    for(int i=0;i<len;i++)
-    {
-    y[i]=fabs(fabs(y[i])-fabs(yf[i]));
-    SeriesRes2->AddXY(x[i],y[i],"",clBlack);
-    }
-
-    double M=0,sko=0;
-
-    for(int i=0;i<len;i++)
-    {
-    M+=y[i]/len;
-    }
-    for(int i=0;i<len;i++)
-    {
-    sko+=pow(y[i]-M,2);
-    }
-    sko/=len;
-    sko=sqrt(sko);
-
-    ErrorLog->Lines->Add("M=" + FloatToStr(M) + "\n");
-    ErrorLog->Lines->Add("sko=" + FloatToStr(sko) + "\n");
-
-    delete[] x;
-    delete[] y;
-    delete[] yf;
-
-}
-//---------------------------------------------------------------------------
-
-
-void __fastcall TForm1::FormDestroy(TObject *Sender)
-{
-
-  _di_IXMLNode node = XMLsettings->ChildNodes->FindNode("Settings");
-    if(node)
-    {
-    _di_IXMLNode node2=node->ChildNodes->FindNode("Resistance");
-        if(node2)
-        {
-            _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
-            if(node3)
-            {
-                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
-                if(node4)
-                {
-                     node4->SetText(eLengthFilterRes->Text);
-                }
-
-                node4=node3->ChildNodes->FindNode("eSamplingFRes");
-                if(node4)
-                {
-                     node4->SetText(eSamplingFRes->Text);
-                }
-                node4=node3->ChildNodes->FindNode("eBandWidthFRes");
-                if(node4)
-                {
-                     node4->SetText(eBandWidthFRes->Text);
-                }
-                node4=node3->ChildNodes->FindNode("eAttenuationFRes");
-                if(node4)
-                {
-                     node4->SetText(eAttenuationFRes->Text);
-                }
-                node4=node3->ChildNodes->FindNode("PolinomPow");
-                if(node4)
-                {
-                     node4->SetText(PowPolinomRes->Text);
-                }
-            }
-            node3=node2->ChildNodes->FindNode("CurveNumber");
-            if(node3)
-            {
-                node3->SetText(IntToStr(ResCurveIndex->ItemIndex));
-            }
-
-            node3=node2->ChildNodes->FindNode("uiDataKind");
-            if(node3)
-            {
-                node3->SetText(IntToStr(uiDataKind->ItemIndex));
-            }
-        }
-
-        node2=node->ChildNodes->FindNode("HallEffect");
-        if(node2)
-        {
-        _di_IXMLNode node3=node2->ChildNodes->FindNode("FilterParams");
-            if(node3)
-            {
-                _di_IXMLNode node4=node3->ChildNodes->FindNode("Length");
-                if(node4)
-                {
-                     node4->SetText(eLengthFilterHall->Text);
-                }
-
-                node4=node3->ChildNodes->FindNode("eSamplingFHall");
-                if(node4)
-                {
-                     node4->SetText(eSamplingFHall->Text);
-                }
-                node4=node3->ChildNodes->FindNode("eBandWidthFHall");
-                if(node4)
-                {
-                     node4->SetText(eBandWidthFHall->Text);
-                }
-                node4=node3->ChildNodes->FindNode("eAttenuationFHall");
-                if(node4)
-                {
-                     node4->SetText(eAttenuationFHall->Text);
-                }
-                node4=node3->ChildNodes->FindNode("PolinomPow");
-                if(node4)
-                {
-                     node4->SetText(PowPolinomHall->Text);
-                }
-            }
-
-            node3=node2->ChildNodes->FindNode("CurveNumber");
-            if(node3)
-            {
-                node3->SetText(IntToStr(HallCurveIndex->ItemIndex));
-            }
-        }
-    }
-
-
-
-
-if(adc)
-    adc->StopMeasurement();
-
-    
-    if(adc)
-        delete adc;
-    if(params)
-        delete params;   
-
-    if (paramsDirect)
-    {
-        delete paramsDirect;
-    }
-    if (paramsReverse)
-    {
-        delete paramsReverse;
-    }
-}
-//---------------------------------------------------------------------------
-
-
-template <class T>
-void Rounding(T *pos, T* endPos)
-{
-    int S=1;
-    for(;pos!=endPos;++pos)
-    {
-        int n=(int)(*pos*S)%10;
-        if(n<5)
-            *pos=floorl(*pos*S)/S;
-        else
-            *pos=ceill(*pos*S)/S;
-    }
-}
-
-//--------------------------------------------------------------------------
-// расчет среднего квадратичного отклонения
-//--------------------------------------------------------------------------
-template <class T>
-T Sko (std::vector<T> const &x0,std::vector<T> const &x)
-{
-    int l=x0.size();
-    T z=0;
-    for(int i=0;i<l;i++)
-    z+= pow(fabs((fabs(x[i])-fabs(x0[i]))),2);
-    z/=(T)l;
-    return sqrt(z);
-}
-
-//---------------------------------------------------
-// расчет математического ожидания
-//-------------------------------------------------
-
-template <class T>
- T Mo (std::vector<T> const &x)
- {
-    int l=x.size();
-     T M=0;
-     for(int i=0;i<l;i++)
-     M+=x[i];
-     return M/l;
- }
-// построение амплитудной гистограммы
-void Gist(std::vector<long double> & in)
-{
-    Form1->Series5->Clear();
-    Rounding(in.begin(),in.end());
-    int max = max_elem(in);
-    int min = min_elem(in);
-
-    int size=max-min+1;
-    std::vector<long double>::iterator pos;
-    std::vector<long double> gist(size);
-    for(pos=gist.begin(); pos!=gist.end();++pos)
-    {
-        *pos=0;
-    }
-
-    for(pos=in.begin(); pos!=in.end();++pos)
-    {
-        gist[*pos]++;
-
-    }
-    for(int i=0; i<size;++i)
-    {
-        Form1->Series5->AddXY(i,gist[i],"",clWhite);
-    }
-
-    long double m=Mo(in);
-
-    std::vector<long double> zeros(size);
-    for(pos=zeros.begin(); pos!=zeros.end();++pos)
-    {
-        *pos=m;
-    }
-    long double sko=Sko(zeros,in);
-
-    Form1->ErrorLog->Lines->Add("Мат ожидание: "+FloatToStr(m));
-    Form1->ErrorLog->Lines->Add("СКО: "+FloatToStr(sko));
-
-}
 //------------------------------------------------------------------------------
-// Сохранить всё.
-void __fastcall TForm1::N11Click(TObject *Sender)
-{
-    CurrentResChange(NULL);
-    if(params && paramsDirect && paramsReverse)
-    {
-        SaveDialog1->Title="Сохранение всех данных:";
-        if(SaveDialog1->Execute())
-        {
-            params->SaveAllData(SaveDialog1->FileName+"Com");
-            paramsDirect->SaveAllData(SaveDialog1->FileName+"Dir");
-            paramsReverse->SaveAllData(SaveDialog1->FileName+"Rev");
-        }
-    }
 
-    else
-    {
-    if(params)
-    {
-        SaveDialog1->Title="Сохранение объединенных данных:";
-        if(SaveDialog1->Execute())
-        {
-            params->SaveAllData(SaveDialog1->FileName+"Com");
-        }
-    }
+// те самые объекты.
+clMagneticFieldDependences *IdealParams=0;
+clMagneticFieldDependences *ParamsWithNoise=0;
+clMagneticFieldDependences *FilteredParams=0;
+clMagneticFieldDependences *ExtrapolatedParams=0;
 
-    if(paramsDirect)
-    {
-        SaveDialog1->Title="Сохранение данных для положительного магнитного поля:";
-        if(SaveDialog1->Execute())
-        {
-            paramsDirect->SaveAllData(SaveDialog1->FileName+"Dir");
-        }
-    }
-
-    if(paramsReverse)
-    {
-        SaveDialog1->Title="Сохранение данных для отрицательного магнитного поля:";
-        if(SaveDialog1->Execute())
-        {
-            paramsReverse->SaveAllData(SaveDialog1->FileName+"Rev");
-        }
-    }
-    }
-
-
-}
+//------------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-
-
-// применение настроек АЦП
-void __fastcall TForm1::bApplyADCSettingsClick(TObject *Sender)
-{
-if(adc)
-{
-    cI.clear();
-    cI.push_back(std::pair<int,int> (ComboBox4->ItemIndex,ComboBox1->ItemIndex));
-    cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
-    cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
-
-    adc->StopMeasurement();
-    adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);
-    if(CheckBox1->Checked) adc->EnableMedianFilter();
-    else adc->DisableMedianFilter();
-    adc->DisableTestingMode();
-
-    adc->setMedianFilterLength(eMedianFilterSize->Text.ToInt());
-
-    adc->setMagnetoResistanceSeries(SeriesRes1);
-    adc->setHallSeries(SeriesHall1);
-    adc->setBSeries(Series1);
-    adc->StartMeasurement();
-}
-}
-//---------------------------------------------------------------------------
-void TForm1::concatDependence()
-{
-    if(!(paramsDirect && paramsReverse))
-    {
-    ShowMessage("Для объединения нужно измерить две зависимости");
-    return;
-    }
-
-    ResCurveIndex->ItemIndex=2;    
-    MagneticFieldDependence * p=InitParams();
-    if(p)
-
-    {
-        params->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-         eAttenuationFRes->Text, eLengthFilterRes->Text);
-        params->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-         eAttenuationFHall->Text, eLengthFilterHall->Text);
-    }
-
-    TSignal B; // создаем буфер для новых зависимостей.
-    TSignal Hall;
-    TSignal Resistance;
-
-    TSignal B2; // создаем буфер для новых зависимостей.
-    TSignal Hall2;
-    TSignal Resistance2;
-
-    StatusBar->Panels->Items[1]->Text="Объединение зависимостей.";
-    Form1->Update();
-    // вбрасываем в обратном порядке зависимости для отрицательного магнитного поля.
-    for (TSignal::const_reverse_iterator i = paramsReverse->getB()->rbegin(); i != paramsReverse->getB()->rend(); ++i)
-    {
-        B.push_back(*i);    
-    }
-
-    for (TSignal::const_reverse_iterator i = paramsReverse->getHallEffect()->rbegin(); i != paramsReverse->getHallEffect()->rend(); ++i)
-    {
-        Hall.push_back(*i);    
-    }
-
-    for (TSignal::const_reverse_iterator i = paramsReverse->getMagnetoResistance()->rbegin(); i != paramsReverse->getMagnetoResistance()->rend(); ++i)
-    {
-        Resistance.push_back(*i);    
-    }
-    // вбрасываем в прямом порядке зависимости для положительного поля.
-    for (TSignal::const_iterator i = paramsDirect->getB()->begin(); i != paramsDirect->getB()->end(); ++i)
-    {
-        B.push_back(*i);   
-        B2.push_back(*i);  
-    }
-
-    for (TSignal::const_iterator i = paramsDirect->getHallEffect()->begin(); i != paramsDirect->getHallEffect()->end(); ++i)
-    {
-        Hall.push_back(*i);  
-        Hall2.push_back(*i);   
-    }
-
-    for (TSignal::const_iterator i = paramsDirect->getMagnetoResistance()->begin(); i != paramsDirect->getMagnetoResistance()->end(); ++i)
-    {
-        Resistance.push_back(*i);  
-        Resistance2.push_back(*i);   
-    }
-
-    TSignal outB;
-    TSignal outHall;
-    TSignal outResistance;
-
-    size_t minimalLength=paramsReverse->getB()->size()>paramsDirect->getB()->size()?
-    paramsDirect->getB()->size() : paramsReverse->getB()->size();
-
-    StatusBar->Panels->Items[1]->Text="Прореживание зависимостей.";
-    Form1->Update();
-    // что-то похоже что эта функция работает немного не так как надо...
-    //thiningSignal(B, Hall, outB, outHall, -2, 0, 2*minimalLength);
-    //thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
-    // и у меня есть некоторое подозрение почему оно так.
-    // возможно более правильным будет сначала определить сигнал с наименьшим количество точек (прямой или обратный)
-    // потом проредить оба сигнала отдельно и после этого объединить их.
-    thiningSignal(B, Hall, outB, outHall, -2, 2, 2*minimalLength);
-    thiningSignal(B, Resistance, outB, outResistance, -2, 2, 2*minimalLength);
-
-    Form1->ErrorLog->Lines->Add(FloatToStr( B.size()));
-    
-    StatusBar->Panels->Items[1]->Text="Установка новых параметров.";
-    Form1->Update();
-    params->setDependence(outB.begin(),outB.end(),outHall.begin(),outResistance.begin());
-
-    UpdatePlots();
-    StatusBar->Panels->Items[1]->Text="Готова к работе.";
-}
-
-
-void __fastcall TForm1::bUniteDependenceClick(TObject *Sender)
-{
-    concatDependence();
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::CurrentResChange(TObject *Sender)
-{
-    if((*ActiveParams()))
-    {
-    (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,
-        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
-    (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
-    }
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::calculateTenzor()
-{
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ErrorLog->Lines->Add("Вероятно выбран не тот график.");   
-        return; 
-    }
-    else
-    {
-        (*ActiveParams())->setSampleDescription(uiTemperature->Text,uiCurrent->Text,
-        uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
-        (*ActiveParams())->setParamsType(ResCurveIndex->ItemIndex);
-        p=*par;
-        p->calculateTenzor(uiDataKind->ItemIndex==0?CURRENT_DATA:FILTERED_DATA);
-
-        p->constructPlotFromTwoMassive(SXX,AVERAGED_DATA,Series6,clRed);
-        p->constructPlotFromTwoMassive(SXY,AVERAGED_DATA,LineSeries1,clRed);
-
-        UpdatePlots();
-    }
-}
-
-void __fastcall TForm1::uiCalculateTenzorClick(TObject *Sender)
-{
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ErrorLog->Lines->Add("Вероятно выбран не тот график.");   
-        return; 
-    }
-    else
-    {
-        calculateTenzor();    
-        
-        DataSaver * tenzorSaver=new DataSaver(uiTemperature->Text,
-        uiCurrent->Text, uiInventoryNumber->Text,uiSampleLength->Text,uiSampleWidth->Text,uiSampleThickness->Text);
-        if(SaveDialog1->Execute())
-        {
-        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),
-        p->getSxy(), p->getSxx(), ALL_POINTS,SaveDialog1->FileName);
-
-        tenzorSaver->SaveData(CURRENT_DATA,p->getAveragedB(),
-        p->getSxy(), p->getSxx(), POINTS_11,SaveDialog1->FileName);
-        }
-        delete tenzorSaver;
-    }  
-
-    
-
-
-}
-//---------------------------------------------------------------------------
-
-
-
-void __fastcall TForm1::eLengthFilterResChange(TObject *Sender)
-{
-eLengthFilterHall->Text=eLengthFilterRes->Text;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::eLengthFilterHallChange(TObject *Sender)
-{
-eLengthFilterRes->Text=eLengthFilterHall->Text;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::HallCurveIndexClick(TObject *Sender)
-{
-ResCurveIndex->ItemIndex=HallCurveIndex->ItemIndex;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::ResCurveIndexClick(TObject *Sender)
-{
-HallCurveIndex->ItemIndex=ResCurveIndex->ItemIndex;    
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::bResShiftCurveClick(TObject *Sender)
-{
-if(*ActiveParams())
+void __fastcall TForm1::FormCreate(TObject *Sender)
 {
 /*
-        Предупреждение Initializing Params Type with const int - не актуально,
-        т.к. значения как раз совпадают с перечислением, но аккуратней в этом месте.
-        */
-(*ActiveParams())->shiftCurve(uiDataKind->ItemIndex,MAGNETORESISTANCE,
-StrToFloat(uiShiftValue->Text),StrToFloat(uiLeftBound->Text),StrToFloat(uiRightBound->Text));
-UpdatePlots();
+hDLL = LoadLibraryA("K:\\Дела\\Институт физики полупроводников\\La-7\\MctErrorEstimating\\filter.dll");
+if (!hDLL) {
+  ShowMessage("Невозможно загрузить filter.dll");
+  return;
 }
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::bShiftHallCurveClick(TObject *Sender)
-{
-if(*ActiveParams())
-{
-(*ActiveParams())->shiftCurve(uiHallDataKind->ItemIndex,HALL_EFFECT,
-StrToFloat(uiHallShiftValue->Text),StrToFloat(uiHallLeftBound->Text),StrToFloat(uiHallRightBound->Text));
-UpdatePlots();
-}
-else
-{
-    ShowMessage("Выбранный график пуст");
-}
-}
-//---------------------------------------------------------------------------
 
 
 
-void __fastcall TForm1::ComboBox5Change(TObject *Sender)
-{
-switch(ComboBox5->ItemIndex)
-{
-case 0:
-Label31->Caption="1й канал(Сопротивление):"; // 1й канал
-break;
-case 1:
-Label33->Caption="2й канал(Сопротивление):";; // 2й канал
-break;
-case 2:
-Label32->Caption="3й канал(Сопротивление):";; // 3й канал
-break;
-default:
-break;
+// пытаемся найти в таблице экспорта необходимую нам функцию
+TrForMassiveFilter = (dll_func)GetProcAddress(hDLL, "_TrForMassiveFilter");
+// обратите внимание на название функции
+
+if (!TrForMassiveFilter) {
+  ShowMessage("Невозможно найти функцию TrForMassiveFilter");
+  return;
 }
-switch(ComboBox6->ItemIndex)
-{
-case 0:
-Label31->Caption="1й канал(Поле):"; // 1й канал
-break;
-case 1:
-Label33->Caption="2й канал(Поле):";; // 2й канал
-break;
-case 2:
-Label32->Caption="3й канал(Поле):";; // 3й канал
-break;
-default:
-break;
-}
-switch(ComboBox4->ItemIndex)
-{
-case 0:
-Label31->Caption="1й канал(Холл):"; // 1й канал
-break;
-case 1:
-Label33->Caption="2й канал(Холл):";; // 2й канал
-break;
-case 2:
-Label32->Caption="3й канал(Холл):";; // 3й канал
-break;
-default:
-break;
-}
+
+ */
+
+
+
+g_Nz_par->Cells[0][1]="электроны";
+g_Nz_par->Cells[0][2]="легкие дырки";
+g_Nz_par->Cells[0][3]="тяжелые дырки";
+g_Nz_par->Cells[1][0]="концентрация";
+g_Nz_par->Cells[2][0]="подвижность";
+
 }
 //---------------------------------------------------------------------------
 
 
-
-
-
-void __fastcall TForm1::Button2Click(TObject *Sender)
+void ParamsKRT(void)
 {
-MagneticFieldDependence ** par=ActiveParams();
 
-if (*par==NULL)
-{
-    ShowMessage("Вероятно выбран не тот график.");
+	h=Form1->g_hsize->Text.ToDouble(); // сохраняем значение шага
+    NumberOfPoints=2/h+1;
+	//--------------------------Классы------------------------------------------
+	IdealParams=new clMagneticFieldDependences(NumberOfPoints,h,
+	Form1->eMolarCompositionCadmium->Text.ToDouble(),
+	Form1->eTemperature->Text.ToDouble(),Form1->eHeavyHoleConcentration->Text.ToDouble(),
+	Form1->eAFactor->Text.ToDouble(),Form1->eKFactor->Text.ToDouble(),
+	Form1->eSampleThickness->Text.ToDouble(),Form1->eCBRatio->Text.ToDouble(),
+	Form1->eCurrentIntensity->Text.ToDouble(),NumberOfCarrierTypes);
+
+	Form1->g_Nz_par->Cells[1][1]=FloatToStr(IdealParams->carrierParams->getConcentration(2));
+	Form1->g_Nz_par->Cells[2][1]=FloatToStr(IdealParams->carrierParams->getMobility(2));
+	Form1->g_Nz_par->Cells[1][2]=FloatToStr(IdealParams->carrierParams->getConcentration(1));
+	Form1->g_Nz_par->Cells[2][2]=FloatToStr(IdealParams->carrierParams->getMobility(1));
+	Form1->g_Nz_par->Cells[1][3]=FloatToStr(IdealParams->carrierParams->getConcentration(0));
+	Form1->g_Nz_par->Cells[2][3]=FloatToStr(IdealParams->carrierParams->getMobility(0));
+	//--------------------------Классы------------------------------------------
+
+	//Form1->bCalculateCarrierParams->Enabled=true;
+	Form1->BuildingPlots->Enabled=1;
+
+	//--------------------------------------------------------------------------
 }
-else
-{
-    MagneticFieldDependence * p=*par;
-    p->setFilterParamsResistance(eSamplingFRes->Text, eBandWidthFRes->Text,
-     eAttenuationFRes->Text, eLengthFilterRes->Text);
-    p->setFilterParamsHall(eSamplingFHall->Text, eBandWidthFHall->Text,
-     eAttenuationFHall->Text, eLengthFilterHall->Text);
-    p->blockfilterData();
-    p->extrapolateData(FILTERED_DATA,PowPolinomRes->Text.ToInt(),PowPolinomHall->Text.ToInt());
 
-    UpdatePlots();
-}
+// расчет тензоров проводимости
+void __fastcall TForm1::bCalculateCarrierParamsClick(TObject *Sender)
+{
+	if(IdealParams!=0)
+	delete IdealParams;
+	/*
+
+	Читаем концентрации и подвижности с формы.
+	Читаем шаг.
+	Заполняем магнитное поле.
+	Рассчитываем компоненты тензора по значениям параметров плёнки.
+	Выводим их на экран
+	Рассчитываем эффективные значения.
+	Получаем измеряемые сигналы.
+
+
+	*/
+	ParamsKRT();
+
+	//------------------Классы--------------------------------------------------
+	IdealParams->calculateMagneticFieldDependences();
+
+	IdealParams->constructPlotFromTwoMassive(SXX,Series1,clRed);
+	IdealParams->constructPlotFromTwoMassive(SXY,Series2,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(SXX,gSeriesIdealParamsSxx,clRed);
+	IdealParams->constructPlotFromTwoMassive(SXY,gSeriesIdealParamsSxy,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(S_EFF,gSeriesIdealParamsS_eff,clRed);
+	IdealParams->constructPlotFromTwoMassive(RH_EFF,gSeriesIdealParamsRh_eff,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(US,gSeriesIdealParamsUs,clRed);
+	IdealParams->constructPlotFromTwoMassive(UY,gSeriesIdealParamsUy,clRed);
+
+	//------------------Классы--------------------------------------------------
+	bGaussianNoiseGenerator->Enabled=1;
 }
 //---------------------------------------------------------------------------
-
-int findMaximum(std::vector<long double> & diffY,int start)
+// округление результатов при сохранении, необходимо потому что если этого не сделать
+// метод будет считать что мы с этой точностью измеряли - и мало что найдет
+void TForm1::RoundM(long double * x,int length)
 {
-    const long double min=10E-16;
-    long double max;
-    int i_max=diffY.size();
-    max=min;
-    for (int i = start; i < diffY.size(); ++i)
-    {
-        if(diffY[i]>max)
-        {
-            max=diffY[i];
-            i_max=i;
-        }
+	int S=pow(10,NumberOfNumbersAfterPoint);
+	for(int i=0;i<length;i++)
+	{
+		int n=(int)(x[i]*S)%10;
+		if(n<5)
+			x[i]=floorl(x[i]*S)/S;
+		else
+			x[i]=ceill(x[i]*S)/S;
+	}
+}
+
+
+// генератор шума
+void __fastcall TForm1::bGaussianNoiseGeneratorClick(TObject *Sender)
+{
+	/*
+	К идеальным значениям сигнала добавляется шум.
+	Выводится на экран.
+	*/
+	//--------------------Классы----------------------------------------------------
+	Edit5->Text=FloatToStr(100.0/(long double)(StrToInt(Edit6->Text)*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
+
+	srand(time(NULL));
+
+	std::vector<long double> vz; // М СКО и СКО в %
+	//long double vz[6]={0};  // М СКО и СКО в %
+	if(ParamsWithNoise!=0)
+		delete ParamsWithNoise;
+	ParamsWithNoise= new clMagneticFieldDependences(NumberOfPoints,h,IdealParams->carrierParams);
+	if(RadioButton1->Checked)
+	{
+	ParamsWithNoise->modifySignals(ShumAdding,IdealParams->getSignalUs(),
+	IdealParams->getSignalUy(),vz,Edit5->Text.ToDouble());
+	}
+	else
+	{
+		 ParamsWithNoise->modifySignals(QuantumShumAdding,IdealParams->getSignalB(), IdealParams->getSignalUs(),IdealParams->getSignalUy(),
+		 vz,Edit5->Text.ToDouble(),LabeledEdit1->Text.ToDouble(),LabeledEdit2->Text.ToInt());
     }
 
-    if (i_max==start && start>0 && diffY[i_max-1]>max)
-    {
-        i_max=-1;
-    }
 
-    //while (i<diffY.size()-2 && diffY[i+1]>=diffY[i]) ++i;
-    //--i;
-    //int i2=start;
-   // while(i<diffY.size()-2 && diffY[])
-    return i_max;
+	mDebug->Lines->Add(FloatToStr(vz[0]));
+	Edit1->Text=FloatToStr(vz[1]); // СКО
+	Edit3->Text=FloatToStr(vz[2]);
+
+	mDebug->Lines->Add(FloatToStr(vz[3]));
+	Edit2->Text=FloatToStr(vz[4]); // СКО
+	Edit4->Text=FloatToStr(vz[5]);
+
+	ParamsWithNoise->constructPlotFromTwoMassive(US,Series3,clRed);
+	ParamsWithNoise->constructPlotFromTwoMassive(UY,Series4,clRed);
+	ParamsWithNoise->constructPlotFromTwoMassive(US,gSeriesParamsWithNoiseUs,clBlack);
+	ParamsWithNoise->constructPlotFromTwoMassive(UY,gSeriesParamsWithNoiseUy,clBlack);
+	ParamsWithNoise->constructPlotFromTwoMassive(S_EFF,gSeriesParamsWithNoiseS_eff,clBlack);
+	ParamsWithNoise->constructPlotFromTwoMassive(RH_EFF,gSeriesParamsWithNoiseRh_eff,clBlack);
+
+	ParamsWithNoise->constructPlotFromTwoMassive(SXX,gSeriesParamsWithNoiseSxx,clBlack);
+	ParamsWithNoise->constructPlotFromTwoMassive(SXY,gSeriesParamsWithNoiseSxy,clBlack);
+	ParamsWithNoise->constructPlotFromTwoMassive(SXX,Series3,clRed);
+	ParamsWithNoise->constructPlotFromTwoMassive(SXY,Series4,clRed);
+
+    // расчет СКО и мат. ожидания.
+
+	long double sko1=Sko(IdealParams->getSxx(),ParamsWithNoise->getSxx(),NumberOfPoints);
+	long double sko2=Sko(IdealParams->getSxy(),ParamsWithNoise->getSxy(),NumberOfPoints);
+	long double* shx= new long double [NumberOfPoints];
+	long double* shy= new long double [NumberOfPoints];
+	//long double shx[NumberOfPoints]={0};
+	//long double shy[NumberOfPoints]={0};
+	for(int i=0;i<NumberOfPoints;i++)
+	{
+		shx[i]=ParamsWithNoise->getSxx()[i]-IdealParams->getSxx()[i];
+		shy[i]=ParamsWithNoise->getSxy()[i]-IdealParams->getSxy()[i];
+	}
+	long double mx=Mo(shx,NumberOfPoints);
+	long double my=Mo(shy,NumberOfPoints);
+	Edit1->Text=FloatToStr(sko1);
+	Edit2->Text=FloatToStr(sko2);
+	Edit3->Text=FloatToStr(mx/Mo(IdealParams->getSxx(),NumberOfPoints)*100);
+	Edit4->Text=FloatToStr(my/Mo(IdealParams->getSxy(),NumberOfPoints)*100);
+	delete[] shx;
+	delete[] shy;
+    bFilteringPlots->Enabled=true;
+//-----------------------------Классы_------------------------------------------
 }
+//---------------------------------------------------------------------------
 
-size_t searchSignalSlowdown(long double * y, size_t size, size_t startPosition, long double h)
+
+
+// сохранение результатов
+void __fastcall TForm1::bSaveAllPointsClick(TObject *Sender)
 {
-    /*
-    Функция должна реагировать на замедление изменения сигнала.
-    Т.е. на малозаметный пик.
-    */
-    if(startPosition>=size)
-        return size;
-
-      size_t dsize=size-2;
-      size_t d2size=dsize-2;
-      // Посчитаем производную методом конечных разностей
-      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
-
-      // формула df/dx=(f(x+h)-f(x-h))/2/h;
-      std::vector<long double> dY(size);
-
-      for(int i =0;i<dsize;i++)
-      {
-        dY[i]=(y[i+2]-y[i])/2.0/h;
-      }
-
-      std::vector<long double> d2Y(size);
-
-      for(int i =0;i<d2size;i++)
-      {
-        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
-        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
-      }
-
-      TStringList *tsl = new TStringList;
-
-
-      for(int i =0;i<d2size;i++)
-      {
-      tsl->Add(FloatToStr(dY[i])+"\t"+FloatToStr(d2Y[i]));      
-      }                          
-
-      tsl->SaveToFile("mobilitySpectrumLogDerivative.txt");
-
-      delete tsl;
-
-      for (int i = startPosition; i < dsize-1; ++i)
-        {
-            /*
-            Поиск такой:
-            1. ищем участок на котором первая производная отрицательная.
-            */
-            while (i<dsize-1 && (dY[i]>0)) ++i;
-
-            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]<0)) ++i; // первая производная отрицательная и уменьшается
-
-            while (i<dsize-1 && (dY[i]<0 && dY[i+1]-dY[i]>0)) ++i; // первая производная отрицательная и увеличивается
-
-            --i;
-            // Теперь проверим остальные условия - вторая производная должна изменить знак.
-            // Вероятно стоит расширить диапазон поиска до +-10 значений
-            if (i+10<dsize-1 && i-10>=0 && (d2Y[i-10]>0 && d2Y[i+10]<0) )
-            {
-                return i;
-            }
-            if( i<startPosition)
-            {
-            return size;
-            }
-        }
-        return size;
-
+	chooseAndSaveData(ALL_POINTS);
 }
+//---------------------------------------------------------------------------
 
-size_t searchSignificantPeak(long double * y, size_t size, size_t startPosition, long double h)
+
+void __fastcall TForm1::g_Nz_parKeyPress(TObject *Sender, wchar_t &Key)
 {
-    if(startPosition>=size)
-        return size;
-
-      size_t dsize=size-2;
-      size_t d2size=dsize-2;
-      // Посчитаем производную методом конечных разностей
-      // формула df/dx=1/h*(2*f(x+h)-f(x+2h)/2-3/2*f(x))
-
-      // формула df/dx=(f(x+h)-f(x-h))/2/h;
-
-      std::vector<long double> dY(size);
-
-      for(int i =0;i<dsize;i++)
-      {
-        //dY[i]=1.0/(fabs(y[i+1]-y[i]))*(2.0*y[i+1]-y[i+2]/2.0-3.0/2.0*y[i]);
-        dY[i]=(y[i+2]-y[i])/2.0/h;
-      }
-
-      std::vector<long double> d2Y(size);
-
-      for(int i =0;i<d2size;i++)
-      {
-        //d2Y[i]=1.0/(fabs(dY[i+1]-dY[i]))*(2.0*dY[i+1]-dY[i+2]/2.0-3.0/2.0*dY[i]);
-        // формула f(x-h)-2f(x)+f(x+h)/h^2
-        d2Y[i]=(y[i]-2*y[i+1]+y[i+2])/h/h;
-        //d2Y[i]=(dY[i+2]-dY[i])/2.0/h;
-      }
-
-      TStringList *tsl = new TStringList;
-
-
-      for(int i =0;i<d2size;i++)
-      {
-      tsl->Add(FloatToStr(dY[i])+"\t"+FloatToStr(d2Y[i]));      
-      }                          
-
-      tsl->SaveToFile("mobilitySpectrumDerivative.txt");
-
-      delete tsl;
-
-      /*
-        Поиск пиков. Считаем производные первого и второго порядков.
-        Самые ярко выраженные пики должны иметь такие признаки:
-        1. Первая производная сначала растет и положительна.
-        2. После пика - убывает и отрицательна 
-
-        3. Вторая производная до пика - положительна.
-        4. После пика - отрицательна.
-        5. Три-четыре точки, там где находится пик - скачки производных, что логично, т.к. там должны быть точки разрыва.
-      */
-
-        for (int i = startPosition; i < dsize-1; ++i)
-        {
-            /*
-            Поиск такой:
-            1. ищем участок на котором первая производная положительна и растет.
-            */
-            while (i<dsize-1 && (dY[i]<0)) ++i;
-            // ищем точку, с которой рост первой производной прекращается
-            while (i<dsize-1 && (dY[i]>0)) ++i;
-
-            --i;
-            // Теперь проверим остальные условия - вторая производная отрицательна
-            // Вероятно стоит расширить диапазон поиска до +-10 значений
-            if (d2Y[i]<0 )
-            {
-                return i;
-            }
-        }
-        return size;
+	if(Key=='.') Key=',';
+	if(Key=='e') Key='E';
+	if(Key=='Е') Key='E';  // русскую Е заменяю на английскую
+	if (Key=='е') Key='E';
+	if ((Key>='0' && Key<='9') || Key==',' || Key=='\b' || Key=='E' ) ;
+	else
+		Key=0;
 }
-
-long double calcConcentrationFromGp(long double G_p, long double Mu)
+//---------------------------------------------------------------------------
+// генератор белого шума, не знаю нужен ли он нам вообще)
+void __fastcall TForm1::bWhiteNoiseGeneratorClick(TObject *Sender)
 {
-    long double electronCharge=1.602e-19;
-    return G_p/(Mu*electronCharge);
-}
-
-void calculateMobilitySpectrum(TSignal &B,TSignal &sxx,TSignal &sxy,int length)
+/*long double x[l];
+long double y[l];
+long double y1[l];
+srand(time(NULL));
+for(int i=0;i<l;i++)
 {
-      if(length==0)
-      {
-      Form1->ErrorLog->Lines->Add("Длина в расчете спектра подвижности равна нулю. Не могу считать.");
-        return;
-      }
+y[i]=rand()%1000/250./Edit5->Text.ToDouble();
+y1[i]=rand()%1000/250./Edit6->Text.ToDouble();
+}
+Memo1->Lines->Add(FloatToStr(Mo(y,l)));
+Memo1->Lines->Add(FloatToStr(Mo(y1,l)));
+for(int i=0;i<l;i++)
+{
+y[i]=Series1->YValues->Value[i]+y[i];
+}
+Series3->Clear() ;
 
-    Form1->MobSpecResults->Cells[1][3]="";
-    Form1->MobSpecResults->Cells[2][3]="";
-    Form1->MobSpecResults->Cells[1][1]="";
-    Form1->MobSpecResults->Cells[2][1]="";
-    Form1->MobSpecResults->Cells[1][2]="";
-    Form1->MobSpecResults->Cells[2][2]="";
-
-      mobilitySpectrum c(B,sxx,sxy,B.size());
-
-      int size=c.getResultSize();
-
-      long double * ex=new long double [size];
-      long double * eY=new long double [size];
-      long double * hx=new long double [size];
-      long double * hY=new long double [size];
-
-      Form1->ChspElecComponent->Clear();
-      Form1->ChSpHoleComponent->Clear();
-      Form1->Series4->Clear();
-
-      //Form1->Chart1->LeftAxis->Logarithmic=true;
-      //Form1->Chart1->BottomAxis->Logarithmic=true;
-
-      TStringList *tsl = new TStringList;
+for(int i=0;i<l;i++)
+Series3->AddXY(B[i],y[i],"",clRed);
 
 
-      for(int i =0;i<size;i++)
-      {
 
-      ex[i]=c.getResultEX(i);
-      eY[i]=c.getResultEY(i);
-      hx[i]=c.getResultHX(i);
-      hY[i]=c.getResultHY(i);
-      tsl->Add(FloatToStr(ex[i])+"\t"+FloatToStr(eY[i])+"\t"+FloatToStr(hY[i]));
-      Form1->ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
-      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],"",clRed);
-      }
 
-      tsl->SaveToFile("mobilitySpectrum.txt");
+for(int i=0;i<l;i++)
+{
+y1[i]=Series2->YValues->Value[i]+y1[i];
+}
+Series4->Clear() ;
 
-      /*std::vector<long double> diffeY;
-      for (int i = 1; i < size; ++i)
-      {
-          diffeY.push_back(fabs((eY[i]-eY[i-1])));
-          Form1->Series4->AddXY(ex[i-1],diffeY[i-1],"",clGreen);
-      }*/
+for(int i=0;i<l;i++)
+Series4->AddXY(B[i],y1[i],"",clRed);
 
-      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны
-      if(index!=size)
-      {
-          Form1->MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
-          Form1->MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
-      }
+ Edit1->Text=FloatToStr(Sko(sxx,y,l));
+ Edit2->Text=FloatToStr(Sko(sxy,y1,l));
 
-      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
-      if(index!=size)
-      {
-          Form1->MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
-          Form1->MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
-      }
+ // СКО %  от математического ожидания
+ Edit3->Text=FloatToStr(Edit1->Text.ToDouble()/Mo(sxx,l)*100);
+ Edit4->Text=FloatToStr(Edit2->Text.ToDouble()/Mo(sxy,l)*100);
+ */
+}
+//---------------------------------------------------------------------------
+// вычисление собственной концентрации электронов
+long double ownConcentrationOfElectrons(long double T, long double x)
+{
+	long double k=1.380648813E-23/1.60217646E-19; // постоянная больцмана в электрон-Вольтах
+	long double Eg=-0.302+1.93*x-0.81*x*x+0.832*x*x*x+5.35E-4*(1-2.0*x)*T;
+	return  (5.585-3.82*x+1.753E-3*T-1.364E-3*x*T)*1E20*pow(Eg,3/4.)*pow(T,1.5)*exp(-Eg/2./k/T); // собственная концентрация
+}
 
-      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
-      if(index!=size)
-      {
-          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
-          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
-      }
-      else
-      {
-        index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
-        index = searchSignalSlowdown(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
-        if(index!=size)
-      {
-          Form1->MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
-          Form1->MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
-      }
-      }
 
-    delete [] ex;
-    delete [] eY;
-    delete [] hx;
-    delete [] hY;
-    delete tsl;
+void __fastcall TForm1::BuildingPlotsClick(TObject *Sender)
+{
+	Form2->Show();
+}
+//---------------------------------------------------------------------------
+
+void MyReplaceStr(UnicodeString * out,UnicodeString * in, UnicodeString * findStr, UnicodeString * replaceStr)
+{
+    // не хотет робить, надо думать с передачей параметров.
+	unsigned int findIndex=0;
+	std::wstring s=in->w_str();
+	std::wstring strToReplaceWhich=replaceStr->w_str(); // на что меняем
+	std::wstring strToSearch=findStr->w_str();   // что ищем
+	findIndex=s.find(strToSearch,strToSearch.length());
+	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),strToReplaceWhich.begin(),strToReplaceWhich.end());
+	*out=*s.c_str();
+}
+
+void TForm1::automaticCalculationHelper(UnicodeString SaveFileName)
+{
+	/*
+
+	В SaveFileName нужно передавать _Us_Uy_vseZnachenia_k_"+IntToStr(i) и т.п.
+
+	*/
+
+	long double sko_xx=StrToFloat(Edit3->Text);
+	if(isRoundNeeded)
+	RoundM(&sko_xx,1);
+	long double sko_xy=StrToFloat(Edit4->Text);
+	if(isRoundNeeded)
+	RoundM(&sko_xy,1);
+	UnicodeString standartName; // эталонное имя файла
+	standartName = sg1->FileName;     // запоминаем имя
+	sg1->FileName=standartName+"T_"+eTemperature->Text+"_"+
+		SaveFileName+"_sko_p_xx"+FloatToStr(sko_xx)+ "_sko_p_xy"+FloatToStr(sko_xy)+".txt";
+
+
+	bSaveAllPoints->Click();
+
+	unsigned int findIndex=0;
+	std::wstring s=sg1->FileName.w_str();
+	std::wstring strToReplaceWhich=L"11Znacheniy"; // на что меняем
+	std::wstring strToSearch=L"vseZnachenia";   // что ищем
+	findIndex=s.find(strToSearch,strToSearch.length());
+	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),strToReplaceWhich.begin(),strToReplaceWhich.end());
+
+	sg1->FileName=s.c_str();
+    bSaveElevenPoints->Click();
+
+	sg1->FileName=standartName;
+}
+
+
+void __fastcall TForm1::bAutomaticCalculationClick(TObject *Sender)
+{
+	/*
+	+1. Просим задать имя.
+	+2. Идем по температуре с шагом.
+	+3. Рассчитываем параметры пленки и тензоры проводимости
+	+4. Сохраняем параметры плёнки.
+	+4. Сохраняем идеальный график тензора все точки и 11 точек.
+	+5. Сохраняем идеальный график измеряемых сигналов Us и Uy все точки и 11 точек
+	+6. Сохраняем рассчитанные параметры плёнки (концентрации и подвижности НЗ).
+	+7. Задаем длину фильтра.
+
+	// для каждого значения шума.
+	Генерируем зашумленный сигнал.
+	+8. Сохраняем все точки и 11 точек зашумленного измеряемого сигнала.
+	+9. Запускаем фильтрацию.
+	+10. Сохраняем все точки фильтрованного сигнала.
+
+	+12. Сохраняем все точки и 11 точек зашумленных компонент тензора.
+	+15. Сохраняем все точки и 11 точек фильтрованных компонент тензора.
+	+16. А также экстраполированных сигналов и тензоров.
+
+	*/
+	silentModeEnabled=true;
+	int h=eStepByTemperature->Text.ToInt(); // шаг по температуре
+	int T1=Edit7->Text.ToInt(); // начальная температура
+	int Tmax=Edit8->Text.ToInt(); // конечная температура
+
+	int koef=1;// начальный коэффициент шума
+	int endkoef=5;  // конечный коэффициент
+
+	int h_koef=4; // шаг по уровню шума
+	//eFilterLength->Text=IntToStr(150); // задаём длину фильтра, внимание - это для симметричного графика!
+	g_hsize->Text=FloatToStr(0.001); // шаг по магнитному полю., отныне честно идем только до 2 Тл.
+
+	UnicodeString standartName; // эталонное имя файла
+	UnicodeString fName;   // новое имя файла
+
+	// если в диалоге имя было выбрано
+	if (sg1->Execute()) {
+		mDebug->Lines->Add( sg1->FileName); // выводим его в мемо
+	}
+	else
+	{
+		return;
+	}
+
+	standartName = sg1->FileName;     // запоминаем имя
+
+	for (int T=T1; T <= Tmax; T+=h)  // идем по температуре с заданным шагом
+	{
+		 eTemperature->Text=IntToStr(T);  // для красоты обновляем значение температуры
+		 bCalculateCarrierParams->Click(); // нажимаем кнопку рассчитать
+
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_params_"+Edit3->Text+".txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveFilmParams->Click(); // сохраняем параметры плёнки
+
+         rbIdealTenzorPlot->Checked=true; // выбираем идеальный график тензоров
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_tenzor_ideal_vseZnachenia.txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика тензора
+		 fName="T_"+IntToStr(T)+"_tenzor_ideal_11Znacheniy.txt";
+		 sg1->FileName=standartName+fName;
+		 // сохраняем 11 точек идеального графика тензора
+		 bSaveElevenPoints->Click();
+
+
+		 rbIdealUPlot->Checked=true; // выбираем идеальный график измеряемых сигналов
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_vseZnachenia.txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика сигналов
+		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_11Znacheniy.txt";
+		 sg1->FileName=standartName+fName;
+		 // сохраняем 11 точек идеального графика сигналов
+		 bSaveElevenPoints->Click();
+		 sg1->FileName=standartName;
+		 for (int i=koef; i <= endkoef; i+=h_koef) // после чего начинается игра с коэффициентами
+		 {
+			Edit5->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
+			Edit6->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1])));
+			bGaussianNoiseGenerator->Click(); // генератор шума
+			bFilteringPlots->Click(); // запускаем фильтрацию
+
+			sg1->FileName=standartName;
+			rbNoisyU->Checked=true; // выбираем зашумленный график измеряемого сигнала
+			fName="Us_Uy_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			// надо сохранять зашумленные результаты
+			rbNoisyTenzor->Checked=true;
+			sg1->FileName=standartName;
+			fName="tenzor_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			/*
+			// сохраняем результаты фильтрации (все точки)-------------------------
+			rbFilteredUPlot->Checked=true; // выбираем фильтрованный график
+			sg1->FileName=standartName;
+			fName="T_"+IntToStr(T)+"_Us_Uy_vseZnachenia_filtr_k_"+IntToStr(i)+".txt";
+			sg1->FileName=standartName+fName;
+			bSaveAllPoints->Click();
+			// сохранять 11 точек на данный момент смысла нет.
+			//---------------------------------------------------------------------
+			rbFilteredTenzor->Checked=true;// сохранять результаты фильтрованных тензоров
+			sg1->FileName=standartName;
+			fName="tenzor_filt_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+			rbExtrapolatedU->Checked=true;
+			sg1->FileName=standartName;
+			fName="Us_Uy_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+			rbExtrapolatedTenzor->Checked=true;
+			sg1->FileName=standartName;
+            fName="tenzor_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+			*/
+		 }
+	}
+	silentModeEnabled=false;
+}
+//---------------------------------------------------------------------------
+int countOfRepeats=0;
+long double criteria=0.01;
+void __fastcall TForm1::bFilteringPlotsClick(TObject *Sender)
+{
+	if(FilteredParams!=0) // считаем по новой?
+	delete FilteredParams;// надо убрать старое.
+
+	FilteredParams=new clMagneticFieldDependences(NumberOfPoints,h,IdealParams->carrierParams);
+   	FilteredParams->modifySignals(TrForMassiveFilter,ParamsWithNoise->getSignalUs(),ParamsWithNoise->getSignalUy(),eFilterLength->Text.ToInt());
+
+
+	// и экстраполируем.
+	if(ExtrapolatedParams!=0)
+	delete ExtrapolatedParams;
+
+	ExtrapolatedParams=new clMagneticFieldDependences(NumberOfPoints,h,IdealParams->carrierParams);
+	// Два режима экстраполяции
+	// По фильтрованным данным
+	if(rbFilteredOnly->Checked)
+	{
+		FilteredParams->modifySignals(EXTRAPOLATE,ExtrapolatedParams);
+	}
+	// И по фильтрованным вместе с зашумленными, а потом по фильтрованным вместе с экстраполированными
+	if(rbFilteredNoisyExtrapolated->Checked)
+	{
+		extrapolateNoiseFiltered(ParamsWithNoise,FilteredParams,ExtrapolatedParams);
+	}
+	//------------Внимание - костыль.
+	//------Так как иногда экстраполируется весьма плохо - будем это контролить и перезапускать если что:)
+	long double distance=0;
+
+	for (int i = 0; i < NumberOfPoints; i++) {
+		distance+=ExtrapolatedParams->getSignalUs()[i]+ExtrapolatedParams->getSignalUy()[i];
+        distance-=IdealParams->getSignalUs()[i]+IdealParams->getSignalUy()[i];
+	}
+	mDebug->Lines->Add(FloatToStr(distance/2.0/NumberOfPoints));
+	if(fabs(distance/2.0/NumberOfPoints) > criteria)
+	{
+		countOfRepeats++;
+    if(countOfRepeats>3) criteria*=2;
+		bFilteringPlots->Click();
+
+
+		return;
+	}
+
+	countOfRepeats=0;
+	criteria=0.01;
+	//------Конец костыля.
+    // Построение графиков.
+	FilteredParams->constructPlotFromTwoMassive(US,gSeriesFilteredUs,clBlue);
+	FilteredParams->constructPlotFromTwoMassive(UY,gSeriesFilteredUy,clBlue);
+
+	FilteredParams->constructPlotFromTwoMassive(US,gSeriesFilteredParamsUs,clBlue);
+	FilteredParams->constructPlotFromTwoMassive(UY,gSeriesFilteredParamsUy,clBlue);
+
+	FilteredParams->constructPlotFromTwoMassive(S_EFF,gSeriesFilteredParamsS_eff,clBlue);
+	FilteredParams->constructPlotFromTwoMassive(RH_EFF,gSeriesFilteredParamsRh_eff,clBlue);
+
+	FilteredParams->constructPlotFromTwoMassive(SXX,gSeriesFilteredParamsSxx,clBlue);
+	FilteredParams->constructPlotFromTwoMassive(SXY,gSeriesFilteredParamsSxy,clBlue);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(US,gSeriesExtrapolatedUs,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(UY,gSeriesExtrapolatedUy,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(US,gSeriesExtrapolatedParamsUs,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(UY,gSeriesExtrapolatedParamsUy,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(S_EFF,gSeriesExtrapolatedParamsS_eff,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(RH_EFF,gSeriesExtrapolatedParamsRh_eff,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(SXX,gSeriesExtrapolatedParamsSxx,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(SXY,gSeriesExtrapolatedParamsSxy,clGreen);
+}
+
+
+
+void __fastcall TForm1::bSaveElevenPointsClick(TObject *Sender)
+{
+	chooseAndSaveData(SOME_POINTS);
+}
+//---------------------------------------------------------------------------
+
+void LoadingDataFromFile(TLineSeries * Series1,TLineSeries * Series2)
+{
+	// работает с графиками, от структур свободна.
+	TStringList * tsl=new TStringList();
+	if (silentModeEnabled || Form1->sg1->Execute()) {
+	tsl->LoadFromFile(Form1->sg1->FileName);
+	Series1->Clear();
+		  Series2->Clear();
+	tsl->Text=ReplaceChar(tsl->Text,L'.',L','); // заменить все точки на запятые
+
+	for(int i=0;i<tsl->Count;i++) // по количеству строк
+		  {
+
+		  if(tsl->Strings[i].IsEmpty()) // пустые строки пропускаем
+		  continue;
+		  String s = tsl->Strings[i];
+
+		  String s1=wcstok(s.c_str(),L" \t");
+		  String s2=wcstok(NULL,L" \t");
+		  String s3=wcstok(NULL,L" \t");
+
+		  Series1->AddXY(s1.ToDouble(), // первая часть до пробела это х, вторая после у
+		  s2.ToDouble(),"",clRed);
+		  Series2->AddXY(s1.ToDouble(), // первая часть до пробела это х, вторая после у
+		  s3.ToDouble(),"",clRed);
+
+		  }
+	}
+	delete tsl;
+}
+
+void __fastcall TForm1::bLoadingPlotsClick(TObject *Sender)
+{
+
+// NEED'S UP TO DATE!!!!
+
+/*if (rbLeftPlot->Checked) // левый
+{
+	LoadingDataFromFile(Series1,Series2);
+}
+if (rbRightPlot->Checked) // правый
+{
+	LoadingDataFromFile(Series3,Series4);
+	/*for (int i=0; i < NumberOfPoints; i++)
+	{
+		ParamsWithNoise.Us[i]=Series3->YValues->Value[i];
+		ParamsWithNoise.Uy[i]=Series4->YValues->Value[i];
+	}
+}      */
+if (rbFilteredUPlot->Checked) // фильтрованный
+{
+	LoadingDataFromFile(gSeriesFilteredUs,gSeriesFilteredUy);
+}
+
+if (rbIdealUPlot->Checked) // идеальный
+{
+	LoadingDataFromFile(gSeriesIdealParamsUs,gSeriesIdealParamsUy);    //------------------------------!
+	int length=gSeriesIdealParamsUs->YValues->Count;
+	long double *x=new long double[length];
+	long double *y=new long double[length];
+
+	long double *y1=new long double[length];
+
+
+	 for (int i=0; i < length; i++) {
+		 x[i]=gSeriesIdealParamsUs->XValues->Value[i];
+		 y[i]=gSeriesIdealParamsUs->YValues->Value[i];
+	 }
+
+	  for (int i=0; i < length; i++) {
+		 y1[i]=gSeriesIdealParamsUy->YValues->Value[i];
+	 }
+
+	 IdealParams->setB_Us_Uy(x,y,y1);
+
+	 IdealParams->constructPlotFromTwoMassive(SXX,Series1,clRed);
+	IdealParams->constructPlotFromTwoMassive(SXY,Series2,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(SXX,gSeriesIdealParamsSxx,clRed);
+	IdealParams->constructPlotFromTwoMassive(SXY,gSeriesIdealParamsSxy,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(S_EFF,gSeriesIdealParamsS_eff,clRed);
+	IdealParams->constructPlotFromTwoMassive(RH_EFF,gSeriesIdealParamsRh_eff,clRed);
+
+	IdealParams->constructPlotFromTwoMassive(US,gSeriesIdealParamsUs,clRed);
+	IdealParams->constructPlotFromTwoMassive(UY,gSeriesIdealParamsUy,clRed);
+
+
+ /*
+ for (int i=0; i <NumberOfPoints; i++) { //----------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	ParamsWithNoise.Us[i]=LineSeries3->YValues->Value[i];
+	ParamsWithNoise.Uy[i]=LineSeries9->YValues->Value[i];
+ }             */
+
+
+ delete[] x;
+ delete[] y;
+}
 
 }
+
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+// сохранение параметров КРТ
+// поддерживает тихий режим
+void __fastcall TForm1::bSaveFilmParamsClick(TObject *Sender)
+{
+	TStringList * tsl=new TStringList();
+	for (int i = 0; i < NumberOfCarrierTypes; i++)
+	{
+		tsl->Add(g_Nz_par->Cells[1][i+1] +"\t"+g_Nz_par->Cells[2][i+1]);
+	}
+	tsl->Text=ReplaceChar(tsl->Text,L',',L'.'); // заменить все запятые на точки
+	if (silentModeEnabled || Form1->sg1->Execute())
+	{
+		tsl->SaveToFile(Form1->sg1->FileName);
+	}
+	delete tsl;
+}
+
+void __fastcall TForm1::bTestingSomethingClick(TObject *Sender)
+{
+	if(ExtrapolatedParams!=0)
+	delete ExtrapolatedParams;
+
+	ExtrapolatedParams=new clMagneticFieldDependences(NumberOfPoints,h,IdealParams->carrierParams);
+	extrapolateNoiseFiltered(ParamsWithNoise,FilteredParams,ExtrapolatedParams);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(US,gSeriesExtrapolatedUs,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(UY,gSeriesExtrapolatedUy,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(US,gSeriesExtrapolatedParamsUs,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(UY,gSeriesExtrapolatedParamsUy,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(S_EFF,gSeriesExtrapolatedParamsS_eff,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(RH_EFF,gSeriesExtrapolatedParamsRh_eff,clGreen);
+
+	ExtrapolatedParams->constructPlotFromTwoMassive(SXX,gSeriesExtrapolatedParamsSxx,clGreen);
+	ExtrapolatedParams->constructPlotFromTwoMassive(SXY,gSeriesExtrapolatedParamsSxy,clGreen);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormClose(TObject *Sender, TCloseAction &Action)
+{
+	delete IdealParams;
+	delete ParamsWithNoise;
+	delete FilteredParams;
+	delete ExtrapolatedParams;
+
+	IdealParams=0;
+	ParamsWithNoise=0;
+	FilteredParams=0;
+	ExtrapolatedParams=0;
+
+   //	FreeLibrary(hDLL);
+}
+//---------------------------------------------------------------------------
+
+void TForm1::chooseAndSaveData(FileSaveMode mode)
+{
+    //пока что работает с графиками
+	TLineSeries* Saving1=0;
+	TLineSeries* Saving2=0;
+
+	// идеальные данные
+	if (rbIdealUPlot->Checked)
+	{
+		Saving1=gSeriesIdealParamsUs;
+		Saving2=gSeriesIdealParamsUy;
+	}
+
+	if (rbIdealTenzorPlot->Checked)
+	{
+		Saving1=gSeriesIdealParamsSxx;
+		Saving2=gSeriesIdealParamsSxy;
+	}
+
+	// зашумленные данные
+	if (rbNoisyU->Checked)
+	{
+		Saving1=gSeriesParamsWithNoiseUs;
+		Saving2=gSeriesParamsWithNoiseUy;
+	}
+
+	if(rbNoisyTenzor->Checked)
+	{
+		Saving1=gSeriesParamsWithNoiseSxx;
+		Saving2=gSeriesParamsWithNoiseSxy;
+	}
+
+	// фильтрованные данные
+	if (rbFilteredUPlot->Checked)
+	{
+		 Saving1=gSeriesFilteredParamsUs;
+		 Saving2=gSeriesFilteredParamsUy;
+	}
+
+	if (rbFilteredTenzor->Checked)
+	{
+		Saving1=gSeriesFilteredParamsSxx;
+		Saving2=gSeriesFilteredParamsSxy;
+	}
+	// экстраполированные данные
+	if (rbExtrapolatedU->Checked)
+	{
+		Saving1=gSeriesExtrapolatedParamsUs;
+		Saving2=gSeriesExtrapolatedParamsUy;
+	}
+
+	if (rbExtrapolatedTenzor->Checked)
+	{
+		Saving1=gSeriesExtrapolatedParamsSxx;
+		Saving2=gSeriesExtrapolatedParamsSxy;
+	}
+
+	if(!Saving1)
+		return;
+
+	int length=Saving1->XValues->Count;
+	int length2=Saving2->XValues->Count;
+
+	if(!(length || length2))
+	{
+	 //ShowMessage("График пуст! Первый параметр: "+ IntToStr(length) +"второй параметр: "+ IntToStr(length2));
+	 return;
+	}
+	if(length!=length2)
+	{
+	 //ShowMessage("Разное количество точек на графиках!");
+	 return;
+	}
+
+	TStringList * tsl=new TStringList();
+
+	long double *savingXData=new long double [length];
+	long double *savingY1Data=new long double [length];
+	long double *savingY2Data=new long double [length];
+	for (int i = 0; i < length; i++) {
+		savingY1Data[i]=Saving1->YValue[i];
+		savingY2Data[i]=Saving2->YValue[i];
+		savingXData[i]=Saving1->XValue[i];
+	}
+    if(isRoundNeeded==true)
+	{
+		RoundM(savingXData,length);
+		RoundM(savingY1Data,length);
+		RoundM(savingY2Data,length);
+	}
+
+	if (mode==SOME_POINTS) {
+        const int SomePointsCount=11;
+		long double points[SomePointsCount]={0};
+		long double shag=0.2;
+		for (int i=1; i < SomePointsCount; i++) {
+			points[i]=points[i-1]+shag;
+		}
+
+		for (int i = 0; i < SomePointsCount; i++) {
+			int index=0;
+			long double r=4;
+			for(int k=0;k<length;k++)
+			{
+				if(fabs(fabs(savingXData[k])-fabs(points[i]))<=r)
+				{
+					r=fabs(savingXData[k]-points[i]);
+					index=k;
+				}
+			}
+
+			tsl->Add(FloatToStr(savingXData[index])+"\t"+FloatToStr(savingY1Data[index])+"\t"+FloatToStr(savingY2Data[index]));
+		}
+	}
+	if(mode==ALL_POINTS)
+	{
+		// формируем строку.
+		for(int i=0;i<length;i++)
+		{
+
+			tsl->Add(FloatToStrF(savingXData[i],ffExponent,18,18)+"\t"+
+			 FloatToStrF(savingY1Data[i],ffExponent,18,18) +"\t"+
+			 FloatToStrF(savingY2Data[i],ffExponent,18,18));
+		}
+	}
+    delete [] savingXData;
+	delete [] savingY1Data;
+	delete [] savingY2Data;
+
+	//tsl->Text=ReplaceChar(tsl->Text,L',',L'.'); // заменить все запятые на точки
+	/*
+	for(int i=1;i<tsl->Text.Length();++i)
+	{
+		if(tsl->Text[i]==L',')
+			tsl->Text[i]=L'.';
+	}     */
+
+	// если включен тихий режим - имя уже должно быть известно
+	if (silentModeEnabled || Form1->sg1->Execute())
+	{
+		tsl->SaveToFile(Form1->sg1->FileName);
+	}
+
+	delete tsl;
+
+}
+
+
+
 
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-//-------------------------------------------------------------
+	/*
+	+1. Просим задать имя.
+	+2. Идем по температуре с шагом.
+	+3. Рассчитываем параметры пленки и тензоры проводимости
+	+4. Сохраняем параметры плёнки.
+	+4. Сохраняем идеальный график тензора все точки и 11 точек.
+	+5. Сохраняем идеальный график измеряемых сигналов Us и Uy все точки и 11 точек
+	+6. Сохраняем рассчитанные параметры плёнки (концентрации и подвижности НЗ).
+	+7. Задаем длину фильтра.
 
-long double B[]={0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0};
-long double sxx[]={42.2179,42.172,42.0579,41.8866,41.6706,41.4251,41.165,40.9024,40.646,40.4014,40.1721};
-long double sxy[]={0.0,0.558,1.1061,1.6173,2.0797,2.4883,2.8441,3.1511,3.4162,3.6464,3.8487};
+	// для каждого значения шума.
+	Генерируем зашумленный сигнал.
+	+8. Сохраняем все точки и 11 точек зашумленного измеряемого сигнала.
+	+9. Запускаем фильтрацию.
+	+10. Сохраняем все точки фильтрованного сигнала.
 
-int testSize=11;
-vector <long double> B2;
-vector <long double> sxx2;
-vector <long double> sxy2;
-for(int i=0;i<testSize;++i)
-{
-B2.push_back(B[i]);
-sxx2.push_back(sxx[i]);
-sxy2.push_back(sxy[i]);
-}
-mobilitySpectrum c(B2,sxx2,sxy2,testSize);
+	+12. Сохраняем все точки и 11 точек зашумленных компонент тензора.
+	+15. Сохраняем все точки и 11 точек фильтрованных компонент тензора.
+	+16. А также экстраполированных сигналов и тензоров.
 
-    int size=c.getResultSize();
-      long double * ex=new long double [size];
-      long double * eY=new long double [size];
-      long double * hx=new long double [size];
-      long double * hY=new long double [size];
-      
-      //ChspElecComponent->Clear();
-      Series1->Clear();
-      Series2->Clear();
-      Series3->Clear();
-      Series4->Clear();
-      Series5->Clear();
-      Chart1->LeftAxis->Logarithmic=true;
-      Chart1->BottomAxis->Logarithmic=true;
+	*/
+	silentModeEnabled=true;
+	int h=eStepByTemperature->Text.ToInt(); // шаг по температуре
+	int T1=Edit7->Text.ToInt(); // начальная температура
+	int Tmax=Edit8->Text.ToInt(); // конечная температура
 
-      
-      for(int i =0;i<size;i++)
-      {
+	std::vector<long double> mzr;
+	mzr.push_back(1.312418E-03);
+	mzr.push_back(3.749766E-04);
+	mzr.push_back(1.406162E-04);
+	mzr.push_back(8.199488E-05);
 
-      ex[i]=c.getResultEX(i);
-      eY[i]=c.getResultEY(i);
-      hx[i]=c.getResultHX(i);
-      hY[i]=c.getResultHY(i);
+	int koef=0;// начальный коэффициент шума
+	int endkoef=mzr.size()-1;  // конечный коэффициент
 
-      Series1->AddXY(ex[i],eY[i],"",clBlue);
-      //ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
-      Series2->AddXY(hx[i],hY[i],"",clRed);
-      }
+	int h_koef=1; // шаг по уровню шума
+	//eFilterLength->Text=IntToStr(150); // задаём длину фильтра, внимание - это для симметричного графика!
+	g_hsize->Text=FloatToStr(1.0E-05); // шаг по магнитному полю., отныне честно идем только до 2 Тл.
 
-     
+	UnicodeString standartName; // эталонное имя файла
+	UnicodeString fName;   // новое имя файла
 
-      size_t index = searchSignificantPeak(eY,size,0, ex[1]-ex[0]); // электроны
-      if(index!=size)
-      {
-          MobSpecResults->Cells[1][3]= FloatToStr(calcConcentrationFromGp(eY[index],ex[index])); // концентрация
-          MobSpecResults->Cells[2][3]= FloatToStr(ex[index]); // подвижность
-      }
-
-      index = searchSignificantPeak(hY,size,0, hx[1]-hx[0]); // тяжелые дырки
-      if(index!=size)
-      {
-          MobSpecResults->Cells[1][1]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
-          MobSpecResults->Cells[2][1]= FloatToStr(hx[index]); // подвижность
-      }
-
-      index = searchSignificantPeak(hY, size, index+4, hx[1]-hx[0]); // легкие дырки
-      if(index!=size)
-      {
-          MobSpecResults->Cells[1][2]= FloatToStr(calcConcentrationFromGp(hY[index],hx[index])); // концентрация
-          MobSpecResults->Cells[2][2]= FloatToStr(hx[index]); // подвижность
-      }
-      
-      TStringList *tosaving=new TStringList;
-
-      for (int i =0;i<size;i++)
-      {
-      tosaving->Add(FloatToStr(ex[i])+"\t"+FloatToStr(eY[i])+"\t"+FloatToStr(hY[i]));
-      }
-      
-      tosaving->SaveToFile("MobilityTestSpectrum.txt");
-
-      delete [] ex;
-      delete [] eY;
-      delete [] hx;
-      delete [] hY;
-      delete tosaving;
-}
-//---------------------------------------------------------------------------
-
-
-void addPeak(TChartSeries *Sender,int ValueIndex)
-{
-    long double electronCharge=1.602e-19;
-    long double G_p=Sender->YValues->Value[ValueIndex];
-    long double Mu= Sender->XValues->Value[ValueIndex];
-    long double Concentration=G_p/(Mu*electronCharge);
-
-    Form1->MobSpecResults->Cells[2][Form1->MobSpecResults->Selection.Top]= FloatToStrF( Mu, ffFixed, 5, 5);
-    Form1->MobSpecResults->Cells[1][Form1->MobSpecResults->Selection.Top]= FloatToStrF(Concentration, ffExponent, 5, 2);
-
-    TGridRect tgr=Form1->MobSpecResults->Selection;
-    tgr.Top++;
-    tgr.Bottom++;
-    if(tgr.Top>3)
-    {
-        tgr.Top=1;
-        tgr.Bottom=1;
-    }
-    Form1->MobSpecResults->Selection =tgr;
-
-    // Сюда нужно добавить обновление значений пиков в объект магнитополневых зависимостей!!!
-}
-
-void __fastcall TForm1::Series1Click(TChartSeries *Sender, int ValueIndex,
-      TMouseButton Button, TShiftState Shift, int X, int Y)
-{   
-    addPeak(Sender, ValueIndex);    
-}
-//---------------------------------------------------------------------------
-
-
-
-
-
-void __fastcall TForm1::N12Click(TObject *Sender)
-{
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-        p->rearrangeSignal();
-        UpdatePlots();
-    }
-
-
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N13Click(TObject *Sender)
-{
-MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        //ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-    }
-    
-if(PC->ActivePageIndex==1) // Сопротивление
-{
-    p->multiplySignal(MAGNETORESISTANCE,-1);
-}
-
-if(PC->ActivePageIndex==2) // Холл
-{
-    p->multiplySignal(HALL_EFFECT,-1);
-}
-    UpdatePlots();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N17Click(TObject *Sender)
-{
-
-if(out1->XValues->Count()!=0)
-{ out1->Clear();
-  out2->Clear();
-}
-else
-UpdatePlots();
-
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N16Click(TObject *Sender)
-{
-if(SeriesHall2->XValues->Count()!=0)
-{ SeriesHall2->Clear();
-  SeriesRes2->Clear();
-}
-else
-UpdatePlots();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::uiFrenqChange(TObject *Sender)
-{
-uiSamplingFreq->Text=FloatToStr( StrToFloat(uiFrenq->Text)/StrToFloat(eMedianFilterSize->Text)); 
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N19Click(TObject *Sender)
-{
-Form4->Visible=true;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button4Click(TObject *Sender)
-{
-if(!testExtrapolateUnit()) ShowMessage("Не пройден тест по экстраполяции");
-if(!testCommonFunctions()) ShowMessage("Не пройден тест по общим функциям");
-TSignal inX;
-TSignal inY;
-inX.push_back(0);
-inY.push_back(1.92);
-	for (int i = 0; i < 3; ++i)
-	{
-		inX.push_back(inX.back()+0.02);
-        inY.push_back(inX.back()*inX.back());
+	// если в диалоге имя было выбрано
+	if (sg1->Execute()) {
+		mDebug->Lines->Add( sg1->FileName); // выводим его в мемо
 	}
-TSignal newX;
-newX.push_back(0);
-	for (int i = 0; i < 151; ++i)
+	else
 	{
-		newX.push_back(newX.back()+0.02);
+		return;
 	}
 
-TSignal outY;
+	standartName = sg1->FileName;     // запоминаем имя
 
-LagrangeExtrapolation(inX,inY,newX,outY);
+	for (int T=T1; T <= Tmax; T+=h)  // идем по температуре с заданным шагом
+	{
+		 eTemperature->Text=IntToStr(T);  // для красоты обновляем значение температуры
+		 bCalculateCarrierParams->Click(); // нажимаем кнопку рассчитать
 
-for (int i=0;i<inX.size();++i)
-{
-SeriesRes1->AddXY(inX[i],inY[i],"",clRed);
-}
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_params_"+Edit3->Text+".txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveFilmParams->Click(); // сохраняем параметры плёнки
 
-for (int i=0;i<newX.size();++i)
-{
-if(fabs(outY[i])<1000)
-SeriesRes2->AddXY(newX[i],outY[i],"",clGreen);
-}
-}
-//---------------------------------------------------------------------------
-
-void TForm1::getAndDisplayMultiCarrierFitResults(MagneticFieldDependence * p)
-{
-    int numberOfCarrierTypes=3;
-    InDataSpectr nMagSpectr;
-    InDataSpectr nGxxIn;
-    InDataSpectr nGxyIn;
-    // Сюда сохраняются выходные значения.
-    MyData_spektr outGxx;
-    MyData_spektr outGxy;
-    TStatistic outValues;
-
-    p->getMultiCarrierFitResults(nMagSpectr, nGxxIn, nGxyIn,
-    outGxx,  outGxy, outValues);
-
-    // Вывод результатов на графики и форму.
-    ChSxx_theor->Clear();
-    ChSxy_theor->Clear();
-    ChSxxExper->Clear();
-    ChSxyExper->Clear();
+         rbIdealTenzorPlot->Checked=true; // выбираем идеальный график тензоров
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_tenzor_ideal_vseZnachenia.txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика тензора
+		 fName="T_"+IntToStr(T)+"_tenzor_ideal_11Znacheniy.txt";
+		 sg1->FileName=standartName+fName;
+		 // сохраняем 11 точек идеального графика тензора
+		 bSaveElevenPoints->Click();
 
 
-    long double koefSxx=1, koefSxy=1;
+		 rbIdealUPlot->Checked=true; // выбираем идеальный график измеряемых сигналов
+		 // задаём имя файла
+		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_vseZnachenia.txt";
+		 sg1->FileName=standartName+fName;
+		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика сигналов
+		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_11Znacheniy.txt";
+		 sg1->FileName=standartName+fName;
+		 // сохраняем 11 точек идеального графика сигналов
+		 bSaveElevenPoints->Click();
+		 sg1->FileName=standartName;
+		 for (int i=koef; i <= endkoef; i+=h_koef) // после чего начинается игра с коэффициентами
+		 {
+			LabeledEdit1->Text=FloatToStr(mzr[i]);
+			//Edit5->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
+			//Edit6->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1])));
+			bGaussianNoiseGenerator->Click(); // генератор шума
+			//bFilteringPlots->Click(); // запускаем фильтрацию
 
-    if (CheckBox3->Checked) // относительный график?
-    {
-        koefSxx=max_elem(outGxx);
-        koefSxy=max_elem(outGxy);
-
-        if (max_elem(nGxxIn)>koefSxx)
-        {
-            koefSxx=max_elem(nGxxIn);
-        }
-        if (max_elem(nGxyIn)>koefSxy)
-        {
-            koefSxy=max_elem(nGxyIn);
-        }
-    }
-
-    for (int i = 0; i < outGxx.size(); ++i)
-    {
-        ChSxx_theor->AddXY(nMagSpectr[i],outGxx[i]/koefSxx,"",clRed);
-        ChSxy_theor->AddXY(nMagSpectr[i],outGxy[i]/koefSxy,"",clRed);
-    }
-
-    for (int i = 0; i < nMagSpectr.size(); ++i)
-    {
-        ChSxxExper->AddXY(nMagSpectr[i],nGxxIn[i]/koefSxx,"",clBlue);
-        ChSxyExper->AddXY(nMagSpectr[i],nGxyIn[i]/koefSxy,"",clBlue);
-    }
-
-    // Результаты идут в формате:
-    // По первому индексу:
-    // Подвижность электронов, подвижность легких дырок, подвижность тяжелых дырок
-    // Концентрация электронов, концентрация легких дырок, концентрация тяжелых дырок
-    // По второму индексу: минимальные, средние, СКО, СКО %
-
-    TStringList * tsl = new TStringList();
-
-    for (int j = 0; j < 4; ++j)
-    {
-
-        for(int i=0;i<2*numberOfCarrierTypes;++i)
-        {
-            tsl->Add(FloatToStr(outValues[i][j]));
-        }
-    }
-
-    tsl->SaveToFile(SaveDialog1->FileName+eBandWidthFRes->Text+eBandWidthFHall->Text+"MZFitRes.txt");
-
-    // min
-    for(int i=0;i<2*numberOfCarrierTypes;++i)
-    {
-
-        if(i<numberOfCarrierTypes)
-            FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffFixed,6,6);
-        else
-      FitResults->Cells[i+1][1]=FloatToStrF(outValues[i][0],ffExponent,5,2);
-    }
-    //ErrorLog->Lines->Add("middle");
-    for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-    {
-        if(i<numberOfCarrierTypes)
-            FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffFixed,6,6);
-        else
-       FitResults->Cells[i+1][2]=FloatToStrF(outValues[i][1],ffExponent,5,2);
-    }
-    //ErrorLog->Lines->Add("SKO");
-    for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-    {
-        if(i<numberOfCarrierTypes)
-            FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffFixed,6,6);
-        else
-       FitResults->Cells[i+1][3]=FloatToStrF(outValues[i][2],ffExponent,5,2);
-    }
-    //ErrorLog->Lines->Add("SKOPers");
-    for(int i=0;i<2*numberOfCarrierTypes+1;++i)
-    {
-        if(i<numberOfCarrierTypes)
-            FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffFixed,6,6);
-        else
-       FitResults->Cells[i+1][4]=FloatToStrF(outValues[i][3],ffExponent,5,2);
-    }
-    delete tsl;
-}
-
-void __fastcall TForm1::btnMultiCarrierFitClick(TObject *Sender)
-{
- MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-
-        StatusBar->Panels->Items[1]->Text="Идёт подгонка данных";
-
-        long double VesGxx=StrToFloat(LabeledEdit1->Text);
-        long double VesGxy=StrToFloat(LabeledEdit2->Text);
-
-        if(p->runMultiCarrierFit(VesGxx,VesGxy))
-        {
-            getAndDisplayMultiCarrierFitResults(p);
-        }
-    }
-     StatusBar->Panels->Items[1]->Text="Готова к работе.";
-     
-}
-//---------------------------------------------------------------------------
-
-
-void __fastcall TForm1::btnMobilitySpectrumClick(TObject *Sender)
-{
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-        p->calculateMobilitySpectrum();
-
-        TSignal ex(p->getMobility()->begin(),p->getMobility()->end());
-        TSignal eY(p->getElectronConductivity()->begin(),p->getElectronConductivity()->end());
-        TSignal hx(p->getMobility()->begin(),p->getMobility()->end());
-        TSignal hY(p->getHoleConductivity()->begin(),p->getHoleConductivity()->end());
-        if(p->getElectronConcentration()->size()>=1)
-        {
-        Form1->MobSpecResults->Cells[1][3]=FloatToStrF(p->getElectronConcentration()->operator[](0),ffExponent,5,2);
-        Form1->MobSpecResults->Cells[2][3]=FloatToStrF(p->getElectronMobility()->operator[](0),ffFixed,5,5);
-        }
-        if(p->getHoleConcentration()->size()>=1)
-        {
-        Form1->MobSpecResults->Cells[1][1]=FloatToStrF(p->getHoleConcentration()->operator[](0),ffExponent,5,2);
-        Form1->MobSpecResults->Cells[2][1]=FloatToStrF(p->getHoleMobility()->operator[](0),ffFixed,5,5);
-        }
-        if(p->getHoleConcentration()->size()>=2)
-        {
-        Form1->MobSpecResults->Cells[1][2]=FloatToStrF(p->getHoleConcentration()->operator[](1),ffExponent,5,2);
-        Form1->MobSpecResults->Cells[2][2]=FloatToStrF(p->getHoleMobility()->operator[](1),ffFixed,5,5);
-        }
-        Form1->ChspElecComponent->Clear();
-        Form1->ChSpHoleComponent->Clear();
-        Form1->Series4->Clear();
-
-      for(int i =0;i<ex.size();++i)
-      {
-      Form1->ChspElecComponent->AddXY(ex[i],eY[i],"",clBlue);
-      Form1->ChSpHoleComponent->AddXY(hx[i],hY[i],"",clRed);
-      }
-    } 
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N25Click(TObject *Sender)
-{
-bFilterRes->Click();
-calculateTenzor();
-btnMobilitySpectrum->Click();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N26Click(TObject *Sender)
-{
-N25->Click();
-btnMultiCarrierFit->Click();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::eMedianFilterSizeKeyPress(TObject *Sender,
-      char &Key)
-{
-    if(((int)Key<48 || (int)Key>57) && Key!=8)
-        Key=0;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::XMLsettingsBeforeOpen(TObject *Sender)
-{
- AnsiString FilePath=ExtractFilePath(Application->ExeName);
- XMLsettings->FileName=FilePath+"settings.xml";   
-}
-//---------------------------------------------------------------------------
-
-std::vector<std::string> getAllFileNamesWithinFolder(std::string folder)
-{
-    std::vector<std::string> names;
-    char search_path[200];
-    if (folder.length() <200)
-    {
-        sprintf(search_path, "%s/*.*", folder.c_str());
-        WIN32_FIND_DATA fd; 
-        HANDLE hFind = ::FindFirstFile(search_path, &fd); 
-        if(hFind != INVALID_HANDLE_VALUE) { 
-            do { 
-                // read all (real) files in current folder
-                // , delete '!' read other 2 default folder . and ..
-                if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
-                    names.push_back(fd.cFileName);
-                }
-            }while(::FindNextFile(hFind, &fd)); 
-            ::FindClose(hFind); 
-        } 
-        return names;
-    }
-    return names;
-}
-
-void filterFileNames(std::vector<std::string> & files, std::string rem)
-{
-    for (int i = 0; i < files.size(); ++i)
-    {
-        size_t n = files[i].find(rem);
-        if(n!= std::string::npos)
-            files[i]="";
-    }
-}
-
-void __fastcall TForm1::Button3Click(TObject *Sender)
-{
-/*
-Функция должна обеспечивать:
-1. Открытие файла.
-2. Фильтрацию, расчет тензоров, спектра и подгонки.
-3. Сохранение всех результатов.
-*/
-
-// открыть папку и обработать все файлы в ней
-if (OpenDialog1->Execute())
-{
-
-    std::string folder = ExtractFilePath(OpenDialog1->Files->Strings[0]).c_str();
-
-    std::vector<std::string> files=getAllFileNamesWithinFolder(folder);
-
-    // Нужно удалить из списка файлы, содержащие в имени "Description"
-
-    filterFileNames(files, "Description");
-
-    // предусмотреть объединение сигналов
-    // пока предполагаем что сигнал уже объединен - ведь на модели испытывать будем.
-
-    int temp=files.size();
-
-    for (int j = 0; j < files.size(); ++j) // По всем именам файлов
-    {
-        if (files[j]!="")
-        {
-        openFileWithSignal(files[j].c_str());
-
-
-        char folderPath[500];
-        if (files[j].length() <500)
-        {
-            sprintf(folderPath, "%s%s1", folder.c_str(), files[j].c_str());
-
-            if(CreateDirectory(folderPath,NULL)) // Создаём отдельную папку для сохранения данных по каждому файлу.
-            {
-                std::string name=folder+files[j]+"1\\1"; // Дабы сохранять в отдельную папку.
-                long double step=0.1;
-                for (long double BandWidthFHall=0.01, AttenuationFHall=0.1; BandWidthFHall < 10; BandWidthFHall+=step, AttenuationFHall+=step)
-                {
-                    if(step==0.1 && BandWidthFHall>1.0)
-                    {
-                        step=1.0;
-                    }
-                    eBandWidthFHall->Text=FloatToStr(BandWidthFHall);
-                    eAttenuationFHall->Text=FloatToStr(AttenuationFHall);
-
-                    AnsiString t=name.c_str()+FloatToStr(BandWidthFHall);
-                    //eLengthFilterRes->Text="300";
-                    long double step=0.1;
-                    for (long double BandWidthFRes=0.01, AttenuationFRes=0.1; BandWidthFRes < 10; BandWidthFRes+=step, AttenuationFRes+=step) // Это будет страшный цикл по разным параметрам фильтрации
-                    { // Но для начала буду менять только частоту среза
-                        if(step==0.1 && BandWidthFRes>1.0)
-                        {
-                            step=1.0;
-                        }
-                        AnsiString t2=t+FloatToStr(BandWidthFRes);
-                        SaveDialog1->FileName=t2;
-
-                        eBandWidthFRes->Text=FloatToStr(BandWidthFRes);
-                        eAttenuationFRes->Text=FloatToStr(AttenuationFRes);
-
-                        Application->ProcessMessages();
-
-                        if(CheckBox2->Checked==false)
-                        {
-                        N26->Click(); // Выполняет Фильтрацию, расчет тензоров, спектра и подгонки.
-                        }
-                        else
-                        {
-                        N25->Click();
-                        }
-
-                        if(params)
-                        {
-                            params->SaveAllData(SaveDialog1->FileName+"Com");
-                        }
-                        //N11->Click(); // Сохранить всё
-                    }
-
-                }
-
-            }
-            else
-                ShowMessage(IntToStr(GetLastError()));
-        }
-        }
-    }
-}
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::N21Click(TObject *Sender)
-{
-calculateTenzor();    
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::btnSaveCarrierParamsClick(TObject *Sender)
-{
-/*
-Что здесь должно сохраняться:
-1. Параметры носителей заряда.
-    минимальные
-    средние
-    СКО
-    СКО %
-2. Подогнанные компоненты тензора проводимости.
-*/
-;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm1::Button5Click(TObject *Sender)
-{
-    const TSignal * bv=(*ActiveParams())->getB();
-    const TSignal * hallv=(*ActiveParams())->getHallEffect();
-    const TSignal *mv=(*ActiveParams())->getMagnetoResistance();
-    std::vector<long double> b=*bv;
-    std::vector<long double> hall=*hallv;
-    std::vector<long double> m=*mv;
-    long double h = fabs(b[1]-b[0]);
-    TSignal d1hall, d1m;
-    TSignal d2hall, d2m;
-
-    d1hall=calculateFirstDerivative(hall,h);
-    d2m=calculateSecondDerivative(m,h);
-    d1m=calculateFirstDerivative(m,h);
-    d2hall=calculateSecondDerivative(hall,h);
-
-    TStringList * tsl=new TStringList();
-
-    for (int i = 0; i < d2hall.size(); ++i)
-    {
-        tsl->Add(FloatToStr(d1hall[i])+"\t"+FloatToStr(d2hall[i])+"\t"+FloatToStr(d1m[i])+"\t"+FloatToStr(d2m[i]));
-    }
-
-    tsl->SaveToFile("derivativeOfSignals.txt");   
-
-    delete tsl;
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::SmartCalcClick(TObject *Sender)
-{
-    
-    MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        p=*par;
-        smartCalculation sC(p);
-        sC.processData();
-        SaveDialog1->Title="Сохранить результаты адаптивного фильтра:";
-        if(SaveDialog1->Execute())
-        {
-            sC.saveResults(SaveDialog1->FileName.c_str());
-        }
-    }
-}
-//---------------------------------------------------------------------------
-
-
-void __fastcall TForm1::Button6Click(TObject *Sender)
-{
-   MagneticFieldDependence ** par=ActiveParams();
-    MagneticFieldDependence * p;
-    if (*par==NULL)
-    {
-        ShowMessage("Вероятно выбран не тот график.");
-        return;
-    }
-    else
-    {
-        long double VesGxx=StrToFloat(LabeledEdit1->Text);
-        long double VesGxy=StrToFloat(LabeledEdit2->Text);
-        p=*par;
-        p->runSmartCalcutation();
-        p->runSmartMultiCarrierFit(VesGxx,VesGxy);    
-        getAndDisplayMultiCarrierFitResults(p);
-    }
+			sg1->FileName=standartName;
+			rbNoisyU->Checked=true; // выбираем зашумленный график измеряемого сигнала
+			fName="Us_Uy_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			// надо сохранять зашумленные результаты
+			rbNoisyTenzor->Checked=true;
+			sg1->FileName=standartName;
+			fName="tenzor_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			// сохраняем результаты фильтрации (все точки)-------------------------
+			rbFilteredUPlot->Checked=true; // выбираем фильтрованный график
+			sg1->FileName=standartName;
+			fName="T_"+IntToStr(T)+"_Us_Uy_vseZnachenia_filtr_k_"+IntToStr(i)+".txt";
+			sg1->FileName=standartName+fName;
+			bSaveAllPoints->Click();
+			// сохранять 11 точек на данный момент смысла нет.
+			//---------------------------------------------------------------------
+			rbFilteredTenzor->Checked=true;// сохранять результаты фильтрованных тензоров
+			sg1->FileName=standartName;
+			fName="tenzor_filt_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+			rbExtrapolatedU->Checked=true;
+			sg1->FileName=standartName;
+			fName="Us_Uy_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+			rbExtrapolatedTenzor->Checked=true;
+			sg1->FileName=standartName;
+            fName="tenzor_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+			automaticCalculationHelper(fName);
+			//--------------------------------------------------------------------
+		 }
+	}
+	silentModeEnabled=false;
 }
 //---------------------------------------------------------------------------
 
