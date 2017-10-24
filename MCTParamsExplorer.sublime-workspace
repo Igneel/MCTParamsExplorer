@@ -519,6 +519,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
+			"settings":
+			{
+				"buffer_size": 485828,
+				"encoding": "UTF-16 LE with BOM",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -576,6 +585,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/MagneticFieldDependence.h",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/MagneticFieldDependence.cpp",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/multizoneFit.cpp",
@@ -702,8 +712,7 @@
 		"/G/Downloads/LesterHill_47664d4116c6a77c8b454fee657663f167afb903/create_picture.py",
 		"/G/Downloads/LesterHill_47664d4116c6a77c8b454fee657663f167afb903/encryption.py",
 		"/G/EmptySpaces_8577786656ae4b091511e9caf4fe44e747726e5f.txt",
-		"/G/Downloads/licensekey_00defe1c12027e109e324f073624fc6a609ae35f/classes.dex",
-		"/G/Downloads/RE_452b491806583cc1e3e8df45b7ce9083d1f09a52/task_RE.pyc"
+		"/G/Downloads/licensekey_00defe1c12027e109e324f073624fc6a609ae35f/classes.dex"
 	],
 	"find":
 	{
@@ -995,8 +1004,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 485828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 945.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
