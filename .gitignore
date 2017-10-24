@@ -6,14 +6,12 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-
 # Compiled Static libraries
 *.lai
 *.la
 *.a
-
 *.il*
-*.pch
+*.~*
 *.obj
 *.tds
-*.~*~
+/Lusbapi.dll

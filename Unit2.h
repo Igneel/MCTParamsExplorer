@@ -3,29 +3,55 @@
 #ifndef Unit2H
 #define Unit2H
 //---------------------------------------------------------------------------
-#include <System.Classes.hpp>
-#include <Vcl.Controls.hpp>
-#include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
-#include <VCLTee.Chart.hpp>
-#include <VCLTee.Series.hpp>
-#include <VCLTee.TeEngine.hpp>
-#include <VCLTee.TeeProcs.hpp>
-#include <Vcl.ExtCtrls.hpp>
-#include <VclTee.TeeGDIPlus.hpp>
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include <Dialogs.hpp>
+#include <ExtCtrls.hpp>
+
+#include <math.h>
+#include <time.h>
+#include <inifiles.hpp>
+
 //---------------------------------------------------------------------------
-class TForm2 : public TForm
+class TSaveForm : public TForm
 {
 __published:	// IDE-managed Components
-	TChart *Chart1;
-	TLineSeries *Series1;
-	TButton *Button1;
-	void __fastcall Button1Click(TObject *Sender);
+    TSaveDialog *SaveDialog1;
+    TButton *SaveBut;
+    TRadioGroup *Prepare;
+    TRadioGroup *Results;
+    TRadioGroup *SaveMode;
+    TEdit *Edit1;
+    TMemo *Memo1;
+    TLabel *Label1;
+        TComboBox *ComboBox1;
+        TLabel *Label2;
+        TMemo *Memo2;
+        TListBox *LB1;
+        TMemo *Memo3;
+        TLabel *Label3;
+        TButton *Button1;
+        TComboBox *PresetPoints;
+        TButton *Button2;
+    void __fastcall SaveModeClick(TObject *Sender);
+    void __fastcall SaveButClick(TObject *Sender);
+    void __fastcall Edit1KeyPress(TObject *Sender, char &Key);
+        void __fastcall FormCreate(TObject *Sender);
+        void __fastcall ComboBox1Change(TObject *Sender);
+        void __fastcall ResultsClick(TObject *Sender);
+        void __fastcall Button1Click(TObject *Sender);
+        void __fastcall PresetPointsChange(TObject *Sender);
+        void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+        void __fastcall Button2Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
-	__fastcall TForm2(TComponent* Owner);
+    __fastcall TSaveForm(TComponent* Owner);
+    
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm2 *Form2;
+extern PACKAGE TSaveForm *SaveForm;
+extern int AllSeries[26];
 //---------------------------------------------------------------------------
 #endif
