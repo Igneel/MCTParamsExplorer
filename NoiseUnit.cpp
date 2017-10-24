@@ -5,6 +5,8 @@
 
 #include "NoiseUnit.h"
 
+
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 // сохранение результатов без шума
@@ -170,7 +172,7 @@ void QuantumNoiseGenerator(long double * buf,long double mzr, int amplitude, int
 }
 void SignalQuantifier(std::vector<long double> & signal,long double mzr,int n)
 {
-     for (int i = 0; i < n; ++i) {
+	 for (int i = 0; i < n; ++i) {
 		int temp=floor(signal[i]/mzr+0.5);
 		signal[i]=temp*mzr;
 	}
@@ -185,7 +187,8 @@ void SignalQuantifier(long double * signal,long double mzr,int n)
 }
 
 void QuantumShumAdding(std::vector<long double> const &x,std::vector<long double> &out,
-	std::vector<long double> &ret, long double koeff,const int l,long double mzr, int amplitude)
+	std::vector<long double> &ret, long double koeff,const int l,long double mzr,
+	int amplitude)
 {
 std::vector<long double> y;
 y.resize(l);

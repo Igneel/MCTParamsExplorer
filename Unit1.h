@@ -145,6 +145,8 @@ __published:	// IDE-managed Components
 	TEdit *Edit8;
 	TLabel *Label13;
 	TButton *Button1;
+	TRadioButton *RadioButton3;
+	TLabeledEdit *editNumberNoises;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall bCalculateCarrierParamsClick(TObject *Sender);
 	void __fastcall bGaussianNoiseGeneratorClick(TObject *Sender);

@@ -5,7 +5,7 @@
 
 #include <vcl.h>
 #include <vector>
-#include <math.h>
+#include <cmath>
 long double Mo (const long double *x,int l);
 long double Mo (std::vector<long double> const &x,int l);
 long double Sko (const long double *x0,const long double *x,int l);

@@ -4,6 +4,8 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include <System.IOUtils.hpp>
+#include <System.SysUtils.hpp>
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -82,7 +84,7 @@ if (!TrForMassiveFilter) {
 
  */
 
-
+srand(time(NULL));
 
 g_Nz_par->Cells[0][1]="электроны";
 g_Nz_par->Cells[0][2]="легкие дырки";
@@ -183,25 +185,49 @@ void __fastcall TForm1::bGaussianNoiseGeneratorClick(TObject *Sender)
 	Выводится на экран.
 	*/
 	//--------------------Классы----------------------------------------------------
-	Edit5->Text=FloatToStr(100.0/(long double)(StrToInt(Edit6->Text)*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
+	Edit5->Text=FloatToStr(100.0/(long double)(StrToFloat(Edit6->Text)*
+		fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
 
-	srand(time(NULL));
+
 
 	std::vector<long double> vz; // М СКО и СКО в %
 	//long double vz[6]={0};  // М СКО и СКО в %
 	if(ParamsWithNoise!=0)
 		delete ParamsWithNoise;
 	ParamsWithNoise= new clMagneticFieldDependences(NumberOfPoints,h,IdealParams->carrierParams);
-	if(RadioButton1->Checked)
+	if(RadioButton1->Checked)      // нормальный шум
 	{
 	ParamsWithNoise->modifySignals(ShumAdding,IdealParams->getSignalUs(),
 	IdealParams->getSignalUy(),vz,Edit5->Text.ToDouble());
 	}
-	else
+	if(RadioButton2->Checked)  // дискретный шум
 	{
-		 ParamsWithNoise->modifySignals(QuantumShumAdding,IdealParams->getSignalB(), IdealParams->getSignalUs(),IdealParams->getSignalUy(),
+		 ParamsWithNoise->modifySignals(QuantumShumAdding,IdealParams->getSignalB(),
+		 IdealParams->getSignalUs(),IdealParams->getSignalUy(),
 		 vz,Edit5->Text.ToDouble(),LabeledEdit1->Text.ToDouble(),LabeledEdit2->Text.ToInt());
-    }
+	}
+	if(RadioButton3->Checked) // оба
+	{
+		ParamsWithNoise->modifySignals(ShumAdding,IdealParams->getSignalUs(),
+		IdealParams->getSignalUy(),vz,Edit5->Text.ToDouble());
+		std::vector<long double> *B= new std::vector<long double>;
+		std::vector<long double> *Us=new std::vector<long double>;
+		std::vector<long double> *Uy =new std::vector<long double>;
+		for(int i=0;i<ParamsWithNoise->getSignalB().size();++i)
+		{
+			B->push_back(ParamsWithNoise->getSignalB()[i]);
+			Us->push_back(ParamsWithNoise->getSignalUs()[i]);
+			Uy->push_back(ParamsWithNoise->getSignalUy()[i]);
+		}
+			ParamsWithNoise->modifySignals(QuantumShumAdding,*B,
+			*Us,*Uy,
+			 vz,Edit5->Text.ToDouble(),LabeledEdit1->Text.ToDouble(),LabeledEdit2->Text.ToInt());
+
+
+		delete B;
+		delete Us;
+		delete Uy;
+	}
 
 
 	mDebug->Lines->Add(FloatToStr(vz[0]));
@@ -345,10 +371,10 @@ void MyReplaceStr(UnicodeString * out,UnicodeString * in, UnicodeString * findSt
 void TForm1::automaticCalculationHelper(UnicodeString SaveFileName)
 {
 	/*
-
 	В SaveFileName нужно передавать _Us_Uy_vseZnachenia_k_"+IntToStr(i) и т.п.
-
 	*/
+
+ 	Application->ProcessMessages();
 
 	long double sko_xx=StrToFloat(Edit3->Text);
 	if(isRoundNeeded)
@@ -359,20 +385,20 @@ void TForm1::automaticCalculationHelper(UnicodeString SaveFileName)
 	UnicodeString standartName; // эталонное имя файла
 	standartName = sg1->FileName;     // запоминаем имя
 	sg1->FileName=standartName+"T_"+eTemperature->Text+"_"+
-		SaveFileName+"_sko_p_xx"+FloatToStr(sko_xx)+ "_sko_p_xy"+FloatToStr(sko_xy)+".txt";
-
+		SaveFileName+"_sko_p_xx"+Sysutils::FloatToStrF(sko_xx,ffFixed,5,3)+
+			 "_sko_p_xy"+Sysutils::FloatToStrF(sko_xy,ffFixed,5,3)+".txt";
 
 	bSaveAllPoints->Click();
 
 	unsigned int findIndex=0;
 	std::wstring s=sg1->FileName.w_str();
-	std::wstring strToReplaceWhich=L"11Znacheniy"; // на что меняем
-	std::wstring strToSearch=L"vseZnachenia";   // что ищем
+	std::wstring strToReplaceWhich=L"11"; // на что меняем
+	std::wstring strToSearch=L"vse";   // что ищем
 	findIndex=s.find(strToSearch,strToSearch.length());
 	s.replace(s.begin()+findIndex,s.begin()+findIndex+strToSearch.length(),strToReplaceWhich.begin(),strToReplaceWhich.end());
 
 	sg1->FileName=s.c_str();
-    bSaveElevenPoints->Click();
+    //bSaveElevenPoints->Click();
 
 	sg1->FileName=standartName;
 }
@@ -407,7 +433,7 @@ void __fastcall TForm1::bAutomaticCalculationClick(TObject *Sender)
 	int Tmax=Edit8->Text.ToInt(); // конечная температура
 
 	int koef=1;// начальный коэффициент шума
-	int endkoef=5;  // конечный коэффициент
+	int endkoef=1;  // конечный коэффициент
 
 	int h_koef=4; // шаг по уровню шума
 	//eFilterLength->Text=IntToStr(150); // задаём длину фильтра, внимание - это для симметричного графика!
@@ -415,92 +441,116 @@ void __fastcall TForm1::bAutomaticCalculationClick(TObject *Sender)
 
 	UnicodeString standartName; // эталонное имя файла
 	UnicodeString fName;   // новое имя файла
+	UnicodeString path;
+	UnicodeString file;
+
+	file = ExtractFileName(standartName);
+
+	UnicodeString signalsFolder="signals\\";
+	UnicodeString tenzorsFolder="tenzors\\";
 
 	// если в диалоге имя было выбрано
 	if (sg1->Execute()) {
-		mDebug->Lines->Add( sg1->FileName); // выводим его в мемо
+		mDebug->Lines->Add(sg1->FileName); // выводим его в мемо
+
+		standartName = sg1->FileName;     // запоминаем имя
+
+		UnicodeString path = ExtractFilePath(standartName);
+
+
+		CreateDir(path+signalsFolder);
+		CreateDir(path+tenzorsFolder);
+
+		for (int T=T1; T <= Tmax; T+=h)  // идем по температуре с заданным шагом
+		{
+			 eTemperature->Text=IntToStr(T);  // для красоты обновляем значение температуры
+			 bCalculateCarrierParams->Click(); // нажимаем кнопку рассчитать
+
+			 // задаём имя файла
+			 fName="T_"+IntToStr(T)+"_params_"+Edit3->Text+".txt";
+			 sg1->FileName=standartName+fName;
+			 bSaveFilmParams->Click(); // сохраняем параметры плёнки
+
+			 rbIdealTenzorPlot->Checked=true; // выбираем идеальный график тензоров
+			 // задаём имя файла
+			 fName="T_"+IntToStr(T)+"_tenzor_ideal_vseZnachenia.txt";
+			 sg1->FileName=standartName+fName;
+			 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика тензора
+			 fName="T_"+IntToStr(T)+"_tenzor_ideal_11Znacheniy.txt";
+			 sg1->FileName=standartName+fName;
+			 // сохраняем 11 точек идеального графика тензора
+			 bSaveElevenPoints->Click();
+
+			 rbIdealUPlot->Checked=true; // выбираем идеальный график измеряемых сигналов
+			 // задаём имя файла
+			 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_vseZnachenia.txt";
+			 sg1->FileName=standartName+fName;
+			 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика сигналов
+			 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_11Znacheniy.txt";
+			 sg1->FileName=standartName+fName;
+			 // сохраняем 11 точек идеального графика сигналов
+			 bSaveElevenPoints->Click();
+			 //sg1->FileName=standartName;
+
+			 int numberOfNoises=editNumberNoises->Text.ToInt();
+
+			 for (int noise=0; noise < numberOfNoises; noise++) {
+			 sg1->FileName=standartName+IntToStr(noise);
+
+			 for (int i=koef; i <= endkoef; i+=h_koef) // после чего начинается игра с коэффициентами
+			 {
+				Edit5->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
+				Edit6->Text=IntToStr(i);
+				bGaussianNoiseGenerator->Click(); // генератор шума
+
+				sg1->FileName=path+signalsFolder+file+IntToStr(noise);
+				rbNoisyU->Checked=true; // выбираем зашумленный график измеряемого сигнала
+
+				fName="Us_Uy_vse_k_"+IntToStr(i);
+				automaticCalculationHelper(fName);
+				// надо сохранять зашумленные результаты
+				rbNoisyTenzor->Checked=true;
+				sg1->FileName=path+tenzorsFolder+file+IntToStr(noise);
+				fName="tenzor_vse_k_"+IntToStr(i);
+				automaticCalculationHelper(fName);
+
+				/*
+				//bFilteringPlots->Click(); // запускаем фильтрацию
+				// сохраняем результаты фильтрации (все точки)-------------------------
+				rbFilteredUPlot->Checked=true; // выбираем фильтрованный график
+				sg1->FileName=standartName;
+				fName="T_"+IntToStr(T)+"_Us_Uy_vseZnachenia_filtr_k_"+IntToStr(i)+".txt";
+				sg1->FileName=standartName+fName;
+				bSaveAllPoints->Click();
+				// сохранять 11 точек на данный момент смысла нет.
+				//---------------------------------------------------------------------
+				rbFilteredTenzor->Checked=true;// сохранять результаты фильтрованных тензоров
+				sg1->FileName=standartName;
+				fName="tenzor_filt_vseZnachenia_k_"+IntToStr(i);
+				automaticCalculationHelper(fName);
+				//--------------------------------------------------------------------
+				rbExtrapolatedU->Checked=true;
+				sg1->FileName=standartName;
+				fName="Us_Uy_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+				automaticCalculationHelper(fName);
+				//--------------------------------------------------------------------
+				rbExtrapolatedTenzor->Checked=true;
+				sg1->FileName=standartName;
+				fName="tenzor_Extrapolated_vseZnachenia_k_"+IntToStr(i);
+				automaticCalculationHelper(fName);
+				//--------------------------------------------------------------------
+				*/
+			 }
+			 }
+		}
+
 	}
 	else
 	{
 		return;
 	}
 
-	standartName = sg1->FileName;     // запоминаем имя
 
-	for (int T=T1; T <= Tmax; T+=h)  // идем по температуре с заданным шагом
-	{
-		 eTemperature->Text=IntToStr(T);  // для красоты обновляем значение температуры
-		 bCalculateCarrierParams->Click(); // нажимаем кнопку рассчитать
-
-		 // задаём имя файла
-		 fName="T_"+IntToStr(T)+"_params_"+Edit3->Text+".txt";
-		 sg1->FileName=standartName+fName;
-		 bSaveFilmParams->Click(); // сохраняем параметры плёнки
-
-         rbIdealTenzorPlot->Checked=true; // выбираем идеальный график тензоров
-		 // задаём имя файла
-		 fName="T_"+IntToStr(T)+"_tenzor_ideal_vseZnachenia.txt";
-		 sg1->FileName=standartName+fName;
-		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика тензора
-		 fName="T_"+IntToStr(T)+"_tenzor_ideal_11Znacheniy.txt";
-		 sg1->FileName=standartName+fName;
-		 // сохраняем 11 точек идеального графика тензора
-		 bSaveElevenPoints->Click();
-
-
-		 rbIdealUPlot->Checked=true; // выбираем идеальный график измеряемых сигналов
-		 // задаём имя файла
-		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_vseZnachenia.txt";
-		 sg1->FileName=standartName+fName;
-		 bSaveAllPoints->Click();     	 // сохраняем все точки идеального графика сигналов
-		 fName="T_"+IntToStr(T)+"_Us_Uy_ideal_11Znacheniy.txt";
-		 sg1->FileName=standartName+fName;
-		 // сохраняем 11 точек идеального графика сигналов
-		 bSaveElevenPoints->Click();
-		 sg1->FileName=standartName;
-		 for (int i=koef; i <= endkoef; i+=h_koef) // после чего начинается игра с коэффициентами
-		 {
-			Edit5->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1]))); // задаем коэффициенты
-			Edit6->Text=FloatToStr(100.0/(long double)(i*fabs(IdealParams->getSignalUy()[NumberOfPoints-1])));
-			bGaussianNoiseGenerator->Click(); // генератор шума
-			bFilteringPlots->Click(); // запускаем фильтрацию
-
-			sg1->FileName=standartName;
-			rbNoisyU->Checked=true; // выбираем зашумленный график измеряемого сигнала
-			fName="Us_Uy_vseZnachenia_k_"+IntToStr(i);
-			automaticCalculationHelper(fName);
-			// надо сохранять зашумленные результаты
-			rbNoisyTenzor->Checked=true;
-			sg1->FileName=standartName;
-			fName="tenzor_vseZnachenia_k_"+IntToStr(i);
-			automaticCalculationHelper(fName);
-			/*
-			// сохраняем результаты фильтрации (все точки)-------------------------
-			rbFilteredUPlot->Checked=true; // выбираем фильтрованный график
-			sg1->FileName=standartName;
-			fName="T_"+IntToStr(T)+"_Us_Uy_vseZnachenia_filtr_k_"+IntToStr(i)+".txt";
-			sg1->FileName=standartName+fName;
-			bSaveAllPoints->Click();
-			// сохранять 11 точек на данный момент смысла нет.
-			//---------------------------------------------------------------------
-			rbFilteredTenzor->Checked=true;// сохранять результаты фильтрованных тензоров
-			sg1->FileName=standartName;
-			fName="tenzor_filt_vseZnachenia_k_"+IntToStr(i);
-			automaticCalculationHelper(fName);
-			//--------------------------------------------------------------------
-			rbExtrapolatedU->Checked=true;
-			sg1->FileName=standartName;
-			fName="Us_Uy_Extrapolated_vseZnachenia_k_"+IntToStr(i);
-			automaticCalculationHelper(fName);
-			//--------------------------------------------------------------------
-			rbExtrapolatedTenzor->Checked=true;
-			sg1->FileName=standartName;
-            fName="tenzor_Extrapolated_vseZnachenia_k_"+IntToStr(i);
-			automaticCalculationHelper(fName);
-			//--------------------------------------------------------------------
-			*/
-		 }
-	}
 	silentModeEnabled=false;
 }
 //---------------------------------------------------------------------------
@@ -1028,4 +1078,5 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 	silentModeEnabled=false;
 }
 //---------------------------------------------------------------------------
+
 

@@ -2,8 +2,8 @@
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 792
-  ClientWidth = 1076
+  ClientHeight = 599
+  ClientWidth = 883
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -32,93 +32,93 @@
         Caption = #1064#1072#1075' '#1087#1086' '#1084#1072#1075#1085#1080#1090#1085#1086#1084#1091' '#1087#1086#1083#1102':'
       end
       object Label8: TLabel
-        Left = 496
-        Top = 515
+        Left = 409
+        Top = 385
         Width = 82
         Height = 13
         Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090#1099':'
       end
       object Label9: TLabel
-        Left = 469
-        Top = 528
-        Width = 21
+        Left = 353
+        Top = 399
+        Width = 50
         Height = 13
-        Caption = 'sxx:'
+        Caption = #1048#1090#1086#1075#1086#1074#1099#1081
       end
       object Label10: TLabel
-        Left = 469
-        Top = 559
-        Width = 21
+        Left = 329
+        Top = 431
+        Width = 74
         Height = 13
-        Caption = 'sxy:'
+        Caption = #1055#1088#1086#1094#1077#1085#1090' '#1086#1090' Uy'
       end
       object Label2: TLabel
-        Left = 752
-        Top = 512
+        Left = 561
+        Top = 379
         Width = 26
         Height = 13
         Caption = #1057#1050#1054':'
       end
       object Label4: TLabel
-        Left = 729
-        Top = 530
+        Left = 538
+        Top = 397
         Width = 21
         Height = 13
         Caption = 'sxx:'
       end
       object Label7: TLabel
-        Left = 729
-        Top = 561
+        Left = 538
+        Top = 428
         Width = 21
         Height = 13
         Caption = 'sxy:'
       end
       object Label3: TLabel
-        Left = 830
-        Top = 515
+        Left = 639
+        Top = 382
         Width = 215
         Height = 13
         Caption = #1057#1050#1054'(%) '#1089#1095#1080#1090#1072#1077#1090#1089#1103' '#1086#1090' '#1089#1088#1077#1076#1085#1077#1075#1086' '#1079#1085#1072#1095#1077#1085#1080#1103':'
       end
       object Label5: TLabel
-        Left = 897
-        Top = 530
+        Left = 706
+        Top = 397
         Width = 21
         Height = 13
         Caption = 'sxx:'
       end
       object Label6: TLabel
-        Left = 897
-        Top = 561
+        Left = 706
+        Top = 428
         Width = 21
         Height = 13
         Caption = 'sxy:'
       end
       object Label11: TLabel
         Left = 213
-        Top = 453
+        Top = 364
         Width = 49
         Height = 13
         Caption = #1064#1072#1075' '#1087#1086' T:'
       end
       object Label12: TLabel
         Left = 213
-        Top = 377
+        Top = 304
         Width = 83
         Height = 13
         Caption = #1044#1083#1080#1085#1072' '#1092#1080#1083#1100#1090#1088#1072':'
       end
       object Label13: TLabel
-        Left = 16
-        Top = 680
+        Left = 7
+        Top = 529
         Width = 184
         Height = 13
         Caption = #1053#1072#1095#1072#1083#1100#1085#1072#1103' '#1080' '#1082#1086#1085#1077#1095#1085#1072#1103' '#1058#1077#1084#1087#1077#1088#1072#1090#1091#1088#1072
       end
       object eKFactor: TLabeledEdit
-        Left = 288
-        Top = 561
-        Width = 121
+        Left = 237
+        Top = 439
+        Width = 65
         Height = 21
         EditLabel.Width = 52
         EditLabel.Height = 13
@@ -128,8 +128,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eHeavyHoleConcentration: TLabeledEdit
-        Left = 289
-        Top = 601
+        Left = 237
+        Top = 474
         Width = 121
         Height = 21
         EditLabel.Width = 162
@@ -140,8 +140,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eAFactor: TLabeledEdit
-        Left = 152
-        Top = 641
+        Left = 106
+        Top = 510
         Width = 121
         Height = 21
         EditLabel.Width = 35
@@ -152,8 +152,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eSampleThickness: TLabeledEdit
-        Left = 16
-        Top = 561
+        Left = 7
+        Top = 438
         Width = 97
         Height = 21
         EditLabel.Width = 93
@@ -164,8 +164,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eCurrentIntensity: TLabeledEdit
-        Left = 16
-        Top = 641
+        Left = 7
+        Top = 510
         Width = 97
         Height = 21
         EditLabel.Width = 74
@@ -176,8 +176,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eTemperature: TLabeledEdit
-        Left = 152
-        Top = 597
+        Left = 106
+        Top = 473
         Width = 121
         Height = 21
         EditLabel.Width = 88
@@ -188,8 +188,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eMolarCompositionCadmium: TLabeledEdit
-        Left = 152
-        Top = 561
+        Left = 106
+        Top = 438
         Width = 121
         Height = 21
         EditLabel.Width = 127
@@ -200,8 +200,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object eCBRatio: TLabeledEdit
-        Left = 16
-        Top = 601
+        Left = 7
+        Top = 473
         Width = 97
         Height = 21
         EditLabel.Width = 15
@@ -212,8 +212,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object bWhiteNoiseGenerator: TButton
-        Left = 15
-        Top = 272
+        Left = 16
+        Top = 242
         Width = 133
         Height = 25
         Caption = #1043#1077#1085#1077#1088#1072#1090#1086#1088' '#1073#1077#1083#1086#1075#1086' '#1096#1091#1084#1072
@@ -221,8 +221,8 @@
         OnClick = bWhiteNoiseGeneratorClick
       end
       object bGaussianNoiseGenerator: TButton
-        Left = 16
-        Top = 242
+        Left = 17
+        Top = 216
         Width = 132
         Height = 25
         Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1096#1091#1084' '#1074' '#1089#1080#1075#1085#1072#1083
@@ -231,8 +231,8 @@
         OnClick = bGaussianNoiseGeneratorClick
       end
       object bCalculateCarrierParams: TButton
-        Left = 16
-        Top = 211
+        Left = 17
+        Top = 191
         Width = 75
         Height = 25
         Caption = #1056#1072#1089#1089#1095#1080#1090#1072#1090#1100
@@ -240,10 +240,10 @@
         OnClick = bCalculateCarrierParamsClick
       end
       object mDebug: TMemo
-        Left = 836
-        Top = 597
-        Width = 209
-        Height = 139
+        Left = 694
+        Top = 455
+        Width = 160
+        Height = 87
         TabOrder = 11
       end
       object BuildingPlots: TButton
@@ -258,7 +258,7 @@
       end
       object g_Nz_par: TStringGrid
         Left = 16
-        Top = 59
+        Top = 48
         Width = 282
         Height = 137
         ColCount = 3
@@ -285,13 +285,13 @@
         Width = 121
         Height = 21
         TabOrder = 14
-        Text = '0,01'
+        Text = '0,001'
       end
       object Chart1: TChart
         Left = 304
         Top = 3
-        Width = 335
-        Height = 250
+        Width = 257
+        Height = 182
         Legend.Visible = False
         Title.Text.Strings = (
           'xx')
@@ -321,9 +321,9 @@
       end
       object Chart2: TChart
         Left = 304
-        Top = 259
-        Width = 335
-        Height = 250
+        Top = 189
+        Width = 257
+        Height = 193
         Legend.Visible = False
         Title.Text.Strings = (
           'xy')
@@ -352,10 +352,10 @@
         end
       end
       object Chart4: TChart
-        Left = 645
-        Top = 259
-        Width = 400
-        Height = 250
+        Left = 567
+        Top = 189
+        Width = 282
+        Height = 193
         Legend.Visible = False
         Title.Text.Strings = (
           'xy')
@@ -421,10 +421,10 @@
         end
       end
       object Chart3: TChart
-        Left = 645
+        Left = 567
         Top = 3
-        Width = 400
-        Height = 250
+        Width = 282
+        Height = 182
         Legend.Visible = False
         Title.Text.Strings = (
           'xx')
@@ -477,8 +477,8 @@
         end
       end
       object bSaveAllPoints: TButton
-        Left = 154
-        Top = 211
+        Left = 155
+        Top = 191
         Width = 133
         Height = 25
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074#1089#1077' '#1090#1086#1095#1082#1080
@@ -486,8 +486,8 @@
         OnClick = bSaveAllPointsClick
       end
       object Edit5: TEdit
-        Left = 496
-        Top = 525
+        Left = 409
+        Top = 395
         Width = 121
         Height = 21
         TabOrder = 20
@@ -495,8 +495,8 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object Edit6: TEdit
-        Left = 496
-        Top = 561
+        Left = 409
+        Top = 431
         Width = 121
         Height = 21
         TabOrder = 21
@@ -504,36 +504,36 @@
         OnKeyPress = g_Nz_parKeyPress
       end
       object Edit1: TEdit
-        Left = 752
-        Top = 531
+        Left = 561
+        Top = 398
         Width = 121
         Height = 21
         TabOrder = 22
       end
       object Edit2: TEdit
-        Left = 752
-        Top = 558
+        Left = 561
+        Top = 425
         Width = 121
         Height = 21
         TabOrder = 23
       end
       object Edit4: TEdit
-        Left = 924
-        Top = 561
+        Left = 733
+        Top = 428
         Width = 121
         Height = 21
         TabOrder = 24
       end
       object Edit3: TEdit
-        Left = 924
-        Top = 534
+        Left = 733
+        Top = 401
         Width = 121
         Height = 21
         TabOrder = 25
       end
       object bAutomaticCalculation: TButton
         Left = 213
-        Top = 422
+        Top = 340
         Width = 74
         Height = 25
         Caption = #1056#1072#1089#1095#1077#1090
@@ -542,7 +542,7 @@
       end
       object eStepByTemperature: TEdit
         Left = 212
-        Top = 472
+        Top = 377
         Width = 75
         Height = 21
         TabOrder = 27
@@ -550,7 +550,7 @@
       end
       object bFilteringPlots: TButton
         Left = 213
-        Top = 346
+        Top = 282
         Width = 75
         Height = 25
         Caption = #1060#1080#1083#1100#1090#1088
@@ -559,8 +559,8 @@
         OnClick = bFilteringPlotsClick
       end
       object bSaveElevenPoints: TButton
-        Left = 154
-        Top = 242
+        Left = 155
+        Top = 214
         Width = 133
         Height = 24
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' 11 '#1090#1086#1095#1077#1082
@@ -569,14 +569,14 @@
       end
       object gbSavingPlot: TGroupBox
         Left = 15
-        Top = 315
+        Top = 267
         Width = 185
-        Height = 199
+        Height = 155
         Caption = #1057#1086#1093#1088#1072#1085#1103#1077#1084#1099#1081' '#1075#1088#1072#1092#1080#1082':'
         TabOrder = 30
         object rbFilteredUPlot: TRadioButton
           Left = 16
-          Top = 109
+          Top = 90
           Width = 137
           Height = 17
           Caption = #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081' '#1089#1080#1075#1085#1072#1083
@@ -586,7 +586,7 @@
           Left = 16
           Top = 22
           Width = 113
-          Height = 17
+          Height = 12
           Caption = #1063#1080#1089#1090#1099#1081' '#1089#1080#1075#1085#1072#1083
           Checked = True
           TabOrder = 1
@@ -596,29 +596,29 @@
           Left = 16
           Top = 45
           Width = 113
-          Height = 17
+          Height = 11
           Caption = #1063#1080#1089#1090#1099#1081' '#1090#1077#1085#1079#1086#1088
           TabOrder = 2
         end
         object rbFilteredTenzor: TRadioButton
-          Left = 16
-          Top = 132
+          Left = 15
+          Top = 106
           Width = 137
           Height = 17
           Caption = #1060#1080#1083#1100#1090#1088#1086#1074#1072#1085#1085#1099#1081' '#1090#1077#1085#1079#1086#1088
           TabOrder = 3
         end
         object rbExtrapolatedU: TRadioButton
-          Left = 16
-          Top = 153
+          Left = 15
+          Top = 121
           Width = 169
           Height = 17
           Caption = #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081' '#1089#1080#1075#1085#1072#1083
           TabOrder = 4
         end
         object rbExtrapolatedTenzor: TRadioButton
-          Left = 16
-          Top = 176
+          Left = 15
+          Top = 136
           Width = 169
           Height = 17
           Caption = #1069#1082#1089#1090#1088#1072#1087#1086#1083#1080#1088#1086#1074#1072#1085#1085#1099#1081' '#1090#1077#1085#1079#1086#1088
@@ -626,15 +626,15 @@
         end
         object rbNoisyU: TRadioButton
           Left = 16
-          Top = 68
-          Width = 169
-          Height = 17
+          Top = 61
+          Width = 164
+          Height = 11
           Caption = #1047#1072#1096#1091#1084#1083#1077#1085#1085#1099#1081' '#1089#1080#1075#1085#1072#1083
           TabOrder = 6
         end
         object rbNoisyTenzor: TRadioButton
           Left = 16
-          Top = 91
+          Top = 73
           Width = 169
           Height = 17
           Caption = #1047#1072#1096#1091#1084#1083#1077#1085#1085#1099#1081' '#1090#1077#1085#1079#1086#1088
@@ -643,7 +643,7 @@
       end
       object bLoadingPlots: TButton
         Left = 213
-        Top = 315
+        Top = 259
         Width = 75
         Height = 25
         Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100
@@ -652,15 +652,15 @@
       end
       object eFilterLength: TEdit
         Left = 213
-        Top = 395
+        Top = 318
         Width = 75
         Height = 21
         TabOrder = 32
         Text = '25'
       end
       object bSaveFilmParams: TButton
-        Left = 154
-        Top = 272
+        Left = 155
+        Top = 236
         Width = 133
         Height = 25
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1087#1072#1088#1072#1084#1077#1090#1088#1099
@@ -677,10 +677,10 @@
         OnClick = bTestingSomethingClick
       end
       object gbExtrapolatingMode: TGroupBox
-        Left = 632
-        Top = 597
-        Width = 185
-        Height = 105
+        Left = 538
+        Top = 452
+        Width = 150
+        Height = 94
         Caption = 'gbExtrapolatingMode'
         TabOrder = 35
         object rbFilteredOnly: TRadioButton
@@ -703,10 +703,10 @@
         end
       end
       object GroupBox1: TGroupBox
-        Left = 279
-        Top = 628
-        Width = 139
-        Height = 93
+        Left = 232
+        Top = 495
+        Width = 132
+        Height = 77
         Caption = #1042#1080#1076' '#1076#1086#1073#1072#1074#1083#1103#1077#1084#1086#1075#1086' '#1096#1091#1084#1072
         TabOrder = 36
         object RadioButton1: TRadioButton
@@ -719,18 +719,26 @@
         end
         object RadioButton2: TRadioButton
           Left = 16
-          Top = 48
+          Top = 40
           Width = 113
           Height = 17
           Caption = #1044#1080#1089#1082#1088#1077#1090#1085#1099#1081' '#1096#1091#1084
-          Checked = True
           TabOrder = 1
+        end
+        object RadioButton3: TRadioButton
+          Left = 16
+          Top = 56
+          Width = 129
+          Height = 17
+          Caption = #1054#1073#1072
+          Checked = True
+          TabOrder = 2
           TabStop = True
         end
       end
       object LabeledEdit1: TLabeledEdit
-        Left = 440
-        Top = 627
+        Left = 370
+        Top = 463
         Width = 121
         Height = 21
         EditLabel.Width = 162
@@ -740,8 +748,8 @@
         Text = '0,01'
       end
       object LabeledEdit2: TLabeledEdit
-        Left = 440
-        Top = 674
+        Left = 370
+        Top = 498
         Width = 121
         Height = 21
         EditLabel.Width = 109
@@ -751,29 +759,40 @@
         Text = '2'
       end
       object Edit7: TEdit
-        Left = 16
-        Top = 696
+        Left = 7
+        Top = 542
         Width = 75
         Height = 21
         TabOrder = 39
         Text = '77'
       end
       object Edit8: TEdit
-        Left = 128
-        Top = 696
+        Left = 119
+        Top = 542
         Width = 72
         Height = 21
         TabOrder = 40
-        Text = '300'
+        Text = '78'
       end
       object Button1: TButton
         Left = 213
-        Top = 499
+        Top = 399
         Width = 75
         Height = 25
         Caption = #1056#1072#1089#1095#1077#1090' '#1044#1080#1089#1082#1088
         TabOrder = 41
         OnClick = Button1Click
+      end
+      object editNumberNoises: TLabeledEdit
+        Left = 378
+        Top = 538
+        Width = 121
+        Height = 21
+        EditLabel.Width = 121
+        EditLabel.Height = 13
+        EditLabel.Caption = #1050#1086#1083'-'#1074#1086' '#1074#1072#1088#1080#1072#1085#1090#1086#1074' '#1096#1091#1084#1072
+        TabOrder = 42
+        Text = '1000'
       end
     end
     object Графики: TTabSheet
@@ -782,7 +801,7 @@
       object Chart5: TChart
         Left = 3
         Top = 3
-        Width = 337
+        Width = 302
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -848,9 +867,9 @@
         end
       end
       object Chart6: TChart
-        Left = 346
+        Left = 308
         Top = 3
-        Width = 337
+        Width = 269
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -916,9 +935,9 @@
         end
       end
       object Chart7: TChart
-        Left = 689
+        Left = 579
         Top = 3
-        Width = 337
+        Width = 294
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -986,7 +1005,7 @@
       object Chart8: TChart
         Left = 3
         Top = 259
-        Width = 337
+        Width = 302
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -1052,9 +1071,9 @@
         end
       end
       object Chart9: TChart
-        Left = 346
+        Left = 308
         Top = 259
-        Width = 337
+        Width = 269
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -1120,9 +1139,9 @@
         end
       end
       object Chart10: TChart
-        Left = 689
+        Left = 579
         Top = 259
-        Width = 337
+        Width = 294
         Height = 250
         Legend.Visible = False
         Title.Text.Strings = (
@@ -1190,7 +1209,7 @@
     end
   end
   object sg1: TSaveDialog
-    Left = 168
-    Top = 720
+    Left = 8
+    Top = 480
   end
 end

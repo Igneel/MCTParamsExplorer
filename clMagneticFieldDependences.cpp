@@ -257,6 +257,7 @@ TSignal const & clMagneticFieldDependences::getSxy()
 int clMagneticFieldDependences::modifySignals
 (void (*ShumAdding)(TSignal const &x,TSignal &out,
 	TSignal &ret, long double koeff,const int l),
+
 	const TSignal & idealUs,const TSignal & idealUy,
 	TSignal &returnData,long double koeff)
 {
@@ -270,17 +271,29 @@ int clMagneticFieldDependences::modifySignals
 	return returnData.size();
 }
 
-int clMagneticFieldDependences::modifySignals(void (*ShumAdding)(TSignal const &x,TSignal &out,
-	TSignal &ret, long double koeff,const int l,long double mzr, int amplitude),
+int clMagneticFieldDependences::modifySignals(
+void (*ShumAdding)(TSignal const &x,TSignal &out,TSignal &ret, long double koeff,const int l,long double mzr, int amplitude),
+
 	const TSignal & idealB,
 	const TSignal & idealUs,
-	const TSignal & idealUy,TSignal &returnData,long double koeff,
-	long double mzr, int amplitude)
+	const TSignal & idealUy,
+	TSignal &returnData,
+	long double koeff,
+	long double mzr,
+	int amplitude)
 
 {
-	ShumAdding(idealB,B,returnData,koeff,NumberOfPoints,mzr*10,amplitude);
-	ShumAdding(idealUs,Us,returnData,koeff,NumberOfPoints,mzr,amplitude);
-	ShumAdding(idealUy,Uy,returnData,koeff,NumberOfPoints,mzr,amplitude);
+long double mzrB=1.406162E-04;
+long double mzrUs=3.749766E-04;
+long double mzrUy=1.406162E-04;
+
+//long double mzrB=mzr;
+//long double mzrUs=mzr;
+//long double mzrUy=mzr;
+
+	ShumAdding(idealB,B,returnData,koeff,NumberOfPoints,mzrB,amplitude);
+	ShumAdding(idealUs,Us,returnData,koeff,NumberOfPoints,mzrUs,amplitude);
+	ShumAdding(idealUy,Uy,returnData,koeff,NumberOfPoints,mzrUy,amplitude);
 
 
 	calculateEffectiveParamsFromSignals();
