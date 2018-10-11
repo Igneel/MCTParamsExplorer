@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"co",
+				"correcionCoeficients"
+			],
+			[
 				"save",
 				"saveResults"
 			],
@@ -510,21 +514,35 @@
 			[
 				"Add",
 				"Add"
-			],
-			[
-				"Re",
-				"repeatQuantity"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
+			"file": "LCard.h",
 			"settings":
 			{
-				"buffer_size": 485828,
-				"encoding": "UTF-16 LE with BOM",
+				"buffer_size": 4676,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "LCard.cpp",
+			"settings":
+			{
+				"buffer_size": 23438,
+				"encoding": "Cyrillic (Windows 1251)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Unit1.cpp",
+			"settings":
+			{
+				"buffer_size": 67474,
+				"encoding": "Cyrillic (Windows 1251)",
 				"line_ending": "Windows"
 			}
 		}
@@ -585,6 +603,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/UsedTypes.h",
 		"/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/MagneticFieldDependence.h",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/MagneticFieldDependence.cpp",
@@ -595,7 +614,6 @@
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/smartCalculation.h",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/smartCalculation.cpp",
 		"/C/Users/Jonathan/Desktop/Нормальный шум/Адаптивный фильтр/adfiltres16.txt",
-		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/UsedTypes.h",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/mobilityspectrum.cpp",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/multizoneFit.h",
 		"/C/Users/Jonathan/Desktop/MCTParamsExplorer/mobilityspectrum.h",
@@ -716,7 +734,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -731,6 +749,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"edit1",
+			"std::std::",
+			"combobox4",
+			"Settings",
+			"cI",
+			"ReadData",
 			"smar",
 			"sra",
 			"lusbapi",
@@ -852,13 +876,7 @@
 			"2",
 			"3",
 			"7",
-			"\\t",
-			"1",
-			"Екатерина",
-			"Arc",
-			"Экз",
-			"Компетенции",
-			"Дисц"
+			"\\t"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -866,6 +884,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"std::",
 			";\\n",
 			"",
 			" ",
@@ -992,8 +1011,7 @@
 			"З",
 			"Й",
 			"Н",
-			"Т",
-			"Л"
+			"Т"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1009,30 +1027,90 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Jonathan/Desktop/120402_Optotekhnika_Individualnaya_programma.plx",
+					"file": "LCard.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 485828,
+						"buffer_size": 4676,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								773,
+								773
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.sublime-syntax"
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 945.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "LCard.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								276,
+								281
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Unit1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 67474,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								30153,
+								30153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 17459.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1040,7 +1118,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -1085,7 +1163,7 @@
 	"project": "MCTParamsExplorer.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1123,7 +1201,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 238.0,
+	"side_bar_width": 312.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

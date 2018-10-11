@@ -34,16 +34,15 @@
 class LCardADC
 {
 public:
-
 	LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TLabel * l3,
-        channelsInfo cI);
+        channelsInfo cI, std::vector<std::pair<MyDataType, MyDataType> > & channelCorrectionKoefficients);
 	~LCardADC();
 
 	std::string Error(std::string); // ой, она пока не работает:)
 
 	unsigned long __stdcall ServiceReadThreadReal(); // эта функция работает отдельным потоком и собирает данные.
 
-	bool LCardADC::SettingADCParams(double frenquency, int newBlockSize, channelsInfo & chanInfo);
+	bool LCardADC::SettingADCParams(double frenquency, int newBlockSize, channelsInfo & chanInfo, std::vector<std::pair<MyDataType, MyDataType> > & channelCorrectionKoefficients);
 
 	bool StartMeasurement();
 	bool StopMeasurement();
@@ -83,6 +82,8 @@ TSignal & outData);
     std::deque<TLabel *> ChannelLabels;
 
     channelsInfo chanInfo;
+
+    std::vector<std::pair<MyDataType, MyDataType> > channelCorrectionKoefficients;
 
 	bool successfullInit;
     bool isMedianFilterEnabled;

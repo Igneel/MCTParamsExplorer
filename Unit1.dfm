@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 225
-  Top = 0
+  Left = 457
+  Top = 176
   Width = 981
   Height = 723
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -119,14 +119,56 @@ object Form1: TForm1
     Height = 13
     Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
   end
+  object Label34: TLabel
+    Left = 536
+    Top = 107
+    Width = 81
+    Height = 13
+    Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'.'
+  end
+  object Label36: TLabel
+    Left = 536
+    Top = 131
+    Width = 85
+    Height = 13
+    Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
+  end
+  object Label37: TLabel
+    Left = 535
+    Top = 156
+    Width = 104
+    Height = 13
+    Caption = #1060#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100'.'
+  end
+  object Label38: TLabel
+    Left = 544
+    Top = 115
+    Width = 81
+    Height = 13
+    Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'.'
+  end
+  object Label39: TLabel
+    Left = 536
+    Top = 80
+    Width = 77
+    Height = 13
+    Caption = #1069#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072'.'
+  end
+  object Label40: TLabel
+    Left = 544
+    Top = 139
+    Width = 85
+    Height = 13
+    Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
+  end
   object PC: TPageControl
     Left = 0
     Top = 0
     Width = 649
     Height = 513
-    ActivePage = DensAndMobDetermination
+    ActivePage = FirstTab
     MultiLine = True
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 0
     object FirstTab: TTabSheet
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
@@ -178,6 +220,34 @@ object Form1: TForm1
         Width = 104
         Height = 13
         Caption = #1060#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1100'.'
+      end
+      object Label41: TLabel
+        Left = 24
+        Top = 395
+        Width = 81
+        Height = 13
+        Caption = #1057#1086#1087#1088#1086#1090#1080#1074#1083#1077#1085#1080#1077'.'
+      end
+      object Label42: TLabel
+        Left = 24
+        Top = 368
+        Width = 77
+        Height = 13
+        Caption = #1069#1092#1092#1077#1082#1090' '#1061#1086#1083#1083#1072'.'
+      end
+      object Label43: TLabel
+        Left = 24
+        Top = 419
+        Width = 85
+        Height = 13
+        Caption = #1052#1072#1075#1085#1090#1080#1085#1086#1077' '#1087#1086#1083#1077'.'
+      end
+      object Label44: TLabel
+        Left = 24
+        Top = 352
+        Width = 206
+        Height = 13
+        Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090#1099' '#1082#1086#1088#1088#1077#1082#1090#1080#1088#1086#1074#1082#1080' '#1082#1072#1085#1072#1083#1086#1074':'
       end
       object Chart1: TChart
         Left = 0
@@ -528,6 +598,22 @@ object Form1: TForm1
           '2,5'#1042
           '0,625'#1042
           '0,156'#1042)
+      end
+      object Edit1: TEdit
+        Left = 128
+        Top = 368
+        Width = 121
+        Height = 21
+        TabOrder = 17
+        Text = '1'
+      end
+      object Edit2: TEdit
+        Left = 255
+        Top = 368
+        Width = 121
+        Height = 21
+        TabOrder = 18
+        Text = '0'
       end
     end
     object Resistance: TTabSheet
@@ -2174,6 +2260,38 @@ object Form1: TForm1
     Caption = 'ReallySmartCalc'
     TabOrder = 14
     OnClick = Button6Click
+  end
+  object Edit3: TEdit
+    Left = 259
+    Top = 434
+    Width = 121
+    Height = 21
+    TabOrder = 15
+    Text = '0'
+  end
+  object Edit4: TEdit
+    Left = 132
+    Top = 434
+    Width = 121
+    Height = 21
+    TabOrder = 16
+    Text = '1'
+  end
+  object Edit5: TEdit
+    Left = 258
+    Top = 458
+    Width = 121
+    Height = 21
+    TabOrder = 17
+    Text = '0'
+  end
+  object Edit6: TEdit
+    Left = 131
+    Top = 458
+    Width = 121
+    Height = 21
+    TabOrder = 18
+    Text = '1'
   end
   object MainMenu1: TMainMenu
     Left = 896

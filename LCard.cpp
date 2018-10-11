@@ -6,7 +6,7 @@ DWORD WINAPI ServiceReadThread(PVOID /*Context*/);
 
 //------------------------------------------------------------------
 LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TLabel * l3,
-    channelsInfo cI)
+    channelsInfo cI, std::vector<std::pair<MyDataType, MyDataType> > &correcionCoeficients)
 {
     ADCMaxValue=8000.0;
     
@@ -34,9 +34,13 @@ LCardADC::LCardADC(double frenquency,int blockSize, TLabel * l1, TLabel * l2, TL
 
     //ReadBuffer=new SHORT[2*DataStep]; // в этот буфер считываются данные.
 
+    // нужна линейная коррекция данных вида U = k*Uацп+B для разных дифференциальных каналов.
+    channelCorrectionKoefficients = correcionCoeficients;
+
+
     if(DriverInit()) // инициализиуем драйвер
     {
-        if(SettingADCParams(frenquency,blockSize,cI))// устанавливаем настройки
+        if(SettingADCParams(frenquency,blockSize,cI,channelCorrectionKoefficients))// устанавливаем настройки
         {
             successfullInit=true; // всё прошло успешно.
         }
@@ -135,7 +139,7 @@ bool LCardADC::IsInitSuccessfull()
     return successfullInit;
 }
 //------------------------------------------------------------------
-bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo & chanInfo)
+bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo & chanInfo, std::vector<std::pair<MyDataType, MyDataType> > &correctionKoefficients)
 {
     // установим желаемые параметры работы АЦП
 	ap.IsCorrectionEnabled = TRUE;			// разрешим корректировку данных на уровне драйвера DSP
@@ -150,6 +154,9 @@ bool LCardADC::SettingADCParams(double frenquency,int newBlockSize, channelsInfo
     { 
         ap.ControlTable[i]=(WORD)(pos->first | (pos->second << 0x6));
     }
+
+    // нужна линейная коррекция данных вида U = k*Uацп+B для разных дифференциальных каналов.
+    channelCorrectionKoefficients = correctionKoefficients;
 
     DataStep=newBlockSize*chanInfo.size();
     if(ReadBuffer)
@@ -527,12 +534,9 @@ unsigned long __stdcall LCardADC::ServiceReadThreadReal()
                 tempData.push_back(IoReq[RequestNumber^0x1].Buffer[i]);
             }
             writeDataToVector(tempData);
-            // надо выяснить в каком виде этот буфер хранит данные.
             // данные идут вот так: значение 1 канала, значение 2 канала, значение 3 канала, значение 1 канала...
             Sleep(1);
            
-
-
         	if(ReadThreadErrorNumber) break;
             Application->ProcessMessages();
         }
@@ -635,7 +639,10 @@ MyDataType LCardADC::convertToVolt(MyDataType in,int channel)
         default:
             break;
     }
-    return in/koef;
+
+    MyDataType res = in/koef;
+
+    return channelCorrectionKoefficients[channel].first*res+channelCorrectionKoefficients[channel].second;
 }
 //------------------------------------------------------------------
 void LCardADC::convertToVolt()

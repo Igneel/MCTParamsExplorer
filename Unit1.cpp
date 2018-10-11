@@ -46,7 +46,7 @@ MagneticFieldDependence *params=0;
 MagneticFieldDependence *paramsDirect=0;
 MagneticFieldDependence *paramsReverse=0;
 channelsInfo cI;
-
+std::vector<std::pair<MyDataType, MyDataType> > channelCorrectionKoefficients;
 
 MagneticFieldDependence * TForm1::InitParams()
 {
@@ -274,10 +274,15 @@ void __fastcall TForm1::FormCreate(TObject *)
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
+    channelCorrectionKoefficients.clear();
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit1->Text),StrToFloat(Edit2->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit4->Text),StrToFloat(Edit3->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit6->Text),StrToFloat(Edit5->Text)));
+
     ErrorLog->Lines->Add(cI.size());
     // загружаем драйвер
     adc=new LCardADC(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(),
-    LabelChan1,LabelChan2,LabelChan3,cI);
+    LabelChan1,LabelChan2,LabelChan3,cI,channelCorrectionKoefficients);
     if(!adc->IsInitSuccessfull())
     {
     delete adc;
@@ -988,8 +993,13 @@ if(adc)
     cI.push_back(std::pair<int,int> (ComboBox5->ItemIndex,ComboBox2->ItemIndex));
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
+    channelCorrectionKoefficients.clear();
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit1->Text),StrToFloat(Edit2->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit4->Text),StrToFloat(Edit3->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit6->Text),StrToFloat(Edit5->Text)));
+
     adc->StopMeasurement();
-    adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI);
+    adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI,channelCorrectionKoefficients);
     if(CheckBox1->Checked) adc->EnableMedianFilter();
     else adc->DisableMedianFilter();
     adc->DisableTestingMode();
