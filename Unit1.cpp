@@ -994,9 +994,9 @@ if(adc)
     cI.push_back(std::pair<int,int> (ComboBox6->ItemIndex,ComboBox3->ItemIndex));
 
     channelCorrectionKoefficients.clear();
-    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit1->Text),StrToFloat(Edit2->Text)));
-    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit4->Text),StrToFloat(Edit3->Text)));
-    channelCorrectionKoefficients.push_back(std::pair<int,int> (StrToFloat(Edit6->Text),StrToFloat(Edit5->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<long double,long double> (StrToFloat(Edit1->Text),StrToFloat(Edit2->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<long double,long double> (StrToFloat(Edit4->Text),StrToFloat(Edit3->Text)));
+    channelCorrectionKoefficients.push_back(std::pair<long double,long double> (StrToFloat(Edit6->Text),StrToFloat(Edit5->Text)));
 
     adc->StopMeasurement();
     adc->SettingADCParams(uiFrenq->Text.ToDouble(),uiBlockSize->Text.ToInt(), cI,channelCorrectionKoefficients);
