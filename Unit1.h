@@ -267,10 +267,11 @@ __published:	// IDE-managed Components
         TLabel *Label44;
         TEdit *Edit1;
         TEdit *Edit2;
-        TEdit *Edit3;
         TEdit *Edit4;
-        TEdit *Edit5;
         TEdit *Edit6;
+        TEdit *Edit5;
+        TEdit *Edit3;
+        TCheckBox *cbRawData;
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall N3Click(TObject *Sender);
     void __fastcall uiControlClick(TObject *Sender);

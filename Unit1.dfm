@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 496
-  Top = 182
+  Left = 371
+  Top = 148
   Width = 981
   Height = 723
   Caption = #1048#1079#1084#1077#1088#1077#1085#1080#1077' '#1092#1086#1090#1086#1087#1088#1086#1074#1086#1076#1080#1084#1086#1089#1090#1080' '#1080' '#1092#1086#1090#1086#1084#1072#1075#1085#1080#1090#1085#1086#1075#1086' '#1101#1092#1092#1077#1082#1090#1072
@@ -616,6 +616,52 @@ object Form1: TForm1
         TabOrder = 18
         Text = '0'
         OnKeyPress = Edit1KeyPress
+      end
+      object Edit4: TEdit
+        Left = 128
+        Top = 392
+        Width = 121
+        Height = 21
+        TabOrder = 19
+        Text = '1'
+        OnKeyPress = Edit1KeyPress
+      end
+      object Edit6: TEdit
+        Left = 128
+        Top = 417
+        Width = 121
+        Height = 23
+        TabOrder = 20
+        Text = '1'
+        OnKeyPress = Edit1KeyPress
+      end
+      object Edit5: TEdit
+        Left = 255
+        Top = 417
+        Width = 121
+        Height = 23
+        TabOrder = 21
+        Text = '0'
+        OnKeyPress = Edit1KeyPress
+      end
+      object Edit3: TEdit
+        Left = 256
+        Top = 391
+        Width = 121
+        Height = 23
+        TabOrder = 22
+        Text = '0'
+        OnKeyPress = Edit1KeyPress
+      end
+      object cbRawData: TCheckBox
+        Left = 400
+        Top = 368
+        Width = 217
+        Height = 17
+        Caption = #1054#1090#1086#1073#1088#1072#1078#1072#1090#1100' '#1090#1086#1083#1100#1082#1086' '#1085#1077#1086#1073#1088#1072#1073#1086#1090#1072#1085#1085#1099#1077
+        Checked = True
+        State = cbChecked
+        TabOrder = 23
       end
     end
     object Resistance: TTabSheet
@@ -2262,42 +2308,6 @@ object Form1: TForm1
     Caption = 'ReallySmartCalc'
     TabOrder = 14
     OnClick = Button6Click
-  end
-  object Edit3: TEdit
-    Left = 259
-    Top = 434
-    Width = 121
-    Height = 21
-    TabOrder = 15
-    Text = '0'
-    OnKeyPress = Edit1KeyPress
-  end
-  object Edit4: TEdit
-    Left = 132
-    Top = 434
-    Width = 121
-    Height = 21
-    TabOrder = 16
-    Text = '1'
-    OnKeyPress = Edit1KeyPress
-  end
-  object Edit5: TEdit
-    Left = 258
-    Top = 458
-    Width = 121
-    Height = 21
-    TabOrder = 17
-    Text = '0'
-    OnKeyPress = Edit1KeyPress
-  end
-  object Edit6: TEdit
-    Left = 131
-    Top = 458
-    Width = 121
-    Height = 21
-    TabOrder = 18
-    Text = '1'
-    OnKeyPress = Edit1KeyPress
   end
   object MainMenu1: TMainMenu
     Left = 896

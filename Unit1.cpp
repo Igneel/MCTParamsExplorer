@@ -111,6 +111,8 @@ void TForm1::UpdatePlots()
     Form1->Update();
     MagneticFieldDependence ** par=ActiveParams();
 
+    bool rawDataOnly = cbRawData->Checked;
+
     if(*par)
     {
     MagneticFieldDependence * p=*par;
@@ -127,23 +129,32 @@ void TForm1::UpdatePlots()
     // Обновление всех используемых графиков.
     if(!p->constructPlotFromTwoMassive(HALL_EFFECT,CURRENT_DATA,SeriesHall1,clRed))
         ErrorLog->Lines->Add("Холл. Текущие данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))
-        ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
-    //if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
-    //    ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
 
-    if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))
-        ErrorLog->Lines->Add("Холл. Усреднённые данные. Не удалось построить график.");
+    if (!rawDataOnly)
+    {
+        if(!p->constructPlotFromTwoMassive(HALL_EFFECT,FILTERED_DATA,SeriesHall2,clBlue))
+            ErrorLog->Lines->Add("Холл. Фильтрованные данные. Не удалось построить график.");
+        //if(!p->constructPlotFromTwoMassive(HALL_EFFECT,EXTRAPOLATED_DATA,out2,clBlack))
+        //    ErrorLog->Lines->Add("Холл. Экстраполированные данные. Не удалось построить график.");
 
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,AVERAGED_DATA,SeriesFFTRes,clGreen))
-        ErrorLog->Lines->Add("Сопротивление. Усреднённые данные. Не удалось построить график.");
+        if(!p->constructPlotFromTwoMassive(HALL_EFFECT,AVERAGED_DATA,SeriesFFTHall,clGreen))
+            ErrorLog->Lines->Add("Холл. Усреднённые данные. Не удалось построить график.");
+
+        if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,AVERAGED_DATA,SeriesFFTRes,clGreen))
+            ErrorLog->Lines->Add("Сопротивление. Усреднённые данные. Не удалось построить график.");
+    }
+        
 
     if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,CURRENT_DATA,SeriesRes1,clRed))
         ErrorLog->Lines->Add("Сопротивление. Текущие данные. Не удалось построить график.");
-    if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
+    if (rawDataOnly)
+    {
+        if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,FILTERED_DATA,SeriesRes2,clBlue))
         ErrorLog->Lines->Add("Сопротивление. Фильтрованные данные. Не удалось построить график.");
-    //if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
-    //    ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
+        //if(!p->constructPlotFromTwoMassive(MAGNETORESISTANCE,EXTRAPOLATED_DATA,out1,clBlack))
+        //    ErrorLog->Lines->Add("Сопротивление. Экстраполированные данные. Не удалось построить график.");
+    }
+    
     }
 }
 
@@ -2260,4 +2271,5 @@ void __fastcall TForm1::Button6Click(TObject *Sender)
     }
 }
 //---------------------------------------------------------------------------
+
 
